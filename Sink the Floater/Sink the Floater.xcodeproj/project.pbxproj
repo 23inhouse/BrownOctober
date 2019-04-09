@@ -54,14 +54,22 @@
 		B5AA7367225CC7C1008AAEA2 /* Sink the Floater */ = {
 			isa = PBXGroup;
 			children = (
-				B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */,
+				B5AA737A225CC843008AAEA2 /* Supporting Files */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
-				B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */,
-				B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */,
 				B5AA7374225CC7C3008AAEA2 /* Info.plist */,
 			);
 			path = "Sink the Floater";
+			sourceTree = "<group>";
+		};
+		B5AA737A225CC843008AAEA2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */,
+				B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */,
+				B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
