@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B523CB18226353F7000DFF72 /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523CB16226353F7000DFF72 /* GridCell.swift */; };
+		B523CB19226353F7000DFF72 /* GridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B523CB17226353F7000DFF72 /* GridCell.xib */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA736A225CC7C1008AAEA2 /* ViewController.swift */; };
 		B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736C225CC7C1008AAEA2 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B523CB16226353F7000DFF72 /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
+		B523CB17226353F7000DFF72 /* GridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridCell.xib; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sink the Floater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AA736A225CC7C1008AAEA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B523CB15226353CF000DFF72 /* GridCell */ = {
+			isa = PBXGroup;
+			children = (
+				B523CB16226353F7000DFF72 /* GridCell.swift */,
+				B523CB17226353F7000DFF72 /* GridCell.xib */,
+			);
+			path = GridCell;
+			sourceTree = "<group>";
+		};
 		B5AA735C225CC7C1008AAEA2 = {
 			isa = PBXGroup;
 			children = (
@@ -54,9 +67,10 @@
 		B5AA7367225CC7C1008AAEA2 /* Sink the Floater */ = {
 			isa = PBXGroup;
 			children = (
+				B523CB15226353CF000DFF72 /* GridCell */,
 				B5AA737A225CC843008AAEA2 /* Supporting Files */,
-				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
+				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5AA7374225CC7C3008AAEA2 /* Info.plist */,
 			);
 			path = "Sink the Floater";
@@ -130,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B523CB19226353F7000DFF72 /* GridCell.xib in Resources */,
 				B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */,
 				B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */,
 				B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */,
@@ -144,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
+				B523CB18226353F7000DFF72 /* GridCell.swift in Sources */,
 				B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
