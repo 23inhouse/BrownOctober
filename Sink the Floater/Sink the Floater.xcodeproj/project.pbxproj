@@ -14,6 +14,7 @@
 		B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736C225CC7C1008AAEA2 /* Main.storyboard */; };
 		B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */; };
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
+		B5E7DCA42264B695006C9530 /* GridCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5AA7372225CC7C3008AAEA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5AA7374225CC7C3008AAEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				B5AA737A225CC843008AAEA2 /* Supporting Files */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
+				B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */,
 				B5AA7374225CC7C3008AAEA2 /* Info.plist */,
 			);
 			path = "Sink the Floater";
@@ -161,6 +164,7 @@
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
 				B523CB18226353F7000DFF72 /* GridCell.swift in Sources */,
 				B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */,
+				B5E7DCA42264B695006C9530 /* GridCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

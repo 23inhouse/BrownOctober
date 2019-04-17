@@ -8,13 +8,17 @@
 
 import UIKit
 
+protocol GridCellTouchDelegate {
+    func didTouch()
+}
+
 class GridCell: UICollectionViewCell {
 
-    var tapHandler: (()->())?
+    var touchDelegate: GridCellTouchDelegate!
 
     @IBOutlet weak var button: UIButton!
     @IBAction func touchButton(_ sender: UIButton) {
-        tapHandler?()
+        touchDelegate.didTouch()
     }
 
     override func awakeFromNib() {
