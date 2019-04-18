@@ -27,5 +27,8 @@ class GridCell: UICollectionViewCell {
 
     func setData(text: String) {
         self.button.setTitle(text, for: UIControlState.normal)
+        if text == "💩" {
+            self.button.backgroundColor = #colorLiteral(red: 0.9050404505, green: 0.7668028458, blue: 0.4155730222, alpha: 1)
+        }
     }
 }
