@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    lazy var game = SinkTheFloater()
     var grid: GridCollectionViewController!
     var flushCount = 0 {
         didSet {
@@ -30,7 +31,15 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GridCollectionTouchDelegate {
-    func didTouch() {
+    func didTouch(_ sender: GridCell) {
+        let index = grid.collectionView!.indexPath(for: sender)![1]
+        let poop = game.chooseTile(at: index)
         flushCount += 1
+
+        if poop > 0 {
+            sender.setData(text: "💩", color: #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1))
+        } else {
+            sender.setData(text: "🌊", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))
+        }
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 private let reuseIdentifier = "GridCell"
 
 protocol GridCollectionTouchDelegate {
-    func didTouch()
+    func didTouch(_ sender: GridCell)
 }
 
 class GridCollectionViewController: UICollectionViewController {
@@ -19,16 +19,16 @@ class GridCollectionViewController: UICollectionViewController {
     var touchDelegate: GridCollectionTouchDelegate!
 
     let cellData = [
-        "  ","  ","  ","  ","  ","  ","  ","  ","  ","  ",
-        "  ","💩","🌊","  ","🌊","  ","💩","💩","💩","🌊",
-        "🌊","💩","  ","  ","  ","  ","🌊","🌊","  ","💩",
-        "🌊","  ","🌊","  ","  ","🌊","  ","💩","  ","💩",
-        "  ","  ","  ","  ","  ","  ","💩","💩","🌊","💩",
-        "  ","🌊","  ","  ","  ","🌊","🌊","💩","  ","💩",
-        "  ","  ","  ","  ","🌊","  ","💩","🌊","  ","💩",
-        "  ","🌊","🌊","  ","  ","🌊","💩","💩","🌊","  ",
-        "  ","  ","🌊","🌊","  ","  ","💩","💩","  ","🌊",
-        "  ","  ","💩","💩","💩","💩","  ","💩","  ","  "
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","","",
+        "","","","","","","","","",""
     ]
 
     override func viewDidLoad() {
@@ -62,15 +62,18 @@ class GridCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GridCell
         cell.touchDelegate = self
-        cell.setData(text: self.cellData[indexPath.row])
 
+        let icon = self.cellData[indexPath.row]
+        let color = icon == "💩" ? #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+
+        cell.setData(text: self.cellData[indexPath.row], color: color)
         return cell
     }
 }
 
 extension GridCollectionViewController: GridCellTouchDelegate {
-    func didTouch() {
-        touchDelegate.didTouch()
+    func didTouch(_ sender: GridCell) {
+        touchDelegate.didTouch(sender)
     }
 }
 

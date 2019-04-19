@@ -20,7 +20,7 @@ class LabelCell: UICollectionViewCell {
     func setData(text: String) {
         self.label.text = text
         if text == "💩" {
-            self.label.backgroundColor = #colorLiteral(red: 0.9050404505, green: 0.7668028458, blue: 0.4155730222, alpha: 1)
+            self.label.backgroundColor = #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1)
         }
     }
 }
