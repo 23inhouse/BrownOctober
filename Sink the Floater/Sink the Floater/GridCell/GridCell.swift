@@ -18,6 +18,7 @@ class GridCell: UICollectionViewCell {
 
     @IBOutlet weak var button: UIButton!
     @IBAction func touchButton(_ sender: UIButton) {
+        if sender.currentTitle != "" { return }
         touchDelegate.didTouch(self)
     }
 
