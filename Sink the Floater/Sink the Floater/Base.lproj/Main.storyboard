@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W2h-eO-qco">
-                                <rect key="frame" x="1" y="293" width="373" height="373"/>
+                                <rect key="frame" x="1" y="293" width="373" height="371"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="vDd-0L-QSb" kind="embed" identifier="segueGridCollectionViewController" id="23D-eR-1u5"/>
@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nTS-sB-TVU">
-                                <rect key="frame" x="0.0" y="178" width="227" height="107"/>
+                                <rect key="frame" x="0.0" y="178" width="227" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="sbR-hv-tdO" kind="embed" id="aP3-GR-YTI"/>
@@ -56,7 +56,7 @@
             <objects>
                 <collectionViewController id="sbR-hv-tdO" customClass="LabelCollectionViewController" customModule="Sink_the_Floater" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ege-sf-nzY">
-                        <rect key="frame" x="0.0" y="0.0" width="227" height="107"/>
+                        <rect key="frame" x="0.0" y="0.0" width="227" height="106"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.73958283815291193" green="0.86835370494761555" blue="0.87956059646446694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="vTx-qt-Jre">
@@ -91,7 +91,7 @@
             <objects>
                 <collectionViewController id="vDd-0L-QSb" customClass="GridCollectionViewController" customModule="Sink_the_Floater" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2Fx-oN-SVY">
-                        <rect key="frame" x="0.0" y="0.0" width="373" height="373"/>
+                        <rect key="frame" x="0.0" y="0.0" width="373" height="371"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.73958283820000004" green="0.86835370489999997" blue="0.87956059649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="amm-oq-Xhf">
