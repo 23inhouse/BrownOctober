@@ -21,6 +21,18 @@ class SinkTheFloater {
         return self.tiles[index].poopIdentifier
     }
 
+    func findPoop(at index: Int) -> Poop? {
+        let indent = self.tiles[index].poopIdentifier
+        if indent == 0 { return nil }
+        for poop in self.poops {
+            if poop.identifier == indent {
+                return poop
+            }
+        }
+
+        return nil
+    }
+
     init() {
         self.poops = Poop.pinchSomeOff()
 

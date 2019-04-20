@@ -18,9 +18,12 @@ class LabelCell: UICollectionViewCell {
     }
 
     func setData(text: String) {
-        self.label.text = text
         if text == "💩" {
-            self.label.backgroundColor = #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1)
+            self.label.text = text
+//            self.label.backgroundColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
+        } else {
+            self.label.text = "🌊"
+            self.label.alpha = 0.5
         }
     }
 }

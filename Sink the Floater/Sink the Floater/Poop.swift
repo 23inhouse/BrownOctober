@@ -8,13 +8,23 @@
 
 import Foundation
 
-struct Poop {
+class Poop {
 
     var identifier: Int
     var data: [[Int]]
-//    var direction = 0 // 0:right, 1:down, 2:left, 3:up
+    var poopSize: Int
+    var foundCounter = 0
+    var isFound = false
 
     static var identiferFactory = 0
+
+    func incrementFoundCounter() {
+        self.foundCounter += 1
+
+        if foundCounter == poopSize {
+            self.isFound = true
+        }
+    }
 
     static func getUniqueIdentifier() -> Int {
         identiferFactory += 1
@@ -43,6 +53,10 @@ struct Poop {
     init(_ data: [[Int]]) {
         self.identifier = Poop.getUniqueIdentifier()
         self.data = data
+
+        var poopSize = 0
+        for row in data { for value in row { poopSize += value } }
+        self.poopSize = poopSize
     }
 
 }

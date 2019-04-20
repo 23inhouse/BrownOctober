@@ -58,7 +58,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ege-sf-nzY">
                         <rect key="frame" x="0.0" y="0.0" width="227" height="107"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.34834677200000003" green="0.72023566630000002" blue="0.91818686549999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958283815291193" green="0.86835370494761555" blue="0.87956059646446694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="vTx-qt-Jre">
                             <size key="itemSize" width="14" height="14"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -93,7 +93,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2Fx-oN-SVY">
                         <rect key="frame" x="0.0" y="0.0" width="373" height="373"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.34834677200000003" green="0.72023566630000002" blue="0.91818686549999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958283820000004" green="0.86835370489999997" blue="0.87956059649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="amm-oq-Xhf">
                             <size key="itemSize" width="36" height="36"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>

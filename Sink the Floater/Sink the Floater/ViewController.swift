@@ -32,14 +32,37 @@ class ViewController: UIViewController {
 
 extension ViewController: GridCollectionTouchDelegate {
     func didTouch(_ sender: GridCell) {
-        let index = grid.collectionView!.indexPath(for: sender)![1]
-        let poop = game.chooseTile(at: index)
         flushCount += 1
 
-        if poop > 0 {
-            sender.setData(text: "💩", color: #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1))
-        } else {
-            sender.setData(text: "🌊", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))
+        let index = grid.collectionView!.indexPath(for: sender)![1]
+        if let poop = game.findPoop(at: index) {
+            sender.setData(text: "💩", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))
+            poop.incrementFoundCounter()
+            if poop.isFound {
+                flushPoop(poop.identifier)
+            }
+            return
+        }
+
+        sender.setData(text: "🌊", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0))
+        sender.button.alpha = 0.5
+    }
+
+    func flushPoop(_ ident: Int) {
+        var cells = [GridCell]()
+
+        for index in 0 ..< 100 {
+
+            let tile = self.game.tiles[index]
+            if tile.poopIdentifier != ident { continue }
+
+            if let cell = grid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! GridCell? {
+                cells.append(cell)
+            }
+        }
+
+        for cell in cells {
+            cell.setData(text: "💩", color: #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1))
         }
     }
 }

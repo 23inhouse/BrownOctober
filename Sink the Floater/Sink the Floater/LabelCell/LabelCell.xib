@@ -28,6 +28,7 @@
                     </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="E90-jU-AUh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3bd-C7-XZV"/>
                 <constraint firstAttribute="bottom" secondItem="E90-jU-AUh" secondAttribute="bottom" id="6XG-Ov-NdH"/>
