@@ -21,6 +21,14 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var flushCountLabel: UILabel!
 
+    @IBAction func touchResetButton(_ sender: UIButton) {
+        game = SinkTheFloater()
+        flushCount = 0
+
+        resetGrid()
+        resetLabels()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         grid.touchCellDelegate = self
@@ -29,6 +37,27 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "segueGridCollectionViewController") { grid = (segue.destination as! GridCollectionViewController) }
         if (segue.identifier == "segueLabelCollectionViewController") { labelGrid = (segue.destination as! LabelCollectionViewController) }
+    }
+
+    private func resetGrid() {
+        for index in 0 ..< self.game.tiles.count {
+            var tile = self.game.tiles[index]
+            tile.poopIdentifier = 0
+
+            if let cell = grid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! GridCell? {
+                cell.setData(text: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
+            }
+        }
+    }
+
+    private func resetLabels() {
+        for index in 0 ..< self.game.labelTiles.count {
+            if let cell = labelGrid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! LabelCell? {
+                if let text = cell.label.text {
+                    cell.setData(text: text, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
+                }
+            }
+        }
     }
 }
 

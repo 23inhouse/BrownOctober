@@ -47,6 +47,20 @@
                                     <segue destination="sbR-hv-tdO" kind="embed" identifier="segueLabelCollectionViewController" id="aP3-GR-YTI"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUL-3i-fpA">
+                                <rect key="frame" x="230" y="155" width="89" height="30"/>
+                                <color key="backgroundColor" red="0.54072481829999997" green="0.63757187689999995" blue="0.64976602159999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ffb-Sk-zEG"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="4" minY="4" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchResetButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rqa-52-dKR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -56,7 +70,10 @@
                             <constraint firstItem="W2h-eO-qco" firstAttribute="top" secondItem="nTS-sB-TVU" secondAttribute="bottom" constant="9" id="UwU-W8-MYV"/>
                             <constraint firstItem="W2h-eO-qco" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1" id="cXy-vJ-j8X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7FZ-3Z-GMH" secondAttribute="trailing" constant="40" id="eQa-lE-EHb"/>
+                            <constraint firstItem="W2h-eO-qco" firstAttribute="top" secondItem="qUL-3i-fpA" secondAttribute="bottom" constant="9" id="fJY-BI-Inq"/>
                             <constraint firstItem="nTS-sB-TVU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1" id="g7V-CZ-PXb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qUL-3i-fpA" secondAttribute="trailing" constant="1" id="lFK-0Q-jEV"/>
+                            <constraint firstItem="qUL-3i-fpA" firstAttribute="leading" secondItem="nTS-sB-TVU" secondAttribute="trailing" constant="2" id="nYZ-FI-EEz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -66,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="33.733133433283363"/>
+            <point key="canvasLocation" x="50.625" y="32.74647887323944"/>
         </scene>
         <!--Label Collection View Controller-->
         <scene sceneID="yu0-ZL-Ls4">
