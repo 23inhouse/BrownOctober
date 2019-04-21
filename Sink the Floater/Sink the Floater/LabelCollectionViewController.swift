@@ -13,14 +13,14 @@ private let reuseIdentifier = "LabelCell"
 class LabelCollectionViewController: UICollectionViewController {
 
     let cellData = [
-        "  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ",
-        "  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","💩","  ","  ","  ","  ",
-        "  ","  ","  ","  ","  ","  ","  ","  ","💩","  ","💩","  ","💩","  ","  ",
-        "  ","  ","  ","💩","  ","💩","  ","  ","💩","  ","💩","  ","💩","💩","  ",
-        "  ","💩","  ","💩","  ","💩","💩","  ","💩","  ","💩","  ","💩","💩","  ",
-        "  ","💩","  ","💩","  ","💩","  ","  ","💩","  ","💩","  ","  ","💩","  ",
-        "  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ","  ",
-    ]
+        " "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",
+        " "," "," "," "," "," "," "," "," "," ","1"," "," "," "," ",
+        " "," "," "," "," "," "," "," ","1"," ","1"," ","1"," "," ",
+        " "," "," ","1"," ","1"," "," ","1"," ","1"," ","1","1"," ",
+        " ","1"," ","1"," ","1","1"," ","1"," ","1"," ","1","1"," ",
+        " ","1"," ","1"," ","1"," "," ","1"," ","1"," "," ","1"," ",
+        " "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",
+        ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,18 @@ class LabelCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! LabelCell
-        cell.setData(text: self.cellData[indexPath.row])
+        var text = self.cellData[indexPath.row]
+        var alpha: CGFloat
+
+        if text == "1" {
+            text = "💩"
+            alpha = 1.0
+        } else {
+            text = ""
+            alpha = 0.5
+        }
+        cell.setData(text: text, color: .white, alpha: alpha)
+
 
         return cell
     }

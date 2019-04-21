@@ -11,7 +11,9 @@ import Foundation
 class SinkTheFloater {
 
     var poops = [Poop]()
+    var labelPoops = [Poop]()
     var tiles = [Tile]()
+    var labelTiles = [Tile]()
 
     var indexOfOneAndOnlyFaceUpCard: Int?
 
@@ -34,10 +36,15 @@ class SinkTheFloater {
     }
 
     init() {
+        setUpGrid()
+        setUpLabels()
+    }
+
+    private func setUpGrid() {
         self.poops = Poop.pinchSomeOff()
 
-        for x in 0 ..< 10 {
-            for y in 0 ..< 10 {
+        for y in 0 ..< 10 {
+            for x in 0 ..< 10 {
                 let tile = Tile(x: x, y: y, poopIdent: 0)
                 self.tiles.append(tile)
             }
@@ -52,15 +59,35 @@ class SinkTheFloater {
                 let y = Int(arc4random_uniform(10))
                 let direction = Int(arc4random_uniform(4))
 
-                placementRequired = !placePoop(poop, x: x, y: y, direction: direction)
+                placementRequired = !placePoop(poop, x: x, y: y, direction: direction, labels: false)
             }
         }
     }
 
-    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, check: Bool? = true) -> Bool {
+    private func setUpLabels() {
+        self.labelPoops = Poop.pinchSomeOff()
+
+        for y in 0 ..< 7 {
+            for x in 0 ..< 15 {
+                let tile = Tile(x: x, y: y, poopIdent: 0)
+                self.labelTiles.append(tile)
+            }
+        }
+
+        _ = placePoop(self.labelPoops[0], x: 1, y: 5, direction: 3, labels: true, check: false)
+        _ = placePoop(self.labelPoops[1], x: 3, y: 5, direction: 3, labels: true, check: false)
+        _ = placePoop(self.labelPoops[2], x: 5, y: 3, direction: 1, labels: true, check: false)
+        _ = placePoop(self.labelPoops[3], x: 8, y: 5, direction: 3, labels: true, check: false)
+        _ = placePoop(self.labelPoops[4], x: 10, y: 5, direction: 3, labels: true, check: false)
+        _ = placePoop(self.labelPoops[5], x: 12, y: 2, direction: 1, labels: true, check: false)
+    }
+
+    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, labels: Bool, check: Bool? = true) -> Bool {
 
         var xMult: Int
         var yMult: Int
+
+        let xWidth = labels ? 15 : 10
 
         let data = rotate(poop.data, times: direction)
 
@@ -83,7 +110,7 @@ class SinkTheFloater {
                 let tileX = x + xMult
                 let tileY = y + yMult
 
-                let index = tileY * 10 + tileX
+                let index = tileY * xWidth + tileX
 
                 if check! {
                     let xBound = x + xMult
@@ -91,15 +118,24 @@ class SinkTheFloater {
 
                     if xBound < 0 || xBound > 9 { return false }
                     if yBound < 0 || yBound > 9 { return false }
-                    if self.tiles[index].poopIdentifier > 0 { return false }
+
+                    if labels {
+                        if self.labelTiles[index].poopIdentifier > 0 { return false }
+                    } else {
+                        if self.tiles[index].poopIdentifier > 0 { return false }
+                    }
                 } else {
-                    self.tiles[index].poopIdentifier = poop.identifier
-                }
+                    if labels {
+                        self.labelTiles[index].poopIdentifier = poop.identifier
+                    } else {
+                        self.tiles[index].poopIdentifier = poop.identifier
+                    }
+              }
             }
         }
 
         if check! {
-            return placePoop(poop, x: x, y: y, direction: direction, check: false)
+            return placePoop(poop, x: x, y: y, direction: direction, labels: labels, check: false)
         }
 
         return true

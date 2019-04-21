@@ -32,6 +32,8 @@ class Poop {
     }
 
     static func pinchSomeOff() -> [Poop] {
+        self.identiferFactory = 0
+
         var poops = [Poop]()
 
         poops.append(Poop([[1,1]]))

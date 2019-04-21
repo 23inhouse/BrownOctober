@@ -63,10 +63,7 @@ class GridCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GridCell
         cell.touchDelegate = self
 
-        let icon = self.cellData[indexPath.row]
-        let color = icon == "💩" ? #colorLiteral(red: 0.9098039216, green: 0.7647058824, blue: 0.462745098, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-
-        cell.setData(text: self.cellData[indexPath.row], color: color)
+        cell.setData(text: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
         return cell
     }
 }
@@ -76,6 +73,3 @@ extension GridCollectionViewController: GridCellTouchDelegate {
         touchCellDelegate.didTouchCell(sender)
     }
 }
-
-
-

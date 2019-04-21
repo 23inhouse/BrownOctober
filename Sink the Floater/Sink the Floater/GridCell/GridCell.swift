@@ -26,8 +26,9 @@ class GridCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
-    func setData(text: String, color: UIColor) {
+    func setData(text: String, color: UIColor, alpha: CGFloat) {
         self.button.setTitle(text, for: UIControlState.normal)
         self.button.backgroundColor = color
+        self.button.alpha = alpha
     }
 }
