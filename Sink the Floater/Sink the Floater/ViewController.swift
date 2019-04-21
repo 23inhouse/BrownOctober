@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        grid.touchDelegate = self
+        grid.touchCellDelegate = self
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GridCollectionTouchDelegate {
-    func didTouch(_ sender: GridCell) {
+    func didTouchCell(_ sender: GridCell) {
         flushCount += 1
 
         let index = grid.collectionView!.indexPath(for: sender)![1]

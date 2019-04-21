@@ -11,12 +11,12 @@ import UIKit
 private let reuseIdentifier = "GridCell"
 
 protocol GridCollectionTouchDelegate {
-    func didTouch(_ sender: GridCell)
+    func didTouchCell(_ sender: GridCell)
 }
 
 class GridCollectionViewController: UICollectionViewController {
 
-    var touchDelegate: GridCollectionTouchDelegate!
+    var touchCellDelegate: GridCollectionTouchDelegate!
 
     let cellData = [
         "","","","","","","","","","",
@@ -73,7 +73,7 @@ class GridCollectionViewController: UICollectionViewController {
 
 extension GridCollectionViewController: GridCellTouchDelegate {
     func didTouch(_ sender: GridCell) {
-        touchDelegate.didTouch(sender)
+        touchCellDelegate.didTouchCell(sender)
     }
 }
 
