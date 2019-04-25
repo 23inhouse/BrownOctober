@@ -15,9 +15,8 @@ class SinkTheFloater {
     var tiles = [Tile]()
     var labelTiles = [Tile]()
 
-    var indexOfOneAndOnlyFaceUpCard: Int?
-
-    var flipCount = 0
+    let gridUtility = GridUtility.init(w: 10, h: 10)
+    let labelGridUtility = GridUtility.init(w: 15, h: 7)
 
     func chooseTile(at index: Int) -> Int {
         return self.tiles[index].poopIdentifier
@@ -43,8 +42,8 @@ class SinkTheFloater {
     private func setUpGrid() {
         self.poops = Poop.pinchSomeOff()
 
-        for y in 0 ..< 10 {
-            for x in 0 ..< 10 {
+        for y in 0 ..< gridUtility.height {
+            for x in 0 ..< gridUtility.width {
                 let tile = Tile(x: x, y: y, poopIdent: 0)
                 self.tiles.append(tile)
             }
@@ -55,8 +54,8 @@ class SinkTheFloater {
 
             while placementRequired {
 
-                let x = Int(arc4random_uniform(10))
-                let y = Int(arc4random_uniform(10))
+                let x = Int(arc4random_uniform(UInt32(gridUtility.width)))
+                let y = Int(arc4random_uniform(UInt32(gridUtility.width)))
                 let direction = Int(arc4random_uniform(4))
 
                 placementRequired = !placePoop(poop, x: x, y: y, direction: direction, labels: false)
@@ -67,8 +66,8 @@ class SinkTheFloater {
     private func setUpLabels() {
         self.labelPoops = Poop.pinchSomeOff()
 
-        for y in 0 ..< 7 {
-            for x in 0 ..< 15 {
+        for y in 0 ..< labelGridUtility.height {
+            for x in 0 ..< labelGridUtility.width {
                 let tile = Tile(x: x, y: y, poopIdent: 0)
                 self.labelTiles.append(tile)
             }
@@ -82,80 +81,41 @@ class SinkTheFloater {
         _ = placePoop(self.labelPoops[5], x: 12, y: 2, direction: 1, labels: true, check: false)
     }
 
-    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, labels: Bool, check: Bool? = true) -> Bool {
+    private func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, labels: Bool, check: Bool? = true) -> Bool {
 
-        var xMult: Int
-        var yMult: Int
-
-        let xWidth = labels ? 15 : 10
-
-        let data = rotate(poop.data, times: direction)
+        let gUtility = labels ? labelGridUtility : gridUtility
+        let data = GridUtility.rotate(poop.data, times: direction)
 
         for (yIndex, values) in data.enumerated() {
             for (xIndex, value) in values.enumerated() {
-                if value != 1 { continue }
 
-                switch(direction) {
-                case 2:
-                    xMult = -1 * xIndex
-                    yMult = 1 * yIndex
-                case 3:
-                    xMult = 1 * xIndex
-                    yMult = -1 * yIndex
-                default:
-                    xMult = 1 * xIndex
-                    yMult = 1 * yIndex
+                guard value == 1 else { continue }
+
+                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
+                    return false
                 }
 
-                let tileX = x + xMult
-                let tileY = y + yMult
+                guard let index = gUtility.calcIndex(x + xAdjust, y + yAdjust) else {
+                    return false
+                }
 
-                let index = tileY * xWidth + tileX
+                if check! == true {
+                    if self.tiles[index].poopIdentifier > 0 { return false }
+                    continue
+                }
 
-                if check! {
-                    let xBound = x + xMult
-                    let yBound = y + yMult
-
-                    if xBound < 0 || xBound > 9 { return false }
-                    if yBound < 0 || yBound > 9 { return false }
-
-                    if labels {
-                        if self.labelTiles[index].poopIdentifier > 0 { return false }
-                    } else {
-                        if self.tiles[index].poopIdentifier > 0 { return false }
-                    }
+                if labels {
+                    self.labelTiles[index].poopIdentifier = poop.identifier
                 } else {
-                    if labels {
-                        self.labelTiles[index].poopIdentifier = poop.identifier
-                    } else {
-                        self.tiles[index].poopIdentifier = poop.identifier
-                    }
-              }
+                    self.tiles[index].poopIdentifier = poop.identifier
+                }
             }
         }
 
-        if check! {
+        if check! == true {
             return placePoop(poop, x: x, y: y, direction: direction, labels: labels, check: false)
         }
 
         return true
-    }
-
-    func rotate(_ matrix: [[Int]], times: Int) -> [[Int]] {
-        if times == 0 { return matrix }
-
-        let x = matrix.count
-        let y = matrix[0].count
-
-        let z = [Int](repeating: 0, count: x)
-        var newMatrix = [[Int]](repeating: z, count: y)
-
-        for i in 0 ..< x {
-            for j in 0 ..< y {
-                newMatrix[j][i] = matrix[x - i - 1][j]
-            }
-        }
-
-        return rotate(newMatrix, times: times - 1)
     }
 }
