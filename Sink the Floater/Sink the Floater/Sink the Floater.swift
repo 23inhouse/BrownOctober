@@ -49,7 +49,7 @@ class SinkTheFloater {
             }
         }
 
-        for poop in self.poops {
+        for poop in self.poops.reversed() {
             var placementRequired = true
 
             while placementRequired {
@@ -100,7 +100,7 @@ class SinkTheFloater {
                 }
 
                 if check! == true {
-                    if self.tiles[index].poopIdentifier > 0 { return false }
+                    if !checkAdjacentTiles(index) { return false }
                     continue
                 }
 
@@ -116,6 +116,19 @@ class SinkTheFloater {
             return placePoop(poop, x: x, y: y, direction: direction, labels: labels, check: false)
         }
 
+        return true
+    }
+
+    private func checkAdjacentTiles(_ index: Int) -> Bool {
+        if self.tiles[index].poopIdentifier > 0 { return false }
+
+        for direction in 0 ..< 4 {
+            guard let index = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
+                continue
+            }
+
+            if self.tiles[index].poopIdentifier > 0 { return false }
+        }
         return true
     }
 }
