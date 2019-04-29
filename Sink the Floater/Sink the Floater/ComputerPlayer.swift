@@ -21,11 +21,6 @@ class ComputerPlayer {
 
     let guessClosure: (@escaping () -> Void) -> ()
 
-    func play(startAt: Int? = nil) {
-        self.startAt = startAt
-        _ = makeGuess(startAt)
-    }
-
     static func makeGuessClosure(closure: @escaping () -> Void) {
         closure()
     }
@@ -34,9 +29,18 @@ class ComputerPlayer {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { closure() })
     }
 
+    func play(startAt: Int? = nil) {
+        self.startAt = startAt
+        _ = makeGuess(startAt)
+    }
+
+    func guessCount() -> Int {
+        return guesses.count
+    }
+
     private func makeGuess(_ index: Int?) -> Bool {
 
-        guard !self.game.gameOver() && guesses.count < maxGuesses else {
+        guard !self.game.gameOver() && guessCount() < maxGuesses else {
             self.finished = true
             return false
         }
@@ -51,7 +55,7 @@ class ComputerPlayer {
         let previousScore = self.game.score
 
         guard let cell = self.grid.getCell(at: guess) else {
-            print("[\(guesses.count)] Invalid guess \(guess)")
+            print("[\(guessCount())] Invalid guess \(guess)")
             return false
         }
 
@@ -59,7 +63,7 @@ class ComputerPlayer {
 
         if self.game.score == previousScore {
 //            if let (x, y) = gridUtility.calcXY(guess) {
-//                print("[\(guesses.count)] Missed! at (\(x), \(y))")
+//                print("[\(guessCount())] Missed! at (\(x), \(y))")
 //            }
             if guessIndex == nil {
                 self.guessClosure() { _ = self.makeGuess(nil) }
@@ -70,7 +74,7 @@ class ComputerPlayer {
         let poopIdentifier = self.game.tiles[guess].poopIdentifier
 
 //        if let (x, y) = gridUtility.calcXY(guess) {
-//            print("[\(guesses.count)] Hit! #\(poopIdentifier) at (\(x), \(y))")
+//            print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
 //        }
 
         if self.game.poops[poopIdentifier - 1].isFound {
@@ -82,23 +86,32 @@ class ComputerPlayer {
             return true
         }
 
-        huntForBrownOctober(guessIndex: guess, pieceCount: 1, direction: 0, flipDirection: nil)
+        huntForBrownOctober(guessIndex: guess, pieceCount: 1, direction: 0)
 
         return false
     }
 
-    private func huntForBrownOctober(guessIndex: Int, pieceCount: Int, direction: Int, flipDirection: Int?) {
+    private func huntForBrownOctober(guessIndex: Int, pieceCount: Int, direction: Int, flipDirection: Int? = nil, huntCount: Int? = nil) {
 
 //        if let (x, y) = gridUtility.calcXY(guessIndex) {
-//            let hunt = "Hunt! from (\(x), \(y))"
+//            let location = "Hunt! from (\(x), \(y))"
 //            let found = "found: \(pieceCount)"
 //            let dir = "search direction: \(direction)"
 //            let flip = "flipped from direction: \(String(flipDirection != nil ? flipDirection! : -1))"
-//            print("[\(guesses.count)] \(hunt) \(found) | \(dir) | \(flip)")
+//            let hunt = "hunt: \(String(describing: huntCount))"
+//            print("\n[\(guessCount())] \(location) \(found) | \(dir) | \(flip) | \(hunt)")
 //        }
 
         guard direction < 4 else {
-            self.guessClosure { _ = self.makeGuess(nil) }
+            let newDirection = direction - 4
+            let newFlipDirection: Int?
+
+            if flipDirection != nil && flipDirection! > 3 {
+                newFlipDirection = flipDirection! - 4
+            } else {
+                newFlipDirection = flipDirection
+            }
+            self.huntForBrownOctober(guessIndex: guessIndex, pieceCount: pieceCount, direction: newDirection, flipDirection: newFlipDirection, huntCount: huntCount)
             return
         }
 
@@ -111,7 +124,14 @@ class ComputerPlayer {
                         return
                     }
 
-                    self.huntForBrownOctober(guessIndex: searchIndex, pieceCount: pieceCount + 1, direction: direction, flipDirection: flipDirection)
+                    let newFlipDirection: Int?
+                    if huntCount == nil {
+                        newFlipDirection = flipDirection
+                    } else {
+                        newFlipDirection = nil
+                    }
+
+                    self.huntForBrownOctober(guessIndex: searchIndex, pieceCount: pieceCount + 1, direction: direction, flipDirection: newFlipDirection, huntCount: huntCount)
                     return
                 }
             }
@@ -122,7 +142,8 @@ class ComputerPlayer {
             }
 
             if flipDirection == nil {
-                guard let originalIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: pieceCount - 1) else {
+                let offset = huntCount == nil ? pieceCount - 1 : 1
+                guard let originalIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: offset) else {
                     print("Couldn't find the original")
                     return
                 }
@@ -132,47 +153,47 @@ class ComputerPlayer {
             }
 
             if pieceCount == 2 {
-//                print("(\(flipDirection!) - \(direction)) % 2 = (\((flipDirection! - direction) % 2))")
-                // first flip
-//                if (flipDirection! - direction) % 2 == 0 {
-//                    guard let centerIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: 1) else {
-//                        print("Couldn't find the center")
-//                        return
-//                    }
-//
-//                    self.huntForBrownOctober(guessIndex: centerIndex, pieceCount: pieceCount, direction: direction + 2, flipDirection: flipDirection! + 1)
-//                    return
-//                }
+                if huntCount == self.guessCount() {
+                    guard let centerIndex = self.gridUtility.adjustIndex(guessIndex, direction: flipDirection!, offset: 1) else {
+                        print("Couldn't find the original")
+                        return
+                    }
 
-                self.huntForBrownOctober(guessIndex: guessIndex, pieceCount: pieceCount, direction: direction + 1, flipDirection: flipDirection!)
+                    self.huntForBrownOctober(guessIndex: centerIndex, pieceCount: pieceCount, direction: direction, huntCount: self.guessCount())
+                    return
+
+                }
+
+                self.huntForBrownOctober(guessIndex: guessIndex, pieceCount: pieceCount, direction: direction + 1, flipDirection: flipDirection!, huntCount: self.guessCount())
                 return
             }
 
-//            if pieceCount == 3 {
-////                print("(\(flipDirection!) - \(direction)) % 2 = (\((flipDirection! - direction) % 2))")
-//                // first flip
-//                if (flipDirection! - direction) % 2 == 0 {
-//                    guard let centerIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: 1) else {
-//                        print("Couldn't find the center")
-//                        return
-//                    }
-//
-//                    self.huntForBrownOctober(guessIndex: centerIndex, pieceCount: pieceCount, direction: direction + 1, flipDirection: flipDirection)
-//                    return
-//                }
-//
-//                guard let centerIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: 0) else {
-//                    print("Couldn't find the center")
-//                    return
-//                }
-//
-//                self.huntForBrownOctober(guessIndex: centerIndex, pieceCount: pieceCount, direction: direction + 2, flipDirection: flipDirection)
-//                return
-//            }
+            if pieceCount == 3 {
+                let newDirection: Int
+                let offset: Int
 
-            self.huntForBrownOctober(guessIndex: guessIndex, pieceCount: pieceCount, direction: direction + 3, flipDirection: flipDirection)
-            return
+                if flipDirection != direction {
+                    newDirection = direction + 1
+                    offset = 1
+                } else {
+                    newDirection = direction + 2
+                    offset = 0
+                }
 
+                guard let centerIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction + 2, offset: offset) else {
+                    print("Couldn't find the center")
+                    return
+                }
+
+                self.huntForBrownOctober(guessIndex: centerIndex, pieceCount: pieceCount, direction: newDirection, flipDirection: newDirection)
+                return
+
+            }
+
+            if huntCount != nil && huntCount! < 10 {
+                self.huntForBrownOctober(guessIndex: guessIndex, pieceCount: pieceCount, direction: direction + 3, flipDirection: flipDirection, huntCount: self.guessCount())
+                return
+            }
         }
     }
 
@@ -197,10 +218,10 @@ class ComputerPlayer {
     }
 
     private func randomGuessIndex() -> Int {
-        if self.guesses.count < 13 && self.gridUtility.width == 10 && self.gridUtility.height == 10 {
+        if self.guessCount() < 13 && self.gridUtility.width == 10 && self.gridUtility.height == 10 {
             return randomCenterGuessIndex()
         }
-        if self.guesses.count < 60 && self.gridUtility.width % 2 == 0  && self.gridUtility.height % 2 == 0 {
+        if self.guessCount() < 60 && self.gridUtility.width % 2 == 0  && self.gridUtility.height % 2 == 0 {
             return randomCheckerBoardGuessIndex()
         }
         return randomAllGuessIndex()

@@ -13,6 +13,7 @@
 		B5291ED422689C98002C49B0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED322689C98002C49B0 /* Tile.swift */; };
 		B5291ED622689DC7002C49B0 /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED522689DC7002C49B0 /* Poop.swift */; };
 		B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */; };
+		B5994B04227726D4001999AE /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* GameTests.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA736A225CC7C1008AAEA2 /* ViewController.swift */; };
 		B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736C225CC7C1008AAEA2 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		B5291ED322689C98002C49B0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		B5291ED522689DC7002C49B0 /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
 		B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
+		B5994B03227726D4001999AE /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sink the Floater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AA736A225CC7C1008AAEA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		B5F165AD2274AE3E00789DC3 /* Sink the Floater Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B5994B03227726D4001999AE /* GameTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
 				B5F165B02274AE3E00789DC3 /* Info.plist */,
 			);
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
+				B5994B04227726D4001999AE /* GameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
