@@ -8,9 +8,13 @@
 
 import Foundation
 
-class GridUtility {
+class GridUtility: Equatable {
     let width: Int
     let height: Int
+
+    static func == (lhs: GridUtility, rhs: GridUtility) -> Bool {
+        return lhs.width == rhs.width && lhs.height == rhs.height
+    }
 
     static func rotate(_ matrix: [[Int]], times: Int) -> [[Int]] {
         if times == 0 { return matrix }
@@ -31,6 +35,9 @@ class GridUtility {
     }
 
     static func rotateXY(_ x: Int, _ y: Int, _ direction: Int) -> (Int, Int)? {
+        guard direction < 4 else {
+            return rotateXY(x, y, direction - 4)
+        }
         var xAdjust: Int
         var yAdjust: Int
 
@@ -64,7 +71,7 @@ class GridUtility {
         case 3:
             newIndex = calcIndex(x, y - offset)
         default:
-            return nil
+            return adjustIndex(index, direction: direction - 4, offset: offset)
         }
 
         return newIndex

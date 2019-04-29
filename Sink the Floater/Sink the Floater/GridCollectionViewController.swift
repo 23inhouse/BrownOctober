@@ -14,7 +14,11 @@ protocol GridCollectionTouchDelegate {
     func didTouchCell(_ sender: GridCell)
 }
 
-class GridCollectionViewController: UICollectionViewController {
+protocol GridCollectionProtocol {
+    func getCell(at row: Int) -> GridCellProtocol?
+}
+
+class GridCollectionViewController: UICollectionViewController, GridCollectionProtocol {
 
     var touchCellDelegate: GridCollectionTouchDelegate!
 
@@ -64,6 +68,14 @@ class GridCollectionViewController: UICollectionViewController {
         cell.touchDelegate = self
 
         cell.setData(text: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
+        return cell
+    }
+
+    func getCell(at row: Int) -> GridCellProtocol? {
+        guard let cell = collectionView!.cellForItem(at: IndexPath(row: row, section: 0)) as! GridCell? else {
+            return nil
+        }
+
         return cell
     }
 }

@@ -13,20 +13,43 @@ class ViewController: UIViewController {
     lazy var game = SinkTheFloater()
     var grid: GridCollectionViewController!
     var labelGrid: LabelCollectionViewController!
+    lazy var computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
+
     var flushCount = 0 {
         didSet {
             flushCountLabel.text = "Flushes: \(flushCount)"
         }
     }
+    var poopCount = 0 {
+        didSet {
+            poopCountLabel.text = "poops: \(poopCount)"
+        }
+    }
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
 
     @IBOutlet weak var flushCountLabel: UILabel!
+    @IBOutlet weak var poopCountLabel: UILabel!
+
+    @IBOutlet weak var scoreLabel: UILabel!
 
     @IBAction func touchResetButton(_ sender: UIButton) {
-        game = SinkTheFloater()
-        flushCount = 0
-
         resetGrid()
         resetLabels()
+
+        self.game = SinkTheFloater()
+        self.computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
+
+        flushCount = 0
+        poopCount = 0
+        score = 0
+    }
+
+    @IBAction func touchComputerButton(_ sender: UIButton) {
+        playGame()
     }
 
     override func viewDidLoad() {
@@ -41,11 +64,11 @@ class ViewController: UIViewController {
 
     private func resetGrid() {
         for index in 0 ..< self.game.tiles.count {
-            var tile = self.game.tiles[index]
+            let tile = self.game.tiles[index]
             tile.poopIdentifier = 0
 
             if let cell = grid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! GridCell? {
-                cell.setData(text: "", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
+                cell.setData(text: "", color: .white, alpha: 1)
             }
         }
     }
@@ -66,10 +89,14 @@ extension ViewController: GridCollectionTouchDelegate {
         flushCount += 1
 
         let index = grid.collectionView!.indexPath(for: sender)![1]
-        if let poop = game.findPoop(at: index) {
+
+        if let (_, poop) = game.wipe(at: index) {
             sender.setData(text: "💩", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 1)
-            poop.incrementFoundCounter()
+            poopCount += 1
+            score += 1
+
             if poop.isFound {
+                score += 10 - poop.poopSize
                 flushPoop(poop.identifier)
             }
             return
@@ -96,5 +123,9 @@ extension ViewController: GridCollectionTouchDelegate {
                 cell.setData(text: "💩", color: #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), alpha: 1)
             }
         }
+    }
+
+    private func playGame() {
+        computer.play()
     }
 }

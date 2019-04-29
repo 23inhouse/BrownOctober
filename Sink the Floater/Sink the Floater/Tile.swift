@@ -8,13 +8,17 @@
 
 import Foundation
 
-struct Tile {
+class Tile {
 
     var x: Int
     var y: Int
     var poopIdentifier: Int
     var isFound = false
     var isFlushed = false
+
+    func markAsFound() {
+        isFound = true
+    }
 
     init(x xPos: Int, y yPos:Int, poopIdent poopIndentifier: Int) {
         self.x = xPos

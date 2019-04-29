@@ -12,8 +12,12 @@ protocol GridCellTouchDelegate {
     func didTouch(_ sender: GridCell)
 }
 
-class GridCell: UICollectionViewCell {
+protocol GridCellProtocol {
+    func touchButton(_ button: UIButton)
+    func getButton() -> UIButton
+}
 
+class GridCell: UICollectionViewCell, GridCellProtocol {
     var touchDelegate: GridCellTouchDelegate!
 
     @IBOutlet weak var button: UIButton!
@@ -30,5 +34,9 @@ class GridCell: UICollectionViewCell {
         self.button.setTitle(text, for: UIControlState.normal)
         self.button.backgroundColor = color
         self.button.alpha = alpha
+    }
+
+    func getButton() -> UIButton {
+        return self.button
     }
 }

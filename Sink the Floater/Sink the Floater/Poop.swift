@@ -33,23 +33,49 @@ class Poop {
 
     static func pinchSomeOff() -> [Poop] {
         self.identiferFactory = 0
+        return [poop1(), poop2(), poop3(), poop4(), poop5(), poop6()]
+    }
 
-        var poops = [Poop]()
+    static func poop1(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
 
-        poops.append(Poop([[1,1]]))
-        poops.append(Poop([[1,1,1]]))
-        poops.append(Poop([
+        return Poop([[1,1]])
+    }
+
+    static func poop2(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([[1,1,1]])
+    }
+
+    static func poop3(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
             [0,1,0],
             [1,1,1]
-        ]))
-        poops.append(Poop([[1,1,1,1]]))
-        poops.append(Poop([[1,1,1,1,1]]))
-        poops.append(Poop([
+            ])
+    }
+
+    static func poop4(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([[1,1,1,1]])
+    }
+
+    static func poop5(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([[1,1,1,1,1]])
+    }
+
+    static func poop6(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
             [0,1,1,1],
             [1,1,1,0]
-        ]))
-
-        return poops
+            ])
     }
 
     init(_ data: [[Int]]) {

@@ -12,6 +12,7 @@
 		B5291ED222689C6D002C49B0 /* Sink the Floater.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED122689C6D002C49B0 /* Sink the Floater.swift */; };
 		B5291ED422689C98002C49B0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED322689C98002C49B0 /* Tile.swift */; };
 		B5291ED622689DC7002C49B0 /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED522689DC7002C49B0 /* Poop.swift */; };
+		B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA736A225CC7C1008AAEA2 /* ViewController.swift */; };
 		B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736C225CC7C1008AAEA2 /* Main.storyboard */; };
@@ -21,7 +22,19 @@
 		B5B0EA12226751BD006CECF3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B0EA10226751BD006CECF3 /* LabelCell.swift */; };
 		B5B0EA13226751BD006CECF3 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B0EA11226751BD006CECF3 /* LabelCell.xib */; };
 		B5E7DCA42264B695006C9530 /* GridCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */; };
+		B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165A62271C15400789DC3 /* GridUtility.swift */; };
+		B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B5F165B12274AE3E00789DC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AA735D225CC7C1008AAEA2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5AA7364225CC7C1008AAEA2;
+			remoteInfo = "Sink the Floater";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B523CB16226353F7000DFF72 /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
@@ -29,6 +42,7 @@
 		B5291ED122689C6D002C49B0 /* Sink the Floater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sink the Floater.swift"; sourceTree = "<group>"; };
 		B5291ED322689C98002C49B0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		B5291ED522689DC7002C49B0 /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
+		B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sink the Floater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AA736A225CC7C1008AAEA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,10 +54,21 @@
 		B5B0EA10226751BD006CECF3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		B5B0EA11226751BD006CECF3 /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewController.swift; sourceTree = "<group>"; };
+		B5F165A62271C15400789DC3 /* GridUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtility.swift; sourceTree = "<group>"; };
+		B5F165AC2274AE3E00789DC3 /* Sink the Floater Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sink the Floater Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5F165B02274AE3E00789DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B5AA7362225CC7C1008AAEA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5F165A92274AE3E00789DC3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -66,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				B5AA7367225CC7C1008AAEA2 /* Sink the Floater */,
+				B5F165AD2274AE3E00789DC3 /* Sink the Floater Tests */,
 				B5AA7366225CC7C1008AAEA2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */,
+				B5F165AC2274AE3E00789DC3 /* Sink the Floater Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +108,11 @@
 		B5AA7367225CC7C1008AAEA2 /* Sink the Floater */ = {
 			isa = PBXGroup;
 			children = (
+				B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */,
 				B5291ED122689C6D002C49B0 /* Sink the Floater.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
+				B5F165A62271C15400789DC3 /* GridUtility.swift */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5E7DCA32264B695006C9530 /* GridCollectionViewController.swift */,
@@ -115,6 +144,15 @@
 			path = LabelCell;
 			sourceTree = "<group>";
 		};
+		B5F165AD2274AE3E00789DC3 /* Sink the Floater Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
+				B5F165B02274AE3E00789DC3 /* Info.plist */,
+			);
+			path = "Sink the Floater Tests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +173,24 @@
 			productReference = B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B5F165AB2274AE3E00789DC3 /* Sink the Floater Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5F165B52274AE3E00789DC3 /* Build configuration list for PBXNativeTarget "Sink the Floater Tests" */;
+			buildPhases = (
+				B5F165A82274AE3E00789DC3 /* Sources */,
+				B5F165A92274AE3E00789DC3 /* Frameworks */,
+				B5F165AA2274AE3E00789DC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B5F165B22274AE3E00789DC3 /* PBXTargetDependency */,
+			);
+			name = "Sink the Floater Tests";
+			productName = "Sink the Floater Tests";
+			productReference = B5F165AC2274AE3E00789DC3 /* Sink the Floater Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -147,6 +203,10 @@
 				TargetAttributes = {
 					B5AA7364225CC7C1008AAEA2 = {
 						CreatedOnToolsVersion = 9.4.1;
+					};
+					B5F165AB2274AE3E00789DC3 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = B5AA7364225CC7C1008AAEA2;
 					};
 				};
 			};
@@ -164,6 +224,7 @@
 			projectRoot = "";
 			targets = (
 				B5AA7364225CC7C1008AAEA2 /* Sink the Floater */,
+				B5F165AB2274AE3E00789DC3 /* Sink the Floater Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -178,6 +239,13 @@
 				B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */,
 				B5B0EA13226751BD006CECF3 /* LabelCell.xib in Resources */,
 				B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B5F165AA2274AE3E00789DC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,11 +264,29 @@
 				B5B0EA0722674BFB006CECF3 /* LabelCollectionViewController.swift in Sources */,
 				B5291ED622689DC7002C49B0 /* Poop.swift in Sources */,
 				B5B0EA12226751BD006CECF3 /* LabelCell.swift in Sources */,
+				B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */,
+				B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */,
 				B5E7DCA42264B695006C9530 /* GridCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5F165A82274AE3E00789DC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B5F165B22274AE3E00789DC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5AA7364225CC7C1008AAEA2 /* Sink the Floater */;
+			targetProxy = B5F165B12274AE3E00789DC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B5AA736C225CC7C1008AAEA2 /* Main.storyboard */ = {
@@ -370,6 +456,44 @@
 			};
 			name = Release;
 		};
+		B5F165B32274AE3E00789DC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Sink the Floater Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Sink-the-Floater-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sink the Floater.app/Sink the Floater";
+			};
+			name = Debug;
+		};
+		B5F165B42274AE3E00789DC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Sink the Floater Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Sink-the-Floater-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sink the Floater.app/Sink the Floater";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -387,6 +511,15 @@
 			buildConfigurations = (
 				B5AA7378225CC7C3008AAEA2 /* Debug */,
 				B5AA7379225CC7C3008AAEA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5F165B52274AE3E00789DC3 /* Build configuration list for PBXNativeTarget "Sink the Floater Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5F165B32274AE3E00789DC3 /* Debug */,
+				B5F165B42274AE3E00789DC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
