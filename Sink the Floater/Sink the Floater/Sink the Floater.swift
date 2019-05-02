@@ -15,15 +15,35 @@ class Game {
     var tiles = [Tile]()
     var score = 0
 
-    func createGrid(tiles: inout [Tile], utility: GridUtility) {
+    func biggestPoop() -> Int {
+        return poops.filter { !$0.isFound}.map { $0.poopSize }.max()!
+    }
 
+    func createGrid(tiles: inout [Tile], utility: GridUtility) {
         for y in 0 ..< utility.height {
             for x in 0 ..< utility.width {
                 let tile = Tile(x: x, y: y, poopIdent: 0)
                 tiles.append(tile)
             }
         }
+    }
 
+    func exportGridValues() -> [Int?] {
+        var gridValues = [Int?]()
+
+        for tile in self.tiles {
+            let value: Int?
+            if tile.isFlushed {
+                value = nil
+            } else if tile.isFound {
+                value = 1
+            } else {
+                value = 0
+            }
+            gridValues.append(value)
+        }
+
+        return gridValues
     }
 
     func gameOver() -> Bool {

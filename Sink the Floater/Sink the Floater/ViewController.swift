@@ -37,18 +37,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
 
     @IBAction func touchResetButton(_ sender: UIButton) {
-        resetGrid()
-        resetLabels()
-
-        self.game = SinkTheFloater()
-        self.computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
-
-        flushCount = 0
-        poopCount = 0
-        score = 0
+        resetGame()
     }
 
     @IBAction func touchComputerButton(_ sender: UIButton) {
+        guard score == 0 || score == 60 else { return }
+
+        resetGame()
         playGame()
     }
 
@@ -102,16 +97,35 @@ extension ViewController: GridCollectionTouchDelegate {
             return
         }
 
+        game.tiles[index].markAsFlushed()
         sender.setData(text: "🌊", color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0), alpha: 0.5)
     }
 
     private func flushPoop(_ ident: Int) {
+        let color: UIColor
+        switch ident {
+        case 1:
+            color = #colorLiteral(red: 1, green: 0.8801414616, blue: 0.8755826288, alpha: 1)
+        case 2:
+            color = #colorLiteral(red: 0.9995340705, green: 0.9970265407, blue: 0.8813460202, alpha: 1)
+        case 3:
+            color = #colorLiteral(red: 0.950082893, green: 0.985483706, blue: 0.8672256613, alpha: 1)
+        case 4:
+            color = #colorLiteral(red: 0.88, green: 0.9984898767, blue: 1, alpha: 1)
+        case 5:
+            color = #colorLiteral(red: 0.88, green: 0.8864146703, blue: 1, alpha: 1)
+        case 6:
+            color = #colorLiteral(red: 1, green: 0.88, blue: 0.9600842213, alpha: 1)
+        default:
+            color = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
+        }
         for index in 0 ..< self.game.tiles.count {
             let tile = self.game.tiles[index]
             if tile.poopIdentifier != ident { continue }
 
             if let cell = grid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! GridCell? {
-                cell.setData(text: "💩", color: #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), alpha: 1)
+                cell.setData(text: "💩", color: color, alpha: 1)
+                tile.markAsFlushed()
             }
         }
 
@@ -120,12 +134,24 @@ extension ViewController: GridCollectionTouchDelegate {
             if tile.poopIdentifier != ident { continue }
 
             if let cell = labelGrid.collectionView!.cellForItem(at: IndexPath(row: index, section: 0)) as! LabelCell? {
-                cell.setData(text: "💩", color: #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), alpha: 1)
+                cell.setData(text: "💩", color: color, alpha: 1)
             }
         }
     }
 
     private func playGame() {
         computer.play()
+    }
+
+    private func resetGame() {
+        resetGrid()
+        resetLabels()
+
+        self.game = SinkTheFloater()
+        self.computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
+
+        flushCount = 0
+        poopCount = 0
+        score = 0
     }
 }

@@ -43,6 +43,35 @@ class GameTests: XCTestCase {
 
         XCTAssertEqual(placed, false, "The poop should not! fit here")
     }
+
+    func testExportGridValues() {
+        let game = TestGameHelper.buildGame(width: 3, height: 3)
+        let exportValues = game.exportGridValues()
+
+        XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
+        XCTAssertEqual(exportValues.reduce(0) { $0 + $1! }, 0, "All the values should be zero")
+    }
+
+    func testExportGridValuesWithFoundTiles() {
+        let game = TestGameHelper.buildGame(width: 3, height: 3)
+        game.tiles[4].isFound = true
+        let exportValues = game.exportGridValues()
+        print(exportValues)
+
+        XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
+        XCTAssertEqual(exportValues.reduce(0) { $0 + $1! }, 1, "One of the tiles should be found")
+    }
+
+    func testExportGridValuesWithFlushedTiles() {
+        let game = TestGameHelper.buildGame(width: 3, height: 3)
+        game.tiles[4].isFlushed = true
+
+        let exportValues = game.exportGridValues()
+        print(exportValues)
+
+        XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
+        XCTAssertEqual(exportValues.filter { $0 == nil }.count, 1, "One of the tiles should be nil")
+    }
 }
 
 // MARK: Test helpers
@@ -58,11 +87,16 @@ struct TestGameHelper {
 
     static func placeSinglePoopOnGame(game: Game, poop: Poop, x: Int, y: Int, d: Int) {
         game.poops = [poop]
+        placePoopOnGame(game: game, poop: poop, x: x, y: y, d: d)
+    }
+
+    static func placePoopOnGame(game: Game, poop: Poop, x: Int, y: Int, d: Int) {
         if !game.placePoop(poop, x: x, y: y, direction: d, tiles: &game.tiles, utility: game.gridUtility, check: false) {
             print("---------------------- The poop didn't fit! ----------------------")
             printGrid(tiles: game.tiles, utility: game.gridUtility)
             exit(1)
         }
+//        printGrid(tiles: game.tiles, utility: game.gridUtility)
     }
 
     static func buildSinglePoopGame(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Game {

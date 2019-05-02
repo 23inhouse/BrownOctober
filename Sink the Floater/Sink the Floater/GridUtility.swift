@@ -8,6 +8,22 @@
 
 import Foundation
 
+class Matrix {
+    var data: [Int?] = []
+    var width = 0
+    var height = 0
+
+    func print(_ title: String) {
+        Swift.print("\(title) -- (\(width),\(height)) --")
+        for y in 0 ..< height {
+            let row = y * width
+            let rowString = data[row ..< (row + width)].map { $0 == nil ? " " : String(describing: $0!)
+}.joined(separator: ", ")
+            Swift.print("[\(rowString)]")
+        }
+    }
+}
+
 class GridUtility: Equatable {
     let width: Int
     let height: Int
@@ -90,6 +106,36 @@ class GridUtility: Equatable {
         guard y >= 0 && y < self.height else { return nil }
 
         return y * self.width + x
+    }
+
+    func captureGrid(_ gridValues: [Int?], at index: Int, size: Int) -> Matrix? {
+        guard let (xCenter, yCenter) = calcXY(index) else {
+            return nil
+        }
+
+        let xMin = xCenter - size
+        let yMin = yCenter - size
+        let xMax = xCenter + size
+        let yMax = yCenter + size
+
+        let matrix = Matrix()
+
+        matrix.width = size * 2 - 1
+        matrix.height = size * 2 - 1
+
+        if xMin < 0 { matrix.width += xMin + 1 }
+        if xMax > self.width { matrix.width -= (xMax - self.width) }
+        if yMin < 0 { matrix.height += yMin + 1 }
+        if yMax > self.height { matrix.height -= (yMax - self.height) }
+
+        for (i, value) in gridValues.enumerated() {
+            let (x, y) = calcXY(i)!
+            if x > xMin && x < xMax && y > yMin && y < yMax {
+                matrix.data.append(value)
+            }
+        }
+
+        return matrix
     }
 
     init(w: Int, h: Int) {

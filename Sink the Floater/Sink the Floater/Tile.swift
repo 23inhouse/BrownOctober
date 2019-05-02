@@ -16,6 +16,10 @@ class Tile {
     var isFound = false
     var isFlushed = false
 
+    func markAsFlushed() {
+        isFlushed = true
+    }
+
     func markAsFound() {
         isFound = true
     }
