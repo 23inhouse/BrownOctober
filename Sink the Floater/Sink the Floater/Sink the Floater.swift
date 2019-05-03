@@ -16,7 +16,8 @@ class Game {
     var score = 0
 
     func biggestPoop() -> Int {
-        return poops.filter { !$0.isFound}.map { $0.poopSize }.max()!
+        let size = poops.filter { !$0.isFound}.map { $0.poopSize }.max()
+        return size == nil ? 0 : size!
     }
 
     func createGrid(tiles: inout [Tile], utility: GridUtility) {

@@ -96,7 +96,7 @@ struct TestGameHelper {
             printGrid(tiles: game.tiles, utility: game.gridUtility)
             exit(1)
         }
-//        printGrid(tiles: game.tiles, utility: game.gridUtility)
+        printGrid(tiles: game.tiles, utility: game.gridUtility)
     }
 
     static func buildSinglePoopGame(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Game {

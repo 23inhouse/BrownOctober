@@ -26,17 +26,11 @@ class ComputerPlayer {
     }
 
     static func makeDelayedGuessClosure(closure: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { closure() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.05, execute: { closure() })
     }
 
     func play(startAt: Int? = nil) {
         startTimeBinary = Int(Date.init().timeIntervalSince1970)/2%2
-
-        guard let startAt = startAt else {
-            _ = makeGuess(nil)
-            return
-        }
-
         huntForBrownOctober(startAt)
     }
 
@@ -44,92 +38,57 @@ class ComputerPlayer {
         return guesses.count
     }
 
-    private func makeGuess(_ index: Int?) -> Bool {
-
-        guard !self.game.gameOver() && guessCount() < maxGuesses else {
-            return false
-        }
-
-//        print("[\(guessCount() + 1)] Make guess [\(index == nil ? "None" : String(index!))]")
-
-        let (newGuess, oldGuess) = newUnusedGuess(index)
-
-        if oldGuess != nil {
-            huntForOsamaBrownLaden(oldGuess!, hitCount: 2)
-            return false
-        }
-
-        guard let guess = newGuess else { return false }
+    private func makeGuess(_ index: Int) -> Bool {
 
         let previousScore = self.game.score
 
-        guard let cell = self.grid.getCell(at: guess) else {
-            print("[\(guessCount())] Error: Invalid guess \(guess)")
+        guard let cell = self.grid.getCell(at: index) else {
+            print("[\(guessCount())] Error: Invalid guess \(index)")
             return false
         }
-
         cell.touchButton(cell.getButton())
 
         if self.game.score == previousScore {
-//            if let (x, y) = gridUtility.calcXY(guess) {
+//            if let (x, y) = gridUtility.calcXY(index) {
 //                print("[\(guessCount())] Missed! at (\(x), \(y))")
 //            }
-            if guessCount() == 1 || index == nil {
-                self.guessClosure() { _ = self.makeGuess(nil) }
-            }
             return false
         }
 
-        let poopIdentifier = self.game.tiles[guess].poopIdentifier
-
-//        if let (x, y) = gridUtility.calcXY(guess) {
+//        let poopIdentifier = self.game.tiles[index].poopIdentifier
+//        if let (x, y) = gridUtility.calcXY(index) {
 //            print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
 //        }
-
-        if self.game.poops[poopIdentifier - 1].isFound {
+//        if self.game.poops[poopIdentifier - 1].isFound {
 //            print("[\(guessCount())] Found! #\(poopIdentifier)")
-            self.guessClosure { _ = self.makeGuess(nil) }
-            return true
-        }
-
-        if guessCount() > 1 && index != nil { return true }
-
-        huntForBrownOctober(guess, direction: 0, hitCount: 1, previousIndex: index)
-
-        return false
-    }
-
-    // search for the second poop in a clockwise motion starting at 3 o clock
-    private func huntForBrownOctober(_ guessIndex: Int?, direction: Int = 0, hitCount: Int = 0, previousIndex: Int? = nil) {
-
-        guard let guessIndex = guessIndex else {
-            _ = self.makeGuess(nil)
-            return
-        }
-
-        guard hitCount > 0 else {
-            _ = self.makeGuess(guessIndex)
-            return
-        }
-
-//        if let (x, y) = gridUtility.calcXY(guessIndex) {
-//            let location = "Hunt! from (\(x), \(y))"
-//            let hits = "hits: \(hitCount)"
-//            let search = "search direction: \(direction)"
-//            let previous = "previous: \(previousIndex == nil ? "None" : String(previousIndex!))"
-//            print("[\(guessCount())] \(location) | \(hits) | \(search) | \(previous)")
 //        }
 
-        var guess: Int? = nil
+        return true
+    }
 
-        if hitCount == 1 {
-            guard let searchIndex = self.gridUtility.adjustIndex(guessIndex, direction: direction, offset: 1) else {
-                self.huntForBrownOctober(guessIndex, direction: direction + 1, hitCount: hitCount, previousIndex: previousIndex)
-                return
-            }
+    // the main hunting controller
+    private func huntForBrownOctober(_ guessIndex: Int?, hitCount: Int = 0, previousIndex: Int? = nil) {
 
-            guess = searchIndex
+        guard !self.game.gameOver() && guessCount() < maxGuesses else { return }
+
+        let (newGuessIndex, incompletePoopIndex) = newUnusedGuess(guessIndex)
+
+        if incompletePoopIndex != nil {
+            huntForOsamaBrownLaden(incompletePoopIndex!, hitCount: hitCount)
+            return
         }
+
+        guard let index = newGuessIndex else {
+            print("\n\n\nError: Serious problems couldn't get a new guess index")
+            return
+        }
+
+//        if let (x, y) = gridUtility.calcXY(index) {
+//            let location = "Hunting at (\(x), \(y))"
+//            let hits = "hits: \(hitCount)"
+//            let previous = "previous: \(previousIndex == nil ? "None" : String(previousIndex!))"
+//            print("[\(guessCount())] \(location) | \(hits) | \(previous)")
+//        }
 
         self.deepthCount += 1
         if deepthCount > 100 {
@@ -138,28 +97,25 @@ class ComputerPlayer {
             return
         }
 
-        guess = guess == nil ? guessIndex : guess!
-
         self.guessClosure() {
-            if self.makeGuess(guess!) {
+            if self.makeGuess(index) {
 
-                let poopIdent = self.game.tiles[guess!].poopIdentifier
+                if self.game.gameOver() { return }
 
-                if self.game.poops[poopIdent - 1].isFound {
+                let poopIdent = self.game.tiles[index].poopIdentifier
+
+                let poop = self.game.poops[poopIdent - 1]
+                if poop.isFound {
                     self.deepthCount = 0
+                    self.huntForBrownOctober(nil, hitCount: hitCount + 1 - poop.poopSize, previousIndex: index)
                     return
                 }
 
-                self.huntForOsamaBrownLaden(guess!, hitCount: hitCount + 1)
+                self.huntForOsamaBrownLaden(index, hitCount: hitCount + 1)
                 return
             }
 
-            if hitCount < 2 {
-                self.huntForBrownOctober(previousIndex, direction: direction + 1, hitCount: hitCount, previousIndex: previousIndex)
-                return
-            }
-
-            self.huntForOsamaBrownLaden(previousIndex!, hitCount: hitCount)
+            self.huntForBrownOctober(nil, hitCount: hitCount, previousIndex: index)
             return
         }
     }
@@ -168,8 +124,10 @@ class ComputerPlayer {
     private func huntForOsamaBrownLaden(_ index: Int, hitCount: Int) {
         let size = [gridUtility.width, gridUtility.height].max()!
 
-//        let location = "Hunt'n Osama! from (\(xCenter), \(yCenter)) size \(size)"
-//        print("[\(guessCount())] \(location)")
+//        if let (x, y) = gridUtility.calcXY(index) {
+//            let location = "Hunt round (\(x), \(y)) | hits: \(hitCount)"
+//            print("[\(guessCount())] \(location)")
+//        }
 
         let values = self.game.exportGridValues()
         guard let matrix = self.game.gridUtility.captureGrid(values, at: index, size: size) else {
@@ -180,6 +138,8 @@ class ComputerPlayer {
         let heatMap = prepareHeatMap(matrix)
         let mustMatch = calcMatchSize(data: matrix.data)
         var hottestIndex: Int?
+
+        guard mustMatch > 0 else { return }
 
         for n in Array(1 ... mustMatch).reversed() {
             guard hottestIndex == nil else { continue }
@@ -197,7 +157,8 @@ class ComputerPlayer {
             return
         }
 
-        huntForBrownOctober(hottestIndex, direction: 0, hitCount: hitCount, previousIndex: index)
+        huntForBrownOctober(hottestIndex, hitCount: hitCount, previousIndex: index)
+
     }
 
     private func calcHeatMap(from matrix: Matrix, to heatMap: Matrix, mustMatch: Int) -> [Int?] {

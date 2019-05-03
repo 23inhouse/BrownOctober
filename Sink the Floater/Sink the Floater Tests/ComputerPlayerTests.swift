@@ -90,7 +90,7 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsAfterMissingTwice() {
         let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildSinglePoopGame(width: 10, height: 10, poop: poop, x: 0, y: 0, d: 0)
+        let game = TestGameHelper.buildSinglePoopGame(width: 5, height: 5, poop: poop, x: 0, y: 0, d: 0)
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
 
         computerPlayer.play(startAt: nil)
@@ -110,50 +110,6 @@ class ComputerPlayerTests: XCTestCase {
         XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
     }
 
-    func testComputerHuntsRightFirst() {
-        let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildSinglePoopGame(width: 3, height: 1, poop: poop, x: 1, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
-
-        computerPlayer.play(startAt: 1)
-
-        XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 2, "Guess count is wrong")
-    }
-
-    func testComputerHuntsDownSecond() {
-        let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildSinglePoopGame(width: 4, height: 4, poop: poop, x: 1, y: 1, d: 1)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
-
-        computerPlayer.play(startAt: GridUtility(w: 4, h: 4).calcIndex(1, 1))
-
-        XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
-    }
-
-    func testComputerHuntsLeftThird() {
-        let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildSinglePoopGame(width: 4, height: 4, poop: poop, x: 2, y: 1, d: 2)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
-
-        computerPlayer.play(startAt: GridUtility(w: 4, h: 4).calcIndex(2, 1))
-
-        XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 4, "Guess count is wrong")
-    }
-
-    func testComputerHuntsUpForth() {
-        let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildSinglePoopGame(width: 4, height: 4, poop: poop, x: 2, y: 2, d: 3)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
-
-        computerPlayer.play(startAt: GridUtility(w: 4, h: 4).calcIndex(2, 2))
-
-        XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
-    }
-
     // MARK: Hunt efficiently tests
     func testComputerHuntsEfficientlyForPoop1() {
         let poop = Poop.poop1(0)
@@ -163,7 +119,7 @@ class ComputerPlayerTests: XCTestCase {
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 4, "Guess count is wrong")
+        XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop2() {
@@ -174,7 +130,7 @@ class ComputerPlayerTests: XCTestCase {
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
+        XCTAssertEqual(computerPlayer.guessCount(), 4, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop3() {
@@ -185,7 +141,7 @@ class ComputerPlayerTests: XCTestCase {
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
+        XCTAssertEqual(computerPlayer.guessCount(), 6, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop4() {
@@ -288,28 +244,28 @@ class ComputerPlayerTests: XCTestCase {
 
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
 
-        computerPlayer.play(startAt: GridUtility(w: 5, h: 7).calcIndex(2, 1))
+        computerPlayer.play(startAt: GridUtility(w: 5, h: 7).calcIndex(2, 2))
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
         XCTAssertEqual(game.score, 6, "Final score is wrong")
-        XCTAssertEqual(computerPlayer.guessCount(), 8, "Guess count is wrong")
+        XCTAssertEqual(computerPlayer.guessCount(), 7, "Guess count is wrong")
     }
 
     func testComputerHuntsForPoopsTouchingALot() {
-        let game = TestGameHelper.buildGame(width: 5, height: 7)
-        let poops = [Poop.poop6(0), Poop.poop5(1)]
+        let game = TestGameHelper.buildGame(width: 7, height: 7)
+        let poops = [Poop.poop5(0), Poop.poop6(1)]
         game.poops = poops
 
-        TestGameHelper.placePoopOnGame(game: game, poop: poops[0], x: 1, y: 4, d: 3)
-        TestGameHelper.placePoopOnGame(game: game, poop: poops[1], x: 3, y: 1, d: 1)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[0], x: 1, y: 2, d: 0)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[1], x: 2, y: 3, d: 0)
 
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
 
-        computerPlayer.play(startAt: GridUtility(w: 5, h: 7).calcIndex(2, 1))
+        computerPlayer.play(startAt: GridUtility(w: 7, h: 7).calcIndex(3, 3))
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
         XCTAssertEqual(game.score, 11, "Final score is wrong")
-        XCTAssertEqual(computerPlayer.guessCount(), 16, "Guess count is wrong")
+        XCTAssertEqual(computerPlayer.guessCount(), 17, "Guess count is wrong")
     }
 
     // MARK: Test a full game

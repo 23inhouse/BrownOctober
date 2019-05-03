@@ -19,7 +19,7 @@ class Matrix {
             let row = y * width
             let rowString = data[row ..< (row + width)].map { $0 == nil ? " " : String(describing: $0!)
 }.joined(separator: ", ")
-            Swift.print("[\(rowString)]")
+            Swift.print("    [\(rowString)]")
         }
     }
 }
