@@ -26,8 +26,6 @@ class GameTests: XCTestCase {
         let poop = Poop.poop1(0)
         let game = TestGameHelper.buildGame(width: 2, height: 1, poops: [poop])
 
-        TestGameHelper.printGrid(tiles: game.tiles, utility: game.gridUtility)
-
         let placed = game.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &game.tiles, utility: game.gridUtility)
 
         XCTAssertEqual(placed, true, "The poop should! fit here")
@@ -36,8 +34,6 @@ class GameTests: XCTestCase {
     func testPlacePoopThatIsTooBig() {
         let poop = Poop.poop1(0)
         let game = TestGameHelper.buildGame(width: 1, height: 1, poops: [poop])
-
-        TestGameHelper.printGrid(tiles: game.tiles, utility: game.gridUtility)
 
         let placed = game.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &game.tiles, utility: game.gridUtility)
 
@@ -96,7 +92,7 @@ struct TestGameHelper {
             printGrid(tiles: game.tiles, utility: game.gridUtility)
             exit(1)
         }
-        printGrid(tiles: game.tiles, utility: game.gridUtility)
+//        printGrid(tiles: game.tiles, utility: game.gridUtility)
     }
 
     static func buildSinglePoopGame(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Game {
