@@ -281,11 +281,28 @@ class ComputerPlayerTests: XCTestCase {
         TestGameHelper.placePoopOnGame(game: game, poop: poops[4], x: 3, y: 3, d: 0)
         TestGameHelper.placePoopOnGame(game: game, poop: poops[5], x: 3, y: 4, d: 0)
 
-        TestGameHelper.printGrid(tiles: game.tiles, utility: game.gridUtility)
-
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
 
         computerPlayer.play(startAt: GridUtility(w: 10, h: 10).calcIndex(4, 5))
+
+        XCTAssertEqual(game.gameOver(), true, "The game is not over")
+    }
+
+    func testComputerSolvesFullGameWorstCase() {
+        let game = TestGameHelper.buildGame(width: 10, height: 10)
+        let poops = Poop.pinchSomeOff()
+        game.poops = poops
+
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[0], x: 1, y: 0, d: 0)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[4], x: 4, y: 0, d: 0)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[1], x: 1, y: 9, d: 0)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[3], x: 5, y: 9, d: 0)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[2], x: 0, y: 3, d: 1)
+        TestGameHelper.placePoopOnGame(game: game, poop: poops[5], x: 8, y: 3, d: 1)
+
+        let computerPlayer = TestComputerPlayerHelper.buildPlayer(game: game)
+
+        computerPlayer.play(startAt: nil)
 
         XCTAssertEqual(game.gameOver(), true, "The game is not over")
     }

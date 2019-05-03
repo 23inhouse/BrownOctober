@@ -26,7 +26,7 @@ class ComputerPlayer {
     }
 
     static func makeDelayedGuessClosure(closure: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.05, execute: { closure() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: { closure() })
     }
 
     func play(startAt: Int? = nil) {
@@ -122,43 +122,45 @@ class ComputerPlayer {
 
     // search by creating a heat map of all possible poops in every position
     private func huntForOsamaBrownLaden(_ index: Int, hitCount: Int) {
-        let size = [gridUtility.width, gridUtility.height].max()!
 
 //        if let (x, y) = gridUtility.calcXY(index) {
 //            let location = "Hunt round (\(x), \(y)) | hits: \(hitCount)"
 //            print("[\(guessCount())] \(location)")
 //        }
 
-        let values = self.game.exportGridValues()
-        guard let matrix = self.game.gridUtility.captureGrid(values, at: index, size: size) else {
-            print("Error: Invalid matrix")
+        guard let data = calcHeatMaps(index) else {
+            print("Error: No data found")
             return
         }
-
-        let heatMap = prepareHeatMap(matrix)
-        let mustMatch = calcMatchSize(data: matrix.data)
-        var hottestIndex: Int?
-
-        guard mustMatch > 0 else { return }
-
-        for n in Array(1 ... mustMatch).reversed() {
-            guard hottestIndex == nil else { continue }
-
-            let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
-            hottestIndex = self.findHottestIndex(data: data)
-
-//            print("[\(guessCount())] Must match = \(n)")
-//            heatMap.data = data
-//            heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
-        }
-
+        let hottestIndex = self.findHottestIndex(data: data)
         guard hottestIndex != nil else {
             print("Error: No index found")
             return
         }
 
         huntForBrownOctober(hottestIndex, hitCount: hitCount, previousIndex: index)
+    }
 
+    private func calcHeatMaps(_ index: Int) -> [Int?]? {
+        let size = [gridUtility.width, gridUtility.height].max()!
+
+        let values = self.game.exportGridValues()
+        guard let matrix = self.game.gridUtility.captureGrid(values, at: index, size: size) else {
+            print("Error: Invalid matrix")
+            return nil
+        }
+
+        let heatMap = prepareHeatMap(matrix)
+        let mustMatch = calcMatchSize(data: matrix.data)
+
+        for n in Array(0 ... mustMatch).reversed() {
+            let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
+            if self.findHottestIndex(data: data) != nil {
+                return data
+            }
+        }
+
+        return nil
     }
 
     private func calcHeatMap(from matrix: Matrix, to heatMap: Matrix, mustMatch: Int) -> [Int?] {
@@ -282,9 +284,9 @@ class ComputerPlayer {
         if index == nil {
             for (i, tile) in game.tiles.enumerated() {
                 if tile.isFound && !tile.isFlushed {
-                    if let (x, y) = gridUtility.calcXY(i) {
-                        print("Continuing from incomplete poop at (\(x), \(y))")
-                    }
+//                    if let (x, y) = gridUtility.calcXY(i) {
+//                        print("Continuing from incomplete poop at (\(x), \(y))")
+//                    }
                     return (nil, i)
                 }
             }
@@ -310,40 +312,24 @@ class ComputerPlayer {
     }
 
     private func randomGuessIndex() -> Int {
-        if self.guessCount() < 13 && self.gridUtility.width == 10 && self.gridUtility.height == 10 {
-            return randomCenterGuessIndex()
+        let bestGuesses = calcHeatMaps(0)!
+
+        let heatMap = Matrix()
+        heatMap.width = self.gridUtility.width
+        heatMap.height = self.gridUtility.height
+        heatMap.data = bestGuesses
+//        heatMap.print("Best Random Guess")
+
+        let highests = bestGuesses.filter({ $0 != nil }).sorted(by: {$0! > $1!})
+        let highest = highests.first!
+
+        var bestIndexes = [Int]()
+        for (i, v) in bestGuesses.enumerated() {
+            guard v == highest else { continue }
+            bestIndexes.append(i)
         }
-        if self.guessCount() < 80 && self.gridUtility.width % 2 == 0  && self.gridUtility.height % 2 == 0 {
-            return randomCheckerBoardGuessIndex()
-        }
-        return randomAllGuessIndex()
-    }
 
-    private func randomCenterGuessIndex() -> Int {
-        let maxX = gridUtility.width / 2 + 1
-        let maxY = gridUtility.height / 2 + 1
-
-        var xGuess = 2 + (Int(arc4random_uniform(UInt32(maxX))) + Int(arc4random_uniform(UInt32(maxX))) + 1) / 2
-        let yGuess = 2 + (Int(arc4random_uniform(UInt32(maxY))) + Int(arc4random_uniform(UInt32(maxY))) + 1) / 2
-
-        xGuess = (xGuess / 2 * 2) + (yGuess % 2 == self.startTimeBinary ? 0 : 1)
-
-        return gridUtility.calcIndex(xGuess, yGuess)!
-    }
-
-    private func randomCheckerBoardGuessIndex() -> Int {
-        var xGuess = Int(arc4random_uniform(UInt32(gridUtility.width)))
-        let yGuess = Int(arc4random_uniform(UInt32(gridUtility.height)))
-
-        xGuess = (xGuess / 2 * 2) + (yGuess % 2 == self.startTimeBinary ? 0 : 1)
-
-        return gridUtility.calcIndex(xGuess, yGuess)!
-
-    }
-
-    private func randomAllGuessIndex() -> Int {
-        let maxIndex = gridUtility.width * gridUtility.height
-        return Int(arc4random_uniform(UInt32(maxIndex)))
+        return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
     }
 
     init(game: Game, grid: GridCollectionProtocol, guessClosure: @escaping (@escaping () -> Void) -> () = ComputerPlayer.makeGuessClosure) {
