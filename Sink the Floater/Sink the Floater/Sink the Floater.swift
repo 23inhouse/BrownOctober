@@ -10,6 +10,7 @@ import Foundation
 
 class Game {
     let gridUtility: GridUtility
+    let allowAdjacentPoops = true
 
     var poops = [Poop]()
     var tiles = [Tile]()
@@ -112,6 +113,8 @@ class Game {
     private func checkAdjacentTiles(tiles: [Tile], index: Int) -> Bool {
         if tiles[index].poopIdentifier > 0 { return false }
 
+        if allowAdjacentPoops { return true }
+
         for direction in 0 ..< 4 {
             guard let index = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
                 continue
@@ -119,6 +122,7 @@ class Game {
 
             if tiles[index].poopIdentifier > 0 { return false }
         }
+
         return true
     }
 
