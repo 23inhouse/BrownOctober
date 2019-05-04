@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     lazy var game = SinkTheFloater()
     var grid: GridCollectionViewController!
     var labelGrid: LabelCollectionViewController!
-    lazy var computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
+    lazy var computer = ComputerPlayer(game: game, grid: grid, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
 
     var flushCount = 0 {
         didSet {
@@ -148,7 +148,7 @@ extension ViewController: GridCollectionTouchDelegate {
         resetLabels()
 
         self.game = SinkTheFloater()
-        self.computer = ComputerPlayer(game: game, grid: grid, guessClosure: ComputerPlayer.makeDelayedGuessClosure)
+        self.computer = ComputerPlayer(game: game, grid: grid, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
 
         flushCount = 0
         poopCount = 0

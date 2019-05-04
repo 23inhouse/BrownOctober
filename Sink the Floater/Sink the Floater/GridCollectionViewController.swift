@@ -58,7 +58,6 @@ class GridCollectionViewController: UICollectionViewController, GridCollectionPr
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.cellData.count
     }

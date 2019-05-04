@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias NextGuess = (@escaping () -> Void) -> ()
+
 class ComputerPlayer {
 
     let game: Game
@@ -16,7 +18,7 @@ class ComputerPlayer {
     let maxGuesses = 100
     var guesses = [Int]()
 
-    let guessClosure: (@escaping () -> Void) -> ()
+    let nextGuessClosure: NextGuess
 
     static func makeGuessClosure(closure: @escaping () -> Void) {
         closure()
@@ -80,29 +82,26 @@ class ComputerPlayer {
         }
 
 //        if let (x, y) = gridUtility.calcXY(index) {
-//            print("[\(guessCount())] "Hunting at (\(x), \(y))")
+//            print("[\(guessCount())] Hunting at (\(x), \(y))")
 //        }
 
-        self.guessClosure() {
-            if self.makeGuess(index) {
+        if self.makeGuess(index) {
+            if self.game.gameOver() { return }
 
-                if self.game.gameOver() { return }
+            let poopIdent = self.game.tiles[index].poopIdentifier
 
-                let poopIdent = self.game.tiles[index].poopIdentifier
-
-                let poop = self.game.poops[poopIdent - 1]
-                if poop.isFound {
-                    self.huntForBrownOctober(nil)
-                    return
-                }
-
-                self.huntForOsamaBrownLaden(index)
+            let poop = self.game.poops[poopIdent - 1]
+            if poop.isFound {
+                self.nextGuessClosure() { self.huntForBrownOctober(nil) }
                 return
             }
 
-            self.huntForBrownOctober(nil)
+            self.nextGuessClosure() { self.huntForOsamaBrownLaden(index) }
             return
         }
+
+        self.nextGuessClosure() { self.huntForBrownOctober(nil) }
+        return
     }
 
     // search by creating a heat map of all possible poops in every position
@@ -116,6 +115,7 @@ class ComputerPlayer {
             print("Error: No data found")
             return
         }
+
         let hottestIndex = self.findHottestIndex(data: data)
         guard hottestIndex != nil else {
             print("Error: No index found")
@@ -319,10 +319,10 @@ class ComputerPlayer {
         return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
     }
 
-    init(game: Game, grid: GridCollectionProtocol, guessClosure: @escaping (@escaping () -> Void) -> () = ComputerPlayer.makeGuessClosure) {
+    init(game: Game, grid: GridCollectionProtocol, nextGuessClosure: @escaping NextGuess = ComputerPlayer.makeGuessClosure) {
         self.game = game
         self.grid = grid
         self.gridUtility = game.gridUtility
-        self.guessClosure = guessClosure
+        self.nextGuessClosure = nextGuessClosure
     }
 }
