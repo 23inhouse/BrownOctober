@@ -140,6 +140,9 @@ class ComputerPlayer {
         for n in Array(0 ... mustMatch).reversed() {
             let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
             if self.findHottestIndex(data: data) != nil {
+//                print("[\(guessCount())] Must match = \(n)")
+//                heatMap.data = data
+//                heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
                 return data
             }
         }
