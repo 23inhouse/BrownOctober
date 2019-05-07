@@ -15,7 +15,7 @@ class ComputerPlayer {
     let debug = false
 
     let game: Game
-    let grid: GridCollectionProtocol
+    let board: BoardProtocol
     let gridUtility: GridUtility
     let maxGuesses = 100
     var guesses = [Int]()
@@ -42,11 +42,8 @@ class ComputerPlayer {
 
         let previousScore = self.game.score
 
-        guard let cell = self.grid.getCell(at: index) else {
-            print("[\(guessCount())] Error: Invalid guess \(index)")
-            return false
-        }
-        cell.touchButton(cell.getButton())
+        let button = board.getButton(at: index)
+        button.touch(button)
 
         if self.game.score == previousScore {
             if debug == true, let (x, y) = gridUtility.calcXY(index) {
@@ -325,10 +322,10 @@ class ComputerPlayer {
         return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
     }
 
-    init(game: Game, grid: GridCollectionProtocol, nextGuessClosure: @escaping NextGuess = ComputerPlayer.makeGuessClosure) {
+    init(game: Game, board: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
         self.game = game
-        self.grid = grid
+        self.board = board
         self.gridUtility = game.gridUtility
-        self.nextGuessClosure = nextGuessClosure
+        self.nextGuessClosure = nextGuessClosure == nil ? ComputerPlayer.makeGuessClosure : nextGuessClosure!
     }
 }

@@ -11,29 +11,25 @@ import XCTest
 @testable import Sink_the_Floater
 
 // MARK: Mocks
-class GridCollectionMock: GridCollectionProtocol {
+class BoardMock: BoardProtocol {
     let game: Game
 
-    func getCell(at row: Int) -> GridCellProtocol? {
-        return GridCellMock(game: game, row: row)
+    func getButton(at index: Int) -> GridButtonProtocol {
+        return GridButtonMock(game: game, index: index)
     }
 
     init(game: Game) {
         self.game = game
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
-class GridCellMock: GridCellProtocol {
+class GridButtonMock: GridButtonProtocol {
     let game: Game
-    let row: Int
+    let index: Int
 
-    func touchButton(_ sender: UIButton) {
-        if let (_, poop) = game.wipe(at: row) {
-            game.tiles[row].markAsFound()
+    func touch(_ sender: GridButtonProtocol) {
+        if let (_, poop) = game.wipe(at: index) {
+            game.tiles[index].markAsFound()
 
             if poop.isFound {
                 for index in 0 ..< game.tiles.count {
@@ -46,20 +42,12 @@ class GridCellMock: GridCellProtocol {
             return
         }
 
-        game.tiles[row].markAsFlushed()
+        game.tiles[index].markAsFlushed()
     }
 
-    func getButton() -> UIButton {
-        return UIButton()
-    }
-
-    init(game: Game, row: Int) {
+    init(game: Game, index: Int) {
         self.game = game
-        self.row = row
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.index = index
     }
 }
 
@@ -311,7 +299,7 @@ class ComputerPlayerTests: XCTestCase {
 // MARK: Test helpers
 struct TestComputerPlayerHelper {
     static func buildPlayer(game: Game) -> ComputerPlayer {
-        let gridCollectionMock = GridCollectionMock(game: game)
-        return ComputerPlayer(game: game, grid: gridCollectionMock)
+        let boardMock = BoardMock(game: game)
+        return ComputerPlayer(game: game, board: boardMock)
     }
 }

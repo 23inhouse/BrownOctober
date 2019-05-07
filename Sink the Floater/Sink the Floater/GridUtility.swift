@@ -18,17 +18,11 @@ class Matrix {
         for y in 0 ..< height {
             let row = y * width
             let rowString = data[row ..< (row + width)]
-                .map { $0 == nil ? "  " : spaced($0!, width: 2) }
+                .map { $0 == nil ? "  " : String(describing: $0!).spaced(width: 2, with: " ") }
                 .joined(separator: ", ")
             Swift.print("    [\(rowString)]")
         }
     }
-
-    private func spaced(_ n: Int, width: Int) -> String {
-        let str = String(describing: n)
-        return String(repeating: " ", count: width - str.count) + str
-    }
-
 }
 
 class GridUtility: Equatable {
