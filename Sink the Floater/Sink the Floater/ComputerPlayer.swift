@@ -12,6 +12,8 @@ typealias NextGuess = (@escaping () -> Void) -> ()
 
 class ComputerPlayer {
 
+    let debug = false
+
     let game: Game
     let grid: GridCollectionProtocol
     let gridUtility: GridUtility
@@ -47,19 +49,19 @@ class ComputerPlayer {
         cell.touchButton(cell.getButton())
 
         if self.game.score == previousScore {
-//            if let (x, y) = gridUtility.calcXY(index) {
-//                print("[\(guessCount())] Missed! at (\(x), \(y))")
-//            }
+            if debug == true, let (x, y) = gridUtility.calcXY(index) {
+                print("[\(guessCount())] Missed! at (\(x), \(y))")
+            }
             return false
         }
 
-//        let poopIdentifier = self.game.tiles[index].poopIdentifier
-//        if let (x, y) = gridUtility.calcXY(index) {
-//            print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
-//        }
-//        if self.game.poops[poopIdentifier - 1].isFound {
-//            print("[\(guessCount())] Found! #\(poopIdentifier)")
-//        }
+        let poopIdentifier = self.game.tiles[index].poopIdentifier
+        if debug == true, let (x, y) = gridUtility.calcXY(index) {
+            print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
+        }
+        if debug == true, self.game.poops[poopIdentifier - 1].isFound {
+            print("[\(guessCount())] Found! #\(poopIdentifier)")
+        }
 
         return true
     }
@@ -81,9 +83,9 @@ class ComputerPlayer {
             return
         }
 
-//        if let (x, y) = gridUtility.calcXY(index) {
-//            print("[\(guessCount())] Hunting at (\(x), \(y))")
-//        }
+        if debug == true, let (x, y) = gridUtility.calcXY(index) {
+            print("[\(guessCount())] Hunting at (\(x), \(y))")
+        }
 
         if self.makeGuess(index) {
             if self.game.gameOver() { return }
@@ -107,9 +109,9 @@ class ComputerPlayer {
     // search by creating a heat map of all possible poops in every position
     private func huntForOsamaBrownLaden(_ index: Int) {
 
-//        if let (x, y) = gridUtility.calcXY(index) {
-//            print("[\(guessCount())] Hunt round (\(x), \(y))")
-//        }
+        if debug == true, let (x, y) = gridUtility.calcXY(index) {
+            print("[\(guessCount())] Hunt round (\(x), \(y))")
+        }
 
         guard let data = calcHeatMaps(index) else {
             print("Error: No data found")
@@ -140,9 +142,11 @@ class ComputerPlayer {
         for n in Array(0 ... mustMatch).reversed() {
             let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
             if self.findHottestIndex(data: data) != nil {
-//                print("[\(guessCount())] Must match = \(n)")
-//                heatMap.data = data
-//                heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
+                if debug == true {
+                    print("[\(guessCount())] Must match = \(n)")
+                    heatMap.data = data
+                    heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
+                }
                 return data
             }
         }
@@ -271,9 +275,9 @@ class ComputerPlayer {
         if index == nil {
             for (i, tile) in game.tiles.enumerated() {
                 if tile.isFound && !tile.isFlushed {
-//                    if let (x, y) = gridUtility.calcXY(i) {
-//                        print("Continuing from incomplete poop at (\(x), \(y))")
-//                    }
+                    if debug == true, let (x, y) = gridUtility.calcXY(i) {
+                        print("Continuing from incomplete poop at (\(x), \(y))")
+                    }
                     return (nil, i)
                 }
             }
@@ -305,7 +309,9 @@ class ComputerPlayer {
         heatMap.width = self.gridUtility.width
         heatMap.height = self.gridUtility.height
         heatMap.data = bestGuesses
-//        heatMap.print("Best Random Guess")
+        if debug == true {
+            heatMap.print("Best Random Guess")
+        }
 
         let highests = bestGuesses.filter({ $0 != nil }).sorted(by: {$0! > $1!})
         let highest = highests.first!
