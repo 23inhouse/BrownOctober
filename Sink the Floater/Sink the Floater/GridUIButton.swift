@@ -14,6 +14,7 @@ protocol GridButtonDelegate {
 
 protocol GridButtonProtocol {
     func touch(_ sender: GridButtonProtocol)
+    func getText() -> String
 }
 
 class GridUIButton: UIButton, GridButtonProtocol {
@@ -57,8 +58,12 @@ class GridUIButton: UIButton, GridButtonProtocol {
     }
 
     internal func touch(_ sender: GridButtonProtocol) {
-//        guard sender.label.text == "" else { return }
+        guard sender.getText() == "" else { return }
         gridButtonDelegate.didTouchGridButton(sender)
+    }
+
+    internal func getText() -> String {
+        return label.text!
     }
 
     init(index: Int, margin: CGFloat) {
