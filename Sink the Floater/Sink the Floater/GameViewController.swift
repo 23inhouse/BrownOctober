@@ -16,8 +16,9 @@ class GameViewController: UIViewController {
     var remainingFlushLabel: ScoreUILabel!
     var foundPoopsLabel: ScoreUILabel!
 
-    lazy var game = SinkTheFloater()
-    lazy var computer = ComputerPlayer(game: game, board: boardView, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
+    lazy var board = getNewBoard()
+    lazy var computer = getComputerPlayer()
+    lazy var foundPoops = Board(width: 15, height: 7, poops: Poop.pinchSomeOff())
 
     var remainingFlushCount = 99 {
         didSet {
@@ -29,6 +30,25 @@ class GameViewController: UIViewController {
         didSet {
             self.foundPoopsLabel.setScore(score: poopsFoundCount)
         }
+    }
+
+    private func getNewBoard() -> Board {
+        return SinkTheFloater().board
+    }
+
+    private func getComputerPlayer() -> ComputerPlayer {
+        return ComputerPlayer(board: board, boardProtocol: boardView, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
+    }
+
+    private func setupFoundPoops() {
+        let poops = foundPoops.poops
+
+        _ = foundPoops.placePoop(poops[0], x: 1, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[1], x: 3, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[2], x: 5, y: 3, direction: 1, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[3], x: 8, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[4], x: 10, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[5], x: 12, y: 2, direction: 1, tiles: &foundPoops.tiles, check: false)
     }
 
     private func flushPoop(_ ident: Int) {
@@ -49,8 +69,7 @@ class GameViewController: UIViewController {
         default:
             color = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
         }
-        for i in 0 ..< self.game.tiles.count {
-            let tile = self.game.tiles[i]
+        for (i, tile) in self.board.tiles.enumerated() {
             if tile.poopIdentifier != ident { continue }
 
             tile.markAsFlushed()
@@ -59,8 +78,7 @@ class GameViewController: UIViewController {
             button.setData(text: "💩", color: color, alpha: 1)
         }
 
-        for i in 0 ..< self.game.labelTiles.count {
-            let tile = self.game.labelTiles[i]
+        for (i, tile) in foundPoops.tiles.enumerated() {
             if tile.poopIdentifier != ident { continue }
 
             let button = poopView.buttons[i]
@@ -70,25 +88,27 @@ class GameViewController: UIViewController {
 
     private func resetGame() {
         resetBoard()
-        resetLabels()
+        resetFoundPoops()
 
-        self.game = SinkTheFloater()
-        self.computer = ComputerPlayer(game: game, board: boardView, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
+        board = getNewBoard()
+        computer = getComputerPlayer()
 
         remainingFlushCount = 99
         poopsFoundCount = 0
     }
 
     private func resetBoard() {
-        for i in 0 ..< game.tiles.count {
+        for i in 0 ..< board.tiles.count {
             let button = boardView.buttons[i]
             button.setData(text: "", color: .white, alpha: 1)
         }
     }
 
-    private func resetLabels() {
-        for i in 0 ..< game.labelTiles.count {
-            let text = game.labelTiles[i].poopIdentifier > 0 ? "💩" : ""
+    private func resetFoundPoops() {
+        setupFoundPoops()
+
+        for (i, tile) in foundPoops.tiles.enumerated() {
+            let text = tile.poopIdentifier > 0 ? "💩" : ""
             let button = poopView.buttons[i]
             button.setData(text: text, color: .white, alpha: 1)
         }
@@ -123,7 +143,7 @@ class GameViewController: UIViewController {
         self.foundPoopsLabel = scoreView.foundPoopsLabel
 
         resetBoard()
-        resetLabels()
+        resetFoundPoops()
     }
 }
 
@@ -135,7 +155,7 @@ extension GameViewController: GridButtonDelegate {
 
         let index = button.index
 
-        if let (_, poop) = game.wipe(at: index) {
+        if let (_, poop) = board.wipe(at: index) {
             button.setData(text: "💩", color: .white, alpha: 1)
             poopsFoundCount += 1
 
@@ -145,7 +165,7 @@ extension GameViewController: GridButtonDelegate {
             return
         }
 
-        game.tiles[index].markAsFlushed()
+        board.tiles[index].markAsFlushed()
         button.setData(text: "🌊", color: .white, alpha: 0.65)
     }
 }

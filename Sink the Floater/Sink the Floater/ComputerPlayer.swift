@@ -14,8 +14,8 @@ class ComputerPlayer {
 
     let debug = false
 
-    let game: Game
-    let board: BoardProtocol
+    let board: Board
+    let boardProtocol: BoardProtocol
     let gridUtility: GridUtility
     let maxGuesses = 100
     var guesses = [Int]()
@@ -40,23 +40,23 @@ class ComputerPlayer {
 
     private func makeGuess(_ index: Int) -> Bool {
 
-        let previousScore = self.game.score
+        let previousScore = self.board.score
 
-        let button = board.getButton(at: index)
+        let button = boardProtocol.getButton(at: index)
         button.touch(button)
 
-        if self.game.score == previousScore {
+        if self.board.score == previousScore {
             if debug == true, let (x, y) = gridUtility.calcXY(index) {
                 print("[\(guessCount())] Missed! at (\(x), \(y))")
             }
             return false
         }
 
-        let poopIdentifier = self.game.tiles[index].poopIdentifier
+        let poopIdentifier = self.board.tiles[index].poopIdentifier
         if debug == true, let (x, y) = gridUtility.calcXY(index) {
             print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
         }
-        if debug == true, self.game.poops[poopIdentifier - 1].isFound {
+        if debug == true, self.board.poops[poopIdentifier - 1].isFound {
             print("[\(guessCount())] Found! #\(poopIdentifier)")
         }
 
@@ -66,7 +66,7 @@ class ComputerPlayer {
     // the main hunting controller
     private func huntForBrownOctober(_ guessIndex: Int?) {
 
-        guard !self.game.gameOver() && guessCount() < maxGuesses else { return }
+        guard !board.flushedAllPoops() && guessCount() < maxGuesses else { return }
 
         let (newGuessIndex, incompletePoopIndex) = newUnusedGuess(guessIndex)
 
@@ -85,11 +85,11 @@ class ComputerPlayer {
         }
 
         if self.makeGuess(index) {
-            if self.game.gameOver() { return }
+            if self.board.flushedAllPoops() { return }
 
-            let poopIdent = self.game.tiles[index].poopIdentifier
+            let poopIdent = self.board.tiles[index].poopIdentifier
 
-            let poop = self.game.poops[poopIdent - 1]
+            let poop = self.board.poops[poopIdent - 1]
             if poop.isFound {
                 self.nextGuessClosure() { self.huntForBrownOctober(nil) }
                 return
@@ -127,8 +127,8 @@ class ComputerPlayer {
     private func calcHeatMaps(_ index: Int) -> [Int?]? {
         let size = [gridUtility.width, gridUtility.height].max()!
 
-        let values = self.game.exportGridValues()
-        guard let matrix = self.game.gridUtility.captureGrid(values, at: index, size: size) else {
+        let values = board.currentState()
+        guard let matrix = board.gridUtility.captureGrid(values, at: index, size: size) else {
             print("Error: Invalid matrix")
             return nil
         }
@@ -152,7 +152,7 @@ class ComputerPlayer {
     }
 
     private func calcHeatMap(from matrix: Matrix, to heatMap: Matrix, mustMatch: Int) -> [Int?] {
-        for poop in game.poops {
+        for poop in board.poops {
             if poop.isFound { continue }
 
             for direction in Array(0 ..< 4) {
@@ -177,7 +177,7 @@ class ComputerPlayer {
         var size = 0
 
         for value in data { if value == 1 { size += 1 } }
-        let max = game.biggestPoop() - 1
+        let max = board.biggestPoop() - 1
         if size > max { size = max }
 
         return size
@@ -270,7 +270,7 @@ class ComputerPlayer {
 
     private func newUnusedGuess(_ index: Int?) -> (Int?, Int?) {
         if index == nil {
-            for (i, tile) in game.tiles.enumerated() {
+            for (i, tile) in board.tiles.enumerated() {
                 if tile.isFound && !tile.isFlushed {
                     if debug == true, let (x, y) = gridUtility.calcXY(i) {
                         print("Continuing from incomplete poop at (\(x), \(y))")
@@ -290,17 +290,21 @@ class ComputerPlayer {
             return (nil, nil)
         }
 
-        var guess = randomGuessIndex()
+        guard var guess = randomGuessIndex() else { return (nil, nil) }
         while guesses.contains(guess) {
-            guess = randomGuessIndex()
+            guard let nextGuess = randomGuessIndex() else { return (nil, nil) }
+            guess = nextGuess
         }
         guesses.append(guess)
 
         return (guess, nil)
     }
 
-    private func randomGuessIndex() -> Int {
-        let bestGuesses = calcHeatMaps(0)!
+    private func randomGuessIndex() -> Int? {
+        guard let bestGuesses = calcHeatMaps(0) else {
+            print("Error no more guesses from heatmap")
+            return nil
+        }
 
         let heatMap = Matrix()
         heatMap.width = self.gridUtility.width
@@ -322,10 +326,10 @@ class ComputerPlayer {
         return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
     }
 
-    init(game: Game, board: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
-        self.game = game
+    init(board: Board, boardProtocol: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
         self.board = board
-        self.gridUtility = game.gridUtility
+        self.boardProtocol = boardProtocol
+        self.gridUtility = board.gridUtility
         self.nextGuessClosure = nextGuessClosure == nil ? ComputerPlayer.makeGuessClosure : nextGuessClosure!
     }
 }

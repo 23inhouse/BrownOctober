@@ -18,7 +18,7 @@
 		B5291ED422689C98002C49B0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED322689C98002C49B0 /* Tile.swift */; };
 		B5291ED622689DC7002C49B0 /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED522689DC7002C49B0 /* Poop.swift */; };
 		B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */; };
-		B5994B04227726D4001999AE /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* GameTests.swift */; };
+		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA736A225CC7C1008AAEA2 /* ViewController.swift */; };
@@ -53,7 +53,7 @@
 		B5291ED322689C98002C49B0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		B5291ED522689DC7002C49B0 /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
 		B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
-		B5994B03227726D4001999AE /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sink the Floater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +91,7 @@
 		B51B6EAB2280F37C00CEBDDC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B5F165A62271C15400789DC3 /* GridUtility.swift */,
 				B51B6EAC2280F39000CEBDDC /* String.swift */,
 			);
 			path = Utilities;
@@ -121,7 +122,6 @@
 				B5291ED122689C6D002C49B0 /* Sink the Floater.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
-				B5F165A62271C15400789DC3 /* GridUtility.swift */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
@@ -153,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
-				B5994B03227726D4001999AE /* GameTests.swift */,
+				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
 				B5F165B02274AE3E00789DC3 /* Info.plist */,
 			);
@@ -286,7 +286,7 @@
 			files = (
 				B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */,
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
-				B5994B04227726D4001999AE /* GameTests.swift in Sources */,
+				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

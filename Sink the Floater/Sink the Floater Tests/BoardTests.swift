@@ -1,5 +1,5 @@
 //
-//  GameTests.swift
+//  BoardTests.swift
 //  Sink the Floater Tests
 //
 //  Created by Benjamin Lewis on 29/4/19.
@@ -10,7 +10,7 @@ import XCTest
 
 @testable import Sink_the_Floater
 
-class GameTests: XCTestCase {
+class BoardTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -24,34 +24,34 @@ class GameTests: XCTestCase {
 
     func testPlacePoop() {
         let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildGame(width: 2, height: 1, poops: [poop])
+        let board = TestBoardHelper.buildBoard(width: 2, height: 1, poops: [poop])
 
-        let placed = game.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &game.tiles, utility: game.gridUtility)
+        let placed = board.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
 
         XCTAssertEqual(placed, true, "The poop should! fit here")
     }
 
     func testPlacePoopThatIsTooBig() {
         let poop = Poop.poop1(0)
-        let game = TestGameHelper.buildGame(width: 1, height: 1, poops: [poop])
+        let board = TestBoardHelper.buildBoard(width: 1, height: 1, poops: [poop])
 
-        let placed = game.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &game.tiles, utility: game.gridUtility)
+        let placed = board.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
 
         XCTAssertEqual(placed, false, "The poop should not! fit here")
     }
 
     func testExportGridValues() {
-        let game = TestGameHelper.buildGame(width: 3, height: 3)
-        let exportValues = game.exportGridValues()
+        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        let exportValues = board.currentState()
 
         XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
         XCTAssertEqual(exportValues.reduce(0) { $0 + $1! }, 0, "All the values should be zero")
     }
 
     func testExportGridValuesWithFoundTiles() {
-        let game = TestGameHelper.buildGame(width: 3, height: 3)
-        game.tiles[4].isFound = true
-        let exportValues = game.exportGridValues()
+        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        board.tiles[4].isFound = true
+        let exportValues = board.currentState()
         print(exportValues)
 
         XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
@@ -59,10 +59,10 @@ class GameTests: XCTestCase {
     }
 
     func testExportGridValuesWithFlushedTiles() {
-        let game = TestGameHelper.buildGame(width: 3, height: 3)
-        game.tiles[4].isFlushed = true
+        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        board.tiles[4].isFlushed = true
 
-        let exportValues = game.exportGridValues()
+        let exportValues = board.currentState()
         print(exportValues)
 
         XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
@@ -71,35 +71,35 @@ class GameTests: XCTestCase {
 }
 
 // MARK: Test helpers
-struct TestGameHelper {
+struct TestBoardHelper {
 
-    static func buildGame(width: Int, height: Int, poops: [Poop] = []) -> Game {
-        let game = Game(width: width, height: height)
-        game.createGrid(tiles: &game.tiles, utility: game.gridUtility)
-        game.poops = poops
+    static func buildBoard(width: Int, height: Int, poops: [Poop] = []) -> Board {
+        let board = Board(width: width, height: height)
+        board.tiles = board.cleanTiles()
+        board.poops = poops
 
-        return game
+        return board
     }
 
-    static func placeSinglePoopOnGame(game: Game, poop: Poop, x: Int, y: Int, d: Int) {
-        game.poops = [poop]
-        placePoopOnGame(game: game, poop: poop, x: x, y: y, d: d)
+    static func placeSinglePoopOnBoard(board: Board, poop: Poop, x: Int, y: Int, d: Int) {
+        board.poops = [poop]
+        placePoopOnBoard(board: board, poop: poop, x: x, y: y, d: d)
     }
 
-    static func placePoopOnGame(game: Game, poop: Poop, x: Int, y: Int, d: Int) {
-        if !game.placePoop(poop, x: x, y: y, direction: d, tiles: &game.tiles, utility: game.gridUtility, check: false) {
+    static func placePoopOnBoard(board: Board, poop: Poop, x: Int, y: Int, d: Int) {
+        if !board.placePoop(poop, x: x, y: y, direction: d, tiles: &board.tiles, check: false) {
             print("---------------------- The poop didn't fit! ----------------------")
-            printGrid(tiles: game.tiles, utility: game.gridUtility)
+            printGrid(tiles: board.tiles, utility: board.gridUtility)
             exit(1)
         }
-//        printGrid(tiles: game.tiles, utility: game.gridUtility)
+//        printGrid(tiles: board.tiles, utility: board.gridUtility)
     }
 
-    static func buildSinglePoopGame(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Game {
-        let game = buildGame(width: width, height: height)
-        placeSinglePoopOnGame(game: game, poop: poop, x: x, y: y, d: d)
+    static func buildSinglePoopBoard(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Board {
+        let board = buildBoard(width: width, height: height)
+        placeSinglePoopOnBoard(board: board, poop: poop, x: x, y: y, d: d)
 
-        return game
+        return board
     }
 
     static func printGrid(tiles: [Tile], utility: GridUtility) {
