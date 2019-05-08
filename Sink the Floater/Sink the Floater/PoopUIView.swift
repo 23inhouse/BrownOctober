@@ -46,8 +46,8 @@ class PoopUIView: UIView {
         addSubview(gridView)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
 
         setupView()
     }

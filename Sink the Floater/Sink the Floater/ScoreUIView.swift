@@ -46,8 +46,8 @@ class ScoreUIView: UIView {
         addSubview(labelView)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
 
         setupView()
     }

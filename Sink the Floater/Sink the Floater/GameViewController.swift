@@ -117,7 +117,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let boardView = BoardUIView(frame: view.frame)
+        let boardView = BoardUIView()
         view.addSubview(boardView)
         boardView.constrainTo(view.safeAreaLayoutGuide)
         self.boardView = boardView
@@ -125,18 +125,18 @@ class GameViewController: UIViewController {
             button.gridButtonDelegate = self
         }
 
-        let poopView = PoopUIView(frame: view.frame)
+        let poopView = PoopUIView()
         view.addSubview(poopView)
         poopView.constrainTo(boardView)
         self.poopView = poopView
 
-        let menuView = MenuUIView(frame: view.frame)
+        let menuView = MenuUIView()
         view.addSubview(menuView)
         menuView.constrainTo(boardView: boardView, poopView: poopView)
         menuView.newGameButtonDelegate = self
         menuView.solveGameButtonDelegate = self
 
-        let scoreView = ScoreUIView(frame: view.frame)
+        let scoreView = ScoreUIView()
         view.addSubview(scoreView)
         scoreView.constrainTo(mainView: view, poopView: poopView, menuView: menuView)
         self.remainingFlushLabel = scoreView.remaningFlushLabel
