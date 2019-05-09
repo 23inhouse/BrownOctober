@@ -8,42 +8,36 @@
 
 import UIKit
 
-class ScoreUIView: UIView {
+class ScoreUIView: UIStackView {
 
     let labelSpacing: CGFloat = 5
-    let labelPadding: CGFloat = 3
-    let scorePadding: CGFloat = 10
+    let scoreMargin: CGFloat = 10
+    let scoreTopMargin: CGFloat = 30
 
     let remaningFlushLabel = ScoreUILabel("🚽", score: 99)
     let foundPoopsLabel = ScoreUILabel("💩", score: 0)
+
     lazy var labelView = UIStackView(arrangedSubviews: [remaningFlushLabel, foundPoopsLabel])
 
-    func constrainTo(mainView: UIView, poopView: UIView, menuView: UIView) {
+    func constrainTo(parentView: UIView, poopView: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: poopView.leadingAnchor, constant: scorePadding),
-            trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -scorePadding),
-            topAnchor.constraint(equalTo: mainView.topAnchor, constant: 30),
-            bottomAnchor.constraint(equalTo: poopView.topAnchor, constant: -10)
-            ])
-
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            labelView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            labelView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            labelView.topAnchor.constraint(equalTo: topAnchor),
-            labelView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: scoreMargin),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -scoreMargin),
+            topAnchor.constraint(equalTo: parentView.topAnchor, constant: scoreTopMargin),
+            bottomAnchor.constraint(equalTo: poopView.topAnchor, constant: -scoreMargin)
             ])
     }
 
     private func setupView() {
-        labelView.axis = .horizontal
-        labelView.alignment = .fill
-        labelView.distribution = .fillEqually
-        labelView.spacing = labelSpacing
+        axis = .horizontal
+        alignment = .fill
+        distribution = .fillEqually
+        spacing = labelSpacing
 
-        addSubview(labelView)
+        addArrangedSubview(remaningFlushLabel)
+        addArrangedSubview(foundPoopsLabel)
     }
 
     init() {
@@ -52,7 +46,7 @@ class ScoreUIView: UIView {
         setupView()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

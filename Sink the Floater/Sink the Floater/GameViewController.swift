@@ -10,11 +10,11 @@ import UIKit
 
 class GameViewController: UIViewController {
 
-    var poopView: PoopUIView!
+    var playerView: PlayerUIView!
     var boardView: BoardUIView!
-
-    var remainingFlushLabel: ScoreUILabel!
-    var foundPoopsLabel: ScoreUILabel!
+    var poopView: PoopUIView!
+    var menuView: MenuUIView!
+    var scoreView: ScoreUIView!
 
     lazy var board = getNewBoard()
     lazy var computer = getComputerPlayer()
@@ -22,13 +22,13 @@ class GameViewController: UIViewController {
 
     var remainingFlushCount = 99 {
         didSet {
-            self.remainingFlushLabel.setScore(score: remainingFlushCount)
+            self.scoreView.remaningFlushLabel.setScore(score: remainingFlushCount)
         }
     }
 
     var poopsFoundCount = 0 {
         didSet {
-            self.foundPoopsLabel.setScore(score: poopsFoundCount)
+            self.scoreView.foundPoopsLabel.setScore(score: poopsFoundCount)
         }
     }
 
@@ -117,30 +117,19 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let boardView = BoardUIView()
-        view.addSubview(boardView)
-        boardView.constrainTo(view.safeAreaLayoutGuide)
-        self.boardView = boardView
-        for button in boardView.buttons {
-            button.gridButtonDelegate = self
-        }
+        let playerView = PlayerUIView()
+        view.addSubview(playerView)
+        playerView.constrainTo(view.safeAreaLayoutGuide)
+        playerView.setGridButtonDeletage(self)
 
-        let poopView = PoopUIView()
-        view.addSubview(poopView)
-        poopView.constrainTo(boardView)
-        self.poopView = poopView
+        self.playerView = playerView
+        self.boardView = playerView.boardView
+        self.poopView = playerView.poopView
+        self.menuView = playerView.menuView
+        self.scoreView = playerView.scoreView
 
-        let menuView = MenuUIView()
-        view.addSubview(menuView)
-        menuView.constrainTo(boardView: boardView, poopView: poopView)
         menuView.newGameButtonDelegate = self
         menuView.solveGameButtonDelegate = self
-
-        let scoreView = ScoreUIView()
-        view.addSubview(scoreView)
-        scoreView.constrainTo(mainView: view, poopView: poopView, menuView: menuView)
-        self.remainingFlushLabel = scoreView.remaningFlushLabel
-        self.foundPoopsLabel = scoreView.foundPoopsLabel
 
         resetBoard()
         resetFoundPoops()
@@ -182,4 +171,3 @@ extension GameViewController: SolveGameButtonDelegate {
         computer.play()
     }
 }
-

@@ -17,7 +17,7 @@ class BoardUIView: UIView, BoardProtocol {
     lazy var gridView = GridUIStackView(cols: 10, rows: 10)
     lazy var buttons = gridView.buttons
 
-    func constrainTo(_ layoutGuide: UILayoutGuide) {
+    func constrainTo(_ parentView: UIView) {
         let constraintHeight = NSLayoutConstraint(
             item: self,
             attribute: .height,
@@ -28,13 +28,19 @@ class BoardUIView: UIView, BoardProtocol {
 
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
-            bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor),
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
             constraintHeight
             ])
 
         gridView.constrainTo(self)
+    }
+
+    func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
+        for button in buttons {
+            button.gridButtonDelegate = delegate
+        }
     }
 
     func getButton(at index: Int) -> GridButtonProtocol {

@@ -25,6 +25,7 @@
 		B5AA736E225CC7C1008AAEA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736C225CC7C1008AAEA2 /* Main.storyboard */; };
 		B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */; };
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
+		B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165A62271C15400789DC3 /* GridUtility.swift */; };
@@ -62,6 +63,7 @@
 		B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5AA7372225CC7C3008AAEA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5AA7374225CC7C3008AAEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUIView.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5F165A62271C15400789DC3 /* GridUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtility.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
+				B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */,
 				B51B6EA5228066A900CEBDDC /* ScoreUIView.swift */,
 				B51B6EA922809DEE00CEBDDC /* ScoreUILabel.swift */,
 				B51B6EA3228055F800CEBDDC /* MenuUIView.swift */,
@@ -271,6 +274,7 @@
 				B51B6EA8228081FB00CEBDDC /* GridUIButton.swift in Sources */,
 				B5291ED622689DC7002C49B0 /* Poop.swift in Sources */,
 				B51B6EA4228055F800CEBDDC /* MenuUIView.swift in Sources */,
+				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
 				B51B6EAA22809DEE00CEBDDC /* ScoreUILabel.swift in Sources */,
 				B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */,
 				B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */,
