@@ -14,7 +14,7 @@ protocol BoardProtocol {
 
 class BoardUIView: UIView, BoardProtocol {
 
-    lazy var gridView = GridUIStackView(cols: 10, rows: 10)
+    lazy var gridView = GridUIStackView(cols: 10, rows: 10, active: true)
     lazy var buttons = gridView.buttons
 
     func constrainTo(_ parentView: UIView) {
@@ -35,6 +35,10 @@ class BoardUIView: UIView, BoardProtocol {
             ])
 
         gridView.constrainTo(self)
+    }
+
+    func reset() {
+        gridView.reset()
     }
 
     func setGridButtonDeletage(_ delegate: GridButtonDelegate) {

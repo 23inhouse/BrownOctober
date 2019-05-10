@@ -19,7 +19,7 @@ protocol GridButtonProtocol {
 
 class GridUIButton: UIButton, GridButtonProtocol {
 
-    var gridButtonDelegate: GridButtonDelegate!
+    var gridButtonDelegate: GridButtonDelegate?
 
     let index: Int
     lazy var label = UILabel()
@@ -38,14 +38,13 @@ class GridUIButton: UIButton, GridButtonProtocol {
             label.topAnchor.constraint(equalTo: topAnchor, constant: -margin),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: margin)
             ])
-
     }
 
     private func setupView() {
         backgroundColor = .white
         addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
-        label.font = label.font.withSize(50)
+        label.font = label.font.withSize(100)
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -59,7 +58,7 @@ class GridUIButton: UIButton, GridButtonProtocol {
 
     internal func touch(_ sender: GridButtonProtocol) {
         guard sender.getText() == "" else { return }
-        gridButtonDelegate.didTouchGridButton(sender)
+        gridButtonDelegate?.didTouchGridButton(sender)
     }
 
     internal func getText() -> String {

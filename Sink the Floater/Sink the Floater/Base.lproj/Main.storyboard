@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jdy-Ta-OQs">
-    <device id="retina5_9" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jdy-Ta-OQs">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,48 +15,62 @@
             <objects>
                 <viewController id="huP-Mt-ZQj" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1R8-t7-dcu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWa-Bp-f6z">
-                                <rect key="frame" x="0.0" y="44" width="375" height="534"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="290"/>
+                                <rect key="frame" x="0.0" y="170" width="320" height="398"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="240"/>
                                 <state key="normal" title="💩"/>
                                 <connections>
                                     <segue destination="jdy-Ta-OQs" kind="show" identifier="StartGame" id="Nkj-nm-W4v"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sink the Floater" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoA-dE-sgY">
-                                <rect key="frame" x="16" y="586" width="343" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BROWN OCTOBER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoA-dE-sgY">
+                                <rect key="frame" x="16" y="120" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="dg6-Ri-Tau"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HUNT FOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yz1-Mb-VLc">
+                                <rect key="frame" x="16" y="60" width="288" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="SZt-GO-xhn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zoA-dE-sgY" firstAttribute="leading" secondItem="xEW-R7-Nxe" secondAttribute="leading" constant="16" id="6CP-Qn-9IL"/>
-                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="leading" secondItem="xEW-R7-Nxe" secondAttribute="leading" id="6UU-6n-fFz"/>
-                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="trailing" secondItem="zoA-dE-sgY" secondAttribute="trailing" constant="16" id="9Af-KD-chg"/>
-                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="bottom" secondItem="zoA-dE-sgY" secondAttribute="bottom" constant="148" id="HoT-H4-5Bx"/>
-                            <constraint firstItem="zoA-dE-sgY" firstAttribute="top" secondItem="MWa-Bp-f6z" secondAttribute="bottom" constant="8" id="ICe-Tc-TAy"/>
-                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="trailing" secondItem="xEW-R7-Nxe" secondAttribute="trailing" id="R38-t3-oM9"/>
-                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="bottom" secondItem="MWa-Bp-f6z" secondAttribute="bottom" constant="200" id="Xu8-WK-SvJ"/>
-                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="top" secondItem="xEW-R7-Nxe" secondAttribute="top" id="ni4-WP-lPj"/>
+                            <constraint firstItem="zoA-dE-sgY" firstAttribute="leading" secondItem="xEW-R7-Nxe" secondAttribute="leading" constant="16" id="8xH-qH-pqy"/>
+                            <constraint firstItem="zoA-dE-sgY" firstAttribute="top" secondItem="yz1-Mb-VLc" secondAttribute="bottom" constant="10" id="HPV-Vp-rwR"/>
+                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="trailing" secondItem="zoA-dE-sgY" secondAttribute="trailing" constant="16" id="Kme-hv-vLc"/>
+                            <constraint firstItem="yz1-Mb-VLc" firstAttribute="top" secondItem="xEW-R7-Nxe" secondAttribute="top" constant="40" id="Ku7-KP-B9j"/>
+                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="bottom" secondItem="MWa-Bp-f6z" secondAttribute="bottom" id="QxK-o5-R5s"/>
+                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="top" secondItem="zoA-dE-sgY" secondAttribute="bottom" id="TQU-Cf-ICW"/>
+                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="leading" secondItem="xEW-R7-Nxe" secondAttribute="leading" id="VZ4-Bq-r6A"/>
+                            <constraint firstItem="yz1-Mb-VLc" firstAttribute="leading" secondItem="xEW-R7-Nxe" secondAttribute="leading" constant="16" id="f6i-ch-hj8"/>
+                            <constraint firstItem="xEW-R7-Nxe" firstAttribute="trailing" secondItem="yz1-Mb-VLc" secondAttribute="trailing" constant="16" id="gMP-Dm-pca"/>
+                            <constraint firstItem="MWa-Bp-f6z" firstAttribute="trailing" secondItem="xEW-R7-Nxe" secondAttribute="trailing" id="kMz-PL-Dan"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xEW-R7-Nxe"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1RV-Q0-f4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1660" y="31.03448275862069"/>
+            <point key="canvasLocation" x="-1661.25" y="30.633802816901408"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="ROm-4I-Njd">
             <objects>
                 <viewController id="jdy-Ta-OQs" customClass="GameViewController" customModule="Sink_the_Floater" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NZ7-1Q-CjC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sVB-Po-Rgx"/>

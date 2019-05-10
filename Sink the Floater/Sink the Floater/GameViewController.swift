@@ -10,164 +10,118 @@ import UIKit
 
 class GameViewController: UIViewController {
 
-    var playerView: PlayerUIView!
-    var boardView: BoardUIView!
-    var poopView: PoopUIView!
-    var menuView: MenuUIView!
-    var scoreView: ScoreUIView!
+    var playerOneController: PlayerViewController!
+    var playerTwoController: PlayerViewController!
 
-    lazy var board = getNewBoard()
-    lazy var computer = getComputerPlayer()
-    lazy var foundPoops = Board(width: 15, height: 7, poops: Poop.pinchSomeOff())
+    var playersView: PlayersUIStackView!
 
-    var remainingFlushCount = 99 {
-        didSet {
-            self.scoreView.remaningFlushLabel.setScore(score: remainingFlushCount)
-        }
-    }
+    lazy var sinkTheFloater = SinkTheFloater()
+    lazy var playerOne = sinkTheFloater.playerOne
+    lazy var playerTwo = sinkTheFloater.playerTwo
 
-    var poopsFoundCount = 0 {
-        didSet {
-            self.scoreView.foundPoopsLabel.setScore(score: poopsFoundCount)
-        }
-    }
-
-    private func getNewBoard() -> Board {
-        return SinkTheFloater().board
-    }
-
-    private func getComputerPlayer() -> ComputerPlayer {
-        return ComputerPlayer(board: board, boardProtocol: boardView, nextGuessClosure: ComputerPlayer.makeDelayedGuessClosure)
-    }
-
-    private func setupFoundPoops() {
-        let poops = foundPoops.poops
-
-        _ = foundPoops.placePoop(poops[0], x: 1, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[1], x: 3, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[2], x: 5, y: 3, direction: 1, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[3], x: 8, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[4], x: 10, y: 5, direction: 3, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[5], x: 12, y: 2, direction: 1, tiles: &foundPoops.tiles, check: false)
-    }
-
-    private func flushPoop(_ ident: Int) {
-        let color: UIColor
-        switch ident {
-        case 1:
-            color = #colorLiteral(red: 1, green: 0.8801414616, blue: 0.8755826288, alpha: 1)
-        case 2:
-            color = #colorLiteral(red: 0.9995340705, green: 0.9970265407, blue: 0.8813460202, alpha: 1)
-        case 3:
-            color = #colorLiteral(red: 0.950082893, green: 0.985483706, blue: 0.8672256613, alpha: 1)
-        case 4:
-            color = #colorLiteral(red: 0.88, green: 0.9984898767, blue: 1, alpha: 1)
-        case 5:
-            color = #colorLiteral(red: 0.88, green: 0.8864146703, blue: 1, alpha: 1)
-        case 6:
-            color = #colorLiteral(red: 1, green: 0.88, blue: 0.9600842213, alpha: 1)
-        default:
-            color = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
-        }
-        for (i, tile) in self.board.tiles.enumerated() {
-            if tile.poopIdentifier != ident { continue }
-
-            tile.markAsFlushed()
-
-            let button = boardView.buttons[i]
-            button.setData(text: "💩", color: color, alpha: 1)
-        }
-
-        for (i, tile) in foundPoops.tiles.enumerated() {
-            if tile.poopIdentifier != ident { continue }
-
-            let button = poopView.buttons[i]
-            button.setData(text: "💩", color: color, alpha: 1)
-        }
-    }
+    lazy var computer = playerOneController.computer
 
     private func resetGame() {
-        resetBoard()
-        resetFoundPoops()
+        playerOneController.resetBoard()
+        playerTwoController.resetBoard()
 
-        board = getNewBoard()
-        computer = getComputerPlayer()
-
-        remainingFlushCount = 99
-        poopsFoundCount = 0
-    }
-
-    private func resetBoard() {
-        for i in 0 ..< board.tiles.count {
-            let button = boardView.buttons[i]
-            button.setData(text: "", color: .white, alpha: 1)
-        }
-    }
-
-    private func resetFoundPoops() {
-        setupFoundPoops()
-
-        for (i, tile) in foundPoops.tiles.enumerated() {
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            let button = poopView.buttons[i]
-            button.setData(text: text, color: .white, alpha: 1)
-        }
+        computer = playerOneController.computer
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let playerView = PlayerUIView()
-        view.addSubview(playerView)
-        playerView.constrainTo(view.safeAreaLayoutGuide)
-        playerView.setGridButtonDeletage(self)
+        let safeAreaView = SafeAreaUIView()
+        view.addSubview(safeAreaView)
+        safeAreaView.constrainTo(view.safeAreaLayoutGuide)
 
-        self.playerView = playerView
-        self.boardView = playerView.boardView
-        self.poopView = playerView.poopView
-        self.menuView = playerView.menuView
-        self.scoreView = playerView.scoreView
+        let playerOneController = buildPlayerViewController(sinkTheFloater.playerOne)
+        self.playerOneController = playerOneController
 
-        menuView.newGameButtonDelegate = self
-        menuView.solveGameButtonDelegate = self
+        let playerTwoController = buildPlayerViewController(sinkTheFloater.playerTwo)
+        playerTwoController.scoreView.newGameButtonDelegate = self
+        self.playerTwoController = playerTwoController
 
-        resetBoard()
-        resetFoundPoops()
+        let playersView = PlayersUIStackView(playerOneView: playerOneController.playerView, playerTwoView: playerTwoController.playerView)
+        safeAreaView.addSubview(playersView)
+        playersView.constrainTo(safeAreaView)
+        self.playersView = playersView
+    }
+
+    private func buildPlayerViewController(_ player: Player) -> PlayerViewController {
+        let playerViewController = PlayerViewController(player)
+        addChildViewController(playerViewController)
+        playerViewController.playerTurnDelegate = self
+        playerViewController.viewDidLoad()
+
+        return playerViewController
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            playerOneController.playerView.isHidden = true
+        case .unspecified: fallthrough
+        case .regular:
+            playerOneController.playerView.isHidden = false
+        }
     }
 }
 
-extension GameViewController: GridButtonDelegate {
-    func didTouchGridButton(_ sender: GridButtonProtocol) {
+extension GameViewController: PlayerTurnDelegate {
+    func nextTurn(from sender: PlayerViewController, switchPlayer: Bool) {
+        let player = sender.player
+        let playerView = sender.playerView!
 
-        let button = sender as! GridUIButton
-        remainingFlushCount -= 1
-
-        let index = button.index
-
-        if let (_, poop) = board.wipe(at: index) {
-            button.setData(text: "💩", color: .white, alpha: 1)
-            poopsFoundCount += 1
-
-            if poop.isFound {
-                flushPoop(poop.identifier)
-            }
-            return
+        if switchPlayer == player.isHuman {
+            playerView.boardView.isUserInteractionEnabled = false
         }
 
-        board.tiles[index].markAsFlushed()
-        button.setData(text: "🌊", color: .white, alpha: 0.65)
+        let delay = player.isHuman ? 0.05 : 0.5
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+            if switchPlayer {
+                self.showOther(playerView: playerView)
+            }
+
+            let delay = self.turnDelay(switchPlayer)
+
+            if switchPlayer == player.isHuman {
+                self.playComputerTurn(delay: delay)
+            }
+        })
     }
+
+    private func showOther(playerView: PlayerUIView) {
+        let otherPlayerView = playerView.player.isHuman ? self.playerOneController.playerView! : self.playerTwoController.playerView!
+        otherPlayerView.boardView.isUserInteractionEnabled = true
+
+        guard traitCollection.horizontalSizeClass == .compact else { return }
+
+        otherPlayerView.isHidden = false
+        playerView.isHidden = true
+    }
+
+    private func turnDelay(_ switchPlayer: Bool) -> Double {
+        let normal: Double = 0.5
+        let switching: Double = 1.0
+
+        guard traitCollection.horizontalSizeClass == .compact else { return normal }
+        guard switchPlayer else { return normal }
+
+        return switching
+    }
+
+    private func playComputerTurn(delay: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { self.computer.playNext() })
+    }
+
 }
 
 extension GameViewController: NewGameButtonDelegate {
     func didTouchNewGame() {
         resetGame()
-    }
-}
-
-extension GameViewController: SolveGameButtonDelegate {
-    func didTouchSolveGame() {
-        resetGame()
-        computer.play()
     }
 }

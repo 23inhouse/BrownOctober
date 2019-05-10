@@ -10,18 +10,20 @@ import UIKit
 
 class PlayerUIView: UIView {
 
+    let player: Player
+    let board: Board
+
     var boardView: BoardUIView!
     var poopView: PoopUIView!
-    var menuView: MenuUIView!
     var scoreView: ScoreUIView!
 
-    func constrainTo(_ layoutGuide: UILayoutGuide) {
+    func constrainTo(_ parentView: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
-            topAnchor.constraint(equalTo: layoutGuide.topAnchor),
-            bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            topAnchor.constraint(equalTo: parentView.topAnchor),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor)
             ])
     }
 
@@ -29,7 +31,16 @@ class PlayerUIView: UIView {
         boardView.setGridButtonDeletage(delegate)
     }
 
+    func resetBoard() {
+        boardView.reset()
+        poopView.reset()
+    }
+
     private func setupView() {
+        if player.isComputer {
+            isUserInteractionEnabled = false
+        }
+
         let boardView = BoardUIView()
         addSubview(boardView)
         boardView.constrainTo(self)
@@ -40,18 +51,18 @@ class PlayerUIView: UIView {
         poopView.constrainTo(boardView)
         self.poopView = poopView
 
-        let menuView = MenuUIView()
-        addSubview(menuView)
-        menuView.constrainTo(boardView: boardView, poopView: poopView)
-        self.menuView = menuView
-
-        let scoreView = ScoreUIView()
+        let scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
         addSubview(scoreView)
         scoreView.constrainTo(parentView: self, poopView: poopView)
         self.scoreView = scoreView
+
+        resetBoard()
     }
 
-    init() {
+    init(player: Player) {
+        self.player = player
+        self.board = player.board
+
         super.init(frame: .zero)
 
         setupView()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias NextGuess = (@escaping () -> Void) -> ()
+typealias NextGuess = (_ instance: ComputerPlayer, @escaping () -> Void) -> ()
 
 class ComputerPlayer {
 
@@ -22,17 +22,31 @@ class ComputerPlayer {
     var searchEfficiency: Double = 0.8
 
     let nextGuessClosure: NextGuess
+    var nextGuessQueue = [(() -> Void)]()
 
-    static func makeGuessClosure(closure: @escaping () -> Void) {
+    static func makeGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
         closure()
     }
 
-    static func makeDelayedGuessClosure(closure: @escaping () -> Void) {
+    static func makeDelayedGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: { closure() })
+    }
+
+    static func makeSingleDelayedGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
+        instance.nextGuessQueue.append(closure)
     }
 
     func play(startAt: Int? = nil) {
         huntForBrownOctober(startAt)
+    }
+
+    func playNext() {
+        guard let closure = nextGuessQueue.popLast() else {
+            play()
+            return
+        }
+
+        closure()
     }
 
     func guessCount() -> Int {
@@ -92,15 +106,15 @@ class ComputerPlayer {
 
             let poop = self.board.poops[poopIdent - 1]
             if poop.isFound {
-                self.nextGuessClosure() { self.huntForBrownOctober(nil) }
+                self.nextGuessClosure(self) { self.huntForBrownOctober(nil) }
                 return
             }
 
-            self.nextGuessClosure() { self.huntForOsamaBrownLaden(index) }
+            self.nextGuessClosure(self) { self.huntForOsamaBrownLaden(index) }
             return
         }
 
-        self.nextGuessClosure() { self.huntForBrownOctober(nil) }
+        self.nextGuessClosure(self) { self.huntForBrownOctober(nil) }
         return
     }
 

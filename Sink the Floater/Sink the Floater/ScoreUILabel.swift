@@ -13,7 +13,7 @@ class ScoreUILabel: UILabel {
     let label: String
     var score: Int
 
-    let fontSize: CGFloat = UIScreen.main.bounds.height / 16
+    let fontSize: CGFloat = UIScreen.main.bounds.height / 20
 
     func setScore(score: Int) {
         self.score = score
@@ -23,7 +23,7 @@ class ScoreUILabel: UILabel {
     private func setupView() {
         text = getText()
         textColor = .black
-        textAlignment = .center
+        textAlignment = .left
         font = font.withSize(fontSize)
     }
 

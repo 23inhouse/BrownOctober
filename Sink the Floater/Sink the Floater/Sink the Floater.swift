@@ -11,10 +11,48 @@ import Foundation
 
 class SinkTheFloater: Game {
 
-    private func placePoopsRandomly() {
-        let utility = board.gridUtility
+}
 
-        for poop in board.poops.reversed() {
+class Game {
+    var playerOne = Player("computer")
+    var playerTwo = Player("human")
+
+    func over() -> Bool {
+        return playerOne.won() || playerTwo.won()
+    }
+}
+
+class Player {
+    let board: Board
+    let isHuman: Bool
+    let isComputer: Bool
+
+    func won() -> Bool {
+        return board.flushedAllPoops()
+    }
+
+    init(_ name: String) {
+        self.isHuman = name == "human"
+        self.isComputer = !isHuman
+
+        self.board = Board(width: Board.size, height: Board.size, poops: Poop.pinchSomeOff())
+        board.placePoopsRandomly()
+    }
+}
+
+class Board: Grid {
+    static let size = 10
+
+    var poops: [Poop]
+    var score = 0
+
+    func placePoopsRandomly() {
+        tiles = cleanTiles()
+        poops = Poop.pinchSomeOff()
+
+        let utility = gridUtility
+
+        for poop in poops.reversed() {
             var placementRequired = true
 
             while placementRequired {
@@ -23,37 +61,10 @@ class SinkTheFloater: Game {
                 let y = Int(arc4random_uniform(UInt32(utility.height)))
                 let direction = Int(arc4random_uniform(4))
 
-                placementRequired = !board.placePoop(poop, x: x, y: y, direction: direction, tiles: &board.tiles)
+                placementRequired = !placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles)
             }
         }
     }
-
-    override init() {
-        super.init()
-
-        self.board = Board(width: Game.boardSize, height: Game.boardSize, poops: Poop.pinchSomeOff())
-
-        placePoopsRandomly()
-    }
-}
-
-class Game {
-    static let boardSize = 10
-
-    var board: Board!
-
-    func over() -> Bool {
-        return board.flushedAllPoops()
-    }
-
-    init() {
-        self.board = Board(width: 1, height: 1, poops: [Poop]())
-    }
-}
-
-class Board: Grid {
-    var poops: [Poop]
-    var score = 0
 
     func flushedAllPoops() -> Bool {
         for poop in poops {

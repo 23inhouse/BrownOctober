@@ -27,7 +27,13 @@ class GridUIStackView: UIStackView {
 
     }
 
-    init(cols: Int, rows: Int) {
+    func reset() {
+        for button in buttons {
+            button.setData(text: "", color: .white, alpha: 1)
+        }
+    }
+
+    init(cols: Int, rows: Int, active: Bool) {
         super.init(frame: .zero)
 
         setupView()
@@ -36,11 +42,10 @@ class GridUIStackView: UIStackView {
         axis = .vertical
         alignment = .fill
         distribution = .fillEqually
-        spacing = 1
+        spacing = active ? 2 : 1
 
         // hack to adjust emoji size bigger for the board grid and smaller for the poop grid
-        let labelMargin:CGFloat = rows > 9 ? 0 : -1
-
+        let labelMargin:CGFloat = active ? 2 : 0
         var index = 0
         for i in 0 ..< rows {
             let hStackView = UIStackView()
