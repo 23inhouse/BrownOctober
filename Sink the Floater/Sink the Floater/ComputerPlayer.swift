@@ -19,6 +19,7 @@ class ComputerPlayer {
     let gridUtility: GridUtility
     let maxGuesses = 100
     var guesses = [Int]()
+    var searchEfficiency: Double = 0.8
 
     let nextGuessClosure: NextGuess
 
@@ -317,9 +318,11 @@ class ComputerPlayer {
         let highests = bestGuesses.filter({ $0 != nil }).sorted(by: {$0! > $1!})
         let highest = highests.first!
 
+        let minimumHeat: Double? = searchEfficiency * Double(highest!)
+
         var bestIndexes = [Int]()
         for (i, v) in bestGuesses.enumerated() {
-            guard v == highest else { continue }
+            guard v == nil || Int(v!) >= Int(minimumHeat!) else { continue }
             bestIndexes.append(i)
         }
 
