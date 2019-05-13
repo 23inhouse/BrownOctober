@@ -68,9 +68,34 @@ class GameViewController: UIViewController {
             playerOneController.playerView.isHidden = false
         }
     }
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowWinner" {
+            if let finalScoreViewController = segue.destination as? FinalScoreViewController {
+                finalScoreViewController.playerOneBoard = playerOneController.player.board
+                finalScoreViewController.playerTwoBoard = playerTwoController.player.board
+                finalScoreViewController.playerOneBoardView = playerOneController.boardView!
+                finalScoreViewController.playerOneScoreView = playerOneController.scoreView!
+                finalScoreViewController.playerTwoBoardView = playerTwoController.boardView!
+                finalScoreViewController.playerTwoScoreView = playerTwoController.scoreView!
+            }
+        }
+    }
 }
 
 extension GameViewController: PlayerTurnDelegate {
+    func gameOver(from sender: PlayerViewController) {
+        playerTwoController.boardView.isUserInteractionEnabled = false
+
+        guard traitCollection.horizontalSizeClass == .compact else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.playersView.isHidden = true
+            self.performSegue(withIdentifier: "ShowWinner", sender: self)
+        })
+    }
+
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool) {
         let player = sender.player
         let playerView = sender.playerView!
@@ -105,8 +130,8 @@ extension GameViewController: PlayerTurnDelegate {
     }
 
     private func turnDelay(_ switchPlayer: Bool) -> Double {
-        let normal: Double = 0.5
-        let switching: Double = 1.0
+        let normal: Double = 0.25
+        let switching: Double = 1.5
 
         guard traitCollection.horizontalSizeClass == .compact else { return normal }
         guard switchPlayer else { return normal }

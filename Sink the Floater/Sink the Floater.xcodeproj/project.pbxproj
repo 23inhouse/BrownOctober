@@ -17,6 +17,7 @@
 		B5291ED422689C98002C49B0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED322689C98002C49B0 /* Tile.swift */; };
 		B5291ED622689DC7002C49B0 /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED522689DC7002C49B0 /* Poop.swift */; };
 		B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */; };
+		B5327162228874D200FFBC59 /* FinalScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5327161228874D200FFBC59 /* FinalScoreViewController.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 		B5291ED322689C98002C49B0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		B5291ED522689DC7002C49B0 /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
 		B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
+		B5327161228874D200FFBC59 /* FinalScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalScoreViewController.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Sink the Floater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sink the Floater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
 				B5AF4DC62285D338008D8791 /* PlayerViewController.swift */,
+				B5327161228874D200FFBC59 /* FinalScoreViewController.swift */,
 				B5AF4DC422842D43008D8791 /* SafeAreaUIView.swift */,
 				B5AF4DC222842BA6008D8791 /* PlayersUIStackView.swift */,
 				B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */,
@@ -272,6 +275,7 @@
 			files = (
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
+				B5327162228874D200FFBC59 /* FinalScoreViewController.swift in Sources */,
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
 				B5291ED222689C6D002C49B0 /* Sink the Floater.swift in Sources */,
 				B5AF4DC522842D43008D8791 /* SafeAreaUIView.swift in Sources */,

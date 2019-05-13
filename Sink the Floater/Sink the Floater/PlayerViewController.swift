@@ -10,6 +10,7 @@ import UIKit
 
 protocol PlayerTurnDelegate {
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool)
+    func gameOver(from sender: PlayerViewController)
 }
 
 class PlayerViewController: UIViewController {
@@ -131,6 +132,11 @@ extension PlayerViewController: GridButtonDelegate {
 
             if poop.isFound {
                 flushPoop(poop.identifier, board: board, boardView: boardView, poopView: poopView)
+
+                if board.flushedAllPoops() {
+                    playerTurnDelegate.gameOver(from: self)
+                    return
+                }
             }
 
             if player.isComputer {

@@ -24,6 +24,7 @@ class ScoreUILabel: UILabel {
         text = getText()
         textColor = .black
         textAlignment = .left
+        adjustsFontSizeToFitWidth = true
         font = font.withSize(fontSize)
     }
 

@@ -42,6 +42,17 @@ class ScoreUIView: UIStackView {
             ])
     }
 
+    func constrainTo(_ parentView: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
+            topAnchor.constraint(equalTo: parentView.topAnchor),
+            ])
+    }
+
     private func setupView() {
         axis = .vertical
         alignment = .fill
