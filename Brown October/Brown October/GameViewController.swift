@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
 
     private func buildPlayerViewController(_ player: Player) -> PlayerViewController {
         let playerViewController = PlayerViewController(player)
-        addChildViewController(playerViewController)
+        addChild(playerViewController)
         playerViewController.playerTurnDelegate = self
         playerViewController.viewDidLoad()
 
@@ -63,8 +63,11 @@ class GameViewController: UIViewController {
         switch traitCollection.horizontalSizeClass {
         case .compact:
             playerOneController.playerView.isHidden = true
-        case .unspecified: fallthrough
         case .regular:
+            playerOneController.playerView.isHidden = false
+        case .unspecified:
+            fallthrough
+        @unknown default:
             playerOneController.playerView.isHidden = false
         }
     }

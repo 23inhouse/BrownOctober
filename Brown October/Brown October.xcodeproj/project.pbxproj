@@ -222,9 +222,11 @@
 				TargetAttributes = {
 					B5AA7364225CC7C1008AAEA2 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 					B5F165AB2274AE3E00789DC3 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = B5AA7364225CC7C1008AAEA2;
 					};
 				};
@@ -466,7 +468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-October";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -487,7 +489,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-October";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -506,7 +508,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-October-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brown October.app/Brown October";
 			};
@@ -526,7 +528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-October-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Brown October.app/Brown October";
 			};
