@@ -67,6 +67,7 @@ class PlayerViewController: UIViewController {
 
             let button = boardView.buttons[i]
             button.setData(text: "💩", color: color, alpha: 1)
+            button.springy()
         }
 
         for (i, tile) in poopView.foundPoops.tiles.enumerated() {
@@ -74,6 +75,7 @@ class PlayerViewController: UIViewController {
 
             let button = poopView.buttons[i]
             button.setData(text: "💩", color: color, alpha: 1)
+            button.springy()
         }
     }
 
@@ -111,7 +113,10 @@ extension PlayerViewController: GridButtonDelegate {
         let index = button.index
         let board = player.board
 
+        button.springy()
+
         if let (_, poop) = board.wipe(at: index) {
+
             button.setData(text: "💩", color: .white, alpha: 1)
             poopsFoundCount += 1
 
