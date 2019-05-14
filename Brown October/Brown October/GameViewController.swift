@@ -53,6 +53,7 @@ class GameViewController: UIViewController {
         addChild(playerViewController)
         playerViewController.playerTurnDelegate = self
         playerViewController.viewDidLoad()
+        playerViewController.updateGamesWonLabel()
 
         return playerViewController
     }
@@ -76,6 +77,7 @@ class GameViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowWinner" {
             if let finalScoreViewController = segue.destination as? FinalScoreViewController {
+                finalScoreViewController.winner = playerOne.won() ? playerOne : playerTwo
                 finalScoreViewController.playerOneBoard = playerOneController.player.board
                 finalScoreViewController.playerTwoBoard = playerTwoController.player.board
                 finalScoreViewController.playerOneBoardView = playerOneController.boardView!
@@ -90,6 +92,8 @@ class GameViewController: UIViewController {
 extension GameViewController: PlayerTurnDelegate {
     func gameOver(from sender: PlayerViewController) {
         playerTwoController.boardView.isUserInteractionEnabled = false
+
+        sender.incrementGamesWon()
 
         if traitCollection.horizontalSizeClass == .compact {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

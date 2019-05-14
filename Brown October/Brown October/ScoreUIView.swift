@@ -29,6 +29,7 @@ class ScoreUIView: UIStackView {
     let remainingFlushLabel = ScoreUILabel("🚽", score: 0)
     let foundPoopsLabel = ScoreUILabel("💩", score: 0)
 
+    lazy var gamesWonLabel = ScoreUILabel(icon, score: 0)
     lazy var labelView = UIStackView(arrangedSubviews: [remainingFlushLabel, foundPoopsLabel])
 
     func constrainTo(parentView: UIView, poopView: UIView) {
@@ -59,11 +60,10 @@ class ScoreUIView: UIStackView {
         distribution = .fillEqually
         spacing = labelSpacing
 
-        let playerLabel = ScoreUILabel(icon, score: 0)
         let solveButton = buildButton(foundPoopsLabel, action: #selector(solveGame))
         let newGameButton = buildButton(remainingFlushLabel, action: #selector(newGame))
 
-        addArrangedSubview(playerLabel)
+        addArrangedSubview(gamesWonLabel)
         addArrangedSubview(solveButton)
         addArrangedSubview(newGameButton)
     }

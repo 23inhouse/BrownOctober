@@ -15,6 +15,8 @@ protocol PlayerTurnDelegate {
 
 class PlayerViewController: UIViewController {
 
+    let defaults = UserDefaults.standard
+
     let player: Player
     var playerView: PlayerUIView!
     var boardView: BoardUIView!
@@ -24,6 +26,12 @@ class PlayerViewController: UIViewController {
     lazy var computer = getComputerPlayer()
 
     var playerTurnDelegate: PlayerTurnDelegate!
+
+    var gamesWonCount = 0 {
+        didSet {
+            self.scoreView.gamesWonLabel.setScore(score: gamesWonCount)
+        }
+    }
 
     var remainingFlushCount = 0 {
         didSet {
@@ -48,6 +56,18 @@ class PlayerViewController: UIViewController {
 
         remainingFlushCount = 0
         poopsFoundCount = 0
+    }
+
+    func updateGamesWonLabel() {
+        let playerGamesWonKey = player.isHuman ? "humanGamesWon" : "computerGamesWon"
+        gamesWonCount = defaults.integer(forKey: playerGamesWonKey)
+    }
+
+    func incrementGamesWon() {
+        let playerGamesWonKey = player.isHuman ? "humanGamesWon" : "computerGamesWon"
+        let gamesWon = defaults.integer(forKey: playerGamesWonKey)
+        defaults.set(gamesWon + 1, forKey: playerGamesWonKey)
+        gamesWonCount = defaults.integer(forKey: playerGamesWonKey)
     }
 
     private func getComputerPlayer() -> ComputerPlayer {

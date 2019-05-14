@@ -10,6 +10,10 @@ import UIKit
 
 class FinalScoreViewController: UIViewController {
 
+    static let winText = "All poops where successfully evacuated!"
+    static let looseText = "Unfortunately not all poops made it out alive"
+
+    var winner: Player!
     var playerOneBoard: Board!
     var playerTwoBoard: Board!
     var playerOneBoardView: BoardUIView!
@@ -52,8 +56,9 @@ class FinalScoreViewController: UIViewController {
             buttonsView.heightAnchor.constraint(equalToConstant: 40),
             ])
 
+        let text = winner.isHuman ? type(of: self).winText : type(of: self).looseText
         let button = UIButton()
-        button.setTitle("🚽 PLAY AGAIN", for: .normal)
+        button.setTitle("🚽 \(text) 🚽", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.gray, for: .highlighted)
         button.titleLabel!.font = button.titleLabel!.font.withSize(30)
