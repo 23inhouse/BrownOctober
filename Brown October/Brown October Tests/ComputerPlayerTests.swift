@@ -76,7 +76,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(computerPlayer.guessCount(), 2, "Guess count is wrong")
     }
 
@@ -87,7 +87,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
     }
 
     // MARK: Hunt direction tests
@@ -98,7 +98,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: 0)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
     }
 
@@ -110,8 +110,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 3, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop2() {
@@ -121,8 +121,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 4, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop3() {
@@ -132,8 +132,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 6, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 7, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop4() {
@@ -143,8 +143,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 5, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop5() {
@@ -154,8 +154,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 6, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 6, "Guess count is wrong")
     }
 
     func testComputerHuntsEfficientlyForPoop6() {
@@ -165,8 +165,8 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
-        XCTAssertEqual(computerPlayer.guessCount(), 9, "Guess count is wrong")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 9, "Guess count is wrong")
     }
 
     // MARK: Hunt score tests
@@ -177,7 +177,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 2, "Final score is wrong")
     }
 
@@ -188,7 +188,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 3, "Final score is wrong")
     }
 
@@ -199,7 +199,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 4, "Final score is wrong")
     }
 
@@ -210,7 +210,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 5, "Final score is wrong")
     }
 
@@ -221,7 +221,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 6, "Final score is wrong")
     }
 
@@ -238,9 +238,9 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 5, h: 7).calcIndex(2, 2))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 6, "Final score is wrong")
-        XCTAssertEqual(computerPlayer.guessCount(), 7, "Guess count is wrong")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 10, "Guess count is wrong")
     }
 
     func testComputerHuntsForPoopsTouchingALot() {
@@ -255,9 +255,9 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 7).calcIndex(3, 3))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 11, "Final score is wrong")
-        XCTAssertEqual(computerPlayer.guessCount(), 17, "Guess count is wrong")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 18, "Guess count is wrong")
     }
 
     // MARK: Test a full board
@@ -277,7 +277,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: GridUtility(w: 10, h: 10).calcIndex(4, 5))
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
     }
 
     func testComputerSolvesFullGameWorstCase() {
@@ -296,7 +296,7 @@ class ComputerPlayerTests: XCTestCase {
 
         computerPlayer.play(startAt: nil)
 
-        XCTAssertEqual(board.flushedAllPoops(), true, "The board is not over")
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
     }
 }
 

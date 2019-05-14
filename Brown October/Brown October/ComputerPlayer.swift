@@ -12,17 +12,19 @@ typealias NextGuess = (_ instance: ComputerPlayer, @escaping () -> Void) -> ()
 
 class ComputerPlayer {
 
-    let debug = false
+    static let debug = false
+    static let searchEfficiency: Double = 1
 
     let board: Board
     let boardProtocol: BoardProtocol
     let gridUtility: GridUtility
     let maxGuesses = 100
     var guesses = [Int]()
-    var searchEfficiency: Double = 0.8
 
     let nextGuessClosure: NextGuess
     var nextGuessQueue = [(() -> Void)]()
+
+    lazy var poopSeeker = PoopSeeker(player: self)
 
     static func makeGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
         closure()
@@ -61,41 +63,43 @@ class ComputerPlayer {
         button.touch(button)
 
         if self.board.score == previousScore {
-            if debug == true, let (x, y) = gridUtility.calcXY(index) {
+            if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
                 print("[\(guessCount())] Missed! at (\(x), \(y))")
             }
             return false
         }
 
         let poopIdentifier = self.board.tiles[index].poopIdentifier
-        if debug == true, let (x, y) = gridUtility.calcXY(index) {
+        if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
             print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
         }
-        if debug == true, self.board.poops[poopIdentifier - 1].isFound {
+        if ComputerPlayer.debug, self.board.poops[poopIdentifier - 1].isFound {
             print("[\(guessCount())] Found! #\(poopIdentifier)")
         }
 
         return true
     }
 
-    // the main hunting controller
     private func huntForBrownOctober(_ guessIndex: Int?) {
 
         guard !board.flushedAllPoops() && guessCount() < maxGuesses else { return }
 
+        poopSeeker = PoopSeeker(player: self)
+
         let (newGuessIndex, incompletePoopIndex) = newUnusedGuess(guessIndex)
 
         if incompletePoopIndex != nil {
-            huntForOsamaBrownLaden(incompletePoopIndex!)
+            let hottestIndex = poopSeeker.heatSeek(around: incompletePoopIndex!)
+            self.huntForBrownOctober(hottestIndex)
             return
         }
 
         guard let index = newGuessIndex else {
-            print("\n\n\nError: Serious problems couldn't get a new guess index")
+            print("\nError: Serious problems couldn't get a new guess index\n\n\n")
             return
         }
 
-        if debug == true, let (x, y) = gridUtility.calcXY(index) {
+        if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
             print("[\(guessCount())] Hunting at (\(x), \(y))")
         }
 
@@ -110,7 +114,10 @@ class ComputerPlayer {
                 return
             }
 
-            self.nextGuessClosure(self) { self.huntForOsamaBrownLaden(index) }
+            self.nextGuessClosure(self) {
+                let hottestIndex = self.poopSeeker.heatSeek(around: index)
+                self.huntForBrownOctober(hottestIndex)
+            }
             return
         }
 
@@ -118,28 +125,97 @@ class ComputerPlayer {
         return
     }
 
-    // search by creating a heat map of all possible poops in every position
-    private func huntForOsamaBrownLaden(_ index: Int) {
-
-        if debug == true, let (x, y) = gridUtility.calcXY(index) {
-            print("[\(guessCount())] Hunt round (\(x), \(y))")
+    private func newUnusedGuess(_ index: Int?) -> (Int?, Int?) {
+        if index == nil {
+            for (i, tile) in board.tiles.enumerated() {
+                if tile.isFound && !tile.isFlushed {
+                    if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(i) {
+                        print("Continuing from incomplete poop at (\(x), \(y))")
+                    }
+                    return (nil, i)
+                }
+            }
         }
 
-        guard let data = calcHeatMaps(index) else {
-            print("Error: No data found")
-            return
+        if index != nil {
+
+            guard guesses.contains(index!) else {
+                guesses.append(index!)
+                return (index!, nil)
+            }
+
+            return (nil, nil)
         }
 
-        let hottestIndex = self.findHottestIndex(data: data)
-        guard hottestIndex != nil else {
-            print("Error: No index found")
-            return
+        guard var guess = randomGuessIndex() else { return (nil, nil) }
+        while guesses.contains(guess) {
+            guard let nextGuess = randomGuessIndex() else { return (nil, nil) }
+            guess = nextGuess
         }
+        guesses.append(guess)
 
-        huntForBrownOctober(hottestIndex)
+        return (guess, nil)
     }
 
-    private func calcHeatMaps(_ index: Int) -> [Int?]? {
+    private func randomGuessIndex() -> Int? {
+        guard let guess = poopSeeker.calcRandomBestIndex() else {
+            print("Error no more guesses from heatmap")
+            return nil
+        }
+
+        return guess
+    }
+
+    init(board: Board, boardProtocol: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
+        self.board = board
+        self.boardProtocol = boardProtocol
+        self.gridUtility = board.gridUtility
+        self.nextGuessClosure = nextGuessClosure == nil ? ComputerPlayer.makeGuessClosure : nextGuessClosure!
+    }
+}
+
+class PoopSeeker {
+
+    let player: ComputerPlayer
+    let gridUtility: GridUtility
+    let board: Board
+
+    func heatSeek(around index: Int) -> Int? {
+
+        if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
+            print("[\(guessCount())] Hunt around (\(x), \(y))")
+        }
+
+        return calcRandomBestIndex(at: index)
+    }
+
+    func calcRandomBestIndex(at index: Int? = nil) -> Int? {
+
+        guard let bestGuesses = calcHeatMaps(at: index ?? 0) else {
+            print("Error no more guesses from heatmap")
+            return nil
+        }
+
+        let heatMap = Matrix()
+        heatMap.width = self.gridUtility.width
+        heatMap.height = self.gridUtility.height
+        heatMap.data = bestGuesses
+
+        let highests = bestGuesses.filter({ $0 != nil }).sorted(by: {$0! > $1!})
+        let highest = highests.first!
+
+        let minimumHeat: Double? = ComputerPlayer.searchEfficiency * Double(highest!)
+
+        var bestIndexes = [Int]()
+        for (i, v) in bestGuesses.enumerated() {
+            guard Int(v ?? 0) >= Int(ceil(minimumHeat!)) else { continue }
+            bestIndexes.append(i)
+        }
+
+        return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
+    }
+
+    private func calcHeatMaps(at index: Int) -> [Int?]? {
         let size = [gridUtility.width, gridUtility.height].max()!
 
         let values = board.currentState()
@@ -154,7 +230,7 @@ class ComputerPlayer {
         for n in Array(0 ... mustMatch).reversed() {
             let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
             if self.findHottestIndex(data: data) != nil {
-                if debug == true {
+                if ComputerPlayer.debug {
                     print("[\(guessCount())] Must match = \(n)")
                     heatMap.data = data
                     heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
@@ -283,70 +359,13 @@ class ComputerPlayer {
         }
     }
 
-    private func newUnusedGuess(_ index: Int?) -> (Int?, Int?) {
-        if index == nil {
-            for (i, tile) in board.tiles.enumerated() {
-                if tile.isFound && !tile.isFlushed {
-                    if debug == true, let (x, y) = gridUtility.calcXY(i) {
-                        print("Continuing from incomplete poop at (\(x), \(y))")
-                    }
-                    return (nil, i)
-                }
-            }
-        }
-
-        if index != nil {
-
-            guard guesses.contains(index!) else {
-                guesses.append(index!)
-                return (index!, nil)
-            }
-
-            return (nil, nil)
-        }
-
-        guard var guess = randomGuessIndex() else { return (nil, nil) }
-        while guesses.contains(guess) {
-            guard let nextGuess = randomGuessIndex() else { return (nil, nil) }
-            guess = nextGuess
-        }
-        guesses.append(guess)
-
-        return (guess, nil)
+    private func guessCount() -> Int {
+        return player.guessCount()
     }
 
-    private func randomGuessIndex() -> Int? {
-        guard let bestGuesses = calcHeatMaps(0) else {
-            print("Error no more guesses from heatmap")
-            return nil
-        }
-
-        let heatMap = Matrix()
-        heatMap.width = self.gridUtility.width
-        heatMap.height = self.gridUtility.height
-        heatMap.data = bestGuesses
-        if debug == true {
-            heatMap.print("Best Random Guess")
-        }
-
-        let highests = bestGuesses.filter({ $0 != nil }).sorted(by: {$0! > $1!})
-        let highest = highests.first!
-
-        let minimumHeat: Double? = searchEfficiency * Double(highest!)
-
-        var bestIndexes = [Int]()
-        for (i, v) in bestGuesses.enumerated() {
-            guard v == nil || Int(v!) >= Int(minimumHeat!) else { continue }
-            bestIndexes.append(i)
-        }
-
-        return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
-    }
-
-    init(board: Board, boardProtocol: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
-        self.board = board
-        self.boardProtocol = boardProtocol
-        self.gridUtility = board.gridUtility
-        self.nextGuessClosure = nextGuessClosure == nil ? ComputerPlayer.makeGuessClosure : nextGuessClosure!
+    init(player: ComputerPlayer) {
+        self.player = player
+        self.gridUtility = player.gridUtility
+        self.board = player.board
     }
 }
