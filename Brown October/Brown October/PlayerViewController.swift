@@ -25,7 +25,7 @@ class PlayerViewController: UIViewController {
 
     var playerTurnDelegate: PlayerTurnDelegate!
 
-    var remainingFlushCount = 99 {
+    var remainingFlushCount = 0 {
         didSet {
             self.scoreView.remainingFlushLabel.setScore(score: remainingFlushCount)
         }
@@ -46,7 +46,7 @@ class PlayerViewController: UIViewController {
         playerView.resetBoard()
         computer = getComputerPlayer()
 
-        remainingFlushCount = 76
+        remainingFlushCount = 0
         poopsFoundCount = 0
     }
 
@@ -145,7 +145,7 @@ extension PlayerViewController: GridButtonDelegate {
             return
         }
 
-        remainingFlushCount -= 1
+        remainingFlushCount += 1
 
         board.tiles[index].markAsFlushed()
         button.setData(text: "🌊", color: .white, alpha: 0.65)

@@ -26,7 +26,7 @@ class ScoreUIView: UIStackView {
     let scoreSpace: CGFloat = 40
     let scorePadding: CGFloat = 10
 
-    let remainingFlushLabel = ScoreUILabel("🚽", score: 99)
+    let remainingFlushLabel = ScoreUILabel("🚽", score: 0)
     let foundPoopsLabel = ScoreUILabel("💩", score: 0)
 
     lazy var labelView = UIStackView(arrangedSubviews: [remainingFlushLabel, foundPoopsLabel])
