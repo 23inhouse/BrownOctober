@@ -91,12 +91,15 @@ extension GameViewController: PlayerTurnDelegate {
     func gameOver(from sender: PlayerViewController) {
         playerTwoController.boardView.isUserInteractionEnabled = false
 
-        guard traitCollection.horizontalSizeClass == .compact else { return }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.playersView.isHidden = true
-            self.performSegue(withIdentifier: "ShowWinner", sender: self)
-        })
+        if traitCollection.horizontalSizeClass == .compact {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.playersView.isHidden = true
+                self.performSegue(withIdentifier: "ShowWinner", sender: self)
+            })
+        } else {
+            playerTwoController.boardView.showUnevacuatedPoops(board: playerTwoController.player.board)
+            playerOneController.boardView.showUnevacuatedPoops(board: playerOneController.player.board)
+        }
     }
 
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool) {

@@ -58,7 +58,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func flushPoop(_ ident: Int, board: Board, boardView: BoardUIView, poopView: PoopUIView) {
-        let color = getColor(for: ident)
+        let color = boardView.getTileColor(for: ident)
 
         for (i, tile) in board.tiles.enumerated() {
             if tile.poopIdentifier != ident { continue }
@@ -75,21 +75,6 @@ class PlayerViewController: UIViewController {
             let button = poopView.buttons[i]
             button.setData(text: "💩", color: color, alpha: 1)
         }
-    }
-
-    private func getColor(for ident: Int) -> UIColor {
-        let color: UIColor
-        switch ident {
-        case 1: color = #colorLiteral(red: 1, green: 0.8801414616, blue: 0.8755826288, alpha: 1)
-        case 2: color = #colorLiteral(red: 0.9995340705, green: 0.9512020038, blue: 0.8813460202, alpha: 1)
-        case 3: color = #colorLiteral(red: 0.950082893, green: 0.985483706, blue: 0.8672256613, alpha: 1)
-        case 4: color = #colorLiteral(red: 0.88, green: 0.9984898767, blue: 1, alpha: 1)
-        case 5: color = #colorLiteral(red: 0.88, green: 0.8864146703, blue: 1, alpha: 1)
-        case 6: color = #colorLiteral(red: 1, green: 0.88, blue: 0.9600842213, alpha: 1)
-        default: color = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
-        }
-
-        return color
     }
 
     override func viewDidLoad() {

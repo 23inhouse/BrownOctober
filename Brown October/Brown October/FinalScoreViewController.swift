@@ -111,12 +111,7 @@ class FinalScoreViewController: UIViewController {
             ])
 
         let playerBoardView = boardView
-        for (i, tile) in board.tiles.enumerated() {
-            if tile.poopIdentifier > 0 && !tile.isFound {
-                let button = playerBoardView.getButton(at: i) as! GridUIButton
-                button.setData(text: "💩", color: .white, alpha: 1)
-            }
-        }
+        playerBoardView.showUnevacuatedPoops(board: board)
         boardWrapperView.addSubview(playerBoardView)
         playerBoardView.constrainTo(boardWrapperView)
 
