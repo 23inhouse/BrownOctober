@@ -15,8 +15,6 @@ protocol PlayerTurnDelegate {
 
 class PlayerViewController: UIViewController {
 
-    let defaults = UserDefaults.standard
-
     let player: Player
     var playerView: PlayerUIView!
     var boardView: BoardUIView!
@@ -59,15 +57,13 @@ class PlayerViewController: UIViewController {
     }
 
     func updateGamesWonLabel() {
-        let playerGamesWonKey = player.isHuman ? "humanGamesWon" : "computerGamesWon"
-        gamesWonCount = defaults.integer(forKey: playerGamesWonKey)
+        gamesWonCount = UserData.retrieveGamesWon(for: player)
     }
 
     func incrementGamesWon() {
-        let playerGamesWonKey = player.isHuman ? "humanGamesWon" : "computerGamesWon"
-        let gamesWon = defaults.integer(forKey: playerGamesWonKey)
-        defaults.set(gamesWon + 1, forKey: playerGamesWonKey)
-        gamesWonCount = defaults.integer(forKey: playerGamesWonKey)
+        let count = UserData.retrieveGamesWon(for: player)
+        gamesWonCount = count + 1
+        UserData.storeGamesWon(for: player, count: gamesWonCount)
     }
 
     private func getComputerPlayer() -> ComputerPlayer {
