@@ -10,6 +10,8 @@
 		B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503D1AF228022840008CE95 /* BoardUIView.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
 		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
+		B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00D229970D700C1F418 /* GameSetupUIView.swift */; };
+		B50BA0142299745700C1F418 /* GameSetupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA0132299745700C1F418 /* GameSetupUITests.swift */; };
 		B50BA018229982CD00C1F418 /* XCTestCase+screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */; };
 		B515084C22958F9D0011F5D1 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B515084B22958F9D0011F5D1 /* UserData.swift */; };
 		B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EA1228032E400CEBDDC /* PoopUIView.swift */; };
@@ -34,6 +36,7 @@
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
+		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
 		B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */; };
 		B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853B22297F90100DFECC3 /* UIView+constraints.swift */; };
 		B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */; };
@@ -64,6 +67,8 @@
 		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50BA00122981DD000C1F418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B50BA00722981E0A00C1F418 /* GameOverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUITests.swift; sourceTree = "<group>"; };
+		B50BA00D229970D700C1F418 /* GameSetupUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupUIView.swift; sourceTree = "<group>"; };
+		B50BA0132299745700C1F418 /* GameSetupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupUITests.swift; sourceTree = "<group>"; };
 		B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+screenshot.swift"; sourceTree = "<group>"; };
 		B515084B22958F9D0011F5D1 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B51B6EA1228032E400CEBDDC /* PoopUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopUIView.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
 		B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUIView.swift; sourceTree = "<group>"; };
 		B5E853B22297F90100DFECC3 /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewControllerTests.swift; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				B50BA00122981DD000C1F418 /* Info.plist */,
+				B50BA0132299745700C1F418 /* GameSetupUITests.swift */,
 				B50BA00722981E0A00C1F418 /* GameOverUITests.swift */,
 				B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */,
 			);
@@ -172,6 +179,8 @@
 				B515084B22958F9D0011F5D1 /* UserData.swift */,
 				B5AA736C225CC7C1008AAEA2 /* Main.storyboard */,
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
+				B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */,
+				B50BA00D229970D700C1F418 /* GameSetupUIView.swift */,
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
 				B5AF4DC62285D338008D8791 /* PlayerViewController.swift */,
 				B50B9FF3229804D100C1F418 /* GameOverViewController.swift */,
@@ -359,6 +368,7 @@
 			files = (
 				B50BA018229982CD00C1F418 /* XCTestCase+screenshot.swift in Sources */,
 				B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */,
+				B50BA0142299745700C1F418 /* GameSetupUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +379,7 @@
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
-				B5B8DC9F229440C100A9E74A /* PoopViewController.swift in Sources */,
+				B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */,
 				B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */,
 				B5AF4DC522842D43008D8791 /* SafeAreaUIView.swift in Sources */,
 				B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */,
@@ -387,6 +397,7 @@
 				B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */,
 				B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */,
 				B5AF4DC322842BA6008D8791 /* PlayersUIStackView.swift in Sources */,
+				B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */,
 				B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */,
 				B51B6EAD2280F39000CEBDDC /* String+whitespace.swift in Sources */,
 				B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */,

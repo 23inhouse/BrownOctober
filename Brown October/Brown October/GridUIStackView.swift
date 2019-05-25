@@ -13,7 +13,7 @@ class GridUIStackView: UIStackView {
     var buttons = [GridUIButton]()
 
     func constrainTo(_ parentView: UIView) {
-        let margin: CGFloat = 1
+        let margin: CGFloat = 0
 
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -42,22 +42,21 @@ class GridUIStackView: UIStackView {
         axis = .vertical
         alignment = .fill
         distribution = .fillEqually
-        spacing = active ? 2 : 1
+        spacing = 0
 
         // hack to adjust emoji size bigger for the board grid and smaller for the poop grid
-        let labelMargin:CGFloat = active ? 2 : 0
+        let buttonBorderWidth:CGFloat = active ? 1 : 0.5
         var index = 0
-        for i in 0 ..< rows {
+        for _ in 0 ..< rows {
             let hStackView = UIStackView()
             hStackView.axis = .horizontal
             hStackView.alignment = .fill
             hStackView.distribution = .fillEqually
             hStackView.spacing = spacing
 
-            for j in 0 ..< cols {
-                let button = GridUIButton(index: index, margin: labelMargin)
-                let text = (i + j) % 2 == 0 ? "💩" : "🌊"
-                button.setData(text: text, color: .white, alpha: 1)
+            for _ in 0 ..< cols {
+                let button = GridUIButton(index: index, borderWidth: buttonBorderWidth)
+                button.setData(text: "", color: .white, alpha: 1)
                 hStackView.addArrangedSubview(button)
                 buttons.append(button)
 

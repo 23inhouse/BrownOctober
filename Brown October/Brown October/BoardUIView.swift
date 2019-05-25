@@ -63,6 +63,34 @@ class BoardUIView: UIView, BoardProtocol {
         gridView.constrainTo(self)
     }
 
+    func constrainTo(_ parentView: UIView, with attribute: NSLayoutConstraint.Attribute) {
+        let constraintWidth = NSLayoutConstraint(
+            item: self,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: parentView,
+            attribute: attribute,
+            multiplier: 1, constant: 0)
+
+        let constraintHeight = NSLayoutConstraint(
+            item: self,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .width,
+            multiplier: 1, constant: 0)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
+            constraintWidth,
+            constraintHeight
+            ])
+
+        gridView.constrainTo(self)
+    }
+
     func reset() {
         gridView.reset()
     }
@@ -70,6 +98,12 @@ class BoardUIView: UIView, BoardProtocol {
     func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
         for button in buttons {
             button.gridButtonDelegate = delegate
+        }
+    }
+
+    func setGridButtonDragDeletage(_ delegate: GridButtonDragDelegate) {
+        for button in buttons {
+            button.gridButtonDragDelegate = delegate
         }
     }
 
@@ -81,7 +115,7 @@ class BoardUIView: UIView, BoardProtocol {
         for (i, tile) in board.tiles.enumerated() {
             if tile.poopIdentifier > 0 && !tile.isFound {
                 let button = getButton(at: i) as! GridUIButton
-                button.setData(text: "💩", color: getTileColor(for: tile.poopIdentifier), alpha: 0.5)
+                button.setData(text: "", color: getTileColor(for: tile.poopIdentifier), alpha: 1)
             }
         }
     }
@@ -95,7 +129,7 @@ class BoardUIView: UIView, BoardProtocol {
         case 4: color = #colorLiteral(red: 0.88, green: 0.9984898767, blue: 1, alpha: 1)
         case 5: color = #colorLiteral(red: 0.88, green: 0.8864146703, blue: 1, alpha: 1)
         case 6: color = #colorLiteral(red: 1, green: 0.88, blue: 0.9600842213, alpha: 1)
-        default: color = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
+        default: color = .white
         }
 
         return color

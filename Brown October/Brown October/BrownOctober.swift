@@ -43,10 +43,13 @@ class Player {
 }
 
 class Board: Grid {
+    typealias PoopStain = (x: Int, y: Int, direction: Int)
+
     static let size = 10
 
-    var poops: [Poop]
     var score = 0
+    var poops: [Poop]
+    var poopStains = [Int: PoopStain]()
 
     func placePoopsRandomly() {
         tiles = cleanTiles()
@@ -55,16 +58,27 @@ class Board: Grid {
         let utility = gridUtility
 
         for poop in poops.reversed() {
-            var placementRequired = true
-
-            while placementRequired {
-
+            while true {
                 let x = Int(arc4random_uniform(UInt32(utility.width)))
                 let y = Int(arc4random_uniform(UInt32(utility.height)))
                 let direction = Int(arc4random_uniform(4))
 
-                placementRequired = !placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles)
+                if placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles) {
+                    poopStains[poop.identifier] = PoopStain(x: x, y: y, direction: direction)
+                    break
+                }
             }
+        }
+    }
+
+    func placePoopStains() {
+        tiles = cleanTiles()
+        poops = Poop.pinchSomeOff()
+
+        for poopStain in poopStains {
+            let poop = poops[poopStain.key - 1]
+            let value = poopStain.value
+            _ = placePoop(poop, x: value.x, y: value.y, direction: value.direction, tiles: &tiles)
         }
     }
 
@@ -156,7 +170,7 @@ class Grid {
         return values
     }
 
-    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile], check: Bool? = true) -> Bool {
+    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile], check: Bool = true) -> Bool {
 
         let data = GridUtility.rotate(poop.data, times: direction)
 
@@ -173,8 +187,8 @@ class Grid {
                     return false
                 }
 
-                if check! == true {
-                    if tiles[index].poopIdentifier > 0 { return false }
+                if check == true {
+                    guard tiles[index].poopIdentifier < 1 || tiles[index].poopIdentifier == poop.identifier else { return false }
                     if poops(nextTo: index) { return false }
                     continue
                 }
@@ -183,11 +197,47 @@ class Grid {
             }
         }
 
-        if check! == true {
+        if check == true {
             return placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles, check: false)
         }
 
         return true
+    }
+
+    func removePoop(_ poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile]) -> Bool {
+
+        let data = GridUtility.rotate(poop.data, times: direction)
+
+        for (yIndex, values) in data.enumerated() {
+            for (xIndex, value) in values.enumerated() {
+
+                guard value == 1 else { continue }
+
+                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
+                    return false
+                }
+
+                guard let index = gridUtility.calcIndex(x + xAdjust, y + yAdjust) else {
+                    return false
+                }
+
+                tiles[index].poopIdentifier = 0
+            }
+        }
+
+        return true
+    }
+
+    func flushed(nextTo index: Int) -> Bool {
+        for direction in 0 ..< 4 {
+            guard let adjustedIndex = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
+                continue
+            }
+
+            if tiles[adjustedIndex].isFlushed { return true }
+        }
+
+        return false
     }
 
     private func poops(nextTo index: Int) -> Bool {

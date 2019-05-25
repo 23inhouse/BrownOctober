@@ -27,7 +27,7 @@ class GridButtonMock: GridButtonProtocol {
     let board: Board
     let index: Int
 
-    func touch(_ sender: GridButtonProtocol) {
+    func touch() {
         if let (_, poop) = board.wipe(at: index) {
             board.tiles[index].markAsFound()
 
@@ -43,6 +43,9 @@ class GridButtonMock: GridButtonProtocol {
         }
 
         board.tiles[index].markAsFlushed()
+    }
+
+    func drag(recognizer: UIPanGestureRecognizer) {
     }
 
     func getText() -> String {

@@ -12,20 +12,26 @@ protocol GridButtonDelegate {
     func didTouchGridButton(_ sender: GridButtonProtocol)
 }
 
+protocol GridButtonDragDelegate {
+    func didDragGridButton(_ recognizer: UIPanGestureRecognizer)
+}
+
 protocol GridButtonProtocol {
-    func touch(_ sender: GridButtonProtocol)
+    func touch()
+    func drag(recognizer: UIPanGestureRecognizer)
     func getText() -> String
 }
 
-class GridUIButton: UIButton, GridButtonProtocol {
+class GridUIButton: UILabel {
 
     var gridButtonDelegate: GridButtonDelegate?
+    var gridButtonDragDelegate: GridButtonDragDelegate?
 
     let index: Int
-    lazy var label = UILabel()
+    let borderWidth: CGFloat
 
     func setData(text: String, color: UIColor, alpha: CGFloat) {
-        self.label.text = text
+        self.text = text
         self.backgroundColor = color
         self.alpha = alpha
     }
@@ -42,51 +48,57 @@ class GridUIButton: UIButton, GridButtonProtocol {
         )
     }
 
-    private func constainLabel(margin: CGFloat) {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -margin),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: -margin),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: margin)
-            ])
-    }
-
     private func setupView() {
+        isUserInteractionEnabled = true
         backgroundColor = .white
-        addTarget(self, action: #selector(touchButton), for: .touchUpInside)
+        font = font.withSize(100)
+        adjustsFontSizeToFitWidth = true
+        numberOfLines = 0
+        textAlignment = .center
+        layer.borderColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
+        layer.borderWidth = borderWidth
 
-        label.font = label.font.withSize(100)
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 0
-        label.textAlignment = .center
+        let touch = UITapGestureRecognizer(target: self, action: #selector(touchButton))
+        addGestureRecognizer(touch)
 
-        addSubview(label)
+        let drag = UIPanGestureRecognizer(target: self, action: #selector(dragButton(recognizer:)))
+        addGestureRecognizer(drag)
     }
 
-    @objc private func touchButton(_ sender: GridUIButton) {
-        touch(sender as GridButtonProtocol)
+    @objc private func touchButton() {
+        touch()
     }
 
-    internal func touch(_ sender: GridButtonProtocol) {
-        guard sender.getText() == "" else { return }
-        gridButtonDelegate?.didTouchGridButton(sender)
+    @objc private func dragButton(recognizer: UIPanGestureRecognizer) {
+        drag(recognizer: recognizer)
     }
 
-    internal func getText() -> String {
-        return label.text!
-    }
-
-    init(index: Int, margin: CGFloat) {
+    init(index: Int, borderWidth: CGFloat) {
         self.index = index
+        self.borderWidth = borderWidth
 
         super.init(frame: .zero)
 
         setupView()
-        constainLabel(margin: margin)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension GridUIButton: GridButtonProtocol {
+    internal func touch() {
+        gridButtonDelegate?.didTouchGridButton(self)
+    }
+
+    internal func drag(recognizer: UIPanGestureRecognizer) {
+        guard getText() != "" else { return }
+
+        gridButtonDragDelegate?.didDragGridButton(recognizer)
+    }
+
+    internal func getText() -> String {
+        return text!
     }
 }

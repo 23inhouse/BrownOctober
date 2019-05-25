@@ -35,6 +35,7 @@ struct UserData {
 
     static func retrievePoopStains(for board: inout Board) -> Bool {
         if let poopStainData = defaults.array(forKey: Key.poopStains.rawValue) {
+            guard poopStainData.count > 0 else { return false   }
             for data in poopStainData as! [[Int]] {
                 board.poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: data[3])
             }

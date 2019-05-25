@@ -53,7 +53,6 @@ class PlayerUIView: UIView {
 
         let scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
         addSubview(scoreView)
-        scoreView.constrainTo(parentView: self, poopView: poopView)
         self.scoreView = scoreView
 
         resetBoard()

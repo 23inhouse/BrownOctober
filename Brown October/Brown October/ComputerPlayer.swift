@@ -60,7 +60,7 @@ class ComputerPlayer {
         let previousScore = self.board.score
 
         let button = boardProtocol.getButton(at: index)
-        button.touch(button)
+        button.touch()
 
         if self.board.score == previousScore {
             if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
