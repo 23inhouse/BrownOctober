@@ -15,6 +15,8 @@ protocol PlayerTurnDelegate {
 
 class PlayerViewController: UIViewController {
 
+    var mainView: PlayerUIView { return self.view as! PlayerUIView }
+
     let player: Player
     var playerView: PlayerUIView!
     var boardView: BoardUIView!
@@ -43,13 +45,22 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    func resetBoard() {
-        player.board.placePoopsRandomly()
+    func resetBoard(_ board: Board? = nil) {
+        let boardView = playerView.boardView
 
-        let boardView = playerView.boardView!
-        boardView.isUserInteractionEnabled = true
+        if let board = board {
+            player.board.poopStains = board.poopStains
+            player.board.placePoopStains()
+            boardView.isUserInteractionEnabled = false
+            playerView.resetBoard()
 
-        playerView.resetBoard()
+            boardView.showUnevacuatedPoops(board: board)
+        } else {
+            player.board.placePoopsRandomly()
+            boardView.isUserInteractionEnabled = true
+            playerView.resetBoard()
+        }
+
         computer = getComputerPlayer()
 
         remainingFlushCount = 0
@@ -95,20 +106,24 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setupView() {
+        self.view = PlayerUIView(player: player)
 
-        let playerView = PlayerUIView(player: player)
-        view.addSubview(playerView)
-        self.playerView = playerView
-        self.boardView = playerView.boardView
-        self.poopView = playerView.poopView
-        self.scoreView = playerView.scoreView
+        self.playerView = mainView
+        self.boardView = mainView.boardView
+        self.poopView = mainView.foundPoopsView
+        self.scoreView = mainView.scoreView
 
-        playerView.setGridButtonDeletage(self)
+        mainView.setGridButtonDeletage(self)
         scoreView.solveGameButtonDelegate = self
 
         resetBoard()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupView()
     }
 
     init(_ player: Player) {
@@ -124,6 +139,7 @@ class PlayerViewController: UIViewController {
 
 extension PlayerViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: GridButtonProtocol) {
+        guard sender.getText() == "" else { return }
 
         let button = sender as! GridUIButton
         let index = button.index
@@ -158,10 +174,18 @@ extension PlayerViewController: GridButtonDelegate {
 
         playerTurnDelegate.nextTurn(from: self, switchPlayer: true)
     }
+
+    func didDragGridButton(_ sender: GridButtonProtocol) {
+    }
 }
 
 extension PlayerViewController: SolveGameButtonDelegate {
     func didTouchSolveGame() {
+        guard !player.won() else { return }
+
         computer.playNext()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.didTouchSolveGame()
+        })
     }
 }

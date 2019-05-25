@@ -22,7 +22,12 @@ class GameViewController: UIViewController {
     lazy var computer = playerOneController.computer
 
     private func resetGame() {
-        playerOneController.resetBoard()
+        var board = brownOctober.playerOne.board
+        if UserData.retrievePoopStains(for: &board) {
+            playerOneController.resetBoard(board)
+        } else {
+            playerOneController.resetBoard()
+        }
         playerTwoController.resetBoard()
 
         computer = playerOneController.computer
@@ -37,6 +42,10 @@ class GameViewController: UIViewController {
 
         let playerOneController = buildPlayerViewController(brownOctober.playerOne)
         self.playerOneController = playerOneController
+        var board = brownOctober.playerOne.board
+        if UserData.retrievePoopStains(for: &board) {
+            playerOneController.resetBoard(board)
+        }
 
         let playerTwoController = buildPlayerViewController(brownOctober.playerTwo)
         playerTwoController.scoreView.newGameButtonDelegate = self
@@ -78,12 +87,6 @@ class GameViewController: UIViewController {
         if segue.identifier == "ShowWinner" {
             if let finalScoreViewController = segue.destination as? GameOverViewController {
                 finalScoreViewController.winner = playerTwo.won() ? playerTwo: playerOne
-//                finalScoreViewController.playerOneBoard = playerOneController.player.board
-//                finalScoreViewController.playerTwoBoard = playerTwoController.player.board
-//                finalScoreViewController.playerOneBoardView = playerOneController.boardView!
-//                finalScoreViewController.playerOneScoreView = playerOneController.scoreView!
-//                finalScoreViewController.playerTwoBoardView = playerTwoController.boardView!
-//                finalScoreViewController.playerTwoScoreView = playerTwoController.scoreView!
             }
         }
     }

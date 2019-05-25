@@ -10,22 +10,33 @@ import UIKit
 
 class PlayerUIView: UIView {
 
+    let layoutView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 20
+        return view
+    }()
+
+    let emptySpaceView = UIView()
+
+    let scoreLayoutView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 20
+        return view
+    }()
+
+    let foundPoopsView = PoopUIView()
+    lazy var scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
+
+    let boardView = BoardUIView()
+
     let player: Player
     let board: Board
-
-    var boardView: BoardUIView!
-    var poopView: PoopUIView!
-    var scoreView: ScoreUIView!
-
-    func constrainTo(_ parentView: UIView) {
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            topAnchor.constraint(equalTo: parentView.topAnchor),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor)
-            ])
-    }
 
     func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
         boardView.setGridButtonDeletage(delegate)
@@ -33,29 +44,30 @@ class PlayerUIView: UIView {
 
     func resetBoard() {
         boardView.reset()
-        poopView.reset()
+        foundPoopsView.reset()
     }
 
     private func setupView() {
-        if player.isComputer {
-            isUserInteractionEnabled = false
-        }
+        backgroundColor = .white
 
-        let boardView = BoardUIView()
-        addSubview(boardView)
-        boardView.constrainTo(self)
-        self.boardView = boardView
+        addSubview(layoutView)
+        layoutView.addArrangedSubview(emptySpaceView)
 
-        let poopView = PoopUIView()
-        addSubview(poopView)
-        poopView.constrainTo(boardView)
-        self.poopView = poopView
+        layoutView.addArrangedSubview(scoreLayoutView)
+        scoreLayoutView.addArrangedSubview(foundPoopsView)
+        scoreLayoutView.addArrangedSubview(scoreView)
 
-        let scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
-        addSubview(scoreView)
-        self.scoreView = scoreView
+        layoutView.addArrangedSubview(boardView)
 
         resetBoard()
+    }
+
+    private func setupConstraints() {
+        layoutView.constrain(to: self.safeAreaLayoutGuide)
+        foundPoopsView.constrain()
+        scoreView.constrain(to: scoreLayoutView, min: 0.25, max: 0.3, height: 1.5)
+
+        boardView.constrain()
     }
 
     init(player: Player) {
@@ -64,7 +76,12 @@ class PlayerUIView: UIView {
 
         super.init(frame: .zero)
 
+        if player.isComputer {
+            isUserInteractionEnabled = false
+        }
+
         setupView()
+        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {

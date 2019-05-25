@@ -35,8 +35,8 @@ class PlayersUIStackView: UIStackView {
 
         guard traitCollection.horizontalSizeClass == .compact else { return }
 
-        playerOneView.constrainTo(self)
-        playerTwoView.constrainTo(self)
+        playerOneView.constrain(to: self)
+        playerTwoView.constrain(to: self)
     }
 
 

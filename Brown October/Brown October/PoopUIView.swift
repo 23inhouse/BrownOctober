@@ -12,7 +12,6 @@ class PoopUIView: UIView {
 
     let width = 9
     let height = 5
-    let poopSpace: CGFloat = 40
 
     lazy var gridView = GridUIStackView(cols: width, rows: height, active: false)
     lazy var buttons = gridView.buttons
@@ -31,14 +30,7 @@ class PoopUIView: UIView {
         return foundPoops
     }()
 
-    func constrainTo(_ boardView: UIView) {
-        let constraintWidth = NSLayoutConstraint(
-            item: self,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: boardView,
-            attribute: .width,
-            multiplier: 0.6, constant: 0)
+    func constrain() {
         let constraintHeight = NSLayoutConstraint(
             item: self,
             attribute: .height,
@@ -49,10 +41,7 @@ class PoopUIView: UIView {
 
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: boardView.leadingAnchor),
-            bottomAnchor.constraint(equalTo: boardView.topAnchor, constant: -poopSpace),
-            constraintWidth,
-            constraintHeight
+            constraintHeight,
             ])
 
         gridView.constrainTo(self)
