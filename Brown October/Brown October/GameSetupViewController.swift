@@ -18,14 +18,16 @@ class GameSetupViewController: UIViewController {
     lazy var board: Board = Board(width: 10, height: 10, poops: poops)
     lazy var dragButtons = [GridUIButton]()
 
-    @objc func touchResetButton() {
+    @objc func touchResetButton(_ sender: UIButton) {
+        sender.springy()
         board.placePoopsRandomly()
         UserData.storePoopStains(for: board)
 
         drawBoard()
     }
 
-    @objc func touchPlayButton() {
+    @objc func touchPlayButton(_ sender: UIButton) {
+        sender.springy()
         UserData.storePoopStains(for: board)
         self.performSegue(withIdentifier: "PlayGame", sender: self)
     }

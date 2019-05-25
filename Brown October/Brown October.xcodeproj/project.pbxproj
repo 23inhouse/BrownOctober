@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503D1AF228022840008CE95 /* BoardUIView.swift */; };
+		B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A12299C5B500CE00CB /* UIView+springy.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
 		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
 		B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00D229970D700C1F418 /* GameSetupUIView.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		B503D1AF228022840008CE95 /* BoardUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardUIView.swift; sourceTree = "<group>"; };
+		B508C5A12299C5B500CE00CB /* UIView+springy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+springy.swift"; sourceTree = "<group>"; };
 		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50BA00122981DD000C1F418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */,
 				B5E853B22297F90100DFECC3 /* UIView+constraints.swift */,
+				B508C5A12299C5B500CE00CB /* UIView+springy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */,
 				B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */,
 				B5291ED622689DC7002C49B0 /* Poop.swift in Sources */,
+				B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */,
 				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
 				B515084C22958F9D0011F5D1 /* UserData.swift in Sources */,
 				B51B6EAA22809DEE00CEBDDC /* ScoreUILabel.swift in Sources */,

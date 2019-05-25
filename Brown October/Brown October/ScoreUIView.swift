@@ -93,11 +93,13 @@ class ScoreUIView: UIView {
         addSubview(labelsStackView)
     }
 
-    @objc private func solveGame() {
+    @objc private func solveGame(_ sender: UIButton) {
+        sender.springy()
         solveGameButtonDelegate?.didTouchSolveGame()
     }
 
-    @objc private func newGame() {
+    @objc private func newGame(_ sender: UIButton) {
+        sender.springy()
         newGameButtonDelegate?.didTouchNewGame()
     }
 

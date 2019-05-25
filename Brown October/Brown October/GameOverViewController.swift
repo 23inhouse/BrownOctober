@@ -19,10 +19,10 @@ class GameOverViewController: UIViewController {
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
-    @objc private func touchButton() {
+    @objc private func touchButton(_ sender: UIButton) {
+        sender.springy()
         self.performSegue(withIdentifier: "PlayAgain", sender: self)
     }
-
 
     private func setupView() {
         let text = winner.isHuman ? type(of: self).winText : type(of: self).looseText
