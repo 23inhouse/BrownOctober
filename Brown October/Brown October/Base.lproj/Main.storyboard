@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jdy-Ta-OQs">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WN9-tW-Q8g">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -10,12 +10,30 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Poop View Controller-->
+        <scene sceneID="ERb-Fj-Dk0">
+            <objects>
+                <viewController storyboardIdentifier="GameSetup" id="WN9-tW-Q8g" customClass="PoopViewController" customModule="Brown_October" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kuS-56-q9l">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="jyz-yo-ZeL"/>
+                    </view>
+                    <connections>
+                        <segue destination="jdy-Ta-OQs" kind="show" identifier="PlayGame" id="OGb-H9-7Wb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UHQ-aw-4OH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1643" y="31"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="ROm-4I-Njd">
             <objects>
-                <viewController id="jdy-Ta-OQs" customClass="GameViewController" customModule="Brown_October" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GamePlay" id="jdy-Ta-OQs" customClass="GameViewController" customModule="Brown_October" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NZ7-1Q-CjC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sVB-Po-Rgx"/>
@@ -26,28 +44,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Fg-cs-tYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-803" y="31"/>
+            <point key="canvasLocation" x="-778" y="31"/>
         </scene>
-        <!--Final Score View Controller-->
+        <!--Game Over View Controller-->
         <scene sceneID="j8J-Xo-9Zh">
             <objects>
-                <viewController id="WDj-wi-a5S" customClass="FinalScoreViewController" customModule="Brown_October" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOver" id="WDj-wi-a5S" customClass="GameOverViewController" customModule="Brown_October" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6J6-b4-vWb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="z39-Ui-Tm2"/>
                     </view>
                     <connections>
-                        <segue destination="jdy-Ta-OQs" kind="show" identifier="PlayAgain" animates="NO" id="p91-jw-sc1"/>
+                        <segue destination="WN9-tW-Q8g" kind="show" identifier="PlayAgain" id="vix-2I-1ye"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="70k-ex-03y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15" y="31"/>
+            <point key="canvasLocation" x="51" y="31"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="rUT-VR-poX"/>
-    </inferredMetricsTieBreakers>
 </document>

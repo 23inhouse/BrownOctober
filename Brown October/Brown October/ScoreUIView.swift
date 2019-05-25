@@ -16,73 +16,81 @@ protocol SolveGameButtonDelegate {
     func didTouchSolveGame()
 }
 
-class ScoreUIView: UIStackView {
+class ScoreUIView: UIView {
 
     var newGameButtonDelegate: NewGameButtonDelegate?
     var solveGameButtonDelegate: SolveGameButtonDelegate?
 
     let icon: String
-    let labelSpacing: CGFloat = 5
-    let scoreSpace: CGFloat = 40
-    let scorePadding: CGFloat = 10
+    let labelSpacing: CGFloat = 15
 
     let remainingFlushLabel = ScoreUILabel("🚽", score: 0)
     let foundPoopsLabel = ScoreUILabel("💩", score: 0)
-
     lazy var gamesWonLabel = ScoreUILabel(icon, score: 0)
-    lazy var labelView = UIStackView(arrangedSubviews: [remainingFlushLabel, foundPoopsLabel])
 
-    func constrainTo(parentView: UIView, poopView: UIView) {
+    lazy var solveButton: UIButton = {
+        let button = UIButton()
+        button.addSubview(foundPoopsLabel)
+        button.addTarget(self, action: #selector(solveGame), for: .touchUpInside)
+        return button
+    }()
+    lazy var newGameButton: UIButton = {
+        let button = UIButton()
+        button.addSubview(remainingFlushLabel)
+        button.addTarget(self, action: #selector(newGame), for: .touchUpInside)
+        return button
+    }()
+
+    lazy var labelsStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [gamesWonLabel, solveButton, newGameButton])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fillEqually
+        view.spacing = labelSpacing
+
+        return view
+    }()
+
+    func constrain(to otherView: UIView, min: CGFloat, max: CGFloat, height: CGFloat) {
+        let constraintMinWidth = NSLayoutConstraint(
+            item: self,
+            attribute: .width,
+            relatedBy: .greaterThanOrEqual,
+            toItem: otherView,
+            attribute: .width,
+            multiplier: min, constant: 0)
+
+        let constraintMaxWidth = NSLayoutConstraint(
+            item: self,
+            attribute: .width,
+            relatedBy: .lessThanOrEqual,
+            toItem: otherView,
+            attribute: .width,
+            multiplier: max, constant: 0)
+
+        let constraintHeight = NSLayoutConstraint(
+            item: labelsStackView,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .width,
+            multiplier: height, constant: 0)
+
         translatesAutoresizingMaskIntoConstraints = false
-
+        preservesSuperviewLayoutMargins = true
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: poopView.trailingAnchor, constant: scoreSpace),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -scorePadding),
-            bottomAnchor.constraint(equalTo: poopView.bottomAnchor),
-            topAnchor.constraint(equalTo: poopView.topAnchor),
+            constraintMinWidth,
+            constraintMaxWidth,
+            constraintHeight,
             ])
-    }
+        labelsStackView.pin(labelsStackView.topAnchor, to: topAnchor)
 
-    func constrainTo(_ parentView: UIView) {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
-            topAnchor.constraint(equalTo: parentView.topAnchor),
-            ])
+        foundPoopsLabel.constrain(to: solveButton)
+        remainingFlushLabel.constrain(to: newGameButton)
     }
 
     private func setupView() {
-        axis = .vertical
-        alignment = .fill
-        distribution = .fillEqually
-        spacing = labelSpacing
-
-        let solveButton = buildButton(foundPoopsLabel, action: #selector(solveGame))
-        let newGameButton = buildButton(remainingFlushLabel, action: #selector(newGame))
-
-        addArrangedSubview(gamesWonLabel)
-        addArrangedSubview(solveButton)
-        addArrangedSubview(newGameButton)
-    }
-
-    private func buildButton(_ label: ScoreUILabel, action: Selector) -> UIButton {
-        let button = UIButton()
-        button.addSubview(label)
-        button.addTarget(self, action: action, for: .touchUpInside)
-
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: button.trailingAnchor),
-            label.topAnchor.constraint(equalTo: button.topAnchor),
-            label.bottomAnchor.constraint(equalTo: button.bottomAnchor)
-            ])
-
-
-        return button
+        addSubview(labelsStackView)
     }
 
     @objc private func solveGame() {

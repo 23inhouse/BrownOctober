@@ -17,6 +17,12 @@ struct UserData {
 
     static let defaults = UserDefaults.standard
 
+    static func reset() {
+        defaults.set(0, forKey: Key.humanGamesWon.rawValue)
+        defaults.set(0, forKey: Key.computerGamesWon.rawValue)
+        defaults.set([], forKey: Key.poopStains.rawValue)
+    }
+
     static func retrieveGamesWon(for player: Player) -> Int {
         let playerKey = key(for: player)
         return defaults.integer(forKey: playerKey)

@@ -14,8 +14,8 @@ class BrownOctober: Game {
 }
 
 class Game {
-    var playerOne = Player("computer")
-    var playerTwo = Player("human")
+    var playerOne = Player.computer
+    var playerTwo = Player.human
 
     func over() -> Bool {
         return playerOne.won() || playerTwo.won()
@@ -23,7 +23,9 @@ class Game {
 }
 
 class Player {
-    let board: Board
+    static let human = Player("human")
+    static let computer = Player("computer")
+    var board: Board
     let isHuman: Bool
     let isComputer: Bool
 

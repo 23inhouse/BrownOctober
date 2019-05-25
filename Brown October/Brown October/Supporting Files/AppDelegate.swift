@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        resetIfNeeded()
+        gotoStateIfNeeded()
         return true
     }
 
@@ -40,7 +42,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+extension AppDelegate {
+    func resetIfNeeded() {
+        guard CommandLine.arguments.contains("-reset") else { return }
+
+        UserData.reset()
+    }
+
+    func gotoStateIfNeeded() {
+        guard CommandLine.arguments.contains("-game-state") else { return }
+
+        let gameState = UserDefaults.standard.string(forKey: "game-state")
+
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController: UIViewController?
+        switch gameState {
+        case "setup":
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameSetup") as! GameSetupViewController
+        case "play":
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GamePlay") as! GameViewController
+        case "over":
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameOver") as! GameOverViewController
+        default:
+            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameSetup") as! GameSetupViewController
+        }
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+    }
+}

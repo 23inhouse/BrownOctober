@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503D1AF228022840008CE95 /* BoardUIView.swift */; };
+		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
+		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
+		B50BA018229982CD00C1F418 /* XCTestCase+screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */; };
 		B515084C22958F9D0011F5D1 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B515084B22958F9D0011F5D1 /* UserData.swift */; };
 		B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EA1228032E400CEBDDC /* PoopUIView.swift */; };
 		B51B6EA6228066A900CEBDDC /* ScoreUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EA5228066A900CEBDDC /* ScoreUIView.swift */; };
 		B51B6EA8228081FB00CEBDDC /* GridUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EA7228081FB00CEBDDC /* GridUIButton.swift */; };
 		B51B6EAA22809DEE00CEBDDC /* ScoreUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EA922809DEE00CEBDDC /* ScoreUILabel.swift */; };
-		B51B6EAD2280F39000CEBDDC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EAC2280F39000CEBDDC /* String.swift */; };
+		B51B6EAD2280F39000CEBDDC /* String+whitespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */; };
 		B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED122689C6D002C49B0 /* BrownOctober.swift */; };
 		B5291ED422689C98002C49B0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED322689C98002C49B0 /* Tile.swift */; };
 		B5291ED622689DC7002C49B0 /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED522689DC7002C49B0 /* Poop.swift */; };
 		B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */; };
-		B5327162228874D200FFBC59 /* FinalScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5327161228874D200FFBC59 /* FinalScoreViewController.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
@@ -32,11 +34,21 @@
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
+		B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */; };
+		B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853B22297F90100DFECC3 /* UIView+constraints.swift */; };
+		B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */; };
 		B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165A62271C15400789DC3 /* GridUtility.swift */; };
 		B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B50BA00222981DD000C1F418 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B5AA735D225CC7C1008AAEA2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5AA7364225CC7C1008AAEA2;
+			remoteInfo = "Brown October";
+		};
 		B5F165B12274AE3E00789DC3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5AA735D225CC7C1008AAEA2 /* Project object */;
@@ -48,17 +60,21 @@
 
 /* Begin PBXFileReference section */
 		B503D1AF228022840008CE95 /* BoardUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardUIView.swift; sourceTree = "<group>"; };
+		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50BA00122981DD000C1F418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50BA00722981E0A00C1F418 /* GameOverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUITests.swift; sourceTree = "<group>"; };
+		B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+screenshot.swift"; sourceTree = "<group>"; };
 		B515084B22958F9D0011F5D1 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		B51B6EA1228032E400CEBDDC /* PoopUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopUIView.swift; sourceTree = "<group>"; };
 		B51B6EA5228066A900CEBDDC /* ScoreUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreUIView.swift; sourceTree = "<group>"; };
 		B51B6EA7228081FB00CEBDDC /* GridUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIButton.swift; sourceTree = "<group>"; };
 		B51B6EA922809DEE00CEBDDC /* ScoreUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreUILabel.swift; sourceTree = "<group>"; };
-		B51B6EAC2280F39000CEBDDC /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+whitespace.swift"; sourceTree = "<group>"; };
 		B5291ED122689C6D002C49B0 /* BrownOctober.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrownOctober.swift; sourceTree = "<group>"; };
 		B5291ED322689C98002C49B0 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		B5291ED522689DC7002C49B0 /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
 		B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
-		B5327161228874D200FFBC59 /* FinalScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalScoreViewController.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Brown October.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brown October.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +90,9 @@
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUIView.swift; sourceTree = "<group>"; };
+		B5E853B22297F90100DFECC3 /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
+		B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewControllerTests.swift; sourceTree = "<group>"; };
 		B5F165A62271C15400789DC3 /* GridUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtility.swift; sourceTree = "<group>"; };
 		B5F165AC2274AE3E00789DC3 /* Brown October Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown October Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F165B02274AE3E00789DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +100,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B50B9FFA22981DD000C1F418 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B5AA7362225CC7C1008AAEA2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -98,11 +124,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B50B9FFE22981DD000C1F418 /* Brown OctoberUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B50BA00122981DD000C1F418 /* Info.plist */,
+				B50BA00722981E0A00C1F418 /* GameOverUITests.swift */,
+				B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */,
+			);
+			path = "Brown OctoberUITests";
+			sourceTree = "<group>";
+		};
 		B51B6EAB2280F37C00CEBDDC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				B5F165A62271C15400789DC3 /* GridUtility.swift */,
-				B51B6EAC2280F39000CEBDDC /* String.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -112,6 +147,7 @@
 			children = (
 				B5AA7367225CC7C1008AAEA2 /* Brown October */,
 				B5F165AD2274AE3E00789DC3 /* Brown October Tests */,
+				B50B9FFE22981DD000C1F418 /* Brown OctoberUITests */,
 				B5AA7366225CC7C1008AAEA2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -121,6 +157,7 @@
 			children = (
 				B5AA7365225CC7C1008AAEA2 /* Brown October.app */,
 				B5F165AC2274AE3E00789DC3 /* Brown October Tests.xctest */,
+				B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,7 +174,8 @@
 				B5AA736A225CC7C1008AAEA2 /* ViewController.swift */,
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
 				B5AF4DC62285D338008D8791 /* PlayerViewController.swift */,
-				B5327161228874D200FFBC59 /* FinalScoreViewController.swift */,
+				B50B9FF3229804D100C1F418 /* GameOverViewController.swift */,
+				B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */,
 				B5AF4DC422842D43008D8791 /* SafeAreaUIView.swift */,
 				B5AF4DC222842BA6008D8791 /* PlayersUIStackView.swift */,
 				B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */,
@@ -147,6 +185,7 @@
 				B51B6EA1228032E400CEBDDC /* PoopUIView.swift */,
 				B5B74CE8227DD82600E07826 /* GridUIStackView.swift */,
 				B51B6EA7228081FB00CEBDDC /* GridUIButton.swift */,
+				B5E853B12297F8BA00DFECC3 /* Extensions */,
 				B51B6EAB2280F37C00CEBDDC /* Utilities */,
 				B5AA737A225CC843008AAEA2 /* Supporting Files */,
 				B5AA7374225CC7C3008AAEA2 /* Info.plist */,
@@ -164,13 +203,23 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B5E853B12297F8BA00DFECC3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */,
+				B5E853B22297F90100DFECC3 /* UIView+constraints.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B5F165AD2274AE3E00789DC3 /* Brown October Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B5F165B02274AE3E00789DC3 /* Info.plist */,
 				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
 				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
-				B5F165B02274AE3E00789DC3 /* Info.plist */,
+				B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */,
 			);
 			path = "Brown October Tests";
 			sourceTree = "<group>";
@@ -178,6 +227,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B50B9FFC22981DD000C1F418 /* Brown OctoberUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50BA00422981DD000C1F418 /* Build configuration list for PBXNativeTarget "Brown OctoberUITests" */;
+			buildPhases = (
+				B50B9FF922981DD000C1F418 /* Sources */,
+				B50B9FFA22981DD000C1F418 /* Frameworks */,
+				B50B9FFB22981DD000C1F418 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B50BA00322981DD000C1F418 /* PBXTargetDependency */,
+			);
+			name = "Brown OctoberUITests";
+			productName = "Brown OctoberUITests";
+			productReference = B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		B5AA7364225CC7C1008AAEA2 /* Brown October */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5AA7377225CC7C3008AAEA2 /* Build configuration list for PBXNativeTarget "Brown October" */;
@@ -219,10 +286,14 @@
 		B5AA735D225CC7C1008AAEA2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Benjamin Lewis";
 				TargetAttributes = {
+					B50B9FFC22981DD000C1F418 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = B5AA7364225CC7C1008AAEA2;
+					};
 					B5AA7364225CC7C1008AAEA2 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1020;
@@ -249,11 +320,19 @@
 			targets = (
 				B5AA7364225CC7C1008AAEA2 /* Brown October */,
 				B5F165AB2274AE3E00789DC3 /* Brown October Tests */,
+				B50B9FFC22981DD000C1F418 /* Brown OctoberUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B50B9FFB22981DD000C1F418 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B5AA7363225CC7C1008AAEA2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,20 +353,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B50B9FF922981DD000C1F418 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50BA018229982CD00C1F418 /* XCTestCase+screenshot.swift in Sources */,
+				B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B5AA7361225CC7C1008AAEA2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
-				B5327162228874D200FFBC59 /* FinalScoreViewController.swift in Sources */,
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
+				B5B8DC9F229440C100A9E74A /* PoopViewController.swift in Sources */,
 				B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */,
 				B5AF4DC522842D43008D8791 /* SafeAreaUIView.swift in Sources */,
+				B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */,
 				B5291ED422689C98002C49B0 /* Tile.swift in Sources */,
+				B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */,
 				B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */,
 				B51B6EA6228066A900CEBDDC /* ScoreUIView.swift in Sources */,
 				B51B6EA8228081FB00CEBDDC /* GridUIButton.swift in Sources */,
+				B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */,
 				B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */,
 				B5291ED622689DC7002C49B0 /* Poop.swift in Sources */,
 				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
@@ -297,7 +388,7 @@
 				B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */,
 				B5AF4DC322842BA6008D8791 /* PlayersUIStackView.swift in Sources */,
 				B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */,
-				B51B6EAD2280F39000CEBDDC /* String.swift in Sources */,
+				B51B6EAD2280F39000CEBDDC /* String+whitespace.swift in Sources */,
 				B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */,
 				B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */,
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
@@ -315,6 +407,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B50BA00322981DD000C1F418 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5AA7364225CC7C1008AAEA2 /* Brown October */;
+			targetProxy = B50BA00222981DD000C1F418 /* PBXContainerItemProxy */;
+		};
 		B5F165B22274AE3E00789DC3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B5AA7364225CC7C1008AAEA2 /* Brown October */;
@@ -342,6 +439,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B50BA00522981DD000C1F418 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SSTDKCYHQ9;
+				INFOPLIST_FILE = "Brown OctoberUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-OctoberUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Brown October";
+			};
+			name = Debug;
+		};
+		B50BA00622981DD000C1F418 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SSTDKCYHQ9;
+				INFOPLIST_FILE = "Brown OctoberUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "inhouse23.Brown-OctoberUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Brown October";
+			};
+			name = Release;
+		};
 		B5AA7375225CC7C3008AAEA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -541,6 +681,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B50BA00422981DD000C1F418 /* Build configuration list for PBXNativeTarget "Brown OctoberUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50BA00522981DD000C1F418 /* Debug */,
+				B50BA00622981DD000C1F418 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B5AA7360225CC7C1008AAEA2 /* Build configuration list for PBXProject "Brown October" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

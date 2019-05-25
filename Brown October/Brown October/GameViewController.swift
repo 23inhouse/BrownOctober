@@ -76,14 +76,14 @@ class GameViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowWinner" {
-            if let finalScoreViewController = segue.destination as? FinalScoreViewController {
-                finalScoreViewController.winner = playerOne.won() ? playerOne : playerTwo
-                finalScoreViewController.playerOneBoard = playerOneController.player.board
-                finalScoreViewController.playerTwoBoard = playerTwoController.player.board
-                finalScoreViewController.playerOneBoardView = playerOneController.boardView!
-                finalScoreViewController.playerOneScoreView = playerOneController.scoreView!
-                finalScoreViewController.playerTwoBoardView = playerTwoController.boardView!
-                finalScoreViewController.playerTwoScoreView = playerTwoController.scoreView!
+            if let finalScoreViewController = segue.destination as? GameOverViewController {
+                finalScoreViewController.winner = playerTwo.won() ? playerTwo: playerOne
+//                finalScoreViewController.playerOneBoard = playerOneController.player.board
+//                finalScoreViewController.playerTwoBoard = playerTwoController.player.board
+//                finalScoreViewController.playerOneBoardView = playerOneController.boardView!
+//                finalScoreViewController.playerOneScoreView = playerOneController.scoreView!
+//                finalScoreViewController.playerTwoBoardView = playerTwoController.boardView!
+//                finalScoreViewController.playerTwoScoreView = playerTwoController.scoreView!
             }
         }
     }
