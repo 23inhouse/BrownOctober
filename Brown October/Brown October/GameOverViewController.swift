@@ -19,9 +19,16 @@ class GameOverViewController: UIViewController {
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
+    @objc private func touchButton() {
+        self.performSegue(withIdentifier: "PlayAgain", sender: self)
+    }
+
+
     private func setupView() {
         let text = winner.isHuman ? type(of: self).winText : type(of: self).looseText
         self.view = GameOverUIView(text: text)
+
+        mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
         set(buttons: &mainView.computerButtons, from: computerPlayer)
         set(buttons: &mainView.humanButtons, from: humanPlayer)
