@@ -14,11 +14,9 @@ class ScoreUILabel: UILabel {
     var score: Int
 
     lazy var fontSize: CGFloat = {
-        if UIScreen.main.bounds.width > UIScreen.main.bounds.height {
-            return UIScreen.main.bounds.width / 24
-        } else {
-            return UIScreen.main.bounds.width / 12
-        }
+        let landscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        let divisor: CGFloat = landscape ? 24 : 12
+        return UIScreen.main.bounds.width / divisor
     }()
 
     func setScore(score: Int) {

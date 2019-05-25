@@ -28,29 +28,35 @@ class GameSetupUIView: UIView {
         return view
     }()
 
-    let resetButton: UIButton = {
+    lazy var resetButton: UIButton = {
         let button = UIButton()
         button.isEnabled = true
         button.setTitle("🚽\nNEW", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel!.font = button.titleLabel!.font.withSize(40)
+        button.titleLabel!.font = button.titleLabel!.font.withSize(buttonFontSize)
         button.titleLabel!.numberOfLines = 2
         button.titleLabel!.textAlignment = .center
         return button
     }()
 
-    let playButton: UIButton = {
+    lazy var playButton: UIButton = {
         let button = UIButton()
         button.isEnabled = true
         button.setTitle("💩\nPLAY", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel!.font = button.titleLabel!.font.withSize(40)
+        button.titleLabel!.font = button.titleLabel!.font.withSize(buttonFontSize)
         button.titleLabel!.numberOfLines = 2
         button.titleLabel!.textAlignment = .center
         return button
     }()
 
     let boardView = BoardUIView()
+
+    let buttonFontSize: CGFloat = {
+        let landscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        let divisor: CGFloat = landscape ? 18 : 9
+        return UIScreen.main.bounds.width / divisor
+    }()
 
     private func setupView() {
         backgroundColor = .white
