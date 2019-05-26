@@ -12,17 +12,6 @@ class GridUIStackView: UIStackView {
 
     var buttons = [GridUIButton]()
 
-    func constrainTo(_ parentView: UIView) {
-        let margin: CGFloat = 0
-
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: margin),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -margin),
-            topAnchor.constraint(equalTo: parentView.topAnchor, constant: margin),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -margin)])
-    }
-
     private func setupView() {
 
     }

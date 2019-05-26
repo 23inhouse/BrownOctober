@@ -15,15 +15,6 @@ class PlayersUIStackView: UIStackView {
     let playerOneView: PlayerUIView!
     let playerTwoView: PlayerUIView!
 
-    func constrainTo(_ parentView: UIView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            topAnchor.constraint(equalTo: parentView.topAnchor),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor)])
-    }
-
     private func setupView() {
         axis = .horizontal
         alignment = .fill

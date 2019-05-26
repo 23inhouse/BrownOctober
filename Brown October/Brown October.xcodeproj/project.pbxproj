@@ -34,7 +34,6 @@
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
 		B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */; };
 		B5AF4DC322842BA6008D8791 /* PlayersUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC222842BA6008D8791 /* PlayersUIStackView.swift */; };
-		B5AF4DC522842D43008D8791 /* SafeAreaUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC422842D43008D8791 /* SafeAreaUIView.swift */; };
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
@@ -95,7 +94,6 @@
 		B5AA7374225CC7C3008AAEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUIView.swift; sourceTree = "<group>"; };
 		B5AF4DC222842BA6008D8791 /* PlayersUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersUIStackView.swift; sourceTree = "<group>"; };
-		B5AF4DC422842D43008D8791 /* SafeAreaUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaUIView.swift; sourceTree = "<group>"; };
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 				B5AF4DC62285D338008D8791 /* PlayerViewController.swift */,
 				B50B9FF3229804D100C1F418 /* GameOverViewController.swift */,
 				B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */,
-				B5AF4DC422842D43008D8791 /* SafeAreaUIView.swift */,
 				B5AF4DC222842BA6008D8791 /* PlayersUIStackView.swift */,
 				B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */,
 				B51B6EA5228066A900CEBDDC /* ScoreUIView.swift */,
@@ -388,7 +385,6 @@
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
 				B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */,
 				B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */,
-				B5AF4DC522842D43008D8791 /* SafeAreaUIView.swift in Sources */,
 				B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */,
 				B5291ED422689C98002C49B0 /* Tile.swift in Sources */,
 				B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */,

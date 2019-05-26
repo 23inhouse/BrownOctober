@@ -44,7 +44,7 @@ class PoopUIView: UIView {
             constraintHeight,
             ])
 
-        gridView.constrainTo(self)
+        gridView.constrain(to: self)
     }
 
     func reset() {

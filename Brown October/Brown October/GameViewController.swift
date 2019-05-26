@@ -36,9 +36,9 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let safeAreaView = SafeAreaUIView()
+        let safeAreaView = UIView()
         view.addSubview(safeAreaView)
-        safeAreaView.constrainTo(view.safeAreaLayoutGuide)
+        safeAreaView.constrain(to: view.safeAreaLayoutGuide)
 
         let playerOneController = buildPlayerViewController(brownOctober.playerOne)
         self.playerOneController = playerOneController
@@ -53,7 +53,7 @@ class GameViewController: UIViewController {
 
         let playersView = PlayersUIStackView(playerOneView: playerOneController.playerView, playerTwoView: playerTwoController.playerView)
         safeAreaView.addSubview(playersView)
-        playersView.constrainTo(safeAreaView)
+        playersView.constrain(to: safeAreaView)
         self.playersView = playersView
     }
 

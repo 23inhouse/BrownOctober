@@ -43,54 +43,6 @@ class BoardUIView: UIView, BoardProtocol {
         gridView.constrain(to: self)
     }
 
-    func constrainTo(_ parentView: UIView) {
-        let constraintHeight = NSLayoutConstraint(
-            item: self,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: self,
-            attribute: .width,
-            multiplier: 1, constant: 0)
-
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
-            constraintHeight
-            ])
-
-        gridView.constrainTo(self)
-    }
-
-    func constrainTo(_ parentView: UIView, with attribute: NSLayoutConstraint.Attribute) {
-        let constraintWidth = NSLayoutConstraint(
-            item: self,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: parentView,
-            attribute: attribute,
-            multiplier: 1, constant: 0)
-
-        let constraintHeight = NSLayoutConstraint(
-            item: self,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: self,
-            attribute: .width,
-            multiplier: 1, constant: 0)
-
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
-            constraintWidth,
-            constraintHeight
-            ])
-
-        gridView.constrainTo(self)
-    }
-
     func reset() {
         gridView.reset()
     }
