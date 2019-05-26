@@ -10,6 +10,8 @@ import UIKit
 
 class PlayerUIView: UIView {
 
+    let player: Player!
+
     let layoutView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -35,8 +37,7 @@ class PlayerUIView: UIView {
 
     let boardView = BoardUIView()
 
-    let player: Player
-    let board: Board
+    lazy var  board = player.board
 
     func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
         boardView.setGridButtonDeletage(delegate)
@@ -72,13 +73,7 @@ class PlayerUIView: UIView {
 
     init(player: Player) {
         self.player = player
-        self.board = player.board
-
         super.init(frame: .zero)
-
-        if player.isComputer {
-            isUserInteractionEnabled = false
-        }
 
         setupView()
         setupConstraints()

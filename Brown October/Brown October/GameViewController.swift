@@ -10,14 +10,34 @@ import UIKit
 
 class GameViewController: UIViewController {
 
-    var playerOneController: PlayerViewController!
-    var playerTwoController: PlayerViewController!
-
-    var playersView: PlayersUIStackView!
+    var mainView: UIStackView { return self.view as! UIStackView }
 
     lazy var brownOctober = BrownOctober()
     lazy var playerOne = brownOctober.playerOne
     lazy var playerTwo = brownOctober.playerTwo
+
+    lazy var playerOneController: PlayerViewController = {
+        let controller = PlayerViewController(playerOne)
+        controller.playerTurnDelegate = self
+        controller.updateGamesWonLabel()
+        var board = playerOne.board
+        if UserData.retrievePoopStains(for: &board) {
+            controller.resetBoard(board)
+        }
+        add(controller)
+        return controller
+    }()
+    lazy var playerTwoController: PlayerViewController = {
+        let controller = PlayerViewController(playerTwo)
+        controller.playerTurnDelegate = self
+        controller.updateGamesWonLabel()
+        controller.scoreView.newGameButtonDelegate = self
+        add(controller)
+        return controller
+    }()
+
+    lazy var playerOneView = playerOneController.mainView
+    lazy var playerTwoView = playerTwoController.mainView
 
     lazy var computer = playerOneController.computer
 
@@ -33,38 +53,21 @@ class GameViewController: UIViewController {
         computer = playerOneController.computer
     }
 
+    private func setupView() {
+        self.view = UIStackView()
+        mainView.axis = .horizontal
+        mainView.alignment = .fill
+        mainView.distribution = .fillEqually
+        mainView.spacing = 30
+
+        mainView.addArrangedSubview(playerOneView)
+        mainView.addArrangedSubview(playerTwoView)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let safeAreaView = UIView()
-        view.addSubview(safeAreaView)
-        safeAreaView.constrain(to: view.safeAreaLayoutGuide)
-
-        let playerOneController = buildPlayerViewController(brownOctober.playerOne)
-        self.playerOneController = playerOneController
-        var board = brownOctober.playerOne.board
-        if UserData.retrievePoopStains(for: &board) {
-            playerOneController.resetBoard(board)
-        }
-
-        let playerTwoController = buildPlayerViewController(brownOctober.playerTwo)
-        playerTwoController.scoreView.newGameButtonDelegate = self
-        self.playerTwoController = playerTwoController
-
-        let playersView = PlayersUIStackView(playerOneView: playerOneController.playerView, playerTwoView: playerTwoController.playerView)
-        safeAreaView.addSubview(playersView)
-        playersView.constrain(to: safeAreaView)
-        self.playersView = playersView
-    }
-
-    private func buildPlayerViewController(_ player: Player) -> PlayerViewController {
-        let playerViewController = PlayerViewController(player)
-        addChild(playerViewController)
-        playerViewController.playerTurnDelegate = self
-        playerViewController.viewDidLoad()
-        playerViewController.updateGamesWonLabel()
-
-        return playerViewController
+        setupView()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -72,13 +75,13 @@ class GameViewController: UIViewController {
 
         switch traitCollection.horizontalSizeClass {
         case .compact:
-            playerOneController.playerView.isHidden = true
+            playerOneView.isHidden = true
         case .regular:
-            playerOneController.playerView.isHidden = false
+            playerOneView.isHidden = false
         case .unspecified:
             fallthrough
         @unknown default:
-            playerOneController.playerView.isHidden = false
+            playerOneView.isHidden = false
         }
     }
 
@@ -94,24 +97,23 @@ class GameViewController: UIViewController {
 
 extension GameViewController: PlayerTurnDelegate {
     func gameOver(from sender: PlayerViewController) {
-        playerTwoController.boardView.isUserInteractionEnabled = false
+        playerTwoView.boardView.isUserInteractionEnabled = false
 
         sender.incrementGamesWon()
 
         if traitCollection.horizontalSizeClass == .compact {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.playersView.isHidden = true
                 self.performSegue(withIdentifier: "ShowWinner", sender: self)
             })
         } else {
-            playerTwoController.boardView.showUnevacuatedPoops(board: playerTwoController.player.board)
-            playerOneController.boardView.showUnevacuatedPoops(board: playerOneController.player.board)
+            playerOneView.boardView.showUnevacuatedPoops(board: playerOne.board)
+            playerTwoView.boardView.showUnevacuatedPoops(board: playerTwo.board)
         }
     }
 
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool) {
         let player = sender.player
-        let playerView = sender.playerView!
+        let playerView = sender.playerView
 
         if switchPlayer == player.isHuman {
             playerView.boardView.isUserInteractionEnabled = false
@@ -133,7 +135,7 @@ extension GameViewController: PlayerTurnDelegate {
     }
 
     private func showOther(playerView: PlayerUIView) {
-        let otherPlayerView = playerView.player.isHuman ? self.playerOneController.playerView! : self.playerTwoController.playerView!
+        let otherPlayerView = playerView.player.isHuman ? self.playerOneController.playerView : self.playerTwoController.playerView
         otherPlayerView.boardView.isUserInteractionEnabled = true
 
         guard traitCollection.horizontalSizeClass == .compact else { return }

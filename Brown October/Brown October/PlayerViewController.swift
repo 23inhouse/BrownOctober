@@ -18,10 +18,10 @@ class PlayerViewController: UIViewController {
     var mainView: PlayerUIView { return self.view as! PlayerUIView }
 
     let player: Player
-    var playerView: PlayerUIView!
-    var boardView: BoardUIView!
-    var poopView: PoopUIView!
-    var scoreView: ScoreUIView!
+    lazy var playerView = { mainView }()
+    lazy var boardView = { mainView.boardView }()
+    lazy var poopView = { mainView.foundPoopsView }()
+    lazy var scoreView = { mainView.scoreView }()
 
     lazy var computer = getComputerPlayer()
 
@@ -108,11 +108,6 @@ class PlayerViewController: UIViewController {
 
     private func setupView() {
         self.view = PlayerUIView(player: player)
-
-        self.playerView = mainView
-        self.boardView = mainView.boardView
-        self.poopView = mainView.foundPoopsView
-        self.scoreView = mainView.scoreView
 
         mainView.setGridButtonDeletage(self)
         scoreView.solveGameButtonDelegate = self
