@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503D1AF228022840008CE95 /* BoardUIView.swift */; };
 		B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A12299C5B500CE00CB /* UIView+springy.swift */; };
+		B508C5A4229A9C2200CE00CB /* GamePlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
 		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
 		B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00D229970D700C1F418 /* GameSetupUIView.swift */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		B503D1AF228022840008CE95 /* BoardUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardUIView.swift; sourceTree = "<group>"; };
 		B508C5A12299C5B500CE00CB /* UIView+springy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+springy.swift"; sourceTree = "<group>"; };
+		B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayUITests.swift; sourceTree = "<group>"; };
 		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50BA00122981DD000C1F418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				B50BA00122981DD000C1F418 /* Info.plist */,
 				B50BA0132299745700C1F418 /* GameSetupUITests.swift */,
+				B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */,
 				B50BA00722981E0A00C1F418 /* GameOverUITests.swift */,
 				B50BA017229982CD00C1F418 /* XCTestCase+screenshot.swift */,
 			);
@@ -370,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B50BA018229982CD00C1F418 /* XCTestCase+screenshot.swift in Sources */,
+				B508C5A4229A9C2200CE00CB /* GamePlayUITests.swift in Sources */,
 				B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */,
 				B50BA0142299745700C1F418 /* GameSetupUITests.swift in Sources */,
 			);
