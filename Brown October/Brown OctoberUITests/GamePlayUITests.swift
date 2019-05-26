@@ -20,7 +20,6 @@ class GamePlayUITests: XCTestCase {
     }
 
     func testGameSetup() {
-        app.tap()
         saveScreenshot("game-play.png")
     }
 }

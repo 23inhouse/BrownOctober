@@ -20,8 +20,6 @@ class GameOverUITests: XCTestCase {
     }
 
     func testGameOver() {
-        app.tap()
         saveScreenshot("game-over.png")
     }
-
 }

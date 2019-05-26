@@ -19,11 +19,7 @@ class GameSetupUITests: XCTestCase {
         app.launch()
     }
 
-    override func tearDown() {
-    }
-
     func testGameSetup() {
-        app.tap()
         saveScreenshot("game-setup.png")
     }
 }
