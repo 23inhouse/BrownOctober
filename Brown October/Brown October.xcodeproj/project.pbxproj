@@ -10,6 +10,7 @@
 		B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503D1AF228022840008CE95 /* BoardUIView.swift */; };
 		B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A12299C5B500CE00CB /* UIView+springy.swift */; };
 		B508C5A4229A9C2200CE00CB /* GamePlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */; };
+		B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
 		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
 		B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00D229970D700C1F418 /* GameSetupUIView.swift */; };
@@ -66,6 +67,7 @@
 		B503D1AF228022840008CE95 /* BoardUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardUIView.swift; sourceTree = "<group>"; };
 		B508C5A12299C5B500CE00CB /* UIView+springy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+springy.swift"; sourceTree = "<group>"; };
 		B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayUITests.swift; sourceTree = "<group>"; };
+		B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+subcontroller.swift"; sourceTree = "<group>"; };
 		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50BA00122981DD000C1F418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */,
 				B5E853B22297F90100DFECC3 /* UIView+constraints.swift */,
 				B508C5A12299C5B500CE00CB /* UIView+springy.swift */,
+				B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
+				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
 				B5AA736B225CC7C1008AAEA2 /* ViewController.swift in Sources */,
 				B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */,
