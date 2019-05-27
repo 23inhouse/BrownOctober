@@ -43,6 +43,21 @@ class BoardUIView: UIView, BoardProtocol {
         gridView.constrain(to: self)
     }
 
+    func constrain(to otherView: UIView, width: CGFloat) {
+        let constraintWidth = NSLayoutConstraint(
+            item: self,
+            attribute: .width,
+            relatedBy: .lessThanOrEqual,
+            toItem: otherView,
+            attribute: .width,
+            multiplier: width, constant: 0)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            constraintWidth,
+            ])
+    }
+
     func reset() {
         gridView.reset()
     }
@@ -67,7 +82,7 @@ class BoardUIView: UIView, BoardProtocol {
         for (i, tile) in board.tiles.enumerated() {
             if tile.poopIdentifier > 0 && !tile.isFound {
                 let button = getButton(at: i) as! GridUIButton
-                button.setData(text: "", color: getTileColor(for: tile.poopIdentifier), alpha: 1)
+                button.backgroundColor = getTileColor(for: tile.poopIdentifier)
             }
         }
     }

@@ -68,10 +68,10 @@ class ScoreUIView: UIView {
             attribute: .width,
             multiplier: max, constant: 0)
 
-        let constraintHeight = NSLayoutConstraint(
+        let constraintMaxHeight = NSLayoutConstraint(
             item: labelsStackView,
             attribute: .height,
-            relatedBy: .equal,
+            relatedBy: .lessThanOrEqual,
             toItem: self,
             attribute: .width,
             multiplier: height, constant: 0)
@@ -81,7 +81,7 @@ class ScoreUIView: UIView {
         NSLayoutConstraint.activate([
             constraintMinWidth,
             constraintMaxWidth,
-            constraintHeight,
+            constraintMaxHeight,
             ])
         labelsStackView.pin(labelsStackView.topAnchor, to: topAnchor)
 

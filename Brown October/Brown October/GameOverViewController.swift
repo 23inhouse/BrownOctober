@@ -30,15 +30,28 @@ class GameOverViewController: UIViewController {
 
         mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
-        set(buttons: &mainView.computerButtons, from: computerPlayer)
-        set(buttons: &mainView.humanButtons, from: humanPlayer)
+        set(scoreView: mainView.computerScoreView, for: computerPlayer)
+        set(scoreView: mainView.humanScoreView, for: humanPlayer)
+        self.setButtons(for: self.mainView.computerBoardView, from: self.computerPlayer)
+        self.setButtons(for: self.mainView.humanBoardView, from: self.humanPlayer)
     }
 
-    private func set(buttons: inout [GridUIButton], from player: Player) {
+    private func set(scoreView: ScoreUIView, for player: Player) {
+        let numberFound = player.board.numberOfFoundTiles()
+        let numberFlushed = player.board.numberOfFlushedTiles()
+        scoreView.gamesWonLabel.setScore(score: UserData.retrieveGamesWon(for: player))
+        scoreView.foundPoopsLabel.setScore(score: numberFound)
+        scoreView.remainingFlushLabel.setScore(score: numberFlushed - numberFound)
+    }
+
+    private func setButtons(for boardView: BoardUIView, from player: Player) {
         for (i, tile) in player.board.tiles.enumerated() {
-            let text = tile.isFound ? "💩" : ""
-            let color:UIColor = tile.isFlushed ? .blue : .white
-            buttons[i].setData(text: text, color: color, alpha: 1)
+            let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
+            var color: UIColor = .white
+            if tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound) {
+                color = boardView.getTileColor(for: tile.poopIdentifier)
+            }
+            boardView.buttons[i].setData(text: text, color: color, alpha: 1)
         }
     }
 

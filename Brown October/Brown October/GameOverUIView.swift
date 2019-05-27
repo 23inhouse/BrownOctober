@@ -15,9 +15,6 @@ class GameOverUIView: UIView {
     let buttonFontSize:CGFloat = 50
     let buttonHeight:CGFloat = 90
 
-    lazy var computerButtons = computerBoardView.buttons
-    lazy var humanButtons = humanBoardView.buttons
-
     let layoutView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -81,11 +78,13 @@ class GameOverUIView: UIView {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
         button.constrain(to: self, height: buttonHeight)
         computerBoardView.constrain()
+        computerBoardView.constrain(to: layoutView, width: 0.75)
         computerScoreView.constrain(to: computerLayoutView, min: 0.15, max: 0.25, height: 1.5)
         NSLayoutConstraint.activate([
             computerScoreView.labelsStackView.rightAnchor.constraint(equalTo: computerScoreView.rightAnchor, constant: -10)
             ])
         humanBoardView.constrain()
+        humanBoardView.constrainWidth(to: computerBoardView)
         humanScoreView.constrain(to: humanLayoutView, min: 0.15, max: 0.25, height: 1.5)
         NSLayoutConstraint.activate([
             humanScoreView.labelsStackView.leftAnchor.constraint(equalTo: humanScoreView.leftAnchor, constant: 10)

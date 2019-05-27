@@ -38,6 +38,22 @@ extension UIView {
             ])
     }
 
+    func constrainWidth(to otherView: UIView) {
+        let constraintWidth = NSLayoutConstraint(
+            item: self,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: otherView,
+            attribute: .width,
+            multiplier: 1, constant: 0)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            constraintWidth,
+            ])
+    }
+
+
     func pin(_ anchor: NSLayoutXAxisAnchor, to otherAnchor: NSLayoutXAxisAnchor) {
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([anchor.constraint(equalTo: otherAnchor)])

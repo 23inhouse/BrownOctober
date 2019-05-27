@@ -141,6 +141,14 @@ class Grid {
     let gridUtility: GridUtility
     lazy var tiles: [Tile] = self.cleanTiles()
 
+    func numberOfFoundTiles() -> Int {
+        return tiles.filter({ $0.isFound }).count
+    }
+
+    func numberOfFlushedTiles() -> Int {
+        return tiles.filter({ $0.isFlushed }).count
+    }
+
     func cleanTiles() -> [Tile] {
         var tiles = [Tile]()
         for y in 0 ..< gridUtility.height {
