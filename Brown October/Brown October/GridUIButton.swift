@@ -41,7 +41,8 @@ class GridUIButton: UILabel {
         backgroundColor = .white
         font = font.withSize(100)
         adjustsFontSizeToFitWidth = true
-        numberOfLines = 0
+        numberOfLines = 1
+        baselineAdjustment = .alignCenters
         textAlignment = .center
         layer.borderColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
         layer.borderWidth = borderWidth
