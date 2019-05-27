@@ -10,11 +10,11 @@ import UIKit
 
 class GridUIStackView: UIStackView {
 
+    let cols: Int
+    let rows: Int
+    let active: Bool
+
     var buttons = [GridUIButton]()
-
-    private func setupView() {
-
-    }
 
     func reset() {
         for button in buttons {
@@ -22,18 +22,13 @@ class GridUIStackView: UIStackView {
         }
     }
 
-    init(cols: Int, rows: Int, active: Bool) {
-        super.init(frame: .zero)
-
-        setupView()
-
+    private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
         alignment = .fill
         distribution = .fillEqually
         spacing = 0
 
-        // hack to adjust emoji size bigger for the board grid and smaller for the poop grid
         let buttonBorderWidth:CGFloat = active ? 1 : 0.5
         var index = 0
         for _ in 0 ..< rows {
@@ -54,6 +49,17 @@ class GridUIStackView: UIStackView {
 
             self.addArrangedSubview(hStackView)
         }
+
+    }
+
+    init(cols: Int, rows: Int, active: Bool) {
+        self.cols = cols
+        self.rows = rows
+        self.active = active
+
+        super.init(frame: .zero)
+
+        setupView()
     }
 
     required init(coder: NSCoder) {
