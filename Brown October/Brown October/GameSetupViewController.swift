@@ -73,14 +73,17 @@ class GameSetupViewController: UIViewController {
         switch traitCollection.horizontalSizeClass {
         case .compact:
             mainView.layoutView.axis = .vertical
+            mainView.layoutView.distribution = .equalSpacing
             mainView.buttonsLayoutView.axis = .horizontal
         case .regular:
             mainView.layoutView.axis = .horizontal
+            mainView.layoutView.distribution = .equalSpacing
             mainView.buttonsLayoutView.axis = .vertical
         case .unspecified:
             fallthrough
         @unknown default:
             mainView.layoutView.axis = .vertical
+            mainView.layoutView.distribution = .equalSpacing
             mainView.buttonsLayoutView.axis = .horizontal
         }
     }

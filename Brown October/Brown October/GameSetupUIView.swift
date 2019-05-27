@@ -12,9 +12,9 @@ class GameSetupUIView: UIView {
 
     let layoutView: UIStackView = {
         let view = UIStackView()
-        view.axis = .vertical
+        view.axis = UIView.longAxis
         view.alignment = .fill
-        view.distribution = .equalSpacing
+        view.distribution = .fill
         return view
     }()
 
@@ -63,6 +63,7 @@ class GameSetupUIView: UIView {
 
         addSubview(layoutView)
         layoutView.addArrangedSubview(emptySpaceView)
+
         layoutView.addArrangedSubview(buttonsLayoutView)
         buttonsLayoutView.addArrangedSubview(resetButton)
         buttonsLayoutView.addArrangedSubview(playButton)
@@ -84,5 +85,4 @@ class GameSetupUIView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
