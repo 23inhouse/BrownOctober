@@ -152,7 +152,7 @@ extension GameViewController: PlayerTurnDelegate {
 
     private func turnDelay(_ switchPlayer: Bool) -> Double {
         let normal: Double = 0.25
-        let switching: Double = 1.5
+        let switching: Double = 0.75
 
         guard traitCollection.horizontalSizeClass == .compact else { return normal }
         guard switchPlayer else { return normal }
