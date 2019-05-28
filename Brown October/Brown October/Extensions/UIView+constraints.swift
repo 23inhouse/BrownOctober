@@ -38,21 +38,51 @@ extension UIView {
             ])
     }
 
-    func constrainWidth(to otherView: UIView) {
+    func constrainXAxis(to parentView: UIView, margin: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: margin),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -margin),
+            ])
+    }
+
+    func constrainYAxis(to parentView: UIView, margin: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: parentView.topAnchor, constant: margin),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -margin),
+            ])
+    }
+
+    func constrainHeight(to otherView: UIView, max: CGFloat = 1) {
+        let constraintHeight = NSLayoutConstraint(
+            item: self,
+            attribute: .height,
+            relatedBy: max == 1 ? .equal : .lessThanOrEqual,
+            toItem: otherView,
+            attribute: .height,
+            multiplier: max, constant: 0)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            constraintHeight,
+            ])
+    }
+
+    func constrainWidth(to otherView: UIView, max: CGFloat = 1) {
         let constraintWidth = NSLayoutConstraint(
             item: self,
             attribute: .width,
-            relatedBy: .equal,
+            relatedBy: max == 1 ? .equal : .lessThanOrEqual,
             toItem: otherView,
             attribute: .width,
-            multiplier: 1, constant: 0)
+            multiplier: max, constant: 0)
 
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             constraintWidth,
             ])
     }
-
 
     func pin(_ anchor: NSLayoutXAxisAnchor, to otherAnchor: NSLayoutXAxisAnchor) {
         translatesAutoresizingMaskIntoConstraints = false

@@ -13,12 +13,6 @@ class ScoreUILabel: UILabel {
     let label: String
     var score: Int
 
-    lazy var fontSize: CGFloat = {
-        let landscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
-        let divisor: CGFloat = landscape ? 24 : 12
-        return UIScreen.main.bounds.width / divisor
-    }()
-
     func setScore(score: Int) {
         self.score = score
         text = getText()
@@ -28,9 +22,11 @@ class ScoreUILabel: UILabel {
         text = getText()
         textColor = .black
         textAlignment = .left
+        baselineAdjustment = .alignCenters
+        numberOfLines = 1
+        font = font.withSize(50)
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.5
-        font = font.withSize(fontSize)
+        minimumScaleFactor = 0.01
     }
 
     private func getText() -> String {

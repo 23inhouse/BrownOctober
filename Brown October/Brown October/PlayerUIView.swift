@@ -23,12 +23,12 @@ class PlayerUIView: UIView {
 
     let emptySpaceView = UIView()
 
-    let scoreLayoutView: UIStackView = {
+    let infoLayoutView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .fill
-        view.distribution = .fill
-        view.spacing = 20
+        view.distribution = .equalSpacing
+        view.spacing = 0
         return view
     }()
 
@@ -54,9 +54,9 @@ class PlayerUIView: UIView {
         addSubview(layoutView)
         layoutView.addArrangedSubview(emptySpaceView)
 
-        layoutView.addArrangedSubview(scoreLayoutView)
-        scoreLayoutView.addArrangedSubview(foundPoopsView)
-        scoreLayoutView.addArrangedSubview(scoreView)
+        layoutView.addArrangedSubview(infoLayoutView)
+        infoLayoutView.addArrangedSubview(foundPoopsView)
+        infoLayoutView.addArrangedSubview(scoreView)
 
         layoutView.addArrangedSubview(boardView)
 
@@ -65,10 +65,8 @@ class PlayerUIView: UIView {
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
-        foundPoopsView.constrain()
-        scoreView.constrain(to: scoreLayoutView, min: 0.25, max: 0.3, height: 1.5)
-
-        boardView.constrain()
+        foundPoopsView.constrainWidth(to: layoutView, max: 0.75)
+        scoreView.constrainWidth(to: layoutView, max: 0.25)
     }
 
     init(player: Player) {

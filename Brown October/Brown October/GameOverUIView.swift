@@ -29,7 +29,7 @@ class GameOverUIView: UIView {
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 20
+        view.spacing = 0
         return view
     }()
 
@@ -38,7 +38,7 @@ class GameOverUIView: UIView {
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 20
+        view.spacing = 0
         return view
     }()
 
@@ -77,18 +77,10 @@ class GameOverUIView: UIView {
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
         button.constrain(to: self, height: buttonHeight)
-        computerBoardView.constrain()
-        computerBoardView.constrain(to: layoutView, width: 0.75)
-        computerScoreView.constrain(to: computerLayoutView, min: 0.15, max: 0.25, height: 1.5)
-        NSLayoutConstraint.activate([
-            computerScoreView.labelsStackView.rightAnchor.constraint(equalTo: computerScoreView.rightAnchor, constant: -10)
-            ])
-        humanBoardView.constrain()
+        computerBoardView.constrainWidth(to: layoutView, max: 0.75)
+        computerScoreView.constrainWidth(to: layoutView, max: 0.35)
         humanBoardView.constrainWidth(to: computerBoardView)
-        humanScoreView.constrain(to: humanLayoutView, min: 0.15, max: 0.25, height: 1.5)
-        NSLayoutConstraint.activate([
-            humanScoreView.labelsStackView.leftAnchor.constraint(equalTo: humanScoreView.leftAnchor, constant: 10)
-            ])
+        humanScoreView.constrainWidth(to: computerScoreView)
     }
 
     init(text: String) {

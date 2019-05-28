@@ -10,7 +10,14 @@ import UIKit
 
 class GameViewController: UIViewController {
 
-    var mainView: UIStackView { return self.view as! UIStackView }
+    let mainView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .fill
+        view.distribution = .fillEqually
+        view.spacing = 30
+        return view
+    }()
 
     lazy var brownOctober = BrownOctober()
     lazy var playerOne = brownOctober.playerOne
@@ -54,12 +61,11 @@ class GameViewController: UIViewController {
     }
 
     private func setupView() {
-        self.view = UIStackView()
-        mainView.axis = .horizontal
-        mainView.alignment = .fill
-        mainView.distribution = .fillEqually
-        mainView.spacing = 30
+        view.backgroundColor = .white
+        view.addSubview(mainView)
+        mainView.constrain(to: view.safeAreaLayoutGuide)
 
+        playerOneView.isUserInteractionEnabled = false
         mainView.addArrangedSubview(playerOneView)
         mainView.addArrangedSubview(playerTwoView)
     }

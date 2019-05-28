@@ -72,7 +72,6 @@ class GameSetupUIView: UIView {
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
-        boardView.constrain()
     }
 
     override init(frame: CGRect) {

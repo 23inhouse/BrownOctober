@@ -30,7 +30,21 @@ class PoopUIView: UIView {
         return foundPoops
     }()
 
-    func constrain() {
+    func reset() {
+        for (i, tile) in foundPoops.tiles.enumerated() {
+            let text = tile.poopIdentifier > 0 ? "💩" : ""
+            let button = gridView.buttons[i]
+            button.setData(text: text, color: .white, alpha: 1)
+        }
+    }
+
+    private func setupView() {
+        backgroundColor = #colorLiteral(red: 0.881449021, green: 0.9286234245, blue: 0.9327289993, alpha: 1)
+
+        addSubview(gridView)
+    }
+
+    private func setupConstraints() {
         let constraintHeight = NSLayoutConstraint(
             item: self,
             attribute: .height,
@@ -47,24 +61,11 @@ class PoopUIView: UIView {
         gridView.constrain(to: self)
     }
 
-    func reset() {
-        for (i, tile) in foundPoops.tiles.enumerated() {
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            let button = gridView.buttons[i]
-            button.setData(text: text, color: .white, alpha: 1)
-        }
-    }
-
-    private func setupView() {
-        backgroundColor = #colorLiteral(red: 0.881449021, green: 0.9286234245, blue: 0.9327289993, alpha: 1)
-
-        addSubview(gridView)
-    }
-
     init() {
         super.init(frame: .zero)
 
         setupView()
+        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
