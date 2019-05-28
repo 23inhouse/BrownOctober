@@ -165,7 +165,7 @@ extension PlayerViewController: GridButtonDelegate {
         remainingFlushCount += 1
 
         board.tiles[index].markAsFlushed()
-        button.setData(text: "🌊", color: .white, alpha: 0.65)
+        button.setData(text: "🌊", color: .white, alpha: 0.75)
 
         playerTurnDelegate.nextTurn(from: self, switchPlayer: true)
     }
