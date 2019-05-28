@@ -65,8 +65,8 @@ class PlayerUIView: UIView {
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
-        foundPoopsView.constrainWidth(to: layoutView, max: 0.75)
-        scoreView.constrainWidth(to: layoutView, max: 0.25)
+        foundPoopsView.constrainWidth(to: layoutView, max: 0.7)
+        scoreView.constrainWidth(to: layoutView, max: 0.3)
     }
 
     init(player: Player) {

@@ -10,8 +10,8 @@ import UIKit
 
 class PoopUIView: UIView {
 
-    let width = 9
-    let height = 5
+    let width = 7
+    let height = 7
 
     lazy var gridView = GridUIStackView(cols: width, rows: height, active: false)
     lazy var buttons = gridView.buttons
@@ -24,7 +24,7 @@ class PoopUIView: UIView {
         _ = foundPoops.placePoop(poops[1], x: 4, y: 2, direction: 0, tiles: &foundPoops.tiles, check: false)
         _ = foundPoops.placePoop(poops[2], x: 3, y: 0, direction: 2, tiles: &foundPoops.tiles, check: false)
         _ = foundPoops.placePoop(poops[3], x: 3, y: 4, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[4], x: 8, y: 0, direction: 1, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[4], x: 1, y: 6, direction: 0, tiles: &foundPoops.tiles, check: false)
         _ = foundPoops.placePoop(poops[5], x: 0, y: 1, direction: 1, tiles: &foundPoops.tiles, check: false)
 
         return foundPoops
@@ -51,7 +51,7 @@ class PoopUIView: UIView {
             relatedBy: .equal,
             toItem: self,
             attribute: .width,
-            multiplier: 0.555, constant: 0)
+            multiplier: 1, constant: 0)
 
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
