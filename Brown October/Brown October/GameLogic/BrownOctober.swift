@@ -94,7 +94,7 @@ class Board: Grid {
 
     func biggestPoop() -> Int {
         let size = poops.filter { !$0.isFound}.map { $0.poopSize }.max()
-        return size == nil ? 0 : size!
+        return size ?? 0
     }
 
     func wipe(at index: Int) -> (Tile, Poop)? {
