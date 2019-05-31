@@ -12,7 +12,7 @@ protocol BoardProtocol {
     func getButton(at index: Int) -> GridButtonProtocol
 }
 
-class BoardUIView: UIView, BoardProtocol {
+class BoardUIView: UIView {
 
     lazy var gridView = GridUIStackView(cols: 10, rows: 10, active: true)
     lazy var buttons = gridView.buttons
@@ -31,10 +31,6 @@ class BoardUIView: UIView, BoardProtocol {
         for button in buttons {
             button.gridButtonDragDelegate = delegate
         }
-    }
-
-    func getButton(at index: Int) -> GridButtonProtocol {
-        return gridView.buttons[index]
     }
 
     func showUnevacuatedPoops(board: Board) {
@@ -103,5 +99,11 @@ class BoardUIView: UIView, BoardProtocol {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension BoardUIView: BoardProtocol {
+    func getButton(at index: Int) -> GridButtonProtocol {
+        return gridView.buttons[index]
     }
 }
