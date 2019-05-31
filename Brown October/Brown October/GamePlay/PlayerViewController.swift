@@ -79,9 +79,9 @@ class PlayerViewController: UIViewController {
 
     private func getComputerPlayer() -> ComputerPlayer {
         let board = player.board
-        let nextGuessClosure = ComputerPlayer.makeSingleDelayedGuessClosure
+        let guesser = Guesser(nextGuessClosure: Guesser.callFromQueueNow)
 
-        return ComputerPlayer(board: board, boardProtocol: boardView, nextGuessClosure: nextGuessClosure)
+        return ComputerPlayer(board: board, boardProtocol: boardView, guesser: guesser)
     }
 
     private func flushPoop(_ ident: Int, board: Board, boardView: BoardUIView, poopView: PoopUIView) {

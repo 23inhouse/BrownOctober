@@ -8,7 +8,39 @@
 
 import Foundation
 
-typealias NextGuess = (_ instance: ComputerPlayer, @escaping () -> Void) -> ()
+typealias NextGuessClosure = (_ instance: Guesser, @escaping () -> Void) -> ()
+
+class Guesser {
+
+    let closure: NextGuessClosure
+    var nextGuessQueue = [(() -> Void)]()
+
+    static func callNow(_ instance: Guesser, closure: @escaping () -> Void) {
+        closure()
+    }
+
+    static func callLater(_ instance: Guesser, closure: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: { closure() })
+    }
+
+    static func callFromQueueNow(_ instance: Guesser, closure: @escaping () -> Void) {
+        instance.nextGuessQueue.append(closure)
+    }
+
+    func perform(nextTurn: @escaping () -> Void) {
+        closure(self) {
+            nextTurn()
+        }
+    }
+
+    func nextTurnFromQueue() -> (() -> Void)? {
+        return nextGuessQueue.popLast()
+    }
+
+    init(nextGuessClosure: NextGuessClosure? = nil) {
+        self.closure = nextGuessClosure ?? Guesser.callNow
+    }
+}
 
 class ComputerPlayer {
 
@@ -19,31 +51,17 @@ class ComputerPlayer {
     let boardProtocol: BoardProtocol
     let gridUtility: GridUtility
     let maxGuesses = 100
+    let guesser: Guesser
     var guesses = [Int]()
 
-    let nextGuessClosure: NextGuess
-    var nextGuessQueue = [(() -> Void)]()
-
     lazy var poopSeeker = PoopSeeker(player: self)
-
-    static func makeGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
-        closure()
-    }
-
-    static func makeDelayedGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: { closure() })
-    }
-
-    static func makeSingleDelayedGuessClosure(_ instance: ComputerPlayer, closure: @escaping () -> Void) {
-        instance.nextGuessQueue.append(closure)
-    }
 
     func play(startAt: Int? = nil) {
         huntForBrownOctober(startAt)
     }
 
     func playNext() {
-        guard let closure = nextGuessQueue.popLast() else {
+        guard let closure = guesser.nextTurnFromQueue() else {
             play()
             return
         }
@@ -110,18 +128,18 @@ class ComputerPlayer {
 
             let poop = self.board.poops[poopIdent - 1]
             if poop.isFound {
-                self.nextGuessClosure(self) { self.huntForBrownOctober(nil) }
+                guesser.perform() { self.huntForBrownOctober(nil) }
                 return
             }
 
-            self.nextGuessClosure(self) {
+            guesser.perform() {
                 let hottestIndex = self.poopSeeker.heatSeek(around: index)
                 self.huntForBrownOctober(hottestIndex)
             }
             return
         }
 
-        self.nextGuessClosure(self) { self.huntForBrownOctober(nil) }
+        guesser.perform() { self.huntForBrownOctober(nil) }
         return
     }
 
@@ -166,11 +184,11 @@ class ComputerPlayer {
         return guess
     }
 
-    init(board: Board, boardProtocol: BoardProtocol, nextGuessClosure: NextGuess? = nil) {
+    init(board: Board, boardProtocol: BoardProtocol, guesser: Guesser? = nil) {
         self.board = board
         self.boardProtocol = boardProtocol
         self.gridUtility = board.gridUtility
-        self.nextGuessClosure = nextGuessClosure == nil ? ComputerPlayer.makeGuessClosure : nextGuessClosure!
+        self.guesser = guesser ?? Guesser()
     }
 }
 
