@@ -25,7 +25,7 @@ class GameViewController: UIViewController {
     lazy var playerOne = brownOctober.playerOne
     lazy var playerTwo = brownOctober.playerTwo
 
-    lazy var playerOneController: PlayerViewController = {
+    lazy var playerOneController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(playerOne)
         controller.playerTurnDelegate = self
         controller.updateGamesWonLabel()
@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
         add(controller)
         return controller
     }()
-    lazy var playerTwoController: PlayerViewController = {
+    lazy var playerTwoController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(playerTwo)
         controller.playerTurnDelegate = self
         controller.updateGamesWonLabel()
@@ -48,8 +48,6 @@ class GameViewController: UIViewController {
     lazy var playerOneView = playerOneController.mainView
     lazy var playerTwoView = playerTwoController.mainView
 
-    lazy var computer = playerOneController.computer
-
     private func resetGame() {
         var board = brownOctober.playerOne.board
         if UserData.retrievePoopStains(for: &board) {
@@ -58,8 +56,6 @@ class GameViewController: UIViewController {
             playerOneController.resetBoard()
         }
         playerTwoController.resetBoard()
-
-        computer = playerOneController.computer
     }
 
     private func setupView() {
@@ -101,11 +97,11 @@ extension GameViewController: PlayerTurnDelegate {
         sender.incrementGamesWon()
 
         if traitCollection.horizontalSizeClass == .compact {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 let won = self?.playerTwo.won()
                 let winner = won ?? true ? "human" : "computer"
                 self?.coordinator?.gameOver(winner: winner)
-            })
+            }
         } else {
             playerOneView.boardView.showUnevacuatedPoops(board: playerOne.board)
             playerTwoView.boardView.showUnevacuatedPoops(board: playerTwo.board)
@@ -122,7 +118,8 @@ extension GameViewController: PlayerTurnDelegate {
 
         let delay = player.isHuman ? 0.05 : 0.5
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
             if switchPlayer {
                 self.showOther(playerView: playerView)
             }
@@ -132,7 +129,7 @@ extension GameViewController: PlayerTurnDelegate {
             if switchPlayer == player.isHuman {
                 self.playComputerTurn(delay: delay)
             }
-        })
+        }
     }
 
     private func showOther(playerView: PlayerUIView) {
@@ -156,7 +153,9 @@ extension GameViewController: PlayerTurnDelegate {
     }
 
     private func playComputerTurn(delay: Double) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { self.computer.playNext() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.playerOneController.getComputerPlayer().playNext()
+        }
     }
 
 }

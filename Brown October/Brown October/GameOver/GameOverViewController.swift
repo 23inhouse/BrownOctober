@@ -34,8 +34,8 @@ class GameOverViewController: UIViewController {
 
         set(scoreView: mainView.computerScoreView, for: computerPlayer)
         set(scoreView: mainView.humanScoreView, for: humanPlayer)
-        self.setButtons(for: self.mainView.computerBoardView, from: self.computerPlayer)
-        self.setButtons(for: self.mainView.humanBoardView, from: self.humanPlayer)
+        self.setButtons(for: mainView.computerBoardView, from: computerPlayer)
+        self.setButtons(for: mainView.humanBoardView, from: humanPlayer)
     }
 
     private func set(scoreView: ScoreUIView, for player: Player) {

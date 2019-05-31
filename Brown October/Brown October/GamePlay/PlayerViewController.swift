@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PlayerTurnDelegate {
+protocol PlayerTurnDelegate: class {
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool)
     func gameOver(from sender: PlayerViewController)
 }
@@ -23,9 +23,7 @@ class PlayerViewController: UIViewController {
     lazy var poopView = { mainView.foundPoopsView }()
     lazy var scoreView = { mainView.scoreView }()
 
-    lazy var computer = getComputerPlayer()
-
-    var playerTurnDelegate: PlayerTurnDelegate!
+    weak var playerTurnDelegate: PlayerTurnDelegate?
 
     var gamesWonCount = 0 {
         didSet {
@@ -61,8 +59,6 @@ class PlayerViewController: UIViewController {
             playerView.resetBoard()
         }
 
-        computer = getComputerPlayer()
-
         remainingFlushCount = 0
         poopsFoundCount = 0
     }
@@ -77,7 +73,7 @@ class PlayerViewController: UIViewController {
         UserData.storeGamesWon(for: player, count: gamesWonCount)
     }
 
-    private func getComputerPlayer() -> ComputerPlayer {
+    func getComputerPlayer() -> ComputerPlayer {
         let board = player.board
         let guesser = Guesser(nextGuessClosure: Guesser.callFromQueueNow)
 
@@ -109,7 +105,10 @@ class PlayerViewController: UIViewController {
     private func setupView() {
         self.view = PlayerUIView(player: player)
 
-        mainView.setGridButtonDeletage(self)
+        mainView.boardView.buttons.forEach { [weak self] (button) in
+            button.gridButtonDelegate = self
+        }
+
         scoreView.solveGameButtonDelegate = self
 
         resetBoard()
@@ -122,7 +121,7 @@ class PlayerViewController: UIViewController {
     }
 
     init(_ player: Player) {
-        self.player  = player
+        self.player = player
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -151,13 +150,13 @@ extension PlayerViewController: GridButtonDelegate {
                 flushPoop(poop.identifier, board: board, boardView: boardView, poopView: poopView)
 
                 if board.flushedAllPoops() {
-                    playerTurnDelegate.gameOver(from: self)
+                    playerTurnDelegate?.gameOver(from: self)
                     return
                 }
             }
 
             if player.isComputer {
-                playerTurnDelegate.nextTurn(from: self, switchPlayer: false)
+                playerTurnDelegate?.nextTurn(from: self, switchPlayer: false)
             }
             return
         }
@@ -167,20 +166,19 @@ extension PlayerViewController: GridButtonDelegate {
         board.tiles[index].markAsFlushed()
         button.setData(text: "🌊", color: .white, alpha: 0.55)
 
-        playerTurnDelegate.nextTurn(from: self, switchPlayer: true)
+        playerTurnDelegate?.nextTurn(from: self, switchPlayer: true)
     }
 
-    func didDragGridButton(_ sender: GridButtonProtocol) {
-    }
+    func didDragGridButton(_ sender: GridButtonProtocol) {}
 }
 
 extension PlayerViewController: SolveGameButtonDelegate {
     func didTouchSolveGame() {
         guard !player.won() else { return }
 
-        computer.playNext()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            self.didTouchSolveGame()
-        })
+        getComputerPlayer().playNext()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.didTouchSolveGame()
+        }
     }
 }

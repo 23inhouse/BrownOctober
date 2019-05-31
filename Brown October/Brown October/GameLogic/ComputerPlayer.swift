@@ -128,18 +128,19 @@ class ComputerPlayer {
 
             let poop = self.board.poops[poopIdent - 1]
             if poop.isFound {
-                guesser.perform() { self.huntForBrownOctober(nil) }
+                guesser.perform { [weak self] in self?.huntForBrownOctober(nil) }
                 return
             }
 
-            guesser.perform() {
+            guesser.perform { [weak self] in
+                guard let self = self else { return }
                 let hottestIndex = self.poopSeeker.heatSeek(around: index)
                 self.huntForBrownOctober(hottestIndex)
             }
             return
         }
 
-        guesser.perform() { self.huntForBrownOctober(nil) }
+        guesser.perform { [weak self] in self?.huntForBrownOctober(nil) }
         return
     }
 
@@ -193,15 +194,13 @@ class ComputerPlayer {
 }
 
 class PoopSeeker {
-
-    let player: ComputerPlayer
     let gridUtility: GridUtility
     let board: Board
 
     func heatSeek(around index: Int) -> Int? {
 
         if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
-            print("[\(guessCount())] Hunt around (\(x), \(y))")
+            print("[Seaker] Hunt around (\(x), \(y))")
         }
 
         return calcRandomBestIndex(at: index)
@@ -249,9 +248,9 @@ class PoopSeeker {
             let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
             if self.findHottestIndex(data: data) != nil {
                 if ComputerPlayer.debug {
-                    print("[\(guessCount())] Must match = \(n)")
+                    print("Seaker] Must match = \(n)")
                     heatMap.data = data
-                    heatMap.print("[\(guessCount())] ---- HEAT MAP ----")
+                    heatMap.print("[Seaker] ---- HEAT MAP ----")
                 }
                 return data
             }
@@ -377,12 +376,7 @@ class PoopSeeker {
         }
     }
 
-    private func guessCount() -> Int {
-        return player.guessCount()
-    }
-
     init(player: ComputerPlayer) {
-        self.player = player
         self.gridUtility = player.gridUtility
         self.board = player.board
     }

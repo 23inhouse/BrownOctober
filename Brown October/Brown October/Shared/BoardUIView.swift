@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BoardProtocol {
+protocol BoardProtocol: class {
     func getButton(at index: Int) -> GridButtonProtocol
 }
 
@@ -19,18 +19,6 @@ class BoardUIView: UIView {
 
     func reset() {
         gridView.reset()
-    }
-
-    func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
-        for button in buttons {
-            button.gridButtonDelegate = delegate
-        }
-    }
-
-    func setGridButtonDragDeletage(_ delegate: GridButtonDragDelegate) {
-        for button in buttons {
-            button.gridButtonDragDelegate = delegate
-        }
     }
 
     func showUnevacuatedPoops(board: Board) {

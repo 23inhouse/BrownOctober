@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol NewGameButtonDelegate {
+protocol NewGameButtonDelegate: class {
     func didTouchNewGame()
 }
 
-protocol SolveGameButtonDelegate {
+protocol SolveGameButtonDelegate: class {
     func didTouchSolveGame()
 }
 
 class ScoreUIView: UIView {
 
-    var newGameButtonDelegate: NewGameButtonDelegate?
-    var solveGameButtonDelegate: SolveGameButtonDelegate?
+    weak var newGameButtonDelegate: NewGameButtonDelegate?
+    weak var solveGameButtonDelegate: SolveGameButtonDelegate?
 
     let icon: String
 

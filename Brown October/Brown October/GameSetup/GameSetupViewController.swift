@@ -41,8 +41,10 @@ class GameSetupViewController: UIViewController {
         mainView.playButton.addTarget(self, action: #selector(touchPlayButton), for: .touchUpInside)
 
         loadBoard()
-        boardView.setGridButtonDeletage(self)
-        boardView.setGridButtonDragDeletage(self)
+        boardView.buttons.forEach { [weak self] (button) in
+            button.gridButtonDelegate = self
+            button.gridButtonDragDelegate = self
+        }
     }
 
     private func loadBoard() {

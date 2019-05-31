@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol GridButtonDelegate {
+protocol GridButtonDelegate: class {
     func didTouchGridButton(_ sender: GridButtonProtocol)
 }
 
-protocol GridButtonDragDelegate {
+protocol GridButtonDragDelegate: class {
     func didDragGridButton(_ recognizer: UIPanGestureRecognizer)
 }
 
@@ -24,8 +24,8 @@ protocol GridButtonProtocol {
 
 class GridUIButton: UILabel {
 
-    var gridButtonDelegate: GridButtonDelegate?
-    var gridButtonDragDelegate: GridButtonDragDelegate?
+    weak var gridButtonDelegate: GridButtonDelegate?
+    weak var gridButtonDragDelegate: GridButtonDragDelegate?
 
     let index: Int
     let borderWidth: CGFloat

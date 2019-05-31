@@ -37,11 +37,7 @@ class PlayerUIView: UIView {
 
     let boardView = BoardUIView()
 
-    lazy var  board = player.board
-
-    func setGridButtonDeletage(_ delegate: GridButtonDelegate) {
-        boardView.setGridButtonDeletage(delegate)
-    }
+    lazy var board = player.board
 
     func resetBoard() {
         boardView.reset()
