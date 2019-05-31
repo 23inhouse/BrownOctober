@@ -19,18 +19,16 @@ class GameOverViewControllerTests: XCTestCase {
     }
 
     func testWinningText() {
-        let player = Player("human")
         let subject = GameOverViewController()
-        subject.winner = player
+        subject.winner = "human"
         _ = subject.view
 
         XCTAssertEqual(subject.mainView.text, "💩🏆🥈🌈", "The text is wrong")
     }
 
     func testLosingText() {
-        let player = Player("computer")
         let subject = GameOverViewController()
-        subject.winner = player
+        subject.winner = "computer"
         _ = subject.view
 
         XCTAssertEqual(subject.mainView.text, "🧻🧴🧽🚿🍎🥦📱🖕")

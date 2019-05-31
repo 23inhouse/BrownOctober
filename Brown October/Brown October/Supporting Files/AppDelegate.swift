@@ -12,12 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var coordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         resetIfNeeded()
-        gotoStateIfNeeded()
+        guard gotoStateIfNeeded() else { return true }
+        gotoViewController()
         return true
     }
 
@@ -51,25 +52,35 @@ extension AppDelegate {
         UserData.reset()
     }
 
-    func gotoStateIfNeeded() {
-        guard CommandLine.arguments.contains("-game-state") else { return }
+    func gotoStateIfNeeded() -> Bool {
+        guard CommandLine.arguments.contains("-game-state") else { return true }
 
-        let gameState = UserDefaults.standard.string(forKey: "game-state")
-
-        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        var initialViewController: UIViewController?
-        switch gameState {
-        case "setup":
-            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameSetup") as! GameSetupViewController
-        case "play":
-            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GamePlay") as! GameViewController
-        case "over":
-            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameOver") as! GameOverViewController
-        default:
-            initialViewController = mainStoryboard.instantiateViewController(withIdentifier: "GameSetup") as! GameSetupViewController
+        gotoViewController() { (coordinator) in
+            let gameState = UserDefaults.standard.string(forKey: "game-state")
+            switch gameState {
+            case "setup":
+                coordinator?.start()
+            case "play":
+                coordinator?.playGame()
+            case "over":
+                coordinator?.gameOver(winner: "human")
+            default:
+                coordinator?.start()
+            }
         }
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = initialViewController
-        self.window?.makeKeyAndVisible()
+
+        return false
+    }
+
+    func gotoViewController(closure: ((AppCoordinator?) -> ())? = nil) {
+        let appViewController = AppViewController()
+        coordinator = AppCoordinator(appViewController: appViewController)
+
+        let closure = closure ?? { (coordinator) in coordinator?.start() }
+        closure(coordinator)
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = appViewController
+        window?.makeKeyAndVisible()
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    weak var coordinator: AppCoordinator?
+
     let mainView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -90,15 +92,6 @@ class GameViewController: UIViewController {
             playerOneView.isHidden = false
         }
     }
-
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowWinner" {
-            if let finalScoreViewController = segue.destination as? GameOverViewController {
-                finalScoreViewController.winner = playerTwo.won() ? playerTwo: playerOne
-            }
-        }
-    }
 }
 
 extension GameViewController: PlayerTurnDelegate {
@@ -108,8 +101,10 @@ extension GameViewController: PlayerTurnDelegate {
         sender.incrementGamesWon()
 
         if traitCollection.horizontalSizeClass == .compact {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.performSegue(withIdentifier: "ShowWinner", sender: self)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                let won = self?.playerTwo.won()
+                let winner = won ?? true ? "human" : "computer"
+                self?.coordinator?.gameOver(winner: winner)
             })
         } else {
             playerOneView.boardView.showUnevacuatedPoops(board: playerOne.board)

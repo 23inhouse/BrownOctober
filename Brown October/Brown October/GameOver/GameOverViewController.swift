@@ -10,22 +10,24 @@ import UIKit
 
 class GameOverViewController: UIViewController {
 
+    weak var coordinator: AppCoordinator?
+
     static let winText = "💩🏆🥈🌈"
     static let looseText = "🧻🧴🧽🚿🍎🥦📱🖕"
 
     lazy var humanPlayer: Player = Player.human
     lazy var computerPlayer: Player = Player.computer
-    lazy var winner: Player = Player.human
+    lazy var winner: String? = "human"
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
     @objc private func touchButton(_ sender: UIButton) {
         sender.springy()
-        self.performSegue(withIdentifier: "PlayAgain", sender: self)
+        coordinator?.start()
     }
 
     private func setupView() {
-        let text = winner.isHuman ? type(of: self).winText : type(of: self).looseText
+        let text = winner == "human" ? type(of: self).winText : type(of: self).looseText
         self.view = GameOverUIView(text: text)
 
         mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)

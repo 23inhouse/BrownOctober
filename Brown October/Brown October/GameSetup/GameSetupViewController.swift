@@ -10,6 +10,8 @@ import UIKit
 
 class GameSetupViewController: UIViewController {
 
+    weak var coordinator: AppCoordinator?
+
     var mainView: GameSetupUIView { return self.view as! GameSetupUIView }
 
     lazy var boardView = mainView.boardView
@@ -29,7 +31,7 @@ class GameSetupViewController: UIViewController {
     @objc func touchPlayButton(_ sender: UIButton) {
         sender.springy()
         UserData.storePoopStains(for: board)
-        self.performSegue(withIdentifier: "PlayGame", sender: self)
+        coordinator?.playGame()
     }
 
     private func setupView() {
