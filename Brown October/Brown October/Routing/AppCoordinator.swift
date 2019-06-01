@@ -28,10 +28,12 @@ class AppCoordinator: Coordinator {
         go(to: viewController)
     }
 
-    func gameOver(winner: String?) {
+    func gameOver(winner: Player.key, humanBoard: Board, computerBoard: Board) {
         let viewController = GameOverViewController()
         viewController.coordinator = self
         viewController.winner = winner
+        viewController.humanBoard = humanBoard
+        viewController.computerBoard = computerBoard
         go(to: viewController)
     }
 

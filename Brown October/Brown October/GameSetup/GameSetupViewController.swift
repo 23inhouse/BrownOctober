@@ -16,8 +16,8 @@ class GameSetupViewController: UIViewController {
 
     lazy var boardView = mainView.boardView
 
-    lazy var poops: [Poop] = Poop.pinchSomeOff()
-    lazy var board: Board = Board(width: 10, height: 10, poops: poops)
+    lazy var board: Board = Board.buildGameBoard()
+    lazy var poops: [Poop] = board.poops
     lazy var dragButtons = [GridUIButton]()
 
     @objc func touchResetButton(_ sender: UIButton) {

@@ -15,9 +15,9 @@ class GameOverViewController: UIViewController {
     static let winText = "💩🏆🥈🌈"
     static let looseText = "🧻🧴🧽🚿🍎🥦📱🖕"
 
-    lazy var humanPlayer: Player = Player.human
-    lazy var computerPlayer: Player = Player.computer
-    lazy var winner: String? = "human"
+    lazy var humanBoard: Board = Board.buildGameBoard()
+    lazy var computerBoard: Board = Board.buildGameBoard()
+    lazy var winner: Player.key = Player.key.human
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
@@ -27,27 +27,27 @@ class GameOverViewController: UIViewController {
     }
 
     private func setupView() {
-        let text = winner == "human" ? type(of: self).winText : type(of: self).looseText
+        let text = winner == Player.key.human ? type(of: self).winText : type(of: self).looseText
         self.view = GameOverUIView(text: text)
 
         mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
-        set(scoreView: mainView.computerScoreView, for: computerPlayer)
-        set(scoreView: mainView.humanScoreView, for: humanPlayer)
-        self.setButtons(for: mainView.computerBoardView, from: computerPlayer)
-        self.setButtons(for: mainView.humanBoardView, from: humanPlayer)
+        set(scoreView: mainView.computerScoreView, for: computerBoard, player: Player.key.computer)
+        set(scoreView: mainView.humanScoreView, for: humanBoard, player: Player.key.human)
+        self.setButtons(for: mainView.computerBoardView, from: computerBoard)
+        self.setButtons(for: mainView.humanBoardView, from: humanBoard)
     }
 
-    private func set(scoreView: ScoreUIView, for player: Player) {
-        let numberFound = player.board.numberOfFoundTiles()
-        let numberFlushed = player.board.numberOfFlushedTiles()
+    private func set(scoreView: ScoreUIView, for board: Board, player: Player.key) {
+        let numberFound = board.numberOfFoundTiles()
+        let numberFlushed = board.numberOfFlushedTiles()
         scoreView.gamesWonLabel.setScore(score: UserData.retrieveGamesWon(for: player))
         scoreView.foundPoopsLabel.setScore(score: numberFound)
         scoreView.remainingFlushLabel.setScore(score: numberFlushed - numberFound)
     }
 
-    private func setButtons(for boardView: BoardUIView, from player: Player) {
-        for (i, tile) in player.board.tiles.enumerated() {
+    private func setButtons(for boardView: BoardUIView, from board: Board) {
+        for (i, tile) in board.tiles.enumerated() {
             let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
             var color: UIColor = .white
             if tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound) {

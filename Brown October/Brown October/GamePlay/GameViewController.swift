@@ -98,9 +98,12 @@ extension GameViewController: PlayerTurnDelegate {
 
         if traitCollection.horizontalSizeClass == .compact {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                let won = self?.playerTwo.won()
-                let winner = won ?? true ? "human" : "computer"
-                self?.coordinator?.gameOver(winner: winner)
+                guard let self = self else { return }
+                let won = self.playerTwo.won()
+                let humanBoard = self.playerTwo.board
+                let computerBoard = self.playerOne.board
+                let winner = won ? Player.key.human : Player.key.computer
+                self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
             }
         } else {
             playerOneView.boardView.showUnevacuatedPoops(board: playerOne.board)

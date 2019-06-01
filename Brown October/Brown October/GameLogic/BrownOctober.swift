@@ -14,8 +14,8 @@ class BrownOctober: Game {
 }
 
 class Game {
-    var playerOne = Player.computer
-    var playerTwo = Player.human
+    lazy var playerOne = Player.computer()
+    lazy var playerTwo = Player.human()
 
     func over() -> Bool {
         return playerOne.won() || playerTwo.won()
@@ -23,21 +23,34 @@ class Game {
 }
 
 class Player {
-    static let human = Player("human")
-    static let computer = Player("computer")
+    enum key {
+        case human
+        case computer
+    }
+
+    let key: Player.key
     var board: Board
     let isHuman: Bool
     let isComputer: Bool
+
+    static func human() -> Player {
+        return Player(Player.key.human)
+    }
+
+    static func computer() -> Player {
+        return Player(Player.key.computer)
+    }
 
     func won() -> Bool {
         return board.flushedAllPoops()
     }
 
-    init(_ name: String) {
-        self.isHuman = name == "human"
+    init(_ key: Player.key) {
+        self.key = key
+        self.isHuman = key == Player.key.human
         self.isComputer = !isHuman
 
-        self.board = Board(width: Board.size, height: Board.size, poops: Poop.pinchSomeOff())
+        self.board = Board.buildGameBoard()
         board.placePoopsRandomly()
     }
 }
@@ -50,6 +63,10 @@ class Board: Grid {
     var score = 0
     var poops: [Poop]
     var poopStains = [Int: PoopStain]()
+
+    static func buildGameBoard() -> Board {
+        return Board(width: size, height: size, poops: Poop.pinchSomeOff())
+    }
 
     func placePoopsRandomly() {
         tiles = cleanTiles()

@@ -64,13 +64,13 @@ class PlayerViewController: UIViewController {
     }
 
     func updateGamesWonLabel() {
-        gamesWonCount = UserData.retrieveGamesWon(for: player)
+        gamesWonCount = UserData.retrieveGamesWon(for: player.key)
     }
 
     func incrementGamesWon() {
-        let count = UserData.retrieveGamesWon(for: player)
+        let count = UserData.retrieveGamesWon(for: player.key)
         gamesWonCount = count + 1
-        UserData.storeGamesWon(for: player, count: gamesWonCount)
+        UserData.storeGamesWon(for: player.key, count: gamesWonCount)
     }
 
     func getComputerPlayer() -> ComputerPlayer {
