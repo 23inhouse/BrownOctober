@@ -59,7 +59,7 @@ class GameSetupViewController: UIViewController {
     private func drawBoard() {
         for (i, tile) in board.tiles.enumerated() {
             let button = boardView.buttons[i]
-            let color = boardView.getTileColor(for: tile.poopIdentifier)
+            let color = UIColor(poop: tile.poopIdentifier)
             let text = tile.poopIdentifier > 0 ? "💩" : ""
             button.setData(text: text, color: color, alpha: 1)
         }

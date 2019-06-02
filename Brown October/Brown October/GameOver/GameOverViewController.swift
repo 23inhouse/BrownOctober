@@ -51,7 +51,7 @@ class GameOverViewController: UIViewController {
             let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
             var color: UIColor = .white
             if tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound) {
-                color = boardView.getTileColor(for: tile.poopIdentifier)
+                color = UIColor(poop: tile.poopIdentifier)
             }
             boardView.buttons[i].setData(text: text, color: color, alpha: 1)
         }

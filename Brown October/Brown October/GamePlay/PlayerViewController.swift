@@ -81,7 +81,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func flushPoop(_ ident: Int, board: Board, boardView: BoardUIView, poopView: PoopUIView) {
-        let color = boardView.getTileColor(for: ident)
+        let color = UIColor(poop: ident)
 
         for (i, tile) in board.tiles.enumerated() {
             if tile.poopIdentifier != ident { continue }
