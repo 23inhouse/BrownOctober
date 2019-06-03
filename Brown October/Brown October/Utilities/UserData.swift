@@ -33,21 +33,21 @@ struct UserData {
         defaults.set(count, forKey: playerKey)
     }
 
-    static func retrievePoopStains(for board: inout Board) -> Bool {
-        if let poopStainData = defaults.array(forKey: Key.poopStains.rawValue) {
-            guard poopStainData.count > 0 else { return false   }
-            for data in poopStainData as! [[Int]] {
-                board.poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: data[3])
-            }
+    static func retrievePoopStains() -> [Int: Board.PoopStain] {
+        var poopStains = [Int: Board.PoopStain]()
 
-            return true
+        guard let poopStainData = defaults.array(forKey: Key.poopStains.rawValue) else { return poopStains }
+        guard poopStainData.count > 0 else { return poopStains }
+
+        for data in poopStainData as! [[Int]] {
+            poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: data[3])
         }
 
-        return false
+        return poopStains
     }
 
-    static func storePoopStains(for board: Board) {
-        let data = board.poopStains.map({ [$0.key, $0.value.x, $0.value.y, $0.value.direction]})
+    static func storePoopStains(_ poopStains: [Int: Board.PoopStain]) {
+        let data = poopStains.map({ [$0.key, $0.value.x, $0.value.y, $0.value.direction]})
         defaults.set(data, forKey: Key.poopStains.rawValue)
     }
 

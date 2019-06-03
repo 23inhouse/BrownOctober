@@ -18,10 +18,27 @@ class PlayerViewController: UIViewController {
     var mainView: PlayerUIView { return self.view as! PlayerUIView }
 
     let player: Player
+    let isComputer: Bool
+    lazy var board: Board = player.board
+
     lazy var playerView = { mainView }()
     lazy var boardView = { mainView.boardView }()
     lazy var poopView = { mainView.foundPoopsView }()
     lazy var scoreView = { mainView.scoreView }()
+
+    lazy var foundPoops: Board = {
+        var foundPoops = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
+        let poops = foundPoops.poops
+
+        _ = foundPoops.placePoop(poops[0], x: 5, y: 0, direction: 0, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[1], x: 4, y: 2, direction: 0, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[2], x: 3, y: 0, direction: 2, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[3], x: 3, y: 4, direction: 0, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[4], x: 1, y: 6, direction: 0, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.placePoop(poops[5], x: 0, y: 1, direction: 1, tiles: &foundPoops.tiles, check: false)
+
+        return foundPoops
+    }()
 
     weak var playerTurnDelegate: PlayerTurnDelegate?
 
@@ -43,21 +60,18 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    func resetBoard(_ board: Board? = nil) {
+    func resetBoard() {
         let boardView = playerView.boardView
 
-        if let board = board {
-            player.board.poopStains = board.poopStains
+        if isComputer {
+            let poopStains = UserData.retrievePoopStains()
+            player.board.poopStains = poopStains
             player.board.placePoopStains()
-            boardView.isUserInteractionEnabled = false
-            playerView.resetBoard()
-
-            boardView.showUnevacuatedPoops(board: board)
         } else {
             player.board.placePoopsRandomly()
-            boardView.isUserInteractionEnabled = true
-            playerView.resetBoard()
         }
+        boardView.isUserInteractionEnabled = !isComputer
+        playerView.resetBoard()
 
         remainingFlushCount = 0
         poopsFoundCount = 0
@@ -77,33 +91,13 @@ class PlayerViewController: UIViewController {
         let board = player.board
         let guesser = Guesser(nextGuessClosure: Guesser.callFromQueueNow)
 
-        return ComputerPlayer(board: board, boardProtocol: boardView, guesser: guesser)
-    }
-
-    private func flushPoop(_ ident: Int, board: Board, boardView: BoardUIView, poopView: PoopUIView) {
-        let color = UIColor(poop: ident)
-
-        for (i, tile) in board.tiles.enumerated() {
-            if tile.poopIdentifier != ident { continue }
-
-            tile.markAsFlushed()
-
-            let button = boardView.buttons[i]
-            button.setData(text: "💩", color: color, alpha: 1)
-            button.springy()
-        }
-
-        for (i, tile) in poopView.foundPoops.tiles.enumerated() {
-            if tile.poopIdentifier != ident { continue }
-
-            let button = poopView.buttons[i]
-            button.setData(text: "💩", color: color, alpha: 1)
-            button.springy()
-        }
+        return ComputerPlayer(board: board, boardViewProtocol: boardView, guesser: guesser)
     }
 
     private func setupView() {
-        self.view = PlayerUIView(player: player)
+        let boardDecorator = isComputer ? TeaseBoardDecorator(for: board) : BoardDecorator(for: board)
+        let poopDecorator = PoopBoardDecorator(for: foundPoops)
+        self.view = PlayerUIView(player: player, boardDecorator: boardDecorator, poopDecorator: poopDecorator)
 
         mainView.boardView.buttons.forEach { [weak self] (button) in
             button.gridButtonDelegate = self
@@ -122,6 +116,7 @@ class PlayerViewController: UIViewController {
 
     init(_ player: Player) {
         self.player = player
+        self.isComputer = player.isComputer
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -147,7 +142,8 @@ extension PlayerViewController: GridButtonDelegate {
             poopsFoundCount += 1
 
             if poop.isFound {
-                flushPoop(poop.identifier, board: board, boardView: boardView, poopView: poopView)
+                boardView.flush(ident: poop.identifier)
+                poopView.flush(ident: poop.identifier)
 
                 if board.flushedAllPoops() {
                     playerTurnDelegate?.gameOver(from: self)

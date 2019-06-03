@@ -8,26 +8,22 @@
 
 import UIKit
 
-protocol BoardProtocol: class {
+protocol BoardViewProtocol: class {
     func getButton(at index: Int) -> GridButtonProtocol
 }
 
 class BoardUIView: UIView {
 
+    var decorator: BoardDecoratorProtocol
     lazy var gridView = GridUIStackView(cols: 10, rows: 10, active: true)
     lazy var buttons = gridView.buttons
 
-    func reset() {
-        gridView.reset()
+    func draw(with decorator: BoardDecoratorProtocol? = nil) {
+        (decorator ?? self.decorator).draw(boardView: self)
     }
 
-    func showUnevacuatedPoops(board: Board) {
-        for (i, tile) in board.tiles.enumerated() {
-            if tile.poopIdentifier > 0 && !tile.isFound {
-                let button = getButton(at: i) as! GridUIButton
-                button.backgroundColor = UIColor(poop: tile.poopIdentifier)
-            }
-        }
+    func flush(ident: Int) {
+        decorator.flush(boardView: self, ident: ident)
     }
 
     private func setupView() {
@@ -62,7 +58,8 @@ class BoardUIView: UIView {
         gridView.constrain(to: self)
     }
 
-    init() {
+    init(with decorator: BoardDecoratorProtocol? = nil) {
+        self.decorator = decorator ?? BoardDecorator(for: Board.buildGameBoard())
         super.init(frame: .zero)
 
         setupView()
@@ -74,7 +71,7 @@ class BoardUIView: UIView {
     }
 }
 
-extension BoardUIView: BoardProtocol {
+extension BoardUIView: BoardViewProtocol {
     func getButton(at index: Int) -> GridButtonProtocol {
         return gridView.buttons[index]
     }

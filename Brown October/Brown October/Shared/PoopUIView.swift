@@ -10,32 +10,20 @@ import UIKit
 
 class PoopUIView: UIView {
 
-    let width = 7
-    let height = 7
+    static let width = 7
+    static let height = 7
 
-    lazy var gridView = GridUIStackView(cols: width, rows: height, active: false)
+    var decorator: BoardDecoratorProtocol
+
+    lazy var gridView = GridUIStackView(cols: PoopUIView.width, rows: PoopUIView.height, active: false)
     lazy var buttons = gridView.buttons
 
-    lazy var foundPoops: Board = {
-        var foundPoops = Board(width: width, height: height, poops: Poop.pinchSomeOff())
-        let poops = foundPoops.poops
+    func draw() {
+        decorator.draw(boardView: self)
+    }
 
-        _ = foundPoops.placePoop(poops[0], x: 5, y: 0, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[1], x: 4, y: 2, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[2], x: 3, y: 0, direction: 2, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[3], x: 3, y: 4, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[4], x: 1, y: 6, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.placePoop(poops[5], x: 0, y: 1, direction: 1, tiles: &foundPoops.tiles, check: false)
-
-        return foundPoops
-    }()
-
-    func reset() {
-        for (i, tile) in foundPoops.tiles.enumerated() {
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            let button = gridView.buttons[i]
-            button.setData(text: text, color: .white, alpha: 1)
-        }
+    func flush(ident: Int) {
+        decorator.flush(boardView: self, ident: ident)
     }
 
     private func setupView() {
@@ -61,7 +49,8 @@ class PoopUIView: UIView {
         gridView.constrain(to: self)
     }
 
-    init() {
+    init(with decorator: BoardDecoratorProtocol? = nil) {
+        self.decorator = decorator ?? BoardDecorator(for: Board.buildGameBoard())
         super.init(frame: .zero)
 
         setupView()
@@ -70,5 +59,11 @@ class PoopUIView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension PoopUIView: BoardViewProtocol {
+    func getButton(at index: Int) -> GridButtonProtocol {
+        return gridView.buttons[index]
     }
 }

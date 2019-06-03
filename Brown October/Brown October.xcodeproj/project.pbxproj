@@ -12,6 +12,7 @@
 		B508C5A4229A9C2200CE00CB /* GamePlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */; };
 		B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */; };
 		B508C5A8229C082E00CE00CB /* UIView+orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A7229C082E00CE00CB /* UIView+orientation.swift */; };
+		B50B78C622A45E2900B9FF44 /* BoardDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */; };
 		B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B78C722A45E5300B9FF44 /* UIColor+poops.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
 		B50BA00822981E0A00C1F418 /* GameOverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50BA00722981E0A00C1F418 /* GameOverUITests.swift */; };
@@ -71,6 +72,7 @@
 		B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayUITests.swift; sourceTree = "<group>"; };
 		B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+subcontroller.swift"; sourceTree = "<group>"; };
 		B508C5A7229C082E00CE00CB /* UIView+orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+orientation.swift"; sourceTree = "<group>"; };
+		B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDecorator.swift; sourceTree = "<group>"; };
 		B50B78C722A45E5300B9FF44 /* UIColor+poops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+poops.swift"; sourceTree = "<group>"; };
 		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		B50B9FFD22981DD000C1F418 /* Brown OctoberUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown OctoberUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				B503D1AF228022840008CE95 /* BoardUIView.swift */,
+				B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */,
 				B51B6EA7228081FB00CEBDDC /* GridUIButton.swift */,
 				B5B74CE8227DD82600E07826 /* GridUIStackView.swift */,
 				B51B6EA1228032E400CEBDDC /* PoopUIView.swift */,
@@ -442,6 +445,7 @@
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
+				B50B78C622A45E2900B9FF44 /* BoardDecorator.swift in Sources */,
 				B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */,
 				B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */,
 				B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */,

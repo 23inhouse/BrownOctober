@@ -48,7 +48,7 @@ class ComputerPlayer {
     static let searchEfficiency: Double = 1
 
     let board: Board
-    let boardProtocol: BoardProtocol
+    let boardViewProtocol: BoardViewProtocol
     let gridUtility: GridUtility
     let maxGuesses = 100
     let guesser: Guesser
@@ -77,7 +77,7 @@ class ComputerPlayer {
 
         let previousScore = self.board.score
 
-        let button = boardProtocol.getButton(at: index)
+        let button = boardViewProtocol.getButton(at: index)
         button.touch()
 
         if self.board.score == previousScore {
@@ -185,9 +185,9 @@ class ComputerPlayer {
         return guess
     }
 
-    init(board: Board, boardProtocol: BoardProtocol, guesser: Guesser? = nil) {
+    init(board: Board, boardViewProtocol: BoardViewProtocol, guesser: Guesser? = nil) {
         self.board = board
-        self.boardProtocol = boardProtocol
+        self.boardViewProtocol = boardViewProtocol
         self.gridUtility = board.gridUtility
         self.guesser = guesser ?? Guesser()
     }

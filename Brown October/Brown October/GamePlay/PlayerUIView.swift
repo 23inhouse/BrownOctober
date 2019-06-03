@@ -10,7 +10,9 @@ import UIKit
 
 class PlayerUIView: UIView {
 
-    let player: Player!
+    let player: Player
+    let boardDecorator: BoardDecoratorProtocol
+    let poopDecorator: BoardDecoratorProtocol
 
     let layoutView: UIStackView = {
         let view = UIStackView()
@@ -32,16 +34,15 @@ class PlayerUIView: UIView {
         return view
     }()
 
-    let foundPoopsView = PoopUIView()
+    lazy var foundPoopsView = PoopUIView(with: poopDecorator)
     lazy var scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
-
-    let boardView = BoardUIView()
+    lazy var boardView = BoardUIView(with: boardDecorator)
 
     lazy var board = player.board
 
     func resetBoard() {
-        boardView.reset()
-        foundPoopsView.reset()
+        boardView.draw()
+        foundPoopsView.draw()
     }
 
     private func setupView() {
@@ -65,8 +66,11 @@ class PlayerUIView: UIView {
         scoreView.constrainWidth(to: layoutView, max: 0.3)
     }
 
-    init(player: Player) {
+    init(player: Player, boardDecorator: BoardDecoratorProtocol, poopDecorator: BoardDecoratorProtocol) {
         self.player = player
+        self.boardDecorator = boardDecorator
+        self.poopDecorator = poopDecorator
+
         super.init(frame: .zero)
 
         setupView()

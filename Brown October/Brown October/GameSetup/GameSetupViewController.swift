@@ -15,6 +15,7 @@ class GameSetupViewController: UIViewController {
     var mainView: GameSetupUIView { return self.view as! GameSetupUIView }
 
     lazy var boardView = mainView.boardView
+    lazy var boardDecorator: BoardDecoratorProtocol = ArrangeBoardDecorator(for: board)
 
     lazy var board: Board = Board.buildGameBoard()
     lazy var poops: [Poop] = board.poops
@@ -23,45 +24,39 @@ class GameSetupViewController: UIViewController {
     @objc func touchResetButton(_ sender: UIButton) {
         sender.springy()
         board.placePoopsRandomly()
-        UserData.storePoopStains(for: board)
+        UserData.storePoopStains(board.poopStains)
 
-        drawBoard()
+        boardView.draw()
     }
 
     @objc func touchPlayButton(_ sender: UIButton) {
         sender.springy()
-        UserData.storePoopStains(for: board)
+        UserData.storePoopStains(board.poopStains)
         coordinator?.playGame()
     }
 
     private func setupView() {
-        self.view = GameSetupUIView()
+        self.view = GameSetupUIView(boardDecorator: boardDecorator)
 
         mainView.resetButton.addTarget(self, action: #selector(touchResetButton), for: .touchUpInside)
         mainView.playButton.addTarget(self, action: #selector(touchPlayButton), for: .touchUpInside)
 
-        loadBoard()
         boardView.buttons.forEach { [weak self] (button) in
             button.gridButtonDelegate = self
             button.gridButtonDragDelegate = self
         }
+
+        loadBoard()
+        boardView.draw()
     }
 
     private func loadBoard() {
-        if UserData.retrievePoopStains(for: &board) {
+        let poopStains = UserData.retrievePoopStains()
+        if poopStains.count > 0 {
+            board.poopStains = poopStains
             board.placePoopStains()
         } else {
             board.placePoopsRandomly()
-        }
-        drawBoard()
-    }
-
-    private func drawBoard() {
-        for (i, tile) in board.tiles.enumerated() {
-            let button = boardView.buttons[i]
-            let color = UIColor(poop: tile.poopIdentifier)
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            button.setData(text: text, color: color, alpha: 1)
         }
     }
 
@@ -117,8 +112,8 @@ extension GameSetupViewController: GridButtonDelegate {
                 if direction > 3 { direction = 0 }
             }
             board.poopStains[poopIdent]!.direction = direction
-            UserData.storePoopStains(for: board)
-            drawBoard()
+            UserData.storePoopStains(board.poopStains)
+            boardView.draw()
         }
     }
 }
@@ -203,8 +198,8 @@ extension GameSetupViewController: GridButtonDragDelegate {
         if board.removePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
             if board.placePoop(poop, x: x, y: y, direction: poopStain.direction, tiles: &board.tiles) {
                 board.poopStains[poopIdentifier] = Board.PoopStain(x: x, y: y, direction: poopStain.direction)
-                UserData.storePoopStains(for: board)
-                drawBoard()
+                UserData.storePoopStains(board.poopStains)
+                boardView.draw()
             } else {
                 _ = board.placePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
             }

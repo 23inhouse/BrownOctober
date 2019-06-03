@@ -11,7 +11,7 @@ import XCTest
 @testable import Brown_October
 
 // MARK: Mocks
-class BoardMock: BoardProtocol {
+class BoardMock: BoardViewProtocol {
     let board: Board
 
     func getButton(at index: Int) -> GridButtonProtocol {
@@ -260,7 +260,7 @@ class ComputerPlayerTests: XCTestCase {
 
         XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
         XCTAssertEqual(board.score, 11, "Final score is wrong")
-        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 18, "Guess count is wrong")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 19, "Guess count is wrong")
     }
 
     // MARK: Test a full board
@@ -307,6 +307,6 @@ class ComputerPlayerTests: XCTestCase {
 struct TestComputerPlayerHelper {
     static func buildPlayer(board: Board) -> ComputerPlayer {
         let boardMock = BoardMock(board: board)
-        return ComputerPlayer(board: board, boardProtocol: boardMock)
+        return ComputerPlayer(board: board, boardViewProtocol: boardMock)
     }
 }

@@ -21,18 +21,14 @@ class GameViewController: UIViewController {
         return view
     }()
 
-    lazy var brownOctober = BrownOctober()
-    lazy var playerOne = brownOctober.playerOne
-    lazy var playerTwo = brownOctober.playerTwo
+    lazy var game = BrownOctober()
+    lazy var playerOne = game.playerOne
+    lazy var playerTwo = game.playerTwo
 
     lazy var playerOneController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(playerOne)
         controller.playerTurnDelegate = self
         controller.updateGamesWonLabel()
-        var board = playerOne.board
-        if UserData.retrievePoopStains(for: &board) {
-            controller.resetBoard(board)
-        }
         add(controller)
         return controller
     }()
@@ -49,12 +45,16 @@ class GameViewController: UIViewController {
     lazy var playerTwoView = playerTwoController.mainView
 
     private func resetGame() {
-        var board = brownOctober.playerOne.board
-        if UserData.retrievePoopStains(for: &board) {
-            playerOneController.resetBoard(board)
+        let board = game.playerOne.board
+        let poopStains = UserData.retrievePoopStains()
+        if poopStains.count > 0 {
+            board.poopStains = poopStains
+            board.placePoopStains()
         } else {
-            playerOneController.resetBoard()
+            board.placePoopsRandomly()
         }
+        playerOneController.resetBoard()
+        playerTwoController.board.placePoopsRandomly()
         playerTwoController.resetBoard()
     }
 
@@ -106,8 +106,8 @@ extension GameViewController: PlayerTurnDelegate {
                 self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
             }
         } else {
-            playerOneView.boardView.showUnevacuatedPoops(board: playerOne.board)
-            playerTwoView.boardView.showUnevacuatedPoops(board: playerTwo.board)
+            playerOneView.boardView.draw(with: RevealBoardDecorator(for: playerOneController.board))
+            playerTwoView.boardView.draw(with: RevealBoardDecorator(for: playerTwoController.board))
         }
     }
 
@@ -165,6 +165,10 @@ extension GameViewController: PlayerTurnDelegate {
 
 extension GameViewController: NewGameButtonDelegate {
     func didTouchNewGame() {
-        resetGame()
+        if traitCollection.horizontalSizeClass == .compact {
+            resetGame()
+        } else {
+            coordinator?.start()
+        }
     }
 }

@@ -42,8 +42,8 @@ class GameOverUIView: UIView {
         return view
     }()
 
-    let computerBoardView = BoardUIView()
-    let humanBoardView = BoardUIView()
+    let computerBoardView: BoardUIView
+    let humanBoardView: BoardUIView
     let computerScoreView = ScoreUIView(icon: "📱")
     let humanScoreView = ScoreUIView(icon: "👤")
 
@@ -83,8 +83,10 @@ class GameOverUIView: UIView {
         humanScoreView.constrainWidth(to: computerScoreView)
     }
 
-    init(text: String) {
+    init(text: String, humanboardDecorator: BoardDecoratorProtocol, computerboardDecorator: BoardDecoratorProtocol) {
         self.text = text
+        self.humanBoardView = BoardUIView(with: humanboardDecorator)
+        self.computerBoardView = BoardUIView(with: computerboardDecorator)
 
         super.init(frame: .zero)
 

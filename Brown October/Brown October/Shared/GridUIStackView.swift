@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GridViewProtocol {
+    var tiles: [Tile] { get }
+}
+
 class GridUIStackView: UIStackView {
 
     let cols: Int
@@ -15,12 +19,6 @@ class GridUIStackView: UIStackView {
     let active: Bool
 
     var buttons = [GridUIButton]()
-
-    func reset() {
-        for button in buttons {
-            button.setData(text: "", color: .white, alpha: 1)
-        }
-    }
 
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
