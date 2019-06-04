@@ -25,13 +25,9 @@ class Matrix {
     }
 }
 
-class GridUtility: Equatable {
+class GridUtility {
     let width: Int
     let height: Int
-
-    static func == (lhs: GridUtility, rhs: GridUtility) -> Bool {
-        return lhs.width == rhs.width && lhs.height == rhs.height
-    }
 
     static func rotate(_ matrix: [[Int]], times: Int) -> [[Int]] {
         if times == 0 { return matrix }
@@ -142,5 +138,11 @@ class GridUtility: Equatable {
     init(w: Int, h: Int) {
         self.width = w
         self.height = h
+    }
+}
+
+extension GridUtility: Equatable {
+    static func == (lhs: GridUtility, rhs: GridUtility) -> Bool {
+        return lhs.width == rhs.width && lhs.height == rhs.height
     }
 }
