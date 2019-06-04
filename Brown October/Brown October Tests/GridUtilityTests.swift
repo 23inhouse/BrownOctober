@@ -46,7 +46,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 1, y: 1, d: 1)
+        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 2, y: 2, d: 1)
 
         let index = gridUtility.calcIndex(1, 1)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
@@ -60,7 +60,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 5, y: 5, d: 3)
+        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 4, y: 4, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
@@ -81,5 +81,25 @@ class GridUtilityTests: XCTestCase {
 
         XCTAssertEqual(matrix.width, 7, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.height, 7, "The captured matrix is the wrong width")
+    }
+
+    func testCalcAdjustXYAcross() {
+        let size = 7
+        let gridUtility = GridUtility(w: size, h: size)
+
+        let (x, y) = gridUtility.calcXYAdjustment(from: 13, to: 8)!
+
+        XCTAssertEqual(x, -5, "The X value is incorrect")
+        XCTAssertEqual(y, 0, "The Y value is incorrect")
+    }
+
+    func testCalcAdjustXYUp() {
+        let size = 7
+        let gridUtility = GridUtility(w: size, h: size)
+
+        let (x, y) = gridUtility.calcXYAdjustment(from: 9, to: 2)!
+
+        XCTAssertEqual(x, 0, "The X value is incorrect")
+        XCTAssertEqual(y, -1, "The Y value is incorrect")
     }
 }

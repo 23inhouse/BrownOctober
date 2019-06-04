@@ -141,7 +141,7 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop4() {
         let poop = Poop.poop4(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 0, d: 0)
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
@@ -235,7 +235,7 @@ class ComputerPlayerTests: XCTestCase {
         board.poops = poops
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 1, y: 1, d: 0)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 2, y: 5, d: 3)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 1, y: 2, d: 3)
 
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
 
@@ -269,10 +269,10 @@ class ComputerPlayerTests: XCTestCase {
         let poops = Poop.pinchSomeOff()
         board.poops = poops
 
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 6, y: 5, d: 1)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 7, y: 4, d: 1)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[2], x: 2, y: 3, d: 1)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[3], x: 2, y: 6, d: 0)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 5, y: 5, d: 1)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 6, y: 5, d: 1)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[2], x: 2, y: 3, d: 3)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[3], x: 2, y: 5, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[4], x: 3, y: 3, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[5], x: 3, y: 4, d: 0)
 
@@ -291,9 +291,9 @@ class ComputerPlayerTests: XCTestCase {
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 1, y: 0, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[4], x: 4, y: 0, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 1, y: 9, d: 0)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[3], x: 5, y: 9, d: 0)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[2], x: 0, y: 3, d: 1)
-        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[5], x: 8, y: 3, d: 1)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[3], x: 5, y: 8, d: 0)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[2], x: 0, y: 3, d: 3)
+        TestBoardHelper.placePoopOnBoard(board: board, poop: poops[5], x: 7, y: 4, d: 3)
 
         let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
 

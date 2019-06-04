@@ -32,41 +32,24 @@ class GridUtility {
     static func rotate(_ matrix: [[Int]], times: Int) -> [[Int]] {
         if times == 0 { return matrix }
 
-        let x = matrix.count
-        let y = matrix[0].count
+        let x = matrix[0].count
+        let y = matrix.count
 
-        let z = [Int](repeating: 0, count: x)
-        var newMatrix = [[Int]](repeating: z, count: y)
+        let z = [Int](repeating: 0, count: y)
+        var newMatrix = [[Int]](repeating: z, count: x)
 
-        for i in 0 ..< x {
-            for j in 0 ..< y {
-                newMatrix[j][i] = matrix[x - i - 1][j]
+        for i in 0 ..< y {
+            for j in 0 ..< x {
+                switch times {
+                case 3: newMatrix[j][i] = matrix[i][j]
+                case 2: newMatrix[j][i] = matrix[i][x - j - 1]
+                case 1: newMatrix[j][i] = matrix[y - i - 1][x - j - 1]
+                default: newMatrix[j][i] = matrix[j][i]
+                }
             }
         }
 
         return rotate(newMatrix, times: times - 1)
-    }
-
-    static func rotateXY(_ x: Int, _ y: Int, _ direction: Int) -> (Int, Int)? {
-        guard direction < 4 else {
-            return rotateXY(x, y, direction - 4)
-        }
-        var xAdjust: Int
-        var yAdjust: Int
-
-        switch(direction) {
-        case 2:
-            xAdjust = -1 * x
-            yAdjust = 1 * y
-        case 3:
-            xAdjust = 1 * x
-            yAdjust = -1 * y
-        default:
-            xAdjust = 1 * x
-            yAdjust = 1 * y
-        }
-
-        return (xAdjust, yAdjust)
     }
 
     func adjustIndex(_ index: Int, direction: Int, offset: Int) -> Int? {
@@ -95,6 +78,15 @@ class GridUtility {
 
         let x = index % self.width
         let y = (index - x) / self.width
+        return (x, y)
+    }
+
+    func calcXYAdjustment(from: Int, to: Int) -> (Int, Int)? {
+        guard let (fromX, fromY) = calcXY(from) else { return nil }
+        guard let (toX, toY) = calcXY(to) else { return nil }
+
+        let x = -(fromX - toX)
+        let y = -(fromY - toY)
         return (x, y)
     }
 

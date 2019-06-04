@@ -181,15 +181,14 @@ extension GameSetupViewController: GridButtonDragDelegate {
         return true
     }
 
-    private func calcAdjustment(recognizer: UIPanGestureRecognizer) -> Int? {
+    private func calcAdjustment(recognizer: UIPanGestureRecognizer) -> (Int, Int)? {
         let button = recognizer.view as! GridUIButton
         let droppedAt = view.convert(recognizer.location(in: view), to: boardView)
 
         for tile in boardView.buttons {
             let frame = tile.superview!.convert(tile.frame, to: boardView)
             if frame.contains(droppedAt) {
-                let adjustment = tile.index - button.index
-                return adjustment
+                return board.gridUtility.calcXYAdjustment(from: button.index, to: tile.index)
             }
         }
         return nil

@@ -39,7 +39,10 @@ class Poop {
     static func poop1(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
-        return Poop([[1,1]])
+        return Poop([
+            [1,1],
+            [0,0],
+            ])
     }
 
     static func poop2(_ ident: Int? = nil) -> Poop {
@@ -52,15 +55,21 @@ class Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
+            [1,1,1],
             [0,1,0],
-            [1,1,1]
+            [0,0,0],
             ])
     }
 
     static func poop4(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
-        return Poop([[1,1,1,1]])
+        return Poop([
+            [0,0,0,0],
+            [1,1,1,1],
+            [0,0,0,0],
+            [0,0,0,0],
+            ])
     }
 
     static func poop5(_ ident: Int? = nil) -> Poop {

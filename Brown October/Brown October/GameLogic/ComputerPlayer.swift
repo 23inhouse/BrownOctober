@@ -248,7 +248,7 @@ class PoopSeeker {
             let data = calcHeatMap(from: matrix, to: heatMap, mustMatch: n)
             if self.findHottestIndex(data: data) != nil {
                 if ComputerPlayer.debug {
-                    print("Seaker] Must match = \(n)")
+                    print("[Seaker] Must match = \(n)")
                     heatMap.data = data
                     heatMap.print("[Seaker] ---- HEAT MAP ----")
                 }
@@ -266,11 +266,12 @@ class PoopSeeker {
             for direction in Array(0 ..< 4) {
                 let poopData = GridUtility.rotate(poop.data, times: direction)
 
-                for yMat in Array(0 ..< matrix.height) {
-                    for xMat in Array(0 ..< matrix.width) {
+                let emptyPoopDataOffset = calcEmptyPoopOffset()
+                for yMat in Array(emptyPoopDataOffset ..< matrix.height) {
+                    for xMat in Array(emptyPoopDataOffset ..< matrix.width) {
 
                         if checkPlacement(grid: matrix.data, x: xMat, y: yMat, data: poopData, direction: direction, mustMatch: mustMatch) {
-//                            print("[\(guessCount())] It fits at (\(xMat),\(yMat)) going (\(direction))")
+//                            print("[Seaker] It fits at (\(xMat),\(yMat)) going (\(direction))")
                             warmUpPoop(heatMap: heatMap, x: xMat, y: yMat, data: poopData, direction: direction)
                         }
                     }
@@ -333,14 +334,7 @@ class PoopSeeker {
             for (xIndex, value) in values.enumerated() {
 
                 guard value == 1 else { continue }
-
-                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
-                    return false
-                }
-
-                guard let index = self.gridUtility.calcIndex(x + xAdjust, y + yAdjust) else {
-                    return false
-                }
+                guard let index = self.gridUtility.calcIndex(x + xIndex, y + yIndex) else { return false }
 
                 if grid[index] == nil {
                     return false
@@ -359,14 +353,7 @@ class PoopSeeker {
         for (yIndex, values) in data.enumerated() {
             for (xIndex, value) in values.enumerated() {
 
-                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
-                    continue
-                }
-
-                guard let index = self.gridUtility.calcIndex(x + xAdjust, y + yAdjust) else {
-                    continue
-                }
-
+                guard let index = self.gridUtility.calcIndex(x + xIndex, y + yIndex) else { continue }
                 guard heatMap.data[index] != nil else {
                     continue
                 }
@@ -374,6 +361,27 @@ class PoopSeeker {
                 heatMap.data[index]! += value
             }
         }
+    }
+
+    private func calcEmptyPoopOffset() -> Int {
+        var offset = 0
+        for poop in board.poops {
+            if poop.isFound { continue }
+
+            for direction in Array(0 ... 3) {
+                let data = GridUtility.rotate(poop.data, times: direction)
+
+                var poopOffset = 0
+                for row in data {
+                    guard row.reduce(0, +) == 0 else { break }
+                    poopOffset += 1
+                }
+
+                offset = poopOffset > offset ? poopOffset : offset
+            }
+        }
+
+        return offset * -1
     }
 
     init(player: ComputerPlayer) {

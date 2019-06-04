@@ -151,11 +151,13 @@ class Board: Grid {
         return true
     }
 
-    func move(poop: Poop, by adjustment: Int) -> Bool {
+    func move(poop: Poop, by adjustment: (Int, Int)) -> Bool {
         let poopStain = poopStains[poop.identifier]!
 
-        guard let index = gridUtility.calcIndex(poopStain.x, poopStain.y) else { return false }
-        guard let (x, y) = gridUtility.calcXY(index + adjustment) else { return false }
+        let (xAdjust, yAdjust) = adjustment
+
+        let x = poopStain.x + xAdjust
+        let y = poopStain.y + yAdjust
 
         let removedPoop = remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
         guard removedPoop else { return false }
@@ -238,18 +240,14 @@ class Grid {
 
         let data = GridUtility.rotate(poop.data, times: direction)
 
+        let xAdjust = (poop.data[0].count - data[0].count) / 2
+        let yAdjust = (poop.data.count - data.count) / 2
+
         for (yIndex, values) in data.enumerated() {
             for (xIndex, value) in values.enumerated() {
 
                 guard value == 1 else { continue }
-
-                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
-                    return false
-                }
-
-                guard let index = gridUtility.calcIndex(x + xAdjust, y + yAdjust) else {
-                    return false
-                }
+                guard let index = gridUtility.calcIndex(x + xIndex + xAdjust, y + yIndex + yAdjust) else { return false }
 
                 if check == true {
                     guard tiles[index].poopIdentifier < 1 || tiles[index].poopIdentifier == poop.identifier else { return false }
@@ -272,18 +270,14 @@ class Grid {
 
         let data = GridUtility.rotate(poop.data, times: direction)
 
+        let xAdjust = (poop.data[0].count - data[0].count) / 2
+        let yAdjust = (poop.data.count - data.count) / 2
+
         for (yIndex, values) in data.enumerated() {
             for (xIndex, value) in values.enumerated() {
 
                 guard value == 1 else { continue }
-
-                guard let (xAdjust, yAdjust) = GridUtility.rotateXY(xIndex, yIndex, direction) else {
-                    return false
-                }
-
-                guard let index = gridUtility.calcIndex(x + xAdjust, y + yAdjust) else {
-                    return false
-                }
+                guard let index = gridUtility.calcIndex(x + xIndex + xAdjust, y + yIndex + yAdjust) else { return false }
 
                 tiles[index].poopIdentifier = 0
             }
