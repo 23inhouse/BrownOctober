@@ -176,7 +176,9 @@ extension PlayerViewController: SolveGameButtonDelegate {
     func didTouchSolveGame() {
         guard !player.won() else { return }
 
-        getComputerPlayer().playNext()
+        if !mainView.isHidden {
+            getComputerPlayer().playNext()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.didTouchSolveGame()
         }
