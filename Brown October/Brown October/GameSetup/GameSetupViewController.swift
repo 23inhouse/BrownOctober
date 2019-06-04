@@ -118,47 +118,67 @@ extension GameSetupViewController: GridButtonDragDelegate {
 
         guard poopIdentifier > 0 else { return }
 
-        if recognizer.state == .began {
-
+        switch recognizer.state {
+        case .began:
             let indexes = board.tiles.enumerated().filter({ $0.element.poopIdentifier == poopIdentifier }).map({ $0.offset })
 
-            let buttons = boardView.buttons.filter({ indexes.contains($0.index) })
-            dragButtons = buttons.map({
-                let dragButton:GridUIButton = GridUIButton(index: $0.index, borderWidth: $0.borderWidth)
-                dragButton.setData(text: button.getText(), color: $0.backgroundColor!, alpha: 1)
-                dragButton.frame = $0.frame
-                dragButton.center = $0.superview!.convert(dragButton.center, to: view)
-                dragButton.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-                view.addSubview(dragButton)
-                return dragButton
-            })
-        }
-
-        if recognizer.state == .ended {
-            let adjustment = calcAdjustment(recognizer: recognizer)
-            move(poop: poopIdentifier, by: adjustment)
-            dragButtons.forEach({$0.removeFromSuperview()})
-        }
-
-        if recognizer.state == .changed {
-            let translation = recognizer.translation(in: view)
-
+            dragButtons = boardView.buttons.filter({ indexes.contains($0.index) }).map(duplicateButton)
+            dragButtons.forEach { view.addSubview($0) }
+        case .changed:
             for dragButton in dragButtons {
-                guard let dragSuperView = dragButton.superview else { return }
-                let frame = dragSuperView.convert(dragButton.frame, to: view)
-                let boardFrame = boardView.superview!.convert(boardView.frame, to: view)
-                guard boardFrame.contains(frame) else {
-                    let adjustment = calcAdjustment(recognizer: recognizer)
-                    move(poop: poopIdentifier, by: adjustment)
-                    dragButtons.forEach({$0.removeFromSuperview()})
-                    return
+                guard checkBounds(dragButton, recognizer) else {
+                    if move(poopIdentifier, by: recognizer) {
+                        UserData.storePoopStains(board.poopStains)
+                        boardView.draw()
+                    }
+                    dragButtons.forEach { $0.removeFromSuperview() }
+                    break
                 }
             }
-            dragButtons.forEach({
-                $0.center = CGPoint(x: $0.center.x + translation.x, y: $0.center.y + translation.y)
-            })
+
+            let translation = recognizer.translation(in: view)
+            dragButtons.forEach { translate($0, by: translation) }
             recognizer.setTranslation(CGPoint.zero, in: view)
+        case .ended:
+            if move(poopIdentifier, by: recognizer) {
+                UserData.storePoopStains(board.poopStains)
+                boardView.draw()
+            }
+            dragButtons.forEach { $0.removeFromSuperview() }
+        default:
+            print("Error: WTF at drag recognizer state")
         }
+    }
+
+    private func duplicateButton(_ button: GridUIButton) -> GridUIButton {
+        let duplicate = GridUIButton(index: button.index, borderWidth: button.borderWidth)
+        duplicate.setData(text: button.getText(), color: button.backgroundColor!, alpha: 1)
+        duplicate.frame = button.frame
+        duplicate.center = button.superview!.convert(duplicate.center, to: view)
+        duplicate.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+        return duplicate
+    }
+
+    private func checkBounds(_ dragButton: GridUIButton, _ recognizer: UIPanGestureRecognizer) -> Bool {
+        guard let dragSuperView = dragButton.superview else { return false }
+        let frame = dragSuperView.convert(dragButton.frame, to: view)
+        let boardFrame = boardView.superview!.convert(boardView.frame, to: view)
+        guard boardFrame.contains(frame) else { return false }
+
+        return true
+    }
+
+    private func translate(_ button: GridUIButton, by translation: CGPoint) {
+        button.center = CGPoint(x: button.center.x + translation.x, y: button.center.y + translation.y)
+    }
+
+    private func move(_ poopIdentifier: Int, by recognizer: UIPanGestureRecognizer) -> Bool {
+        let poop = board.poops[poopIdentifier - 1]
+
+        guard let adjustment = calcAdjustment(recognizer: recognizer) else { return false }
+        guard board.move(poop: poop, by: adjustment) else { return false }
+
+        return true
     }
 
     private func calcAdjustment(recognizer: UIPanGestureRecognizer) -> Int? {
@@ -168,28 +188,10 @@ extension GameSetupViewController: GridButtonDragDelegate {
         for tile in boardView.buttons {
             let frame = tile.superview!.convert(tile.frame, to: boardView)
             if frame.contains(droppedAt) {
-                return tile.index - button.index
+                let adjustment = tile.index - button.index
+                return adjustment
             }
         }
         return nil
-    }
-
-    private func move(poop poopIdentifier: Int, by adjustment: Int?) {
-        guard let adjustment = adjustment else { return }
-
-        let poop = board.poops[poopIdentifier - 1]
-        let poopStain = board.poopStains[poopIdentifier]!
-        guard let tileIndex = board.gridUtility.calcIndex(poopStain.x, poopStain.y) else { return }
-        guard let (x, y) = board.gridUtility.calcXY(tileIndex + adjustment) else { return }
-
-        if board.remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
-            if board.place(poop: poop, x: x, y: y, direction: poopStain.direction, tiles: &board.tiles) {
-                board.poopStains[poopIdentifier] = Board.PoopStain(x: x, y: y, direction: poopStain.direction)
-                UserData.storePoopStains(board.poopStains)
-                boardView.draw()
-            } else {
-                _ = board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
-            }
-        }
     }
 }

@@ -151,6 +151,23 @@ class Board: Grid {
         return true
     }
 
+    func move(poop: Poop, by adjustment: Int) -> Bool {
+        let poopStain = poopStains[poop.identifier]!
+
+        guard let index = gridUtility.calcIndex(poopStain.x, poopStain.y) else { return false }
+        guard let (x, y) = gridUtility.calcXY(index + adjustment) else { return false }
+
+        let removedPoop = remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
+        guard removedPoop else { return false }
+        guard place(poop: poop, x: x, y: y, direction: poopStain.direction, tiles: &tiles) else {
+            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
+            return false
+        }
+
+        poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: poopStain.direction)
+        return true
+    }
+
     private func findData(tiles: inout [Tile], at index: Int) -> (Tile, Poop)? {
 
         let tile = tiles[index]
