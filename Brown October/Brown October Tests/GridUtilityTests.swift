@@ -35,7 +35,7 @@ class GridUtilityTests: XCTestCase {
 
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 2)!
 
-        XCTAssertEqual(matrix.width, 3, file: "The captured matrix is the wrong width")
+        XCTAssertEqual(matrix.width, 3, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.height, 3, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.data[4 - 1], 1, "The captured matrix data point should indicate a found poop")
         XCTAssertEqual(matrix.data[4 + 1], nil, "The captured matrix data point should indicate a flushed tile")
@@ -51,7 +51,7 @@ class GridUtilityTests: XCTestCase {
         let index = gridUtility.calcIndex(1, 1)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
 
-        XCTAssertEqual(matrix.width, 6, file: "The captured matrix is the wrong width")
+        XCTAssertEqual(matrix.width, 6, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.height, 6, "The captured matrix is the wrong width")
     }
 
@@ -65,7 +65,7 @@ class GridUtilityTests: XCTestCase {
         let index = gridUtility.calcIndex(5, 5)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
 
-        XCTAssertEqual(matrix.width, 6, file: "The captured matrix is the wrong width")
+        XCTAssertEqual(matrix.width, 6, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.height, 6, "The captured matrix is the wrong width")
     }
 
@@ -79,7 +79,7 @@ class GridUtilityTests: XCTestCase {
         let index = gridUtility.calcIndex(3, 3)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
 
-        XCTAssertEqual(matrix.width, 7, file: "The captured matrix is the wrong width")
+        XCTAssertEqual(matrix.width, 7, "The captured matrix is the wrong width")
         XCTAssertEqual(matrix.height, 7, "The captured matrix is the wrong width")
     }
 }
