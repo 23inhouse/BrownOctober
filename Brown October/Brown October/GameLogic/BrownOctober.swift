@@ -80,7 +80,7 @@ class Board: Grid {
                 let y = Int(arc4random_uniform(UInt32(utility.height)))
                 let direction = Int(arc4random_uniform(4))
 
-                if placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles) {
+                if place(poop: poop, x: x, y: y, direction: direction, tiles: &tiles) {
                     poopStains[poop.identifier] = PoopStain(x: x, y: y, direction: direction)
                     break
                 }
@@ -95,7 +95,7 @@ class Board: Grid {
         for poopStain in poopStains {
             let poop = poops[poopStain.key - 1]
             let value = poopStain.value
-            _ = placePoop(poop, x: value.x, y: value.y, direction: value.direction, tiles: &tiles)
+            _ = place(poop: poop, x: value.x, y: value.y, direction: value.direction, tiles: &tiles)
         }
     }
 
@@ -195,7 +195,7 @@ class Grid {
         return values
     }
 
-    func placePoop(_ poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile], check: Bool = true) -> Bool {
+    func place(poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile], check: Bool = true) -> Bool {
 
         let data = GridUtility.rotate(poop.data, times: direction)
 
@@ -223,13 +223,13 @@ class Grid {
         }
 
         if check == true {
-            return placePoop(poop, x: x, y: y, direction: direction, tiles: &tiles, check: false)
+            return place(poop: poop, x: x, y: y, direction: direction, tiles: &tiles, check: false)
         }
 
         return true
     }
 
-    func removePoop(_ poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile]) -> Bool {
+    func remove(poop: Poop, x:Int, y:Int, direction:Int, tiles: inout [Tile]) -> Bool {
 
         let data = GridUtility.rotate(poop.data, times: direction)
 

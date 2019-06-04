@@ -26,7 +26,7 @@ class BoardTests: XCTestCase {
         let poop = Poop.poop1(0)
         let board = TestBoardHelper.buildBoard(width: 2, height: 1, poops: [poop])
 
-        let placed = board.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
+        let placed = board.place(poop: poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
 
         XCTAssertEqual(placed, true, "The poop should! fit here")
     }
@@ -35,7 +35,7 @@ class BoardTests: XCTestCase {
         let poop = Poop.poop1(0)
         let board = TestBoardHelper.buildBoard(width: 1, height: 1, poops: [poop])
 
-        let placed = board.placePoop(poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
+        let placed = board.place(poop: poop, x: 0, y: 0, direction: 0, tiles: &board.tiles)
 
         XCTAssertEqual(placed, false, "The poop should not! fit here")
     }
@@ -87,7 +87,7 @@ struct TestBoardHelper {
     }
 
     static func placePoopOnBoard(board: Board, poop: Poop, x: Int, y: Int, d: Int) {
-        if !board.placePoop(poop, x: x, y: y, direction: d, tiles: &board.tiles, check: false) {
+        if !board.place(poop: poop, x: x, y: y, direction: d, tiles: &board.tiles, check: false) {
             print("---------------------- The poop didn't fit! ----------------------")
             printGrid(tiles: board.tiles, utility: board.gridUtility)
             exit(1)

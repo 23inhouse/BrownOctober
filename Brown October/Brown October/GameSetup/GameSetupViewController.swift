@@ -99,13 +99,13 @@ extension GameSetupViewController: GridButtonDelegate {
         let poop = poops[poopIdent - 1]
         let poopStain = board.poopStains[poopIdent]!
 
-        if board.removePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
+        if board.remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
             var direction = poopStain.direction + 1
             if direction > 3 { direction = 0 }
-            while !board.placePoop(poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &board.tiles) {
+            while !board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &board.tiles) {
                 guard direction != poopStain.direction else {
                     print("couldn't place")
-                    _ = board.placePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
+                    _ = board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
                     break
                 }
                 direction += 1
@@ -195,13 +195,13 @@ extension GameSetupViewController: GridButtonDragDelegate {
         guard let tileIndex = board.gridUtility.calcIndex(poopStain.x, poopStain.y) else { return }
         guard let (x, y) = board.gridUtility.calcXY(tileIndex + adjustment) else { return }
 
-        if board.removePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
-            if board.placePoop(poop, x: x, y: y, direction: poopStain.direction, tiles: &board.tiles) {
+        if board.remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
+            if board.place(poop: poop, x: x, y: y, direction: poopStain.direction, tiles: &board.tiles) {
                 board.poopStains[poopIdentifier] = Board.PoopStain(x: x, y: y, direction: poopStain.direction)
                 UserData.storePoopStains(board.poopStains)
                 boardView.draw()
             } else {
-                _ = board.placePoop(poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
+                _ = board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
             }
         }
     }

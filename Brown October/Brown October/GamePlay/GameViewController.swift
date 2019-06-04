@@ -160,7 +160,6 @@ extension GameViewController: PlayerTurnDelegate {
             self?.playerOneController.getComputerPlayer().playNext()
         }
     }
-
 }
 
 extension GameViewController: NewGameButtonDelegate {
