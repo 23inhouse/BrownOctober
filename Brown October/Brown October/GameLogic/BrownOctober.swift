@@ -135,17 +135,17 @@ class Board: Grid {
         let removedPoop = remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
         guard removedPoop else { return false }
 
-        var direction = poopStain.direction + 1
-        if direction > 3 { direction = 0 }
-        while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &tiles) {
+        var direction = poopStain.direction
+        repeat {
+            direction += 1
+            if direction > 3 { direction = 0 }
             guard direction != poopStain.direction else {
                 print("Error: couldn't place poop")
                 _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
                 break
             }
-            direction += 1
-            if direction > 3 { direction = 0 }
-        }
+        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &tiles)
+
         poopStains[poop.identifier]!.direction = direction
 
         return true
