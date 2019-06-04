@@ -97,21 +97,8 @@ extension GameSetupViewController: GridButtonDelegate {
 
         let poopIdent = board.tiles[index].poopIdentifier
         let poop = poops[poopIdent - 1]
-        let poopStain = board.poopStains[poopIdent]!
 
-        if board.remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles) {
-            var direction = poopStain.direction + 1
-            if direction > 3 { direction = 0 }
-            while !board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &board.tiles) {
-                guard direction != poopStain.direction else {
-                    print("couldn't place")
-                    _ = board.place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &board.tiles)
-                    break
-                }
-                direction += 1
-                if direction > 3 { direction = 0 }
-            }
-            board.poopStains[poopIdent]!.direction = direction
+        if board.rotate(poop: poop) {
             UserData.storePoopStains(board.poopStains)
             boardView.draw()
         }

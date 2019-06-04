@@ -129,6 +129,28 @@ class Board: Grid {
         return nil
     }
 
+    func rotate(poop: Poop) -> Bool {
+        guard let poopStain = poopStains[poop.identifier] else { return false }
+
+        let removedPoop = remove(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
+        guard removedPoop else { return false }
+
+        var direction = poopStain.direction + 1
+        if direction > 3 { direction = 0 }
+        while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction, tiles: &tiles) {
+            guard direction != poopStain.direction else {
+                print("Error: couldn't place poop")
+                _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction, tiles: &tiles)
+                break
+            }
+            direction += 1
+            if direction > 3 { direction = 0 }
+        }
+        poopStains[poop.identifier]!.direction = direction
+
+        return true
+    }
+
     private func findData(tiles: inout [Tile], at index: Int) -> (Tile, Poop)? {
 
         let tile = tiles[index]
