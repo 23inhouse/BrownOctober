@@ -30,12 +30,12 @@ class PlayerViewController: UIViewController {
         var foundPoops = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
         let poops = foundPoops.poops
 
-        _ = foundPoops.place(poop: poops[0], x: 5, y: 0, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.place(poop: poops[1], x: 4, y: 2, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.place(poop: poops[2], x: 0, y: 3, direction: 3, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.place(poop: poops[3], x: 3, y: 3, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.place(poop: poops[4], x: 2, y: 6, direction: 0, tiles: &foundPoops.tiles, check: false)
-        _ = foundPoops.place(poop: poops[5], x: 0, y: 0, direction: 0, tiles: &foundPoops.tiles, check: false)
+        _ = foundPoops.place(poop: poops[0], x: 5, y: 0, direction: 0, check: false)
+        _ = foundPoops.place(poop: poops[1], x: 4, y: 2, direction: 0, check: false)
+        _ = foundPoops.place(poop: poops[2], x: 0, y: 3, direction: 3, check: false)
+        _ = foundPoops.place(poop: poops[3], x: 3, y: 3, direction: 0, check: false)
+        _ = foundPoops.place(poop: poops[4], x: 2, y: 6, direction: 0, check: false)
+        _ = foundPoops.place(poop: poops[5], x: 0, y: 0, direction: 0, check: false)
 
         return foundPoops
     }()
