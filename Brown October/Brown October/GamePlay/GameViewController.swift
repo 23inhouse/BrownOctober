@@ -157,7 +157,9 @@ extension GameViewController: PlayerTurnDelegate {
 
     private func playComputerTurn(delay: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            self?.playerOneController.getComputerPlayer().playNext()
+            guard let self = self else { return }
+            let computerPlayer = self.playerOneController.getComputerPlayer()
+            computerPlayer.playNext()
         }
     }
 }

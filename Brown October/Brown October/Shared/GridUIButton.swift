@@ -30,6 +30,12 @@ class GridUIButton: UILabel {
     let index: Int
     let borderWidth: CGFloat
 
+    let heatMapLabel: UILabel = {
+        let label = UILabel()
+        label.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return label
+    }()
+
     func setData(text: String, color: UIColor, alpha: CGFloat) {
         self.text = text
         self.backgroundColor = color
@@ -47,11 +53,17 @@ class GridUIButton: UILabel {
         layer.borderColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
         layer.borderWidth = borderWidth
 
+        addSubview(heatMapLabel)
+
         let touch = UITapGestureRecognizer(target: self, action: #selector(touchButton))
         addGestureRecognizer(touch)
 
         let drag = UIPanGestureRecognizer(target: self, action: #selector(dragButton(recognizer:)))
         addGestureRecognizer(drag)
+    }
+
+    private func setupConstraints() {
+        heatMapLabel.constrain(to: self)
     }
 
     @objc private func touchButton() {
@@ -69,6 +81,7 @@ class GridUIButton: UILabel {
         super.init(frame: .zero)
 
         setupView()
+        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {

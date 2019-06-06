@@ -88,3 +88,15 @@ class RevealBoardDecorator: BoardDecorator {
         }
     }
 }
+
+class HeatMapBoardDecorator: BoardDecorator {
+    override func draw(boardView: BoardViewProtocol) {
+        updateButtons(boardView: boardView) { (button, tile) in
+            guard !tile.isFlushed && !tile.isFound else { return nil }
+            let heat = tile.heat ?? 0
+            let color: UIColor = UIColor(hue: 0.08, saturation: CGFloat(heat * heat * heat), brightness: CGFloat(1 - (heat * heat * heat) / 2), alpha: CGFloat(0.5 + (heat * heat * heat) / 2))
+            button.heatMapLabel.backgroundColor = color
+            return nil
+        }
+    }
+}

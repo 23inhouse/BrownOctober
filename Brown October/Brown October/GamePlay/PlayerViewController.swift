@@ -60,6 +60,8 @@ class PlayerViewController: UIViewController {
         }
     }
 
+    var showHeatSeak = false
+
     func resetBoard() {
         let boardView = playerView.boardView
 
@@ -130,6 +132,16 @@ extension PlayerViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: GridButtonProtocol) {
         guard sender.getText() == "" else { return }
 
+        defer {
+            if showHeatSeak {
+                let computerPlayer = getComputerPlayer()
+                _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
+                boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
+            } else {
+                boardView.draw(with: HeatMapBoardDecorator(for: Board.buildGameBoard()))
+            }
+        }
+
         let button = sender as! GridUIButton
         let index = button.index
         let board = player.board
@@ -172,11 +184,14 @@ extension PlayerViewController: SolveGameButtonDelegate {
     func didTouchSolveGame() {
         guard !player.won() else { return }
 
-        if !mainView.isHidden {
-            getComputerPlayer().playNext()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.didTouchSolveGame()
+        showHeatSeak.toggle()
+
+        if showHeatSeak {
+            let computerPlayer = getComputerPlayer()
+            _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
+            boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
+        } else {
+            boardView.draw(with: HeatMapBoardDecorator(for: Board.buildGameBoard()))
         }
     }
 }

@@ -15,6 +15,7 @@ class Tile {
     var poopIdentifier: Int
     var isFound = false
     var isFlushed = false
+    var heat: Double? = nil
 
     func markAsFlushed() {
         isFlushed = true

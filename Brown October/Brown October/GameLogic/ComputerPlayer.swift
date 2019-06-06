@@ -196,6 +196,7 @@ class ComputerPlayer {
 class PoopSeeker {
     let gridUtility: GridUtility
     let board: Board
+    let heatMap = Matrix()
 
     func heatSeek(around index: Int) -> Int? {
 
@@ -213,7 +214,6 @@ class PoopSeeker {
             return nil
         }
 
-        let heatMap = Matrix()
         heatMap.width = self.gridUtility.width
         heatMap.height = self.gridUtility.height
         heatMap.data = bestGuesses
@@ -225,14 +225,17 @@ class PoopSeeker {
 
         var bestIndexes = [Int]()
         for (i, v) in bestGuesses.enumerated() {
-            guard Int(v ?? 0) >= Int(ceil(minimumHeat!)) else { continue }
+            guard let heatValue = v else { continue }
+
+            board.tiles[i].heat = Double(heatValue) / Double(highest!)
+            guard Int(heatValue) >= Int(ceil(minimumHeat!)) else { continue }
             bestIndexes.append(i)
         }
 
         return bestIndexes[Int(arc4random_uniform(UInt32(bestIndexes.count)))]
     }
 
-    private func calcHeatMaps(at index: Int) -> [Int?]? {
+    func calcHeatMaps(at index: Int) -> [Int?]? {
         let size = [gridUtility.width, gridUtility.height].max()!
 
         let values = board.currentState()
@@ -286,7 +289,7 @@ class PoopSeeker {
         var size = 0
 
         for value in data { if value == 1 { size += 1 } }
-        let max = board.biggestPoop() - 1
+        let max = (board.biggestPoop() ?? 1) - 1
         if size > max { size = max }
 
         return size
