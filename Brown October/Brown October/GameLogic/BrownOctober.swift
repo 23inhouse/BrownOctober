@@ -168,6 +168,21 @@ class Board: Grid {
         return true
     }
 
+    func move(poop: Poop, to index: Int) -> Bool {
+        let poopStain = poopStains[poop.identifier]!
+
+        guard let (x, y) = gridUtility.calcXY(index) else { return false }
+
+        let removedPoop = remove(poop: poop)
+        guard removedPoop else { return false }
+        guard place(poop: poop, x: x, y: y, direction: poopStain.direction) else {
+            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction)
+            return false
+        }
+
+        return true
+    }
+
     func move(poop: Poop, by adjustment: (Int, Int)) -> Bool {
         let poopStain = poopStains[poop.identifier]!
 

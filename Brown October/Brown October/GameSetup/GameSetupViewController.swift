@@ -90,16 +90,22 @@ class GameSetupViewController: UIViewController {
 
 extension GameSetupViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: GridButtonProtocol) {
-        guard sender.getText() != "" else { return }
-
         let button = sender as! GridUIButton
         let index = button.index
+
+        guard sender.getText() != "" else {
+            let poop = poops[0]
+            if board.move(poop: poop, to: index) {
+                boardView.draw()
+            }
+
+            return
+        }
 
         let poopIdent = board.tiles[index].poopIdentifier
         let poop = poops[poopIdent - 1]
 
         if board.rotate(poop: poop) {
-            UserData.storePoopStains(board.poopStains)
             boardView.draw()
         }
     }
