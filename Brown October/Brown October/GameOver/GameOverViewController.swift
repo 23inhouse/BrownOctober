@@ -15,8 +15,8 @@ class GameOverViewController: UIViewController {
     static let winText = "💩🏆🥈🌈"
     static let looseText = "🧻🧴🧽🚿🍎🥦📱🖕"
 
-    lazy var humanBoard: Board = Board.buildGameBoard()
-    lazy var computerBoard: Board = Board.buildGameBoard()
+    lazy var humanBoard: Board = Board.makeGameBoard()
+    lazy var computerBoard: Board = Board.makeGameBoard()
     lazy var winner: Player.key = Player.key.human
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }

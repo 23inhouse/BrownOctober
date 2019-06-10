@@ -63,7 +63,7 @@ extension AppDelegate {
             case "play":
                 coordinator?.playGame()
             case "over":
-                coordinator?.gameOver(winner: Player.key.human, humanBoard: Board.buildGameBoard(), computerBoard: Board.buildGameBoard())
+                coordinator?.gameOver(winner: Player.key.human, humanBoard: Board.makeGameBoard(), computerBoard: Board.makeGameBoard())
             default:
                 coordinator?.start()
             }

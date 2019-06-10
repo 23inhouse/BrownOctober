@@ -27,7 +27,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop2(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 5, y: 5, d: 3)
+        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 5, y: 5, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
         game.tiles[index - 1].isFound = true
@@ -46,7 +46,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 2, y: 2, d: 1)
+        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 2, y: 2, d: 1)
 
         let index = gridUtility.calcIndex(1, 1)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
@@ -60,7 +60,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 4, y: 4, d: 3)
+        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 4, y: 4, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!
@@ -74,7 +74,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.buildSinglePoopBoard(width: size, height: size, poop: poop, x: 1, y: 3, d: 0)
+        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 1, y: 3, d: 0)
 
         let index = gridUtility.calcIndex(3, 3)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!

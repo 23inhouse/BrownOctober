@@ -74,8 +74,8 @@ class ComputerPlayerTests: XCTestCase {
     // MARK: Hunt after missing tests
     func testComputerHuntsWithNoStartAtArgument() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 2, height: 1, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 2, height: 1, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -85,8 +85,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsAfterMissingTwice() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 5, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 5, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -96,8 +96,8 @@ class ComputerPlayerTests: XCTestCase {
     // MARK: Hunt direction tests
     func testComputerHuntsAfterMissing() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 3, height: 1, poop: poop, x: 1, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 3, height: 1, poop: poop, x: 1, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: 0)
 
@@ -108,8 +108,8 @@ class ComputerPlayerTests: XCTestCase {
     // MARK: Hunt efficiently tests
     func testComputerHuntsEfficientlyForPoop1() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -119,8 +119,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop2() {
         let poop = Poop.poop2(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -130,8 +130,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop3() {
         let poop = Poop.poop3(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -141,8 +141,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop4() {
         let poop = Poop.poop4(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -152,8 +152,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop5() {
         let poop = Poop.poop5(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -163,8 +163,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsEfficientlyForPoop6() {
         let poop = Poop.poop6(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 7, height: 4, poop: poop, x: 1, y: 1, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 4).calcIndex(2, 1))
 
@@ -175,8 +175,8 @@ class ComputerPlayerTests: XCTestCase {
     // MARK: Hunt score tests
     func testComputerHuntsForPoopSize2() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -186,8 +186,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsForPoopSize3() {
         let poop = Poop.poop2(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -197,8 +197,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsForPoopSize4() {
         let poop = Poop.poop3(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -208,8 +208,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsForPoopSize5() {
         let poop = Poop.poop5(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -219,8 +219,8 @@ class ComputerPlayerTests: XCTestCase {
 
     func testComputerHuntsForPoopSize6() {
         let poop = Poop.poop6(0)
-        let board = TestBoardHelper.buildSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 5, height: 2, poop: poop, x: 0, y: 0, d: 0)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -230,14 +230,14 @@ class ComputerPlayerTests: XCTestCase {
 
     // MARK: Hunt for touching Poops
     func testComputerHuntsForTouchingPoops() {
-        let board = TestBoardHelper.buildBoard(width: 5, height: 7)
+        let board = TestBoardHelper.makeBoard(width: 5, height: 7)
         let poops = [Poop.poop1(0), Poop.poop4(1)]
         board.poops = poops
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 1, y: 1, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 1, y: 2, d: 3)
 
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 5, h: 7).calcIndex(2, 2))
 
@@ -247,14 +247,14 @@ class ComputerPlayerTests: XCTestCase {
     }
 
     func testComputerHuntsForPoopsTouchingALot() {
-        let board = TestBoardHelper.buildBoard(width: 7, height: 7)
+        let board = TestBoardHelper.makeBoard(width: 7, height: 7)
         let poops = [Poop.poop5(0), Poop.poop6(1)]
         board.poops = poops
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 1, y: 2, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 2, y: 3, d: 0)
 
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 7, h: 7).calcIndex(3, 3))
 
@@ -265,7 +265,7 @@ class ComputerPlayerTests: XCTestCase {
 
     // MARK: Test a full board
     func testComputerSolvesFullGame() {
-        let board = TestBoardHelper.buildBoard(width: 10, height: 10)
+        let board = TestBoardHelper.makeBoard(width: 10, height: 10)
         let poops = Poop.pinchSomeOff()
         board.poops = poops
 
@@ -276,7 +276,7 @@ class ComputerPlayerTests: XCTestCase {
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[4], x: 3, y: 3, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[5], x: 3, y: 4, d: 0)
 
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: GridUtility(w: 10, h: 10).calcIndex(4, 5))
 
@@ -284,7 +284,7 @@ class ComputerPlayerTests: XCTestCase {
     }
 
     func testComputerSolvesFullGameWorstCase() {
-        let board = TestBoardHelper.buildBoard(width: 10, height: 10)
+        let board = TestBoardHelper.makeBoard(width: 10, height: 10)
         let poops = Poop.pinchSomeOff()
         board.poops = poops
 
@@ -295,7 +295,7 @@ class ComputerPlayerTests: XCTestCase {
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[2], x: 0, y: 3, d: 3)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[5], x: 7, y: 4, d: 3)
 
-        let computerPlayer = TestComputerPlayerHelper.buildPlayer(board: board)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
 
         computerPlayer.play(startAt: nil)
 
@@ -305,7 +305,7 @@ class ComputerPlayerTests: XCTestCase {
 
 // MARK: Test helpers
 struct TestComputerPlayerHelper {
-    static func buildPlayer(board: Board) -> ComputerPlayer {
+    static func makePlayer(board: Board) -> ComputerPlayer {
         let boardMock = BoardMock(board: board)
         return ComputerPlayer(board: board, boardViewProtocol: boardMock)
     }

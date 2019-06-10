@@ -24,7 +24,7 @@ class BoardTests: XCTestCase {
 
     func testPlacePoop() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildBoard(width: 2, height: 1, poops: [poop])
+        let board = TestBoardHelper.makeBoard(width: 2, height: 1, poops: [poop])
 
         let placed = board.place(poop: poop, x: 0, y: 0, direction: 0)
 
@@ -33,7 +33,7 @@ class BoardTests: XCTestCase {
 
     func testPlacePoopThatIsTooBig() {
         let poop = Poop.poop1(0)
-        let board = TestBoardHelper.buildBoard(width: 1, height: 1, poops: [poop])
+        let board = TestBoardHelper.makeBoard(width: 1, height: 1, poops: [poop])
 
         let placed = board.place(poop: poop, x: 0, y: 0, direction: 0)
 
@@ -41,7 +41,7 @@ class BoardTests: XCTestCase {
     }
 
     func testExportGridValues() {
-        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let exportValues = board.currentState()
 
         XCTAssertEqual(exportValues.count, 9, "The export size is incorrect")
@@ -49,7 +49,7 @@ class BoardTests: XCTestCase {
     }
 
     func testExportGridValuesWithFoundTiles() {
-        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         board.tiles[4].isFound = true
         let exportValues = board.currentState()
         print(exportValues)
@@ -59,7 +59,7 @@ class BoardTests: XCTestCase {
     }
 
     func testExportGridValuesWithFlushedTiles() {
-        let board = TestBoardHelper.buildBoard(width: 3, height: 3)
+        let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         board.tiles[4].isFlushed = true
 
         let exportValues = board.currentState()
@@ -73,7 +73,7 @@ class BoardTests: XCTestCase {
 // MARK: Test helpers
 struct TestBoardHelper {
 
-    static func buildBoard(width: Int, height: Int, poops: [Poop] = []) -> Board {
+    static func makeBoard(width: Int, height: Int, poops: [Poop] = []) -> Board {
         let board = Board(width: width, height: height)
         board.tiles = board.cleanTiles()
         board.poops = poops
@@ -95,8 +95,8 @@ struct TestBoardHelper {
 //        printGrid(tiles: board.tiles, utility: board.gridUtility)
     }
 
-    static func buildSinglePoopBoard(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Board {
-        let board = buildBoard(width: width, height: height)
+    static func makeSinglePoopBoard(width: Int, height: Int, poop: Poop, x: Int, y: Int, d: Int) -> Board {
+        let board = makeBoard(width: width, height: height)
         placeSinglePoopOnBoard(board: board, poop: poop, x: x, y: y, d: d)
 
         return board

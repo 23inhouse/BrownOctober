@@ -138,7 +138,7 @@ extension PlayerViewController: GridButtonDelegate {
                 _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
                 boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
             } else {
-                boardView.draw(with: HeatMapBoardDecorator(for: Board.buildGameBoard()))
+                boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
             }
         }
 
@@ -191,7 +191,7 @@ extension PlayerViewController: SolveGameButtonDelegate {
             _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
             boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
         } else {
-            boardView.draw(with: HeatMapBoardDecorator(for: Board.buildGameBoard()))
+            boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
         }
     }
 }

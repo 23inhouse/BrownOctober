@@ -50,7 +50,7 @@ class Player {
         self.isHuman = key == Player.key.human
         self.isComputer = !isHuman
 
-        self.board = Board.buildGameBoard()
+        self.board = Board.makeGameBoard()
         board.placePoopsRandomly()
     }
 }
@@ -64,7 +64,7 @@ class Board: Grid {
     var poops: [Poop]
     var poopStains = [Int: PoopStain]()
 
-    static func buildGameBoard() -> Board {
+    static func makeGameBoard() -> Board {
         return Board(width: size, height: size, poops: Poop.pinchSomeOff())
     }
 

@@ -59,7 +59,7 @@ class BoardUIView: UIView {
     }
 
     init(with decorator: BoardDecoratorProtocol? = nil) {
-        self.decorator = decorator ?? BoardDecorator(for: Board.buildGameBoard())
+        self.decorator = decorator ?? BoardDecorator(for: Board.makeGameBoard())
         super.init(frame: .zero)
 
         setupView()

@@ -17,7 +17,7 @@ class GameSetupViewController: UIViewController {
     lazy var boardView = mainView.boardView
     lazy var boardDecorator: BoardDecoratorProtocol = ArrangeBoardDecorator(for: board)
 
-    lazy var board: Board = Board.buildGameBoard()
+    lazy var board: Board = Board.makeGameBoard()
     lazy var poops: [Poop] = board.poops
     lazy var dragButtons = [GridUIButton]()
 
