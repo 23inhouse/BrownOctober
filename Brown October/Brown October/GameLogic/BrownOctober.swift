@@ -154,16 +154,15 @@ class Board: Grid {
         let removedPoop = remove(poop: poop)
         guard removedPoop else { return false }
 
-        var direction = poopStain.direction
+        var rotatedPoop:RotatableProtocol = DirectedPoop.make(poop, direction: poopStain.direction) as! RotatableProtocol
         repeat {
-            direction += 1
-            if direction > 3 { direction = 0 }
-            guard direction != poopStain.direction else {
+            rotatedPoop = rotatedPoop.rotate()
+            guard rotatedPoop.direction != poopStain.direction else {
                 print("Error: couldn't place poop")
                 _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction)
                 return false
             }
-        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: direction)
+        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: rotatedPoop.direction)
 
         return true
     }
@@ -211,12 +210,12 @@ class Board: Grid {
     }
 
     private func checkPoop(poop: Poop, x: Int, y: Int, direction: Int, closure: (Int) -> Bool) -> Bool {
-        let data = GridUtility.rotate(poop.data, times: direction)
+        let directedPoop = DirectedPoop.make(poop, direction: direction)
 
-        let xAdjusted = x + (poop.data[0].count - data[0].count) / 2
-        let yAdjusted = y + (poop.data.count - data.count) / 2
+        let xAdjusted = x - directedPoop.centerOffset + directedPoop.offset.x
+        let yAdjusted = y - directedPoop.centerOffset + directedPoop.offset.y
 
-        for (yIndex, values) in data.enumerated() {
+        for (yIndex, values) in directedPoop.data.enumerated() {
             for (xIndex, value) in values.enumerated() {
 
                 guard value == 1 else { continue }

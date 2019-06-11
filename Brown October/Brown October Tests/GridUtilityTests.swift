@@ -74,7 +74,7 @@ class GridUtilityTests: XCTestCase {
         let gridUtility = GridUtility(w: size, h: size)
 
         let poop = Poop.poop5(0)
-        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 1, y: 3, d: 0)
+        let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 3, y: 3, d: 0)
 
         let index = gridUtility.calcIndex(3, 3)!
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 5)!

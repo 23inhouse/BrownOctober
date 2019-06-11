@@ -26,7 +26,7 @@ class BoardTests: XCTestCase {
         let poop = Poop.poop1(0)
         let board = TestBoardHelper.makeBoard(width: 2, height: 1, poops: [poop])
 
-        let placed = board.place(poop: poop, x: 0, y: 0, direction: 0)
+        let placed = board.place(poop: poop, x: 1, y: 1, direction: 0)
 
         XCTAssertEqual(placed, true, "The poop should! fit here")
     }

@@ -34,6 +34,8 @@
 		B53399F622A1BA6500E9E7D5 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53399F522A1BA6500E9E7D5 /* AppViewController.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
+		B5A3B58E22B123F400F445A6 /* DirectedPoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58D22B123F400F445A6 /* DirectedPoop.swift */; };
+		B5A3B59022B1241800F445A6 /* DirectedPoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58F22B1241800F445A6 /* DirectedPoopTests.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */; };
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
@@ -57,7 +59,7 @@
 			remoteGlobalIDString = B5AA7364225CC7C1008AAEA2;
 			remoteInfo = "Brown October";
 		};
-		B5F165B12274AE3E00789DC3 /* PBXContainerItemProxy */ = {
+		B5A3B58722AF87C700F445A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5AA735D225CC7C1008AAEA2 /* Project object */;
 			proxyType = 1;
@@ -96,6 +98,8 @@
 		B53399F522A1BA6500E9E7D5 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
+		B5A3B58D22B123F400F445A6 /* DirectedPoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectedPoop.swift; sourceTree = "<group>"; };
+		B5A3B58F22B1241800F445A6 /* DirectedPoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectedPoopTests.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Brown October.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brown October.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
 				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
+				B5A3B58F22B1241800F445A6 /* DirectedPoopTests.swift */,
 				B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */,
 			);
 			path = "Brown October Tests";
@@ -248,6 +253,7 @@
 			children = (
 				B5291ED122689C6D002C49B0 /* BrownOctober.swift */,
 				B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */,
+				B5A3B58D22B123F400F445A6 /* DirectedPoop.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
 			);
@@ -345,7 +351,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				B5F165B22274AE3E00789DC3 /* PBXTargetDependency */,
+				B5A3B58822AF87C700F445A6 /* PBXTargetDependency */,
 			);
 			name = "Brown October Tests";
 			productName = "Brown October Tests";
@@ -444,6 +450,7 @@
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
+				B5A3B58E22B123F400F445A6 /* DirectedPoop.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
 				B50B78C622A45E2900B9FF44 /* BoardDecorator.swift in Sources */,
 				B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */,
@@ -478,6 +485,7 @@
 			files = (
 				B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */,
 				B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */,
+				B5A3B59022B1241800F445A6 /* DirectedPoopTests.swift in Sources */,
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
 			);
@@ -491,10 +499,10 @@
 			target = B5AA7364225CC7C1008AAEA2 /* Brown October */;
 			targetProxy = B50BA00222981DD000C1F418 /* PBXContainerItemProxy */;
 		};
-		B5F165B22274AE3E00789DC3 /* PBXTargetDependency */ = {
+		B5A3B58822AF87C700F445A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B5AA7364225CC7C1008AAEA2 /* Brown October */;
-			targetProxy = B5F165B12274AE3E00789DC3 /* PBXContainerItemProxy */;
+			targetProxy = B5A3B58722AF87C700F445A6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

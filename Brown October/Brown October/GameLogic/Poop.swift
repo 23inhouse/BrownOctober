@@ -82,8 +82,10 @@ class Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
+            [0,0,0,0],
             [0,1,1,1],
-            [1,1,1,0]
+            [1,1,1,0],
+            [0,0,0,0],
             ])
     }
 
