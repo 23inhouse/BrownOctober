@@ -308,18 +308,6 @@ class Grid {
         return values
     }
 
-    func flushed(nextTo index: Int) -> Bool {
-        for direction in 0 ..< 4 {
-            guard let adjustedIndex = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
-                continue
-            }
-
-            if tiles[adjustedIndex].isFlushed { return true }
-        }
-
-        return false
-    }
-
     init(width: Int, height: Int) {
         self.gridUtility = GridUtility.init(w: width, h: height)
     }
