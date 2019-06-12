@@ -14,6 +14,18 @@ protocol BoardDecoratorProtocol {
     func flush(boardView: BoardViewProtocol, ident: Int)
 }
 
+extension BoardDecoratorProtocol {
+    typealias buttonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
+
+    fileprivate func updateButtons(boardView: BoardViewProtocol, closure: buttonData) {
+        for (i, tile) in board.tiles.enumerated() {
+            let button = boardView.getButton(at: i) as! GridUIButton
+            guard let (text, color, alpha) = closure(button, tile) else { continue }
+            button.setData(text: text, color: color, alpha: alpha)
+        }
+    }
+}
+
 class BoardDecorator: BoardDecoratorProtocol {
     var board: Board
 
@@ -30,16 +42,6 @@ class BoardDecorator: BoardDecoratorProtocol {
 
             let color = UIColor(poop: ident)
             return ("💩", color, 1)
-        }
-    }
-
-    typealias buttonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
-
-    fileprivate func updateButtons(boardView: BoardViewProtocol, closure: buttonData) {
-        for (i, tile) in board.tiles.enumerated() {
-            let button = boardView.getButton(at: i) as! GridUIButton
-            guard let (text, color, alpha) = closure(button, tile) else { continue }
-            button.setData(text: text, color: color, alpha: alpha)
         }
     }
 
