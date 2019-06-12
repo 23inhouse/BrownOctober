@@ -102,4 +102,73 @@ class GridUtilityTests: XCTestCase {
         XCTAssertEqual(x, 0, "The X value is incorrect")
         XCTAssertEqual(y, -1, "The Y value is incorrect")
     }
+
+    func testRotateTimes() {
+        let matrix = [
+            [1,2,3],
+            [4,5,6],
+            [7,8,9],
+        ]
+
+        let expectedMatrixes: [[[Int]]] = [
+            [
+                [1,2,3],
+                [4,5,6],
+                [7,8,9],
+            ],
+            [
+                [7,4,1],
+                [8,5,2],
+                [9,6,3],
+            ],
+            [
+                [9,8,7],
+                [6,5,4],
+                [3,2,1],
+            ],
+            [
+                [3,6,9],
+                [2,5,8],
+                [1,4,7],
+            ],
+        ]
+
+        for (times, expectedMatrix) in expectedMatrixes.enumerated() {
+            let newMatrix = GridUtility.rotate(matrix, times: times)
+            XCTAssertEqual(newMatrix, expectedMatrix, "The matrix for \(times) is wrong")
+        }
+    }
+
+    func testOddShapeRotateTimes() {
+        let matrix = [
+            [1,2,3],
+            [4,5,6],
+        ]
+
+        let expectedMatrixes: [[[Int]]] = [
+            [
+                [1,2,3],
+                [4,5,6],
+            ],
+            [
+                [4,1],
+                [5,2],
+                [6,3],
+            ],
+            [
+                [6,5,4],
+                [3,2,1],
+            ],
+            [
+                [3,6],
+                [2,5],
+                [1,4],
+            ],
+        ]
+
+        for (times, expectedMatrix) in expectedMatrixes.enumerated() {
+            let newMatrix = GridUtility.rotate(matrix, times: times)
+            XCTAssertEqual(newMatrix, expectedMatrix, "The matrix for \(times) is wrong")
+        }
+    }
 }

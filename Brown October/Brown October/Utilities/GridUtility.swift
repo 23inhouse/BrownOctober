@@ -40,12 +40,7 @@ class GridUtility {
 
         for i in 0 ..< y {
             for j in 0 ..< x {
-                switch times {
-                case 3: newMatrix[j][i] = matrix[i][j]
-                case 2: newMatrix[j][i] = matrix[i][x - j - 1]
-                case 1: newMatrix[j][i] = matrix[y - i - 1][x - j - 1]
-                default: newMatrix[j][i] = matrix[j][i]
-                }
+                newMatrix[j][i] = matrix[y - i - 1][j]
             }
         }
 
