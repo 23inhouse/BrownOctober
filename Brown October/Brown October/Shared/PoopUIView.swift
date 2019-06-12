@@ -49,7 +49,7 @@ class PoopUIView: UIView {
         gridView.constrain(to: self)
     }
 
-    init(with decorator: BoardDecoratorProtocol? = nil) {
+    init<Decorator: BoardDecoratorProtocol>(with decorator: Decorator? = nil) {
         self.decorator = decorator ?? BoardDecorator(for: Board.makeGameBoard())
         super.init(frame: .zero)
 

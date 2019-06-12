@@ -74,7 +74,7 @@ class GameSetupUIView: UIView {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
     }
 
-    init(boardDecorator: BoardDecoratorProtocol) {
+    init<Decorator: BoardDecoratorProtocol>(boardDecorator: Decorator) {
         self.boardView = BoardUIView(with: boardDecorator)
         super.init(frame: .zero)
 

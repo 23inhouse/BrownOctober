@@ -83,7 +83,7 @@ class GameOverUIView: UIView {
         humanScoreView.constrainWidth(to: computerScoreView)
     }
 
-    init(text: String, humanboardDecorator: BoardDecoratorProtocol, computerboardDecorator: BoardDecoratorProtocol) {
+    init<Decorator: BoardDecoratorProtocol>(text: String, humanboardDecorator: Decorator, computerboardDecorator: Decorator) {
         self.text = text
         self.humanBoardView = BoardUIView(with: humanboardDecorator)
         self.computerBoardView = BoardUIView(with: computerboardDecorator)

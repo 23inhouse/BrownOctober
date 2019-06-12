@@ -15,7 +15,6 @@ class GameSetupViewController: UIViewController {
     var mainView: GameSetupUIView { return self.view as! GameSetupUIView }
 
     lazy var boardView = mainView.boardView
-    lazy var boardDecorator: BoardDecoratorProtocol = ArrangeBoardDecorator(for: board)
 
     lazy var board: Board = Board.makeGameBoard()
     lazy var poops: [Poop] = board.poops
@@ -36,6 +35,7 @@ class GameSetupViewController: UIViewController {
     }
 
     private func setupView() {
+        let boardDecorator = ArrangeBoardDecorator(for: board)
         self.view = GameSetupUIView(boardDecorator: boardDecorator)
 
         mainView.resetButton.addTarget(self, action: #selector(touchResetButton), for: .touchUpInside)

@@ -34,9 +34,9 @@ class PlayerUIView: UIView {
         return view
     }()
 
-    lazy var foundPoopsView = PoopUIView(with: poopDecorator)
+    let boardView: BoardUIView
+    let foundPoopsView: PoopUIView
     lazy var scoreView = ScoreUIView(icon: player.isHuman ? "👤" : "📱")
-    lazy var boardView = BoardUIView(with: boardDecorator)
 
     lazy var board = player.board
 
@@ -66,10 +66,12 @@ class PlayerUIView: UIView {
         scoreView.constrainWidth(to: layoutView, max: 0.3)
     }
 
-    init(player: Player, boardDecorator: BoardDecoratorProtocol, poopDecorator: BoardDecoratorProtocol) {
+    init<Decorator: BoardDecoratorProtocol>(player: Player, boardDecorator: Decorator, poopDecorator: Decorator) {
         self.player = player
         self.boardDecorator = boardDecorator
         self.poopDecorator = poopDecorator
+        self.boardView = BoardUIView(with: boardDecorator)
+        self.foundPoopsView = PoopUIView(with: poopDecorator)
 
         super.init(frame: .zero)
 
