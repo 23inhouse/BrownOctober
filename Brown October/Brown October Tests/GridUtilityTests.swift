@@ -171,4 +171,40 @@ class GridUtilityTests: XCTestCase {
             XCTAssertEqual(newMatrix, expectedMatrix, "The matrix for \(times) is wrong")
         }
     }
+
+    func testRotateDirection() {
+        let matrix = [
+            [0,0,1],
+            [0,0,1],
+            [0,0,1],
+        ]
+
+        let expectedMatrixes: [Direction.Named:[[Int]]] = [
+            .right:[
+                [0,0,1],
+                [0,0,1],
+                [0,0,1],
+            ],
+            .down:[
+                [0,0,0],
+                [0,0,0],
+                [1,1,1],
+            ],
+            .left:[
+                [1,0,0],
+                [1,0,0],
+                [1,0,0],
+            ],
+            .up:[
+                [1,1,1],
+                [0,0,0],
+                [0,0,0],
+            ],
+        ]
+
+        for (direction, expectedMatrix) in expectedMatrixes {
+            let newMatrix = GridUtility.rotate(matrix, direction: Direction(direction))
+            XCTAssertEqual(newMatrix, expectedMatrix, "The matrix for \(direction) is wrong")
+        }
+    }
 }

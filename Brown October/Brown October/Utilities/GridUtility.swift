@@ -29,6 +29,10 @@ class GridUtility {
     let width: Int
     let height: Int
 
+    static func rotate(_ matrix: [[Int]], direction: Direction) -> [[Int]] {
+        return rotate(matrix, times: direction.value)
+    }
+
     static func rotate(_ matrix: [[Int]], times: Int) -> [[Int]] {
         if times == 0 { return matrix }
 
