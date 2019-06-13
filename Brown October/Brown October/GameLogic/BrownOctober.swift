@@ -56,7 +56,7 @@ class Player {
 }
 
 class Board: Grid {
-    typealias PoopStain = (x: Int, y: Int, direction: Int)
+    typealias PoopStain = (x: Int, y: Int, direction: Direction)
 
     static let size = 10
 
@@ -89,10 +89,9 @@ class Board: Grid {
         tiles = cleanTiles()
         poops = Poop.pinchSomeOff()
 
-        for poopStain in poopStains {
-            let poop = poops[poopStain.key - 1]
-            let value = poopStain.value
-            _ = place(poop: poop, x: value.x, y: value.y, direction: value.direction)
+        for (ident, poopStain) in poopStains {
+            let poop = poops[ident - 1]
+            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
         }
     }
 
@@ -144,7 +143,7 @@ class Board: Grid {
             return place(poop: poop, x: x, y: y, direction: direction, check: false)
         }
 
-        poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: direction)
+        poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: Direction(direction))
         return true
     }
 
@@ -159,10 +158,10 @@ class Board: Grid {
             rotatedPoop = rotatedPoop.rotate()
             guard rotatedPoop.direction != poopStain.direction else {
                 print("Error: couldn't place poop")
-                _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction)
+                _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
                 return false
             }
-        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: rotatedPoop.direction)
+        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: rotatedPoop.direction.value)
 
         return true
     }
@@ -174,8 +173,8 @@ class Board: Grid {
 
         let removedPoop = remove(poop: poop)
         guard removedPoop else { return false }
-        guard place(poop: poop, x: x, y: y, direction: poopStain.direction) else {
-            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction)
+        guard place(poop: poop, x: x, y: y, direction: poopStain.direction.value) else {
+            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
             return false
         }
 
@@ -192,8 +191,8 @@ class Board: Grid {
 
         let removedPoop = remove(poop: poop)
         guard removedPoop else { return false }
-        guard place(poop: poop, x: x, y: y, direction: poopStain.direction) else {
-            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction)
+        guard place(poop: poop, x: x, y: y, direction: poopStain.direction.value) else {
+            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
             return false
         }
 
@@ -203,7 +202,7 @@ class Board: Grid {
     private func remove(poop: Poop) -> Bool {
         let poopStain = poopStains[poop.identifier]!
 
-        return checkPoop(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction) { (index) in
+        return checkPoop(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value) { (index) in
             tiles[index].poopIdentifier = 0
             return true
         }
@@ -231,7 +230,7 @@ class Board: Grid {
     private func isAPoop(nextTo index: Int) -> Bool {
         if allowAdjacentPoops { return false }
 
-        for direction in 0 ..< 4 {
+        for direction in Direction.all() {
             guard let adjustedIndex = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
                 continue
             }

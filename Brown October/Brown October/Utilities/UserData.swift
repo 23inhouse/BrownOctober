@@ -40,14 +40,14 @@ struct UserData {
         guard poopStainData.count > 0 else { return poopStains }
 
         for data in poopStainData as! [[Int]] {
-            poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: data[3])
+            poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: Direction(data[3]))
         }
 
         return poopStains
     }
 
     static func storePoopStains(_ poopStains: [Int: Board.PoopStain]) {
-        let data = poopStains.map({ [$0.key, $0.value.x, $0.value.y, $0.value.direction]})
+        let data = poopStains.map({ (ident, poopStain) in [ident, poopStain.x, poopStain.y, poopStain.direction.value]})
         defaults.set(data, forKey: Key.poopStains.rawValue)
     }
 

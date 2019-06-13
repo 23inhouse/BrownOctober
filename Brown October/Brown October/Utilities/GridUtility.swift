@@ -51,22 +51,20 @@ class GridUtility {
         return rotate(newMatrix, times: times - 1)
     }
 
-    func adjustIndex(_ index: Int, direction: Int, offset: Int) -> Int? {
+    func adjustIndex(_ index: Int, direction: Direction, offset: Int) -> Int? {
         guard let (x, y) = calcXY(index) else { return nil }
 
         var newIndex: Int?
 
-        switch direction {
-        case 0:
+        switch direction.name {
+        case .right:
             newIndex = calcIndex(x + offset, y)
-        case 1:
+        case .down:
             newIndex = calcIndex(x, y + offset)
-        case 2:
+        case .left:
             newIndex = calcIndex(x - offset, y)
-        case 3:
+        case .up:
             newIndex = calcIndex(x, y - offset)
-        default:
-            return adjustIndex(index, direction: direction - 4, offset: offset)
         }
 
         return newIndex

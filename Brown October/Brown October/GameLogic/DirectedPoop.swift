@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RotatableProtocol {
-    var direction: Int { get }
+    var direction: Direction { get }
     func rotate() -> RotatableProtocol
 }
 
@@ -20,27 +20,28 @@ class DirectedPoop {
     var centerOffset: Int = 0
 
     static func makeRandom(_ poop: Poop) -> DirectedPoop {
-        let direction = Int(arc4random_uniform(4))
-        return make(poop, direction: direction)
+        return make(poop, direction: Direction.random())
     }
 
-    static func make(_ poop: Poop, direction: Int) -> DirectedPoop {
-        switch direction {
-        case 0:
+    static func make(_ poop: Poop, direction: Direction) -> DirectedPoop {
+        switch direction.name {
+        case .right:
             return PoopRight(poop)
-        case 1:
+        case .down:
             return PoopDown(poop)
-        case 2:
+        case .left:
             return PoopLeft(poop)
-        case 3:
+        case .up:
             return PoopUp(poop)
-        default:
-            return PoopRight(poop)
         }
     }
 
-    fileprivate func calcOffsets(_ data: [[Int]], direction: Int) {
-        self.data = GridUtility.rotate(data, times: direction)
+    static func make(_ poop: Poop, direction: Int) -> DirectedPoop {
+        return make(poop, direction: Direction(direction))
+    }
+
+    fileprivate func calcOffsets(_ data: [[Int]], direction: Direction) {
+        self.data = GridUtility.rotate(data, direction: direction)
         self.centerOffset = calcCenteOffset(data)
         self.offset = calcXYOffsets(data)
     }
@@ -74,7 +75,7 @@ class DirectedPoop {
 }
 
 class PoopRight: DirectedPoop {
-    var direction = 0
+    var direction = Direction(.right)
 
     override init(_ poop: Poop) {
         super.init(poop)
@@ -89,7 +90,7 @@ extension PoopRight: RotatableProtocol {
 }
 
 class PoopDown: DirectedPoop {
-    var direction = 1
+    var direction = Direction(.down)
 
     override init(_ poop: Poop) {
         super.init(poop)
@@ -104,7 +105,7 @@ extension PoopDown: RotatableProtocol {
 }
 
 class PoopLeft: DirectedPoop {
-    var direction = 2
+    var direction = Direction(.left)
 
     override init(_ poop: Poop) {
         super.init(poop)
@@ -119,7 +120,7 @@ extension PoopLeft: RotatableProtocol {
 }
 
 class PoopUp: DirectedPoop {
-    var direction = 3
+    var direction = Direction(.up)
 
     override init(_ poop: Poop) {
         super.init(poop)

@@ -266,16 +266,16 @@ class PoopSeeker {
         for poop in board.poops {
             if poop.isFound { continue }
 
-            for direction in Array(0 ..< 4) {
-                let poopData = GridUtility.rotate(poop.data, times: direction)
+            for direction in Direction.all() {
+                let poopData = GridUtility.rotate(poop.data, direction: direction)
 
                 let emptyPoopDataOffset = calcEmptyPoopOffset()
                 for yMat in Array(emptyPoopDataOffset ..< matrix.height) {
                     for xMat in Array(emptyPoopDataOffset ..< matrix.width) {
 
-                        if checkPlacement(grid: matrix.data, x: xMat, y: yMat, data: poopData, direction: direction, mustMatch: mustMatch) {
+                        if checkPlacement(grid: matrix.data, x: xMat, y: yMat, data: poopData, direction: direction.value, mustMatch: mustMatch) {
 //                            print("[Seaker] It fits at (\(xMat),\(yMat)) going (\(direction))")
-                            warmUpPoop(heatMap: heatMap, x: xMat, y: yMat, data: poopData, direction: direction)
+                            warmUpPoop(heatMap: heatMap, x: xMat, y: yMat, data: poopData, direction: direction.value)
                         }
                     }
                 }
@@ -371,8 +371,8 @@ class PoopSeeker {
         for poop in board.poops {
             if poop.isFound { continue }
 
-            for direction in Array(0 ... 3) {
-                let data = GridUtility.rotate(poop.data, times: direction)
+            for direction in Direction.all() {
+                let data = GridUtility.rotate(poop.data, direction: direction)
 
                 var poopOffset = 0
                 for row in data {
