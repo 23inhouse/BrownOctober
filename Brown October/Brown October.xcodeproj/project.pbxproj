@@ -46,6 +46,7 @@
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
 		B5DE594F22B2613D009EE711 /* DirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE594E22B2613D009EE711 /* DirectionTests.swift */; };
+		B5DE595122B28D74009EE711 /* GridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE595022B28D74009EE711 /* GridTests.swift */; };
 		B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */; };
 		B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853B22297F90100DFECC3 /* UIView+constraints.swift */; };
 		B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */; };
@@ -114,6 +115,7 @@
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
 		B5DE594E22B2613D009EE711 /* DirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionTests.swift; sourceTree = "<group>"; };
+		B5DE595022B28D74009EE711 /* GridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridTests.swift; sourceTree = "<group>"; };
 		B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUIView.swift; sourceTree = "<group>"; };
 		B5E853B22297F90100DFECC3 /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewControllerTests.swift; sourceTree = "<group>"; };
@@ -243,12 +245,13 @@
 			isa = PBXGroup;
 			children = (
 				B5F165B02274AE3E00789DC3 /* Info.plist */,
-				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
 				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
 				B5A3B58F22B1241800F445A6 /* DirectedPoopTests.swift */,
 				B5DE594E22B2613D009EE711 /* DirectionTests.swift */,
 				B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */,
+				B5DE595022B28D74009EE711 /* GridTests.swift */,
+				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
 			);
 			path = "Brown October Tests";
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */,
 				B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */,
 				B5A3B59022B1241800F445A6 /* DirectedPoopTests.swift in Sources */,
+				B5DE595122B28D74009EE711 /* GridTests.swift in Sources */,
 				B5DE594F22B2613D009EE711 /* DirectionTests.swift in Sources */,
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,

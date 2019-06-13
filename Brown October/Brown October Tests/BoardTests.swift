@@ -75,7 +75,6 @@ struct TestBoardHelper {
 
     static func makeBoard(width: Int, height: Int, poops: [Poop] = []) -> Board {
         let board = Board(width: width, height: height)
-        board.tiles = board.cleanTiles()
         board.poops = poops
 
         return board

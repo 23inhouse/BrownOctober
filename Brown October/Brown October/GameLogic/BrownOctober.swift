@@ -69,7 +69,7 @@ class Board: Grid {
     }
 
     func placePoopsRandomly() {
-        tiles = cleanTiles()
+        cleanTiles()
         poops = Poop.pinchSomeOff()
 
         let utility = gridUtility
@@ -86,7 +86,7 @@ class Board: Grid {
     }
 
     func placePoopStains() {
-        tiles = cleanTiles()
+        cleanTiles()
         poops = Poop.pinchSomeOff()
 
         for (ident, poopStain) in poopStains {
@@ -267,25 +267,10 @@ class Grid {
     let allowAdjacentPoops = true
 
     let gridUtility: GridUtility
-    lazy var tiles: [Tile] = self.cleanTiles()
+    var tiles = [Tile]()
 
-    func numberOfFoundTiles() -> Int {
-        return tiles.filter({ $0.isFound }).count
-    }
-
-    func numberOfFlushedTiles() -> Int {
-        return tiles.filter({ $0.isFlushed }).count
-    }
-
-    func cleanTiles() -> [Tile] {
-        var tiles = [Tile]()
-        for y in 0 ..< gridUtility.height {
-            for x in 0 ..< gridUtility.width {
-                let tile = Tile(x: x, y: y, poopIdent: 0)
-                tiles.append(tile)
-            }
-        }
-        return tiles
+    func cleanTiles() {
+        self.tiles = Array(0 ..< gridUtility.count).map { _ in Tile() }
     }
 
     func currentState() -> [Int?] {
@@ -306,7 +291,16 @@ class Grid {
         return values
     }
 
+    func numberOfFlushedTiles() -> Int {
+        return tiles.filter({ $0.isFlushed }).count
+    }
+
+    func numberOfFoundTiles() -> Int {
+        return tiles.filter({ $0.isFound }).count
+    }
+
     init(width: Int, height: Int) {
         self.gridUtility = GridUtility.init(w: width, h: height)
+        cleanTiles()
     }
 }

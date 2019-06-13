@@ -10,9 +10,7 @@ import Foundation
 
 class Tile {
 
-    var x: Int
-    var y: Int
-    var poopIdentifier: Int
+    var poopIdentifier: Int = 0
     var isFound = false
     var isFlushed = false
     var heat: Double? = nil
@@ -23,11 +21,5 @@ class Tile {
 
     func markAsFound() {
         isFound = true
-    }
-
-    init(x xPos: Int, y yPos:Int, poopIdent poopIndentifier: Int) {
-        self.x = xPos
-        self.y = yPos
-        self.poopIdentifier = poopIndentifier
     }
 }

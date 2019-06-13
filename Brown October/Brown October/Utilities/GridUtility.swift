@@ -34,6 +34,8 @@ class GridUtility {
     let width: Int
     let height: Int
 
+    lazy var count: Int = { width * height }()
+
     static func flip(_ matrix: [[Int]], _ orientation: Orientation) -> [[Int]] {
         let x = matrix[0].count
         let y = matrix.count
