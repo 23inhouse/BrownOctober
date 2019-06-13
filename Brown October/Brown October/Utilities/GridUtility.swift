@@ -26,8 +26,34 @@ class Matrix {
 }
 
 class GridUtility {
+    enum Orientation {
+        case horizontally
+        case vertically
+    }
+
     let width: Int
     let height: Int
+
+    static func flip(_ matrix: [[Int]], _ orientation: Orientation) -> [[Int]] {
+        let x = matrix[0].count
+        let y = matrix.count
+
+        let z = [Int](repeating: 0, count: x)
+        var flippedMatrix = [[Int]](repeating: z, count: y)
+
+        for i in 0 ..< y {
+            for j in 0 ..< x {
+                switch orientation {
+                case .horizontally:
+                    flippedMatrix[i][j] = matrix[i][x - j - 1]
+                case .vertically:
+                    flippedMatrix[i][j] = matrix[y - i - 1][j]
+                }
+            }
+        }
+
+        return flippedMatrix
+    }
 
     static func rotate(_ matrix: [[Int]], direction: Direction) -> [[Int]] {
         return rotate(matrix, times: direction.value)

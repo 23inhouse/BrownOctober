@@ -41,7 +41,11 @@ class DirectedPoop {
     }
 
     fileprivate func calcOffsets(_ data: [[Int]], direction: Direction) {
-        self.data = GridUtility.rotate(data, direction: direction)
+        var data = GridUtility.rotate(data, direction: direction)
+        if poop.flip && [.left, .up].contains(direction.name) {
+            data = GridUtility.flip(data, direction.name == .left ? .vertically : .horizontally)
+        }
+        self.data = data
         self.centerOffset = calcCenteOffset(data)
         self.offset = calcXYOffsets(data)
     }

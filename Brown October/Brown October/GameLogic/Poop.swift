@@ -15,6 +15,7 @@ class Poop {
     var poopSize: Int
     var foundCounter = 0
     var isFound = false
+    let flip: Bool
 
     static var identiferFactory = 0
 
@@ -86,12 +87,13 @@ class Poop {
             [0,1,1,1],
             [1,1,1,0],
             [0,0,0,0],
-            ])
+            ], flip: true)
     }
 
-    init(_ data: [[Int]]) {
+    init(_ data: [[Int]], flip: Bool = false) {
         self.identifier = Poop.getUniqueIdentifier()
         self.data = data
+        self.flip = flip
 
         var poopSize = 0
         for row in data { for value in row { poopSize += value } }

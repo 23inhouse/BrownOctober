@@ -12,16 +12,6 @@ import XCTest
 
 class GridUtilityTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
     func testCaptureGridWithASmallerPoop() {
         let size = 10
         let gridUtility = GridUtility(w: size, h: size)
@@ -205,6 +195,29 @@ class GridUtilityTests: XCTestCase {
         for (direction, expectedMatrix) in expectedMatrixes {
             let newMatrix = GridUtility.rotate(matrix, direction: Direction(direction))
             XCTAssertEqual(newMatrix, expectedMatrix, "The matrix for \(direction) is wrong")
+        }
+    }
+
+    func testFlip() {
+        let data = [
+            [1,2],
+            [3,4]
+        ]
+
+        let expectedDatas: [GridUtility.Orientation:[[Int]]] = [
+            .horizontally: [
+                [2,1],
+                [4,3],
+            ],
+            .vertically: [
+                [3,4],
+                [1,2],
+            ],
+        ]
+
+        for (orientation, expectedData) in expectedDatas {
+            let subject = GridUtility.flip(data, orientation)
+            XCTAssertEqual(subject, expectedData, "The data is flipped incorrectly")
         }
     }
 }

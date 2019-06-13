@@ -145,4 +145,40 @@ class DirectedPoopTests: XCTestCase {
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
         }
     }
+
+    func testPoop6Flipping() {
+        let poop = Poop.poop6()
+
+        let expectedData: [Direction.Named: [[Int]]] = [
+            .right: [
+                [0,0,0,0],
+                [0,1,1,1],
+                [1,1,1,0],
+                [0,0,0,0],
+            ],
+            .down: [
+                [0,1,0,0],
+                [0,1,1,0],
+                [0,1,1,0],
+                [0,0,1,0],
+            ],
+            .left: [
+                [0,0,0,0],
+                [1,1,1,0],
+                [0,1,1,1],
+                [0,0,0,0],
+            ],
+            .up: [
+                [0,0,1,0],
+                [0,1,1,0],
+                [0,1,1,0],
+                [0,1,0,0],
+            ],
+        ]
+
+        for (direction, data) in expectedData {
+            let directedPoop = DirectedPoop.make(poop, direction: Direction(direction))
+            XCTAssertEqual(directedPoop.data, data, "The data arrangement is wrong")
+        }
+    }
 }
