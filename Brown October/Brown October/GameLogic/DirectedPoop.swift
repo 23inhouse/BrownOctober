@@ -14,10 +14,10 @@ protocol RotatableProtocol {
 }
 
 class DirectedPoop {
-    var poop: Poop
-    var data = [[Int]]()
-    var offset: (x: Int, y: Int) = (0, 0)
-    var centerOffset: Int = 0
+    private(set) var poop: Poop
+    private(set) var data = [[Int]]()
+    private(set) var offset: (x: Int, y: Int) = (0, 0)
+    private(set) var centerOffset: Int = 0
 
     static func makeRandom(_ poop: Poop) -> DirectedPoop {
         return make(poop, direction: Direction.random())

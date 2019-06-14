@@ -10,11 +10,12 @@ import Foundation
 
 class Poop {
 
-    var identifier: Int
-    var data: [[Int]]
-    var poopSize: Int
-    var foundCounter = 0
-    var isFound = false
+    private(set) var identifier: Int
+    private(set) var data: [[Int]]
+    private(set) var poopSize: Int
+    private(set) var foundCounter = 0
+    private(set) var isFound = false
+
     let flip: Bool
 
     static var identiferFactory = 0

@@ -14,8 +14,8 @@ class BrownOctober: Game {
 }
 
 class Game {
-    lazy var playerOne = Player.computer()
-    lazy var playerTwo = Player.human()
+    lazy private(set) var playerOne = Player.computer()
+    lazy private(set) var playerTwo = Player.human()
 
     func over() -> Bool {
         return playerOne.won() || playerTwo.won()
@@ -29,7 +29,7 @@ class Player {
     }
 
     let key: Player.key
-    var board: Board
+    let board: Board
     let isHuman: Bool
     let isComputer: Bool
 
@@ -60,14 +60,22 @@ class Board: Grid {
 
     static let size = 10
 
-    var score = 0
-    var poops: [Poop]
-    var poopStains = [Int: PoopStain]()
+    private(set) var score = 0
+    private(set) var poops: [Poop]
+    private(set) var poopStains = [Int: PoopStain]()
 
-    lazy var count = gridUtility.count
+    private(set) lazy var count = gridUtility.count
 
     static func makeGameBoard() -> Board {
         return Board(width: size, height: size, poops: Poop.pinchSomeOff())
+    }
+
+    func set(poops: [Poop]) {
+        self.poops = poops
+    }
+
+    func set(poopStains: [Int: PoopStain]) {
+        self.poopStains = poopStains
     }
 
     func placePoopsRandomly() {
@@ -274,9 +282,9 @@ class Board: Grid {
 }
 
 class Grid {
-    let allowAdjacentPoops = true
-
     let gridUtility: GridUtility
+
+    fileprivate let allowAdjacentPoops = true
     fileprivate var tiles = [Tile]()
 
     func cleanTiles() {

@@ -48,11 +48,12 @@ class ComputerPlayer {
     static let searchEfficiency: Double = 1
 
     let board: Board
-    let boardViewProtocol: BoardViewProtocol
-    let gridUtility: GridUtility
-    let maxGuesses = 100
-    let guesser: Guesser
-    var guesses = [Int]()
+
+    fileprivate let boardViewProtocol: BoardViewProtocol
+    fileprivate let gridUtility: GridUtility
+    fileprivate let maxGuesses = 100
+    fileprivate let guesser: Guesser
+    fileprivate var guesses = [Int]()
 
     lazy var poopSeeker = PoopSeeker(player: self)
 

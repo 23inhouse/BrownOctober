@@ -85,13 +85,13 @@ struct TestBoardHelper {
 
     static func makeBoard(width: Int, height: Int, poops: [Poop] = []) -> Board {
         let board = Board(width: width, height: height)
-        board.poops = poops
+        board.set(poops: poops)
 
         return board
     }
 
     static func placeSinglePoopOnBoard(board: Board, poop: Poop, x: Int, y: Int, d: Int) {
-        board.poops = [poop]
+        board.set(poops: [poop])
         placePoopOnBoard(board: board, poop: poop, x: x, y: y, d: d)
     }
 

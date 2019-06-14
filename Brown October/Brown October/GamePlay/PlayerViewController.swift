@@ -67,7 +67,7 @@ class PlayerViewController: UIViewController {
 
         if isComputer {
             let poopStains = UserData.retrievePoopStains()
-            player.board.poopStains = poopStains
+            player.board.set(poopStains: poopStains)
             player.board.placePoopStains()
         } else {
             player.board.placePoopsRandomly()

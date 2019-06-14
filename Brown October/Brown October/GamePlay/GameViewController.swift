@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
         let board = game.playerOne.board
         let poopStains = UserData.retrievePoopStains()
         if poopStains.count > 0 {
-            board.poopStains = poopStains
+            board.set(poopStains: poopStains)
             board.placePoopStains()
         } else {
             board.placePoopsRandomly()

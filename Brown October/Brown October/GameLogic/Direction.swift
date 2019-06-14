@@ -18,6 +18,9 @@ struct Direction {
 
     static let order: [Named] = [.right, .down, .left, .up]
 
+    private(set) var name: Named
+    private(set) var value: Int
+
     static func all() -> [Direction] {
         return Direction.order.map { name in Direction(name) }
     }
@@ -25,9 +28,6 @@ struct Direction {
     static func random() -> Direction {
         return Direction(order.randomElement()!)
     }
-
-    var name: Named
-    var value: Int
 
     init(_ name: Named) {
         self.name = name

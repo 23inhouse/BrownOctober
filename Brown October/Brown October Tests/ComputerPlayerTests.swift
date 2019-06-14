@@ -232,7 +232,7 @@ class ComputerPlayerTests: XCTestCase {
     func testComputerHuntsForTouchingPoops() {
         let board = TestBoardHelper.makeBoard(width: 5, height: 7)
         let poops = [Poop.poop1(0), Poop.poop4(1)]
-        board.poops = poops
+        board.set(poops: poops)
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 2, y: 2, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 3, y: 4, d: 3)
@@ -249,7 +249,7 @@ class ComputerPlayerTests: XCTestCase {
     func testComputerHuntsForPoopsTouchingALot() {
         let board = TestBoardHelper.makeBoard(width: 7, height: 7)
         let poops = [Poop.poop5(0), Poop.poop6(1)]
-        board.poops = poops
+        board.set(poops: poops)
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 2, y: 3, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 4, y: 5, d: 0)
@@ -267,7 +267,7 @@ class ComputerPlayerTests: XCTestCase {
     func testComputerSolvesFullGame() {
         let board = TestBoardHelper.makeBoard(width: 10, height: 10)
         let poops = Poop.pinchSomeOff()
-        board.poops = poops
+        board.set(poops: poops)
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 5, y: 5, d: 1)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[1], x: 6, y: 5, d: 1)
@@ -286,7 +286,7 @@ class ComputerPlayerTests: XCTestCase {
     func testComputerSolvesFullGameWorstCase() {
         let board = TestBoardHelper.makeBoard(width: 10, height: 10)
         let poops = Poop.pinchSomeOff()
-        board.poops = poops
+        board.set(poops: poops)
 
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[0], x: 2, y: 1, d: 0)
         TestBoardHelper.placePoopOnBoard(board: board, poop: poops[4], x: 6, y: 0, d: 0)
