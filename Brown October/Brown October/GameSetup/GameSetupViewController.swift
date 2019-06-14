@@ -102,7 +102,7 @@ extension GameSetupViewController: GridButtonDelegate {
             return
         }
 
-        let poopIdent = board.tiles[index].poopIdentifier
+        let poopIdent = board.tile(at: index).poopIdentifier
         let poop = poops[poopIdent - 1]
 
         if board.rotate(poop: poop) {
@@ -120,13 +120,13 @@ extension GameSetupViewController: UIGestureRecognizerDelegate {
 extension GameSetupViewController: GridButtonDragDelegate {
     func didDragGridButton(_ recognizer: UIPanGestureRecognizer) {
         let button = recognizer.view as! GridUIButton
-        let poopIdentifier = board.tiles[button.index].poopIdentifier
+        let poopIdentifier = board.tile(at: button.index).poopIdentifier
 
         guard poopIdentifier > 0 else { return }
 
         switch recognizer.state {
         case .began:
-            let indexes = board.tiles.enumerated().filter({ $0.element.poopIdentifier == poopIdentifier }).map({ $0.offset })
+            let indexes = board.tileIndexes(for: poopIdentifier)
 
             dragButtons = boardView.buttons.filter({ indexes.contains($0.index) }).map(duplicateButton)
             dragButtons.forEach { view.addSubview($0) }

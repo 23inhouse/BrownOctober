@@ -10,10 +10,10 @@ import Foundation
 
 class Tile {
 
-    var poopIdentifier: Int = 0
-    var isFound = false
-    var isFlushed = false
-    var heat: Double? = nil
+    private(set) var poopIdentifier: Int = 0
+    private(set) var isFound = false
+    private(set) var isFlushed = false
+    private(set) var heat: Double? = nil
 
     func markAsFlushed() {
         isFlushed = true
@@ -21,5 +21,13 @@ class Tile {
 
     func markAsFound() {
         isFound = true
+    }
+
+    func set(heat: Double) {
+        self.heat = heat
+    }
+
+    func set(identifier: Int) {
+        poopIdentifier = identifier
     }
 }

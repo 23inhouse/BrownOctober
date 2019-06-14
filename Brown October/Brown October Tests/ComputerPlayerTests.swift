@@ -29,11 +29,11 @@ class GridButtonMock: GridButtonProtocol {
 
     func touch() {
         if let (_, poop) = board.wipe(at: index) {
-            board.tiles[index].markAsFound()
+            board.tile(at: index).markAsFound()
 
             if poop.isFound {
-                for index in 0 ..< board.tiles.count {
-                    let tile = self.board.tiles[index]
+                for index in 0 ..< board.count {
+                    let tile = self.board.tile(at: index)
                     if tile.poopIdentifier != poop.identifier { continue }
 
                     tile.markAsFlushed()
@@ -42,7 +42,7 @@ class GridButtonMock: GridButtonProtocol {
             return
         }
 
-        board.tiles[index].markAsFlushed()
+        board.tile(at: index).markAsFlushed()
     }
 
     func drag(recognizer: UIPanGestureRecognizer) {

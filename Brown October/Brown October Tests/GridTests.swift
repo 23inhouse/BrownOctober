@@ -15,14 +15,15 @@ class GridTests: XCTestCase {
         let size = 3
         let grid = Grid(width: size, height: size)
 
-        let tile = grid.tiles[0]
+        let tile = grid.tile(at: 0)
         tile.markAsFlushed()
         tile.markAsFound()
-        tile.poopIdentifier = 1
+        tile.set(identifier: 1)
 
         grid.cleanTiles()
 
-        for tile in grid.tiles {
+        for i in 0 ..< (size * size) {
+            let tile = grid.tile(at: i)
             XCTAssertFalse(tile.isFound, "The tile should not be found")
             XCTAssertFalse(tile.isFlushed, "The tile should not be found")
             XCTAssertEqual(tile.poopIdentifier, 0, "The tile should not have a poop")
@@ -33,7 +34,8 @@ class GridTests: XCTestCase {
         let size = 3
         let grid = Grid(width: size, height: size)
 
-        for (i, tile) in grid.tiles.enumerated() {
+        for i in 0 ..< (size * size) {
+            let tile = grid.tile(at: i)
             guard i % 2 == 0 else { continue }
             tile.markAsFlushed()
         }
@@ -45,11 +47,20 @@ class GridTests: XCTestCase {
         let size = 3
         let grid = Grid(width: size, height: size)
 
-        for (i, tile) in grid.tiles.enumerated() {
+        for i in 0 ..< (size * size) {
+            let tile = grid.tile(at: i)
             guard i % 2 == 0 else { continue }
             tile.markAsFound()
         }
 
         XCTAssertEqual(grid.numberOfFoundTiles(), 5, "The number of found tiles is wrong")
+    }
+
+    func testTile() {
+        let grid = Grid(width: 2, height: 1)
+        grid.tile(at: 0).set(identifier: 1)
+
+        XCTAssertEqual(grid.tile(at: 0).poopIdentifier, 1, "Found the wrong tile")
+        XCTAssertEqual(grid.tile(at: 1).poopIdentifier, 0, "Found the wrong tile")
     }
 }

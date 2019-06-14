@@ -64,6 +64,8 @@ class Board: Grid {
     var poops: [Poop]
     var poopStains = [Int: PoopStain]()
 
+    lazy var count = gridUtility.count
+
     static func makeGameBoard() -> Board {
         return Board(width: size, height: size, poops: Poop.pinchSomeOff())
     }
@@ -125,15 +127,23 @@ class Board: Grid {
         return nil
     }
 
+    func firstIncompletePoopIndex() -> Int? {
+        return tiles.firstIndex { tile in tile.isFound && !tile.isFlushed }
+    }
+
+    func tileIndexes(for poopIndentifier: Int) ->[Int] {
+        return tiles.enumerated().filter({ _, tile in tile.poopIdentifier == poopIndentifier }).map { index, _ in index }
+    }
+
     func place(poop: Poop, x: Int, y: Int, direction: Int, check: Bool = true) -> Bool {
         let placeable = checkPoop(poop: poop, x: x, y: y, direction: direction, closure: { (index) in
             if check == true {
-                guard tiles[index].poopIdentifier < 1 || tiles[index].poopIdentifier == poop.identifier else { return false }
+                guard tile(at: index).poopIdentifier < 1 || tile(at: index).poopIdentifier == poop.identifier else { return false }
                 if isAPoop(nextTo: index) { return false }
                 return true
             }
 
-            tiles[index].poopIdentifier = poop.identifier
+            tile(at: index).set(identifier: poop.identifier)
             return true
         })
 
@@ -157,7 +167,7 @@ class Board: Grid {
         repeat {
             rotatedPoop = rotatedPoop.rotate()
             guard rotatedPoop.direction != poopStain.direction else {
-                print("Error: couldn't place poop")
+                Swift.print("Error: couldn't place poop")
                 _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
                 return false
             }
@@ -203,7 +213,7 @@ class Board: Grid {
         let poopStain = poopStains[poop.identifier]!
 
         return checkPoop(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value) { (index) in
-            tiles[index].poopIdentifier = 0
+            tile(at: index).set(identifier: 0)
             return true
         }
     }
@@ -235,21 +245,21 @@ class Board: Grid {
                 continue
             }
 
-            if tiles[adjustedIndex].poopIdentifier > 0 { return true }
+            if tile(at: adjustedIndex).poopIdentifier > 0 { return true }
         }
 
         return false
     }
 
     private func findData(at index: Int) -> (Tile, Poop)? {
-        let tile = tiles[index]
-        let indent = tile.poopIdentifier
+        let foundTile = tile(at: index)
+        let indent = foundTile.poopIdentifier
 
         guard indent != 0 else { return nil }
 
         for poop in self.poops {
             if poop.identifier == indent {
-                return (tile, poop)
+                return (foundTile, poop)
             }
         }
 
@@ -267,7 +277,7 @@ class Grid {
     let allowAdjacentPoops = true
 
     let gridUtility: GridUtility
-    var tiles = [Tile]()
+    fileprivate var tiles = [Tile]()
 
     func cleanTiles() {
         self.tiles = Array(0 ..< gridUtility.count).map { _ in Tile() }
@@ -297,6 +307,18 @@ class Grid {
 
     func numberOfFoundTiles() -> Int {
         return tiles.filter({ $0.isFound }).count
+    }
+
+    func print() {
+        for y in 0 ..< gridUtility.height {
+            let index = y * gridUtility.width
+            let row = tiles[index ..< (index + gridUtility.width)]
+            Swift.print(row.map { $0.poopIdentifier })
+        }
+    }
+
+    func tile(at index: Int) -> Tile {
+        return tiles[index]
     }
 
     init(width: Int, height: Int) {

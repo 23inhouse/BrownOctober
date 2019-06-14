@@ -18,8 +18,9 @@ extension BoardDecoratorProtocol {
     typealias buttonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
 
     fileprivate func updateButtons(boardView: BoardViewProtocol, closure: buttonData) {
-        for (i, tile) in board.tiles.enumerated() {
+        for i in 0 ..< board.count {
             let button = boardView.getButton(at: i) as! GridUIButton
+            let tile = board.tile(at: i)
             guard let (text, color, alpha) = closure(button, tile) else { continue }
             button.setData(text: text, color: color, alpha: alpha)
         }

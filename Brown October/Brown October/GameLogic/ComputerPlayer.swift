@@ -87,7 +87,7 @@ class ComputerPlayer {
             return false
         }
 
-        let poopIdentifier = self.board.tiles[index].poopIdentifier
+        let poopIdentifier = self.board.tile(at: index).poopIdentifier
         if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(index) {
             print("[\(guessCount())] Hit! #\(poopIdentifier) at (\(x), \(y))")
         }
@@ -124,7 +124,7 @@ class ComputerPlayer {
         if self.makeGuess(index) {
             if self.board.flushedAllPoops() { return }
 
-            let poopIdent = self.board.tiles[index].poopIdentifier
+            let poopIdent = self.board.tile(at: index).poopIdentifier
 
             let poop = self.board.poops[poopIdent - 1]
             if poop.isFound {
@@ -146,13 +146,11 @@ class ComputerPlayer {
 
     private func newUnusedGuess(_ index: Int?) -> (Int?, Int?) {
         if index == nil {
-            for (i, tile) in board.tiles.enumerated() {
-                if tile.isFound && !tile.isFlushed {
-                    if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(i) {
-                        print("Continuing from incomplete poop at (\(x), \(y))")
-                    }
-                    return (nil, i)
+            if let incompleteIndex = board.firstIncompletePoopIndex() {
+                if ComputerPlayer.debug, let (x, y) = gridUtility.calcXY(incompleteIndex) {
+                    print("Continuing from incomplete poop at (\(x), \(y))")
                 }
+                return (nil, incompleteIndex)
             }
         }
 
@@ -227,7 +225,7 @@ class PoopSeeker {
         for (i, v) in bestGuesses.enumerated() {
             guard let heatValue = v else { continue }
 
-            board.tiles[i].heat = Double(heatValue) / Double(highest!)
+            board.tile(at: i).set(heat: Double(heatValue) / Double(highest!))
             guard Int(heatValue) >= Int(ceil(minimumHeat!)) else { continue }
             bestIndexes.append(i)
         }

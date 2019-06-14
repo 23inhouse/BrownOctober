@@ -20,8 +20,8 @@ class GridUtilityTests: XCTestCase {
         let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 5, y: 5, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
-        game.tiles[index - 1].isFound = true
-        game.tiles[index + 1].isFlushed = true
+        game.tile(at: index - 1).markAsFound()
+        game.tile(at: index + 1).markAsFlushed()
 
         let matrix = gridUtility.captureGrid(game.currentState(), at: index, size: 2)!
 
