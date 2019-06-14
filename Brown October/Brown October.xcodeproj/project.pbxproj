@@ -45,8 +45,10 @@
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
+		B5BC3F6222B4EF8A0044C03D /* ArrangedPoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BC3F6122B4EF8A0044C03D /* ArrangedPoopTests.swift */; };
 		B5DE594F22B2613D009EE711 /* DirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE594E22B2613D009EE711 /* DirectionTests.swift */; };
 		B5DE595122B28D74009EE711 /* GridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE595022B28D74009EE711 /* GridTests.swift */; };
+		B5DE595722B3AFAA009EE711 /* ArrangedPoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE595622B3AFAA009EE711 /* ArrangedPoop.swift */; };
 		B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */; };
 		B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853B22297F90100DFECC3 /* UIView+constraints.swift */; };
 		B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */; };
@@ -114,8 +116,10 @@
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
+		B5BC3F6122B4EF8A0044C03D /* ArrangedPoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangedPoopTests.swift; sourceTree = "<group>"; };
 		B5DE594E22B2613D009EE711 /* DirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionTests.swift; sourceTree = "<group>"; };
 		B5DE595022B28D74009EE711 /* GridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridTests.swift; sourceTree = "<group>"; };
+		B5DE595622B3AFAA009EE711 /* ArrangedPoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangedPoop.swift; sourceTree = "<group>"; };
 		B5E853AF2297F47500DFECC3 /* GameOverUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUIView.swift; sourceTree = "<group>"; };
 		B5E853B22297F90100DFECC3 /* UIView+constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewControllerTests.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				B5F165B02274AE3E00789DC3 /* Info.plist */,
+				B5BC3F6122B4EF8A0044C03D /* ArrangedPoopTests.swift */,
 				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
 				B5A3B58F22B1241800F445A6 /* DirectedPoopTests.swift */,
@@ -259,6 +264,7 @@
 		B5F64242229DD45500734B5E /* GameLogic */ = {
 			isa = PBXGroup;
 			children = (
+				B5DE595622B3AFAA009EE711 /* ArrangedPoop.swift */,
 				B5291ED122689C6D002C49B0 /* BrownOctober.swift */,
 				B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */,
 				B5A3B58D22B123F400F445A6 /* DirectedPoop.swift */,
@@ -458,6 +464,7 @@
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
+				B5DE595722B3AFAA009EE711 /* ArrangedPoop.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
 				B5A3B58E22B123F400F445A6 /* DirectedPoop.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
@@ -500,6 +507,7 @@
 				B5DE594F22B2613D009EE711 /* DirectionTests.swift in Sources */,
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
+				B5BC3F6222B4EF8A0044C03D /* ArrangedPoopTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

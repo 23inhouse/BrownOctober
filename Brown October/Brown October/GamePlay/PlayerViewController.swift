@@ -27,17 +27,17 @@ class PlayerViewController: UIViewController {
     lazy var scoreView = { mainView.scoreView }()
 
     lazy var foundPoops: Board = {
-        var foundPoops = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
-        let poops = foundPoops.poops
+        var board = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
+        let poops = board.poops
 
-        _ = foundPoops.place(poop: poops[0], x: 6, y: 1, direction: 0, check: false)
-        _ = foundPoops.place(poop: poops[1], x: 5, y: 2, direction: 0, check: false)
-        _ = foundPoops.place(poop: poops[2], x: 1, y: 4, direction: 3, check: false)
-        _ = foundPoops.place(poop: poops[3], x: 5, y: 5, direction: 0, check: false)
-        _ = foundPoops.place(poop: poops[4], x: 4, y: 6, direction: 0, check: false)
-        _ = foundPoops.place(poop: poops[5], x: 2, y: 1, direction: 0, check: false)
+        _ = ArrangedPoop(poops[0], board, direction: Direction(0))?.place(at: (6, 1), check: false)
+        _ = ArrangedPoop(poops[1], board, direction: Direction(0))?.place(at: (5, 2), check: false)
+        _ = ArrangedPoop(poops[2], board, direction: Direction(3))?.place(at: (1, 4), check: false)
+        _ = ArrangedPoop(poops[3], board, direction: Direction(0))?.place(at: (5, 5), check: false)
+        _ = ArrangedPoop(poops[4], board, direction: Direction(0))?.place(at: (4, 6), check: false)
+        _ = ArrangedPoop(poops[5], board, direction: Direction(0))?.place(at: (2, 1), check: false)
 
-        return foundPoops
+        return board
     }()
 
     weak var playerTurnDelegate: PlayerTurnDelegate?

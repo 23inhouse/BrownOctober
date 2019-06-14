@@ -95,7 +95,7 @@ extension GameSetupViewController: GridButtonDelegate {
 
         guard sender.getText() != "" else {
             let poop = poops[0]
-            if board.move(poop: poop, to: index) {
+            if ArrangedPoop(poop, board)?.move(to: index) ?? false {
                 boardView.draw()
             }
 
@@ -105,7 +105,7 @@ extension GameSetupViewController: GridButtonDelegate {
         let poopIdent = board.tile(at: index).poopIdentifier
         let poop = poops[poopIdent - 1]
 
-        if board.rotate(poop: poop) {
+        if ArrangedPoop(poop, board)?.rotate() ?? false {
             boardView.draw()
         }
     }
@@ -182,7 +182,7 @@ extension GameSetupViewController: GridButtonDragDelegate {
         let poop = board.poops[poopIdentifier - 1]
 
         guard let adjustment = calcAdjustment(recognizer: recognizer) else { return false }
-        guard board.move(poop: poop, by: adjustment) else { return false }
+        guard ArrangedPoop(poop, board)?.move(by: adjustment) ?? false else { return false }
 
         return true
     }

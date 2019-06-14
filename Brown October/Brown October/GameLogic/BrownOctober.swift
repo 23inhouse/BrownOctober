@@ -78,19 +78,20 @@ class Board: Grid {
         self.poopStains = poopStains
     }
 
+    func addPoopStain(_ poop: Poop, x: Int, y: Int, direction: Direction) {
+        poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: direction)
+    }
+
     func placePoopsRandomly() {
         cleanTiles()
         poops = Poop.pinchSomeOff()
 
-        let utility = gridUtility
-
         for poop in poops.reversed() {
             while true {
-                let x = Int(arc4random_uniform(UInt32(utility.width)))
-                let y = Int(arc4random_uniform(UInt32(utility.height)))
-                let direction = Int(arc4random_uniform(4))
+                let index = Int.random(in: 0...count)
+                let directedPoop = DirectedPoop.makeRandom(poop)
 
-                if place(poop: poop, x: x, y: y, direction: direction) { break }
+                if ArrangedPoop(directedPoop, self).place(at: index) { break }
             }
         }
     }
@@ -101,7 +102,7 @@ class Board: Grid {
 
         for (ident, poopStain) in poopStains {
             let poop = poops[ident - 1]
-            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
+            _ = ArrangedPoop(poop, self)?.place(at: (poopStain.x, poopStain.y))
         }
     }
 
@@ -143,122 +144,6 @@ class Board: Grid {
         return tiles.enumerated().filter({ _, tile in tile.poopIdentifier == poopIndentifier }).map { index, _ in index }
     }
 
-    func place(poop: Poop, x: Int, y: Int, direction: Int, check: Bool = true) -> Bool {
-        let placeable = checkPoop(poop: poop, x: x, y: y, direction: direction, closure: { (index) in
-            if check == true {
-                guard tile(at: index).poopIdentifier < 1 || tile(at: index).poopIdentifier == poop.identifier else { return false }
-                if isAPoop(nextTo: index) { return false }
-                return true
-            }
-
-            tile(at: index).set(identifier: poop.identifier)
-            return true
-        })
-
-        guard placeable else { return false }
-
-        if check == true {
-            return place(poop: poop, x: x, y: y, direction: direction, check: false)
-        }
-
-        poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: Direction(direction))
-        return true
-    }
-
-    func rotate(poop: Poop) -> Bool {
-        let poopStain = poopStains[poop.identifier]!
-
-        let removedPoop = remove(poop: poop)
-        guard removedPoop else { return false }
-
-        var rotatedPoop:RotatableProtocol = DirectedPoop.make(poop, direction: poopStain.direction) as! RotatableProtocol
-        repeat {
-            rotatedPoop = rotatedPoop.rotate()
-            guard rotatedPoop.direction != poopStain.direction else {
-                Swift.print("Error: couldn't place poop")
-                _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
-                return false
-            }
-        } while !place(poop: poop, x: poopStain.x, y: poopStain.y, direction: rotatedPoop.direction.value)
-
-        return true
-    }
-
-    func move(poop: Poop, to index: Int) -> Bool {
-        let poopStain = poopStains[poop.identifier]!
-
-        guard let (x, y) = gridUtility.calcXY(index) else { return false }
-
-        let removedPoop = remove(poop: poop)
-        guard removedPoop else { return false }
-        guard place(poop: poop, x: x, y: y, direction: poopStain.direction.value) else {
-            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
-            return false
-        }
-
-        return true
-    }
-
-    func move(poop: Poop, by adjustment: (Int, Int)) -> Bool {
-        let poopStain = poopStains[poop.identifier]!
-
-        let (xAdjust, yAdjust) = adjustment
-
-        let x = poopStain.x + xAdjust
-        let y = poopStain.y + yAdjust
-
-        let removedPoop = remove(poop: poop)
-        guard removedPoop else { return false }
-        guard place(poop: poop, x: x, y: y, direction: poopStain.direction.value) else {
-            _ = place(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value)
-            return false
-        }
-
-        return true
-    }
-
-    private func remove(poop: Poop) -> Bool {
-        let poopStain = poopStains[poop.identifier]!
-
-        return checkPoop(poop: poop, x: poopStain.x, y: poopStain.y, direction: poopStain.direction.value) { (index) in
-            tile(at: index).set(identifier: 0)
-            return true
-        }
-    }
-
-    private func checkPoop(poop: Poop, x: Int, y: Int, direction: Int, closure: (Int) -> Bool) -> Bool {
-        let directedPoop = DirectedPoop.make(poop, direction: direction)
-
-        let xAdjusted = x - directedPoop.centerOffset + directedPoop.offset.x
-        let yAdjusted = y - directedPoop.centerOffset + directedPoop.offset.y
-
-        for (yIndex, values) in directedPoop.data.enumerated() {
-            for (xIndex, value) in values.enumerated() {
-
-                guard value == 1 else { continue }
-                guard let index = gridUtility.calcIndex(xAdjusted + xIndex, yAdjusted + yIndex) else { return false }
-
-                guard closure(index) else { return false }
-            }
-        }
-
-        return true
-    }
-
-    private func isAPoop(nextTo index: Int) -> Bool {
-        if allowAdjacentPoops { return false }
-
-        for direction in Direction.all() {
-            guard let adjustedIndex = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
-                continue
-            }
-
-            if tile(at: adjustedIndex).poopIdentifier > 0 { return true }
-        }
-
-        return false
-    }
-
     private func findData(at index: Int) -> (Tile, Poop)? {
         let foundTile = tile(at: index)
         let indent = foundTile.poopIdentifier
@@ -283,8 +168,8 @@ class Board: Grid {
 
 class Grid {
     let gridUtility: GridUtility
+    let allowAdjacentPoops = true
 
-    fileprivate let allowAdjacentPoops = true
     fileprivate var tiles = [Tile]()
 
     func cleanTiles() {

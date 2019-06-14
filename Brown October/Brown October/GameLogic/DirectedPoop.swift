@@ -15,6 +15,7 @@ protocol RotatableProtocol {
 
 class DirectedPoop {
     private(set) var poop: Poop
+    fileprivate(set )var direction = Direction(.right)
     private(set) var data = [[Int]]()
     private(set) var offset: (x: Int, y: Int) = (0, 0)
     private(set) var centerOffset: Int = 0
@@ -79,10 +80,9 @@ class DirectedPoop {
 }
 
 class PoopRight: DirectedPoop {
-    var direction = Direction(.right)
-
     override init(_ poop: Poop) {
         super.init(poop)
+        self.direction = Direction(.right)
         calcOffsets(poop.data, direction: direction)
     }
 }
@@ -94,10 +94,9 @@ extension PoopRight: RotatableProtocol {
 }
 
 class PoopDown: DirectedPoop {
-    var direction = Direction(.down)
-
     override init(_ poop: Poop) {
         super.init(poop)
+        direction = Direction(.down)
         calcOffsets(poop.data, direction: direction)
     }
 }
@@ -109,10 +108,9 @@ extension PoopDown: RotatableProtocol {
 }
 
 class PoopLeft: DirectedPoop {
-    var direction = Direction(.left)
-
     override init(_ poop: Poop) {
         super.init(poop)
+        direction = Direction(.left)
         calcOffsets(poop.data, direction: direction)
     }
 }
@@ -124,10 +122,9 @@ extension PoopLeft: RotatableProtocol {
 }
 
 class PoopUp: DirectedPoop {
-    var direction = Direction(.up)
-
     override init(_ poop: Poop) {
         super.init(poop)
+        direction = Direction(.up)
         calcOffsets(poop.data, direction: direction)
     }
 }

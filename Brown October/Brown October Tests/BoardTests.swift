@@ -11,24 +11,6 @@ import XCTest
 @testable import Brown_October
 
 class BoardTests: XCTestCase {
-    func testPlacePoop() {
-        let poop = Poop.poop1(0)
-        let board = TestBoardHelper.makeBoard(width: 2, height: 1, poops: [poop])
-
-        let placed = board.place(poop: poop, x: 1, y: 1, direction: 0)
-
-        XCTAssertEqual(placed, true, "The poop should! fit here")
-    }
-
-    func testPlacePoopThatIsTooBig() {
-        let poop = Poop.poop1(0)
-        let board = TestBoardHelper.makeBoard(width: 1, height: 1, poops: [poop])
-
-        let placed = board.place(poop: poop, x: 0, y: 0, direction: 0)
-
-        XCTAssertEqual(placed, false, "The poop should not! fit here")
-    }
-
     func testExportGridValues() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let exportValues = board.currentState()
@@ -71,7 +53,7 @@ class BoardTests: XCTestCase {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
 
         let poop = Poop.poop1(0)
-        _ = board.place(poop: poop, x: 1, y: 1, direction: 0)
+        _ = ArrangedPoop(poop, board, direction: Direction(0))?.place(at: (1, 1))
 
         board.tile(at: 1).markAsFound()
         let subject = board.tileIndexes(for: 1)
@@ -96,7 +78,7 @@ struct TestBoardHelper {
     }
 
     static func placePoopOnBoard(board: Board, poop: Poop, x: Int, y: Int, d: Int) {
-        if !board.place(poop: poop, x: x, y: y, direction: d, check: false) {
+        if !(ArrangedPoop(poop, board, direction: Direction(d))?.place(at: (x, y)) ?? false) {
             print("---------------------- The poop didn't fit! ----------------------")
             board.print()
             exit(1)
