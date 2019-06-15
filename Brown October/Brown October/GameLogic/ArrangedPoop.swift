@@ -9,10 +9,10 @@
 import Foundation
 
 class ArrangedPoop {
-    private var directedPoop: DirectedPoop
+    private var offsetPoop: OffsetPoop
     private let board: Board
 
-    lazy private var poop = directedPoop.poop
+    lazy private var poop = offsetPoop.poop
     lazy private var gridUtility = board.gridUtility
 
     func move(by adjustment: (Int, Int)) -> Bool {
@@ -61,7 +61,8 @@ class ArrangedPoop {
             return place(at: coordinate, check: false)
         }
 
-        board.addPoopStain(directedPoop.poop, x: coordinate.x, y: coordinate.y, direction: directedPoop.direction)
+        let direction = offsetPoop.direction
+        board.addPoopStain(offsetPoop.poop, x: coordinate.x, y: coordinate.y, direction: direction)
         return true
     }
 
@@ -76,9 +77,8 @@ class ArrangedPoop {
         guard remove() else { return false }
 
         repeat {
-            let rotatablePoop = (directedPoop as! RotatableProtocol).rotate()
-            directedPoop = rotatablePoop as! DirectedPoop
-            guard directedPoop.direction != poopStain.direction else {
+            offsetPoop = offsetPoop.rotate() as! OffsetPoop
+            guard offsetPoop.direction != poopStain.direction else {
                 _ = place(at: (poopStain.x, poopStain.y))
                 return false
             }
@@ -88,10 +88,10 @@ class ArrangedPoop {
     }
 
     private func evaluate(x: Int, y: Int, closure: (Int) -> Bool) -> Bool {
-        let xAdjusted = x - directedPoop.centerOffset + directedPoop.offset.x
-        let yAdjusted = y - directedPoop.centerOffset + directedPoop.offset.y
+        let xAdjusted = x + offsetPoop.xOffset()
+        let yAdjusted = y + offsetPoop.yOffset()
 
-        for (yIndex, values) in directedPoop.data.enumerated() {
+        for (yIndex, values) in offsetPoop.data.enumerated() {
             for (xIndex, value) in values.enumerated() {
                 guard value == 1 else { continue }
                 guard let index = gridUtility.calcIndex(xAdjusted + xIndex, yAdjusted + yIndex) else { return false }
@@ -125,8 +125,8 @@ class ArrangedPoop {
         }
     }
 
-    init(_ directedPoop: DirectedPoop, _ board: Board) {
-        self.directedPoop = directedPoop
+    init(_ offsetPoop: OffsetPoop, _ board: Board) {
+        self.offsetPoop = offsetPoop
         self.board = board
     }
 
@@ -141,7 +141,7 @@ class ArrangedPoop {
             return nil
         }
 
-        self.directedPoop = DirectedPoop.make(poop, direction: poopDirection)
+        self.offsetPoop = OffsetPoop.make(poop, direction: poopDirection)
         self.board = board
     }
 }

@@ -89,7 +89,7 @@ class Board: Grid {
         for poop in poops.reversed() {
             while true {
                 let index = Int.random(in: 0...count)
-                let directedPoop = DirectedPoop.makeRandom(poop)
+                let directedPoop = OffsetPoop.makeRandom(poop)
 
                 if ArrangedPoop(directedPoop, self).place(at: index) { break }
             }

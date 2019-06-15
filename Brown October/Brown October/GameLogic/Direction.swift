@@ -29,6 +29,11 @@ struct Direction {
         return Direction(order.randomElement()!)
     }
 
+    func rotate() -> Direction {
+        guard value != Direction.order.count - 1 else { return Direction(0) }
+        return Direction(value + 1)
+    }
+
     init(_ name: Named) {
         self.name = name
         self.value = Direction.order.firstIndex(of: name)!

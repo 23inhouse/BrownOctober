@@ -34,8 +34,8 @@ class ArrangedPoopTests: XCTestCase {
     func testMoveBy() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let poop = Poop.poop1()
-        let directedPoop = DirectedPoop.make(poop, direction: Direction(.right))
-        let arrangedPoop = ArrangedPoop(directedPoop, board)
+        let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
+        let arrangedPoop = ArrangedPoop(offsetPoop, board)
 
         let expectations:[((Int, Int), Bool)] = [
             ((1, 1), true),
@@ -52,8 +52,8 @@ class ArrangedPoopTests: XCTestCase {
     func testMoveTo() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let poop = Poop.poop1()
-        let directedPoop = DirectedPoop.make(poop, direction: Direction(.right))
-        let arrangedPoop = ArrangedPoop(directedPoop, board)
+        let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
+        let arrangedPoop = ArrangedPoop(offsetPoop, board)
         _ = arrangedPoop.place(at: 4)
 
         let expectations:[(Int, Bool)] = [
@@ -70,16 +70,16 @@ class ArrangedPoopTests: XCTestCase {
     func testPlaceAtCoordinate() {
         let board = TestBoardHelper.makeBoard(width: 2, height: 2)
         let poop = Poop.poop1()
-        let directedPoop = DirectedPoop.make(poop, direction: Direction(.right))
+        let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
-        let expectations:[(DirectedPoop, (Int, Int), Bool)] = [
-            (directedPoop, (1, 1), true),
-            (directedPoop, (0, 0), false),
+        let expectations:[(OffsetPoop, (Int, Int), Bool)] = [
+            (offsetPoop, (1, 1), true),
+            (offsetPoop, (0, 0), false),
         ]
 
-        for (directedPoop, coordinate, bool) in expectations {
+        for (offsetPoop, coordinate, bool) in expectations {
             board.set(poopStains: [Int:Board.PoopStain]())
-            let arrangedPoop = ArrangedPoop(directedPoop, board)
+            let arrangedPoop = ArrangedPoop(offsetPoop, board)
             let placed = arrangedPoop.place(at: coordinate)
             let poopStain = board.poopStains.first
             XCTAssertEqual(placed, bool, "The poop should fit? \(bool)")
@@ -90,16 +90,16 @@ class ArrangedPoopTests: XCTestCase {
     func testPlaceAtIndex() {
         let board = TestBoardHelper.makeBoard(width: 2, height: 2)
         let poop = Poop.poop1()
-        let directedPoop = DirectedPoop.make(poop, direction: Direction(.right))
+        let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
-        let expectations:[(DirectedPoop, Int, Bool)] = [
-            (directedPoop, 3, true),
-            (directedPoop, 0, false),
+        let expectations:[(OffsetPoop, Int, Bool)] = [
+            (offsetPoop, 3, true),
+            (offsetPoop, 0, false),
         ]
 
-        for (directedPoop, index, bool) in expectations {
+        for (offsetPoop, index, bool) in expectations {
             board.set(poopStains: [Int:Board.PoopStain]())
-            let arrangedPoop = ArrangedPoop(directedPoop, board)
+            let arrangedPoop = ArrangedPoop(offsetPoop, board)
             let placed = arrangedPoop.place(at: index)
             let poopStain = board.poopStains.first
             XCTAssertEqual(placed, bool, "The poop should fit? \(bool)")
@@ -111,16 +111,16 @@ class ArrangedPoopTests: XCTestCase {
         let board1 = TestBoardHelper.makeBoard(width: 2, height: 2)
         let board2 = TestBoardHelper.makeBoard(width: 2, height: 1)
         let poop = Poop.poop1()
-        let directedPoop = DirectedPoop.make(poop, direction: Direction(.right))
+        let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
-        let expectations:[(Board, DirectedPoop, Bool)] = [
-            (board1, directedPoop, true),
-            (board2, directedPoop, false),
+        let expectations:[(Board, OffsetPoop, Bool)] = [
+            (board1, offsetPoop, true),
+            (board2, offsetPoop, false),
         ]
 
-        for (board, directedPoop, bool) in expectations {
-            board.addPoopStain(directedPoop.poop, x: 1, y: 1, direction: directedPoop.direction)
-            let arrangedPoop = ArrangedPoop(directedPoop, board)
+        for (board, offsetPoop, bool) in expectations {
+            board.addPoopStain(offsetPoop.poop, x: 1, y: 1, direction: offsetPoop.direction)
+            let arrangedPoop = ArrangedPoop(offsetPoop, board)
             let rotated = arrangedPoop.rotate()
             XCTAssertEqual(rotated, bool, "The poop should rotate? \(bool)")
         }

@@ -37,4 +37,18 @@ class DirectionTests: XCTestCase {
         XCTAssertNotEqual(left, right, "Different Directions should not be equal")
         XCTAssertEqual(right, right, "The same Directions should be equal")
     }
+
+    func testRotate() {
+        let expectations: [(Direction.Named, Direction.Named)] = [
+            (.right, .down),
+            (.down, .left),
+            (.left, .up),
+            (.up, .right)
+        ]
+        for (before, after) in expectations {
+            let direction = Direction(before).rotate()
+            XCTAssertEqual(direction.name, after, "Wrong direction after rotating at direction")
+        }
+
+    }
 }

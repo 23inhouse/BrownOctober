@@ -1,5 +1,5 @@
 //
-//  DirectedPoopTests.swift
+//  OffsetPoopTests.swift
 //  Brown October Tests
 //
 //  Created by Benjamin Lewis on 10/6/19.
@@ -10,19 +10,19 @@ import XCTest
 
 @testable import Brown_October
 
-class DirectedPoopTests: XCTestCase {
+class OffsetPoopTests: XCTestCase {
     func testMake() {
         let poop = Poop.poop1()
-        let expectedPoops:[Int:String] = [
-            0: String(describing: PoopRight(poop)),
-            1: String(describing: PoopDown(poop)),
-            2: String(describing: PoopLeft(poop)),
-            3: String(describing: PoopUp(poop)),
+        let expectedPoops:[Int:Direction.Named] = [
+            0: .right,
+            1: .down,
+            2: .left,
+            3: .up,
         ]
 
-        for (direction, expectedPoop) in expectedPoops {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            XCTAssertEqual(String(describing: directedPoop.self), expectedPoop, "The direction \(direction) is wrong")
+        for (directionInt, directionName) in expectedPoops {
+            let offsetPoop = OffsetPoop.make(poop, direction: directionInt)
+            XCTAssertEqual(offsetPoop.direction.name, directionName, "The direction name for \(directionInt) is wrong")
         }
     }
 
@@ -37,9 +37,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
@@ -57,9 +57,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
@@ -77,9 +77,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
@@ -97,9 +97,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
@@ -117,9 +117,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong, expected \(expectOffset.1) got \(offset.x)")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong, expected \(expectOffset.2) got \(offset.y)")
@@ -137,9 +137,9 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, expectOffset) in expectedOffsets {
-            let directedPoop = DirectedPoop.make(poop, direction: direction)
-            let centerOffset = directedPoop.centerOffset
-            let offset = directedPoop.offset
+            let offsetPoop = OffsetPoop.make(poop, direction: direction)
+            let centerOffset = offsetPoop.centerOffset
+            let offset = offsetPoop.offset
             XCTAssertEqual(centerOffset, expectOffset.0, "The center offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.x, expectOffset.1, "The x offset for direction \(direction) is wrong")
             XCTAssertEqual(offset.y, expectOffset.2, "The y offset for direction \(direction) is wrong")
@@ -177,8 +177,8 @@ class DirectedPoopTests: XCTestCase {
         ]
 
         for (direction, data) in expectedData {
-            let directedPoop = DirectedPoop.make(poop, direction: Direction(direction))
-            XCTAssertEqual(directedPoop.data, data, "The data arrangement is wrong")
+            let offsetPoop = OffsetPoop.make(poop, direction: Direction(direction))
+            XCTAssertEqual(offsetPoop.data, data, "The data arrangement is wrong")
         }
     }
 }
