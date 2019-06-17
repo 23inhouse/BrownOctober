@@ -51,7 +51,6 @@ class Player {
         self.isComputer = !isHuman
 
         self.board = Board.makeGameBoard()
-        board.placePoopsRandomly()
     }
 }
 
@@ -82,27 +81,22 @@ class Board: Grid {
         poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: direction)
     }
 
-    func placePoopsRandomly() {
+    func arrangePoops(reset: Bool = false) {
         cleanTiles()
-        poops = Poop.pinchSomeOff()
+
+        if reset { poopStains.removeAll() }
 
         for poop in poops.reversed() {
-            while true {
-                let index = Int.random(in: 0...count)
-                let directedPoop = OffsetPoop.makeRandom(poop)
-
-                if ArrangedPoop(directedPoop, self).place(at: index) { break }
+            guard let poopStain = poopStains[poop.identifier] else {
+                placeRandomly(poop)
+                continue
             }
-        }
-    }
 
-    func placePoopStains() {
-        cleanTiles()
-        poops = Poop.pinchSomeOff()
-
-        for (ident, poopStain) in poopStains {
-            let poop = poops[ident - 1]
-            _ = ArrangedPoop(poop, self)?.place(at: (poopStain.x, poopStain.y))
+            let offsetPoop = OffsetPoop(poop, direction: poopStain.direction)
+            guard ArrangedPoop(offsetPoop, self).place(at: (poopStain.x, poopStain.y)) else {
+                placeRandomly(poop)
+                continue
+            }
         }
     }
 
@@ -157,6 +151,15 @@ class Board: Grid {
         }
 
         return nil
+    }
+
+    private func placeRandomly(_ poop: Poop) {
+        while true {
+            let index = Int.random(in: 0 ... count)
+            let offsetPoop = OffsetPoop.makeRandom(poop)
+
+            if ArrangedPoop(offsetPoop, self).place(at: index) { break }
+        }
     }
 
     init(width: Int, height: Int, poops: [Poop] = [Poop]()) {

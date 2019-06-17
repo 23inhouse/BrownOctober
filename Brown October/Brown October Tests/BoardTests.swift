@@ -30,6 +30,52 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(board.poopStains.count, 0, "Wrong number of poop stains")
     }
 
+    func testArrangePoopsReset() {
+        let poop1 = Poop.poop1(0)
+        let poop2 = Poop.poop2(1)
+        let board = Board(width: 33, height: 33, poops: [poop1, poop2]) // keep the board large to minimize the chance of the new poopStains being recreated in the original location
+        let offsetPoop1 = OffsetPoop(poop1, direction: Direction(.right))
+        let offsetPoop2 = OffsetPoop(poop2, direction: Direction(.right))
+        _ = ArrangedPoop(offsetPoop1, board).place(at: (1, 1))
+        _ = ArrangedPoop(offsetPoop2, board).place(at: (1, 1))
+
+        board.arrangePoops(reset: true)
+
+        let poopStain2 = board.poopStains[poop2.identifier]!
+        let position2 = poopStain2.x * 10 * poopStain2.y * 10 + poopStain2.direction.value
+        let expected2Not = 10 * 10 + 0
+        XCTAssertNotEqual(position2, expected2Not, "PoopStain for poop2 should have moved")
+
+        let poopStain1 = board.poopStains[poop1.identifier]!
+        let position1 = poopStain1.x * 10 * poopStain1.y * 10 + poopStain1.direction.value
+        let expected1Not = 10 * 10 + 0
+        XCTAssertNotEqual(position1, expected1Not, "PoopStain for poop1 should have moved")
+    }
+
+    func testArrangePoops() {
+        let poop1 = Poop.poop1(0)
+        let poop2 = Poop.poop2(1)
+        let board = Board(width: 3, height: 3, poops: [poop1, poop2])
+
+        let offsetPoop2 = OffsetPoop(poop2, direction: Direction(.right))
+        _ = ArrangedPoop(offsetPoop2, board).place(at: (1, 1))
+
+        // invalid poopStain that will get replaced
+        board.setPoopStain(poop1, x: 1, y: 1, direction: Direction(.down))
+
+        board.arrangePoops()
+
+        let poopStain2 = board.poopStains[poop2.identifier]!
+        XCTAssertEqual(poopStain2.x, 1, "PoopStain for poop2 should not have moved")
+        XCTAssertEqual(poopStain2.y, 1, "PoopStain for poop2 should not have moved")
+        XCTAssertEqual(poopStain2.direction, Direction(.right), "PoopStain for poop2 should not have moved")
+
+        let poopStain1 = board.poopStains[poop1.identifier]!
+        let position = poopStain1.x * 10 * poopStain1.y * 10 + poopStain1.direction.value
+        let expectedNot = 10 * 10 + 0
+        XCTAssertNotEqual(position, expectedNot, "PoopStain for poop1 should have moved")
+    }
+
     func testExportGridValues() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let exportValues = board.currentState()

@@ -66,12 +66,9 @@ class PlayerViewController: UIViewController {
         let boardView = playerView.boardView
 
         if isComputer {
-            let poopStains = UserData.retrievePoopStains()
-            player.board.set(poopStains: poopStains)
-            player.board.placePoopStains()
-        } else {
-            player.board.placePoopsRandomly()
+            player.board.set(poopStains: UserData.retrievePoopStains())
         }
+        player.board.arrangePoops()
         boardView.isUserInteractionEnabled = !isComputer
         playerView.resetBoard()
 

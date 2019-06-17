@@ -22,9 +22,8 @@ class GameSetupViewController: UIViewController {
 
     @objc func touchResetButton(_ sender: UIButton) {
         sender.springy()
-        board.placePoopsRandomly()
+        board.arrangePoops(reset: true)
         UserData.storePoopStains(board.poopStains)
-
         boardView.draw()
     }
 
@@ -51,13 +50,8 @@ class GameSetupViewController: UIViewController {
     }
 
     private func loadBoard() {
-        let poopStains = UserData.retrievePoopStains()
-        if poopStains.count > 0 {
-            board.set(poopStains: poopStains)
-            board.placePoopStains()
-        } else {
-            board.placePoopsRandomly()
-        }
+        board.set(poopStains: UserData.retrievePoopStains())
+        board.arrangePoops()
     }
 
     override func viewDidLoad() {

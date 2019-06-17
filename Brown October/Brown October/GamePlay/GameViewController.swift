@@ -45,16 +45,7 @@ class GameViewController: UIViewController {
     lazy var playerTwoView = playerTwoController.mainView
 
     private func resetGame() {
-        let board = game.playerOne.board
-        let poopStains = UserData.retrievePoopStains()
-        if poopStains.count > 0 {
-            board.set(poopStains: poopStains)
-            board.placePoopStains()
-        } else {
-            board.placePoopsRandomly()
-        }
         playerOneController.resetBoard()
-        playerTwoController.board.placePoopsRandomly()
         playerTwoController.resetBoard()
     }
 
