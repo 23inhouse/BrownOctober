@@ -28,7 +28,7 @@ class GridButtonMock: GridButtonProtocol {
     let index: Int
 
     func touch() {
-        if let (_, poop) = board.wipe(at: index) {
+        if let poop = board.wipe(at: index) {
             board.tile(at: index).markAsFound()
 
             if poop.isFound {

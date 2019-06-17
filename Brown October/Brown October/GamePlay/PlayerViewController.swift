@@ -145,7 +145,7 @@ extension PlayerViewController: GridButtonDelegate {
 
         button.springy()
 
-        if let (_, poop) = board.wipe(at: index) {
+        if let poop = board.wipe(at: index) {
 
             button.setData(text: "💩", color: .white, alpha: 1)
             poopsFoundCount += 1

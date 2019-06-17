@@ -115,16 +115,17 @@ class Board: Grid {
         return size
     }
 
-    func wipe(at index: Int) -> (Tile, Poop)? {
-        if let (tile, poop) = findData(at: index) {
-            guard !tile.isFound else {
+    func wipe(at index: Int) -> Poop? {
+        let tileToWipe = tile(at: index)
+        if let poop = findPoop(by: tileToWipe.poopIdentifier) {
+            guard !tileToWipe.isFound else {
                 return nil
             }
             score += 1
-            tile.markAsFound()
+            tileToWipe.markAsFound()
             poop.incrementFoundCounter()
 
-            return (tile, poop)
+            return poop
         }
 
         return nil
@@ -138,15 +139,10 @@ class Board: Grid {
         return tiles.enumerated().filter({ _, tile in tile.poopIdentifier == poopIndentifier }).map { index, _ in index }
     }
 
-    private func findData(at index: Int) -> (Tile, Poop)? {
-        let foundTile = tile(at: index)
-        let indent = foundTile.poopIdentifier
-
-        guard indent != 0 else { return nil }
-
+    private func findPoop(by ident: Int) -> Poop? {
         for poop in self.poops {
-            if poop.identifier == indent {
-                return (foundTile, poop)
+            if poop.identifier == ident {
+                return poop
             }
         }
 
