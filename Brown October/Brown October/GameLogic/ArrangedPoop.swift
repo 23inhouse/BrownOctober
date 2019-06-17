@@ -62,7 +62,7 @@ class ArrangedPoop {
         }
 
         let direction = offsetPoop.direction
-        board.addPoopStain(offsetPoop.poop, x: coordinate.x, y: coordinate.y, direction: direction)
+        board.setPoopStain(offsetPoop.poop, x: coordinate.x, y: coordinate.y, direction: direction)
         return true
     }
 

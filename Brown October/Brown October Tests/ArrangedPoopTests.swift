@@ -16,7 +16,7 @@ class ArrangedPoopTests: XCTestCase {
 
         let poop1 = Poop.poop1()
         let poop2 = Poop.poop2()
-        board.addPoopStain(poop2, x: 0, y: 0, direction: Direction(0))
+        board.setPoopStain(poop2, x: 0, y: 0, direction: Direction(0))
 
         let expectations:[(Poop, Direction?, Bool)] = [
             (poop1, nil, false),
@@ -119,7 +119,7 @@ class ArrangedPoopTests: XCTestCase {
         ]
 
         for (board, offsetPoop, bool) in expectations {
-            board.addPoopStain(offsetPoop.poop, x: 1, y: 1, direction: offsetPoop.direction)
+            board.setPoopStain(offsetPoop.poop, x: 1, y: 1, direction: offsetPoop.direction)
             let arrangedPoop = ArrangedPoop(offsetPoop, board)
             let rotated = arrangedPoop.rotate()
             XCTAssertEqual(rotated, bool, "The poop should rotate? \(bool)")

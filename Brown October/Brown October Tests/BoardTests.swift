@@ -11,6 +11,25 @@ import XCTest
 @testable import Brown_October
 
 class BoardTests: XCTestCase {
+    func testSetPoopStains() {
+        let poop1 = Poop.poop1(0)
+        let board = Board(width: 3, height: 3, poops: [poop1])
+        var poopStains = [Int: Board.PoopStain]()
+        poopStains[poop1.identifier] = Board.PoopStain(x: 1, y:1, direction: Direction(.right))
+        board.set(poopStains: poopStains)
+
+        XCTAssertEqual(board.poopStains.count, 1, "Wrong number of poop stains")
+    }
+
+    func testSetPoopStainsEmpty() {
+        let poop1 = Poop.poop1(0)
+        let board = Board(width: 3, height: 3, poops: [poop1])
+        let poopStains = [Int: Board.PoopStain]()
+        board.set(poopStains: poopStains)
+
+        XCTAssertEqual(board.poopStains.count, 0, "Wrong number of poop stains")
+    }
+
     func testExportGridValues() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
         let exportValues = board.currentState()

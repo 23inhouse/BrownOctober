@@ -78,7 +78,7 @@ class Board: Grid {
         self.poopStains = poopStains
     }
 
-    func addPoopStain(_ poop: Poop, x: Int, y: Int, direction: Direction) {
+    func setPoopStain(_ poop: Poop, x: Int, y: Int, direction: Direction) {
         poopStains[poop.identifier] = Board.PoopStain(x: x, y: y, direction: direction)
     }
 
