@@ -89,6 +89,7 @@ extension GameSetupViewController: GridButtonDelegate {
 
         guard sender.getText() != "" else {
             let poop = poops[0]
+            board.setPoopStain(poop, x: 5, y: 5, direction: Direction(.left))
             if ArrangedPoop(poop, board)?.move(to: index) ?? false {
                 boardView.draw()
             }
@@ -142,8 +143,8 @@ extension GameSetupViewController: GridButtonDragDelegate {
         case .ended:
             if move(poopIdentifier, by: recognizer) {
                 UserData.storePoopStains(board.poopStains)
-                boardView.draw()
             }
+            boardView.draw()
             dragButtons.forEach { $0.removeFromSuperview() }
         default:
             print("Error: WTF at drag recognizer state")
@@ -156,6 +157,9 @@ extension GameSetupViewController: GridButtonDragDelegate {
         duplicate.frame = button.frame
         duplicate.center = button.superview!.convert(duplicate.center, to: view)
         duplicate.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+
+        button.setData(text: "", color: .white, alpha: 1)
+
         return duplicate
     }
 

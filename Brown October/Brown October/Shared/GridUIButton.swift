@@ -95,8 +95,6 @@ extension GridUIButton: GridButtonProtocol {
     }
 
     internal func drag(recognizer: UIPanGestureRecognizer) {
-        guard getText() != "" else { return }
-
         gridButtonDragDelegate?.didDragGridButton(recognizer)
     }
 
