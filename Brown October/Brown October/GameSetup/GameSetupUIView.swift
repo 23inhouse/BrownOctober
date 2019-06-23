@@ -50,7 +50,7 @@ class GameSetupUIView: UIView {
         return button
     }()
 
-    let boardView: BoardUIView
+    let boardSubControllerViewContainer = SquareUIView()
 
     let buttonFontSize: CGFloat = {
         let landscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
@@ -67,16 +67,15 @@ class GameSetupUIView: UIView {
         layoutView.addArrangedSubview(buttonsLayoutView)
         buttonsLayoutView.addArrangedSubview(resetButton)
         buttonsLayoutView.addArrangedSubview(playButton)
-        layoutView.addArrangedSubview(boardView)
+        layoutView.addArrangedSubview(boardSubControllerViewContainer)
     }
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
     }
 
-    init<Decorator: BoardDecoratorProtocol>(boardDecorator: Decorator) {
-        self.boardView = BoardUIView(with: boardDecorator)
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupView()
         setupConstraints()
