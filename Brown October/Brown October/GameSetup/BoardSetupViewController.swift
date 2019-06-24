@@ -15,7 +15,7 @@ class BoardSetupViewController: UIViewController {
 
     lazy var board: Board = Board.makeGameBoard()
     lazy var poops: [Poop] = board.poops
-    lazy var dragButtons = [GridUIButton]()
+    lazy var dragger = Dragger(boardView)
 
     private func setupView() {
         let boardDecorator = ArrangeBoardDecorator(for: board)
@@ -77,84 +77,126 @@ extension BoardSetupViewController: UIGestureRecognizerDelegate {
 extension BoardSetupViewController: GridButtonDragDelegate {
     func didDragGridButton(_ recognizer: UIPanGestureRecognizer) {
         let button = recognizer.view as! GridUIButton
-        let poopIdentifier = board.tile(at: button.index).poopIdentifier
+        let index = button.index
+        let poopIdentifier = board.tile(at: index).poopIdentifier
 
         guard poopIdentifier > 0 else { return }
+
+        let poop = board.poops[poopIdentifier - 1]
 
         switch recognizer.state {
         case .began:
             let indexes = board.tileIndexes(for: poopIdentifier)
+            dragger.prepare(for: indexes)
 
-            dragButtons = boardView.buttons.filter({ indexes.contains($0.index) }).map(duplicateForDrag)
-            dragButtons.forEach { view.addSubview($0) }
         case .changed:
-            for dragButton in dragButtons {
-                guard checkBounds(dragButton, recognizer) else {
-                    if move(poopIdentifier, by: recognizer) {
-                        UserData.storePoopStains(board.poopStains)
-                        boardView.draw()
-                    }
-                    dragButtons.forEach { $0.removeFromSuperview() }
-                    break
-                }
+            let translation = recognizer.translation(in: boardView)
+            dragger.dragRecord.storeIndex(at: recognizer)
+            dragger.drag(translation: translation) {
+                onCompletion(for: poop, from: index)
+            }
+            recognizer.setTranslation(CGPoint.zero, in: boardView)
+
+        case .ended:
+            dragger.finalize() {
+                onCompletion(for: poop, from: index)
             }
 
-            let translation = recognizer.translation(in: view)
-            dragButtons.forEach { translate($0, by: translation) }
-            recognizer.setTranslation(CGPoint.zero, in: view)
-        case .ended:
-            if move(poopIdentifier, by: recognizer) {
-                UserData.storePoopStains(board.poopStains)
-            }
-            boardView.draw()
-            dragButtons.forEach { $0.removeFromSuperview() }
         default:
-            print("Error: WTF at drag recognizer state")
+            assertionFailure("Unhandled drag state")
         }
     }
 
-    private func duplicateForDrag(_ button: GridUIButton) -> GridUIButton {
-        let duplicate = button.makeCopy()
-        duplicate.center = button.superview!.convert(duplicate.center, to: view)
-        duplicate.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+    private func onCompletion(for poop: Poop, from index: Int) {
+        for dragIndex in dragger.dragRecord.Indexes() {
+            guard let adjustment = board.gridUtility.calcXYAdjustment(from: index, to: dragIndex) else { continue }
 
-        button.setData(text: "", color: .white, alpha: 1)
+            if ArrangedPoop(poop, board)?.move(by: adjustment) ?? false {
+                break
+            }
+        }
+        boardView.draw()
+    }
+}
 
-        return duplicate
+struct Dragger {
+    let view: BoardUIView
+
+    lazy var dragRecord = DragRecord(view: view)
+    var dragButtons = [GridUIButton]()
+
+    mutating func prepare(for indexes: [Int]) {
+        dragButtons = indexes.map(duplicateButtonForDrag)
+        dragRecord = DragRecord(view: view)
     }
 
-    private func checkBounds(_ dragButton: GridUIButton, _ recognizer: UIPanGestureRecognizer) -> Bool {
+    func drag(translation: CGPoint, onCompletion: () -> ()) {
+        for dragButton in dragButtons {
+            guard checkBounds(dragButton) else {
+                finalize(onCompletion)
+                return
+            }
+        }
+
+        dragButtons.forEach { dragButton in
+            dragButton.center = CGPoint(x: dragButton.center.x + translation.x, y: dragButton.center.y + translation.y)
+        }
+    }
+
+    func finalize(_ onCompletion: () -> ()) {
+        onCompletion()
+        dragButtons.forEach { dragButton in dragButton.removeFromSuperview() }
+    }
+
+    private func duplicateButtonForDrag(_ index: Int) -> GridUIButton {
+        let button = view.getButton(at: index) as! GridUIButton
+        let dragButton = button.makeCopy()
+        dragButton.center = button.superview!.convert(dragButton.center, to: view)
+        dragButton.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+
+        view.addSubview(dragButton)
+        button.setData(text: "", color: .white, alpha: 1)
+
+        return dragButton
+    }
+
+    private func checkBounds(_ dragButton: GridUIButton) -> Bool {
         guard let dragSuperView = dragButton.superview else { return false }
         let frame = dragSuperView.convert(dragButton.frame, to: view)
-        let boardFrame = boardView.superview!.convert(boardView.frame, to: view)
+        let boardFrame = view.superview!.convert(view.frame, to: view)
         guard boardFrame.contains(frame) else { return false }
 
         return true
     }
 
-    private func translate(_ button: GridUIButton, by translation: CGPoint) {
-        button.center = CGPoint(x: button.center.x + translation.x, y: button.center.y + translation.y)
+    init(_ view: BoardUIView) {
+        self.view = view
+    }
+}
+
+struct DragRecord {
+    let view: BoardUIView
+
+    var indexes = [Int]()
+
+    func Indexes() -> [Int] {
+        return indexes.reversed()
     }
 
-    private func move(_ poopIdentifier: Int, by recognizer: UIPanGestureRecognizer) -> Bool {
-        let poop = board.poops[poopIdentifier - 1]
+    mutating func storeIndex(at recognizer: UIPanGestureRecognizer) {
+        let droppedAt = view.convert(recognizer.location(in: view), to: view)
 
-        guard let adjustment = calcAdjustment(recognizer: recognizer) else { return false }
-        guard ArrangedPoop(poop, board)?.move(by: adjustment) ?? false else { return false }
-
-        return true
-    }
-
-    private func calcAdjustment(recognizer: UIPanGestureRecognizer) -> (Int, Int)? {
-        let button = recognizer.view as! GridUIButton
-        let droppedAt = view.convert(recognizer.location(in: view), to: boardView)
-
-        for tile in boardView.buttons {
-            let frame = tile.superview!.convert(tile.frame, to: boardView)
+        for tile in view.buttons {
+            guard !indexes.contains(tile.index) else { continue }
+            let frame = tile.superview!.convert(tile.frame, to: view)
             if frame.contains(droppedAt) {
-                return board.gridUtility.calcXYAdjustment(from: button.index, to: tile.index)
+                indexes.append(tile.index)
+                break
             }
         }
-        return nil
+    }
+
+    init(view: BoardUIView) {
+        self.view = view
     }
 }
