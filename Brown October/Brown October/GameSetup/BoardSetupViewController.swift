@@ -85,7 +85,7 @@ extension BoardSetupViewController: GridButtonDragDelegate {
         case .began:
             let indexes = board.tileIndexes(for: poopIdentifier)
 
-            dragButtons = boardView.buttons.filter({ indexes.contains($0.index) }).map(duplicateButton)
+            dragButtons = boardView.buttons.filter({ indexes.contains($0.index) }).map(duplicateForDrag)
             dragButtons.forEach { view.addSubview($0) }
         case .changed:
             for dragButton in dragButtons {
@@ -113,10 +113,8 @@ extension BoardSetupViewController: GridButtonDragDelegate {
         }
     }
 
-    private func duplicateButton(_ button: GridUIButton) -> GridUIButton {
-        let duplicate = GridUIButton(index: button.index, borderWidth: button.borderWidth)
-        duplicate.setData(text: button.getText(), color: button.backgroundColor!, alpha: 1)
-        duplicate.frame = button.frame
+    private func duplicateForDrag(_ button: GridUIButton) -> GridUIButton {
+        let duplicate = button.makeCopy()
         duplicate.center = button.superview!.convert(duplicate.center, to: view)
         duplicate.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
 

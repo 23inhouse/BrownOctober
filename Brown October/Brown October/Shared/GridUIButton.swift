@@ -62,6 +62,14 @@ class GridUIButton: UILabel {
         addGestureRecognizer(drag)
     }
 
+    public func makeCopy() -> GridUIButton {
+        let newButton = GridUIButton(index: index, borderWidth: borderWidth)
+        newButton.setData(text: getText(), color: backgroundColor!, alpha: alpha)
+        newButton.frame = frame
+
+        return newButton
+    }
+
     private func setupConstraints() {
         heatMapLabel.constrain(to: self)
     }
