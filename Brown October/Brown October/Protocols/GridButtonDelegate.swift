@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol GridButtonDelegate: class {
+protocol GridButtonDelegate: AnyObject {
     func didTouchGridButton(_ sender: GridButtonProtocol)
 }

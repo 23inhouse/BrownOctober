@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PlayerTurnDelegate: class {
+protocol PlayerTurnDelegate: AnyObject {
     func nextTurn(from sender: PlayerViewController, switchPlayer: Bool)
     func gameOver(from sender: PlayerViewController)
 }

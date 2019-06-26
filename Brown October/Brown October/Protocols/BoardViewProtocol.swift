@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol BoardViewProtocol: class {
+protocol BoardViewProtocol: AnyObject {
     func getButton(at index: Int) -> GridButtonProtocol
 }

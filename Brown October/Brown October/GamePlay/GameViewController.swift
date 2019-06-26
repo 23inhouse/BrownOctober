@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
         let controller = PlayerViewController(playerTwo)
         controller.playerTurnDelegate = self
         controller.updateGamesWonLabel()
-        controller.scoreView.newGameButtonDelegate = self
+        controller.scoreView.newGameDelegate = self
         add(controller)
         return controller
     }()
@@ -155,7 +155,7 @@ extension GameViewController: PlayerTurnDelegate {
     }
 }
 
-extension GameViewController: NewGameButtonDelegate {
+extension GameViewController: NewGameDelegate {
     func didTouchNewGame() {
         if traitCollection.horizontalSizeClass == .compact {
             resetGame()

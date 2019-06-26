@@ -10,8 +10,8 @@ import UIKit
 
 class ScoreUIView: UIView {
 
-    weak var newGameButtonDelegate: NewGameButtonDelegate?
-    weak var solveGameButtonDelegate: SolveGameButtonDelegate?
+    weak var newGameDelegate: NewGameDelegate?
+    weak var solveGameDelegate: SolveGameDelegate?
 
     let icon: String
 
@@ -69,12 +69,12 @@ class ScoreUIView: UIView {
 
     @objc private func solveGame(_ sender: UIButton) {
         sender.springy()
-        solveGameButtonDelegate?.didTouchSolveGame()
+        solveGameDelegate?.didTouchSolveGame()
     }
 
     @objc private func newGame(_ sender: UIButton) {
         sender.springy()
-        newGameButtonDelegate?.didTouchNewGame()
+        newGameDelegate?.didTouchNewGame()
     }
 
     init(icon: String) {

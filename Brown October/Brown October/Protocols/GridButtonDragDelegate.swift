@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol GridButtonDragDelegate: class {
+protocol GridButtonDragDelegate: AnyObject {
     func didDragGridButton(_ recognizer: UIPanGestureRecognizer)
 }

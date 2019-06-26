@@ -1,5 +1,5 @@
 //
-//  SolveGameButtonDelegate.swift
+//  NewGameDelegate.swift
 //  Brown October
 //
 //  Created by Benjamin Lewis on 26/6/19.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol SolveGameButtonDelegate: class {
-    func didTouchSolveGame()
+protocol NewGameDelegate: AnyObject {
+    func didTouchNewGame()
 }

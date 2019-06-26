@@ -97,7 +97,7 @@ class PlayerViewController: UIViewController {
             button.gridButtonDelegate = self
         }
 
-        scoreView.solveGameButtonDelegate = self
+        scoreView.solveGameDelegate = self
 
         resetBoard()
     }
@@ -172,7 +172,7 @@ extension PlayerViewController: GridButtonDelegate {
     func didDragGridButton(_ sender: GridButtonProtocol) {}
 }
 
-extension PlayerViewController: SolveGameButtonDelegate {
+extension PlayerViewController: SolveGameDelegate {
     func didTouchSolveGame() {
         guard !player.won() else { return }
 

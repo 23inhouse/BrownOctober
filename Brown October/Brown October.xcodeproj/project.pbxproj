@@ -43,8 +43,8 @@
 		B534FD6A22C37CE0000B125E /* GridButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6922C37CE0000B125E /* GridButtonDelegate.swift */; };
 		B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */; };
 		B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6D22C37D14000B125E /* GridViewProtocol.swift */; };
-		B534FD7022C37D74000B125E /* NewGameButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6F22C37D74000B125E /* NewGameButtonDelegate.swift */; };
-		B534FD7222C37D84000B125E /* SolveGameButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7122C37D84000B125E /* SolveGameButtonDelegate.swift */; };
+		B534FD7022C37D74000B125E /* NewGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6F22C37D74000B125E /* NewGameDelegate.swift */; };
+		B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7122C37D84000B125E /* SolveGameDelegate.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
@@ -125,8 +125,8 @@
 		B534FD6922C37CE0000B125E /* GridButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonDelegate.swift; sourceTree = "<group>"; };
 		B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonDragDelegate.swift; sourceTree = "<group>"; };
 		B534FD6D22C37D14000B125E /* GridViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewProtocol.swift; sourceTree = "<group>"; };
-		B534FD6F22C37D74000B125E /* NewGameButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameButtonDelegate.swift; sourceTree = "<group>"; };
-		B534FD7122C37D84000B125E /* SolveGameButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveGameButtonDelegate.swift; sourceTree = "<group>"; };
+		B534FD6F22C37D74000B125E /* NewGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameDelegate.swift; sourceTree = "<group>"; };
+		B534FD7122C37D84000B125E /* SolveGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveGameDelegate.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -219,11 +219,11 @@
 				B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */,
 				B534FD6722C37B30000B125E /* GridButtonProtocol.swift */,
 				B534FD6D22C37D14000B125E /* GridViewProtocol.swift */,
-				B534FD6F22C37D74000B125E /* NewGameButtonDelegate.swift */,
+				B534FD6F22C37D74000B125E /* NewGameDelegate.swift */,
 				B534FD5F22C376AE000B125E /* OffsetableProtocol.swift */,
 				B534FD6122C376F2000B125E /* PlayerTurnDelegate.swift */,
 				B534FD5D22C37684000B125E /* RotatableProtocol.swift */,
-				B534FD7122C37D84000B125E /* SolveGameButtonDelegate.swift */,
+				B534FD7122C37D84000B125E /* SolveGameDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -507,7 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B534FD7222C37D84000B125E /* SolveGameButtonDelegate.swift in Sources */,
+				B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */,
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
 				B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */,
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,
@@ -528,7 +528,7 @@
 				B5291ED222689C6D002C49B0 /* BrownOctober.swift in Sources */,
 				B5E853B32297F90100DFECC3 /* UIView+constraints.swift in Sources */,
 				B5291ED422689C98002C49B0 /* Tile.swift in Sources */,
-				B534FD7022C37D74000B125E /* NewGameButtonDelegate.swift in Sources */,
+				B534FD7022C37D74000B125E /* NewGameDelegate.swift in Sources */,
 				B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */,
 				B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */,
 				B508C5A8229C082E00CE00CB /* UIView+orientation.swift in Sources */,
