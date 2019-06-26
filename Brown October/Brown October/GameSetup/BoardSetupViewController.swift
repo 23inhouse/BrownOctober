@@ -51,8 +51,7 @@ extension BoardSetupViewController: GridButtonDelegate {
 
         guard sender.getText() != "" else {
             let poop = poops[0]
-            board.setPoopStain(poop, x: 5, y: 5, direction: Direction(.left))
-            if ArrangedPoop(poop, board)?.move(to: index) ?? false {
+            if ArrangedPoop(poop, board, direction: Direction(.left))?.move(to: index) ?? false {
                 boardView.draw()
             }
 
