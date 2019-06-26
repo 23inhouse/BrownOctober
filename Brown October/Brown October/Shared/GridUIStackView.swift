@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol GridViewProtocol {
-    var tiles: [Tile] { get }
-}
-
 class GridUIStackView: UIStackView {
 
     let cols: Int

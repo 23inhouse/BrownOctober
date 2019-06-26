@@ -8,14 +8,6 @@
 
 import UIKit
 
-protocol NewGameButtonDelegate: class {
-    func didTouchNewGame()
-}
-
-protocol SolveGameButtonDelegate: class {
-    func didTouchSolveGame()
-}
-
 class ScoreUIView: UIView {
 
     weak var newGameButtonDelegate: NewGameButtonDelegate?

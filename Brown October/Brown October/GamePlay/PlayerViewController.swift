@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol PlayerTurnDelegate: class {
-    func nextTurn(from sender: PlayerViewController, switchPlayer: Bool)
-    func gameOver(from sender: PlayerViewController)
-}
-
 class PlayerViewController: UIViewController {
 
     var mainView: PlayerUIView { return self.view as! PlayerUIView }

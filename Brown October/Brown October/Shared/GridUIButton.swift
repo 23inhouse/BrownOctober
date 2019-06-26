@@ -8,20 +8,6 @@
 
 import UIKit
 
-protocol GridButtonDelegate: class {
-    func didTouchGridButton(_ sender: GridButtonProtocol)
-}
-
-protocol GridButtonDragDelegate: class {
-    func didDragGridButton(_ recognizer: UIPanGestureRecognizer)
-}
-
-protocol GridButtonProtocol {
-    func touch()
-    func drag(recognizer: UIPanGestureRecognizer)
-    func getText() -> String
-}
-
 class GridUIButton: UILabel {
 
     weak var gridButtonDelegate: GridButtonDelegate?

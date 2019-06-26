@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol BoardViewProtocol: class {
-    func getButton(at index: Int) -> GridButtonProtocol
-}
-
 class BoardUIView: UIView {
 
     var decorator: BoardDecoratorProtocol

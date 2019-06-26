@@ -8,20 +8,6 @@
 
 import Foundation
 
-protocol RotatableProtocol {
-    var direction: Direction { get }
-    func rotate() -> RotatableProtocol
-}
-
-protocol OffsetableProtocol {
-    var direction: Direction { get }
-    var offset: (x: Int, y: Int) { get }
-    var centerOffset: Int { get }
-
-    func xOffset() -> Int
-    func yOffset() -> Int
-}
-
 class OffsetPoop {
     private(set) var poop: Poop
     private(set) var direction: Direction
