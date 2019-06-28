@@ -15,6 +15,7 @@ class GridUIButton: UILabel {
 
     let index: Int
     let borderWidth: CGFloat
+    let gridView: UIView?
 
     let heatMapLabel: UILabel = {
         let label = UILabel()
@@ -68,9 +69,10 @@ class GridUIButton: UILabel {
         drag(recognizer: recognizer)
     }
 
-    init(index: Int, borderWidth: CGFloat) {
+    init(index: Int, borderWidth: CGFloat, within gridView: UIView? = nil) {
         self.index = index
         self.borderWidth = borderWidth
+        self.gridView = gridView
 
         super.init(frame: .zero)
 
@@ -94,5 +96,12 @@ extension GridUIButton: GridButtonProtocol {
 
     internal func getText() -> String {
         return text!
+    }
+}
+
+extension GridUIButton: DragableTile {
+    func contains(point: CGPoint) -> Bool {
+        let dropFrame = superview!.convert(frame, to: gridView!)
+        return dropFrame.contains(point)
     }
 }

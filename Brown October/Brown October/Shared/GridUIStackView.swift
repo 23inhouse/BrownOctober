@@ -33,7 +33,7 @@ class GridUIStackView: UIStackView {
             hStackView.spacing = spacing
 
             for _ in 0 ..< cols {
-                let button = GridUIButton(index: index, borderWidth: buttonBorderWidth)
+                let button = GridUIButton(index: index, borderWidth: buttonBorderWidth, within: self)
                 button.setData(text: "", color: .white, alpha: 1)
                 hStackView.addArrangedSubview(button)
                 buttons.append(button)

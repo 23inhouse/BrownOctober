@@ -90,7 +90,9 @@ extension BoardSetupViewController: GridButtonDragDelegate {
 
         case .changed:
             let translation = recognizer.translation(in: boardView)
-            dragger.dragRecord.storeIndex(at: recognizer)
+            let location = recognizer.location(in: boardView)
+            let droppedAt = boardView.convert(location, to: boardView)
+            dragger.dragRecord.storeIndex(at: droppedAt)
             dragger.drag(translation: translation) {
                 onCompletion(for: poop, from: index)
             }
@@ -115,87 +117,5 @@ extension BoardSetupViewController: GridButtonDragDelegate {
             }
         }
         boardView.draw()
-    }
-}
-
-struct Dragger {
-    let view: BoardUIView
-
-    lazy var dragRecord = DragRecord(view: view)
-    var dragButtons = [GridUIButton]()
-
-    mutating func prepare(for indexes: [Int]) {
-        dragButtons = indexes.map(duplicateButtonForDrag)
-        dragRecord = DragRecord(view: view)
-    }
-
-    func drag(translation: CGPoint, onCompletion: () -> ()) {
-        for dragButton in dragButtons {
-            guard checkBounds(dragButton) else {
-                finalize(onCompletion)
-                return
-            }
-        }
-
-        dragButtons.forEach { dragButton in
-            dragButton.center = CGPoint(x: dragButton.center.x + translation.x, y: dragButton.center.y + translation.y)
-        }
-    }
-
-    func finalize(_ onCompletion: () -> ()) {
-        onCompletion()
-        dragButtons.forEach { dragButton in dragButton.removeFromSuperview() }
-    }
-
-    private func duplicateButtonForDrag(_ index: Int) -> GridUIButton {
-        let button = view.getButton(at: index) as! GridUIButton
-        let dragButton = button.makeCopy()
-        dragButton.center = button.superview!.convert(dragButton.center, to: view)
-        dragButton.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-
-        view.addSubview(dragButton)
-        button.setData(text: "", color: .white, alpha: 1)
-
-        return dragButton
-    }
-
-    private func checkBounds(_ dragButton: GridUIButton) -> Bool {
-        guard let dragSuperView = dragButton.superview else { return false }
-        let frame = dragSuperView.convert(dragButton.frame, to: view)
-        let boardFrame = view.superview!.convert(view.frame, to: view)
-        guard boardFrame.contains(frame) else { return false }
-
-        return true
-    }
-
-    init(_ view: BoardUIView) {
-        self.view = view
-    }
-}
-
-struct DragRecord {
-    let view: BoardUIView
-
-    var indexes = [Int]()
-
-    func Indexes() -> [Int] {
-        return indexes.reversed()
-    }
-
-    mutating func storeIndex(at recognizer: UIPanGestureRecognizer) {
-        let droppedAt = view.convert(recognizer.location(in: view), to: view)
-
-        for tile in view.buttons {
-            guard !indexes.contains(tile.index) else { continue }
-            let frame = tile.superview!.convert(tile.frame, to: view)
-            if frame.contains(droppedAt) {
-                indexes.append(tile.index)
-                break
-            }
-        }
-    }
-
-    init(view: BoardUIView) {
-        self.view = view
     }
 }

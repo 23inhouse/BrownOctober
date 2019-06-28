@@ -45,6 +45,9 @@
 		B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6D22C37D14000B125E /* GridViewProtocol.swift */; };
 		B534FD7022C37D74000B125E /* NewGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6F22C37D74000B125E /* NewGameDelegate.swift */; };
 		B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7122C37D84000B125E /* SolveGameDelegate.swift */; };
+		B534FD7422C39961000B125E /* Dragger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7322C39961000B125E /* Dragger.swift */; };
+		B534FD7622C39A0F000B125E /* DragRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7522C39A0F000B125E /* DragRecord.swift */; };
+		B534FD7A22C39B65000B125E /* DragRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7922C39B65000B125E /* DragRecordTests.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
@@ -127,6 +130,9 @@
 		B534FD6D22C37D14000B125E /* GridViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewProtocol.swift; sourceTree = "<group>"; };
 		B534FD6F22C37D74000B125E /* NewGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameDelegate.swift; sourceTree = "<group>"; };
 		B534FD7122C37D84000B125E /* SolveGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveGameDelegate.swift; sourceTree = "<group>"; };
+		B534FD7322C39961000B125E /* Dragger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragger.swift; sourceTree = "<group>"; };
+		B534FD7522C39A0F000B125E /* DragRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragRecord.swift; sourceTree = "<group>"; };
+		B534FD7922C39B65000B125E /* DragRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragRecordTests.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -297,6 +303,7 @@
 				B5994B03227726D4001999AE /* BoardTests.swift */,
 				B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */,
 				B5DE594E22B2613D009EE711 /* DirectionTests.swift */,
+				B534FD7922C39B65000B125E /* DragRecordTests.swift */,
 				B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */,
 				B5DE595022B28D74009EE711 /* GridTests.swift */,
 				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
@@ -324,6 +331,8 @@
 			children = (
 				B534FD5622BF7F16000B125E /* BoardSetupViewController.swift */,
 				B534FD5822BF7FA5000B125E /* BoardSetupUIView.swift */,
+				B534FD7322C39961000B125E /* Dragger.swift */,
+				B534FD7522C39A0F000B125E /* DragRecord.swift */,
 				B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */,
 				B50BA00D229970D700C1F418 /* GameSetupUIView.swift */,
 			);
@@ -509,11 +518,13 @@
 			files = (
 				B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */,
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
+				B534FD7422C39961000B125E /* Dragger.swift in Sources */,
 				B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */,
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,
 				B534FD6022C376AE000B125E /* OffsetableProtocol.swift in Sources */,
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B534FD5722BF7F16000B125E /* BoardSetupViewController.swift in Sources */,
+				B534FD7622C39A0F000B125E /* DragRecord.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B5DE595722B3AFAA009EE711 /* ArrangedPoop.swift in Sources */,
 				B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */,
@@ -568,6 +579,7 @@
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
 				B5BC3F6222B4EF8A0044C03D /* ArrangedPoopTests.swift in Sources */,
+				B534FD7A22C39B65000B125E /* DragRecordTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
