@@ -172,6 +172,17 @@ class ComputerPlayerTests: XCTestCase {
         XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 9, "Guess count is wrong")
     }
 
+    func testComputerHuntsEfficientlyForPoop6RightEdge() {
+        let poop = Poop.poop6(0)
+        let board = TestBoardHelper.makeSinglePoopBoard(width: 4, height: 4, poop: poop, x: 3, y: 2, d: 3)
+        let computerPlayer = TestComputerPlayerHelper.makePlayer(board: board)
+
+        computerPlayer.play(startAt: GridUtility(w: 4, h: 4).calcIndex(2, 3))
+
+        XCTAssertEqual(board.flushedAllPoops(), true, "The game is not over")
+        XCTAssertLessThanOrEqual(computerPlayer.guessCount(), 7, "Guess count is wrong")
+    }
+
     // MARK: Hunt score tests
     func testComputerHuntsForPoopSize2() {
         let poop = Poop.poop1(0)

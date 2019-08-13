@@ -177,7 +177,7 @@ class ComputerPlayer {
 
     private func randomGuessIndex() -> Int? {
         guard let guess = poopSeeker.calcRandomBestIndex() else {
-            print("Error no more guesses from heatmap")
+            print("Error no more random guesses from heatmap")
             return nil
         }
 
@@ -209,7 +209,7 @@ class PoopSeeker {
     func calcRandomBestIndex(at index: Int? = nil) -> Int? {
 
         guard let bestGuesses = calcHeatMaps(at: index ?? 0) else {
-            print("Error no more guesses from heatmap")
+            print("Error no more best guesses from heatmap")
             return nil
         }
 
@@ -266,7 +266,8 @@ class PoopSeeker {
             if poop.isFound { continue }
 
             for direction in Direction.all() {
-                let poopData = GridUtility.rotate(poop.data, direction: direction)
+                let offsetPoop = OffsetPoop.init(poop, direction: direction)
+                let poopData = offsetPoop.data
 
                 let emptyPoopDataOffset = calcEmptyPoopOffset()
                 for yMat in Array(emptyPoopDataOffset ..< matrix.height) {
@@ -371,7 +372,8 @@ class PoopSeeker {
             if poop.isFound { continue }
 
             for direction in Direction.all() {
-                let data = GridUtility.rotate(poop.data, direction: direction)
+                let offsetPoop = OffsetPoop.init(poop, direction: direction)
+                let data = offsetPoop.data
 
                 var poopOffset = 0
                 for row in data {
