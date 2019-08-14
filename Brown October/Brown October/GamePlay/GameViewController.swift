@@ -98,6 +98,8 @@ extension GameViewController: PlayerTurnDelegate {
             }
         } else {
             playerOneView.boardView.draw(with: RevealBoardDecorator(for: playerOneController.board))
+            playerTwoController.showHeatSeak = false
+            playerTwoView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
             playerTwoView.boardView.draw(with: RevealBoardDecorator(for: playerTwoController.board))
         }
     }
