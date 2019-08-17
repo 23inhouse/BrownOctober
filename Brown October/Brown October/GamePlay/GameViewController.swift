@@ -87,6 +87,11 @@ extension GameViewController: PlayerTurnDelegate {
 
         sender.incrementGamesWon()
 
+        playerOneView.boardView.draw(with: RevealBoardDecorator(for: playerOneController.board))
+        playerTwoController.showHeatSeak = false
+        playerTwoView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
+        playerTwoView.boardView.draw(with: RevealBoardDecorator(for: playerTwoController.board))
+
         if traitCollection.horizontalSizeClass == .compact {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 guard let self = self else { return }
@@ -96,11 +101,6 @@ extension GameViewController: PlayerTurnDelegate {
                 let winner = won ? Player.key.human : Player.key.computer
                 self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
             }
-        } else {
-            playerOneView.boardView.draw(with: RevealBoardDecorator(for: playerOneController.board))
-            playerTwoController.showHeatSeak = false
-            playerTwoView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
-            playerTwoView.boardView.draw(with: RevealBoardDecorator(for: playerTwoController.board))
         }
     }
 
