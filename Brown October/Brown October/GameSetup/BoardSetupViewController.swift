@@ -149,11 +149,7 @@ struct Dragger {
 
     private func duplicateButtonForDrag(_ index: Int) -> DraggableButton {
         let button = (view as SetupableBoard).getButton(at: index) as DraggableButton
-        var dragButton = button.makeCopy()
-        dragButton.center = button.superview!.convert(dragButton.center, to: view)
-        dragButton.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-
-        view.addSubview(dragButton as! UIView)
+        let dragButton = button.duplicate(in: view)
         (button as! ValuableButton).setData(text: "", color: .white, alpha: 1)
 
         return dragButton

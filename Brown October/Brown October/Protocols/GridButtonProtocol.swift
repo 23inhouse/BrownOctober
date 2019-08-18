@@ -18,7 +18,7 @@ protocol DraggableButton {
     var superview: UIView? { get }
 
     func drag(recognizer: UIPanGestureRecognizer)
-    func makeCopy() -> DraggableButton
+    func duplicate(in view: UIView) -> DraggableButton
     func removeFromSuperview()
 }
 
