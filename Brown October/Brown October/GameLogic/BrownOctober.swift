@@ -135,6 +135,15 @@ class Board: Grid {
         return tiles.firstIndex { tile in tile.isFound && !tile.isFlushed }
     }
 
+    func poop(at index: Int) -> Poop? {
+        let poopIdent = tile(at: index).poopIdentifier
+        guard poopIdent > 0 else { return nil }
+
+        return poops[poopIdent - 1]
+
+    }
+
+
     func tileIndexes(for poopIndentifier: Int) ->[Int] {
         return tiles.enumerated().filter({ _, tile in tile.poopIdentifier == poopIndentifier }).map { index, _ in index }
     }

@@ -27,6 +27,8 @@ protocol TouchableButton {
 }
 
 protocol ValuableButton {
+    var index: Int { get }
+
     func getText() -> String
     func setData(text: String, color: UIColor, alpha: CGFloat)
 }

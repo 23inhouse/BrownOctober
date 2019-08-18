@@ -46,8 +46,7 @@ class BoardSetupViewController: UIViewController {
 
 extension BoardSetupViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: ValuableButton) {
-        let button = sender as! GridUIButton
-        let index = button.index
+        let index = sender.index
 
         guard sender.getText() != "" else {
             let poop = poops[0]
@@ -58,9 +57,7 @@ extension BoardSetupViewController: GridButtonDelegate {
             return
         }
 
-        let poopIdent = board.tile(at: index).poopIdentifier
-        let poop = poops[poopIdent - 1]
-
+        guard let poop = board.poop(at: index) else { return }
         if ArrangedPoop(poop, board)?.rotate() ?? false {
             boardView.draw()
         }
