@@ -1,5 +1,5 @@
 //
-//  ValuableButton.swift
+//  ButtonProtocols.swift
 //  Brown October
 //
 //  Created by Benjamin Lewis on 26/6/19.
@@ -9,17 +9,14 @@
 import UIKit
 
 typealias PlayableButton = TouchableButton & ValuableButton
-typealias SetupableButton = DraggableButton & TouchableButton
+typealias SetupableButton = DraggableButton & ValuableButton
 
 protocol DraggableButton {
-    var center: CGPoint { get set }
-    var frame: CGRect { get }
-    var layer: CALayer { get }
-    var superview: UIView? { get }
-
+    func contained(by view: UIView) -> Bool
     func drag(recognizer: UIPanGestureRecognizer)
     func duplicate(in view: UIView) -> DraggableButton
     func removeFromSuperview()
+    func translate(by translation: CGPoint) -> DraggableButton
 }
 
 protocol TouchableButton {

@@ -39,12 +39,17 @@
 		B534FD6022C376AE000B125E /* OffsetableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD5F22C376AE000B125E /* OffsetableProtocol.swift */; };
 		B534FD6222C376F2000B125E /* PlayerTurnDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6122C376F2000B125E /* PlayerTurnDelegate.swift */; };
 		B534FD6422C37716000B125E /* BoardViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6322C37716000B125E /* BoardViewProtocol.swift */; };
-		B534FD6822C37B30000B125E /* GridButtonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6722C37B30000B125E /* GridButtonProtocol.swift */; };
+		B534FD6822C37B30000B125E /* ButtonProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6722C37B30000B125E /* ButtonProtocols.swift */; };
 		B534FD6A22C37CE0000B125E /* GridButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6922C37CE0000B125E /* GridButtonDelegate.swift */; };
 		B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */; };
 		B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6D22C37D14000B125E /* GridViewProtocol.swift */; };
 		B534FD7022C37D74000B125E /* NewGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD6F22C37D74000B125E /* NewGameDelegate.swift */; };
 		B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534FD7122C37D84000B125E /* SolveGameDelegate.swift */; };
+		B56EAC0C2309D2620049650A /* Dragger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC0B2309D2620049650A /* Dragger.swift */; };
+		B56EAC0E2309D2920049650A /* DragRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC0D2309D2920049650A /* DragRecord.swift */; };
+		B56EAC10230ABC920049650A /* GridUIButton+draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC0F230ABC920049650A /* GridUIButton+draggable.swift */; };
+		B56EAC12230AC46B0049650A /* GridUIButton+touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC11230AC46B0049650A /* GridUIButton+touchable.swift */; };
+		B56EAC14230AC4730049650A /* GridUIButton+valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC13230AC4730049650A /* GridUIButton+valuable.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
@@ -121,12 +126,17 @@
 		B534FD5F22C376AE000B125E /* OffsetableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetableProtocol.swift; sourceTree = "<group>"; };
 		B534FD6122C376F2000B125E /* PlayerTurnDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTurnDelegate.swift; sourceTree = "<group>"; };
 		B534FD6322C37716000B125E /* BoardViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewProtocol.swift; sourceTree = "<group>"; };
-		B534FD6722C37B30000B125E /* GridButtonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonProtocol.swift; sourceTree = "<group>"; };
+		B534FD6722C37B30000B125E /* ButtonProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonProtocols.swift; sourceTree = "<group>"; };
 		B534FD6922C37CE0000B125E /* GridButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonDelegate.swift; sourceTree = "<group>"; };
 		B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButtonDragDelegate.swift; sourceTree = "<group>"; };
 		B534FD6D22C37D14000B125E /* GridViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewProtocol.swift; sourceTree = "<group>"; };
 		B534FD6F22C37D74000B125E /* NewGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameDelegate.swift; sourceTree = "<group>"; };
 		B534FD7122C37D84000B125E /* SolveGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveGameDelegate.swift; sourceTree = "<group>"; };
+		B56EAC0B2309D2620049650A /* Dragger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragger.swift; sourceTree = "<group>"; };
+		B56EAC0D2309D2920049650A /* DragRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragRecord.swift; sourceTree = "<group>"; };
+		B56EAC0F230ABC920049650A /* GridUIButton+draggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+draggable.swift"; sourceTree = "<group>"; };
+		B56EAC11230AC46B0049650A /* GridUIButton+touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+touchable.swift"; sourceTree = "<group>"; };
+		B56EAC13230AC4730049650A /* GridUIButton+valuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+valuable.swift"; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -215,9 +225,9 @@
 			isa = PBXGroup;
 			children = (
 				B534FD6322C37716000B125E /* BoardViewProtocol.swift */,
+				B534FD6722C37B30000B125E /* ButtonProtocols.swift */,
 				B534FD6922C37CE0000B125E /* GridButtonDelegate.swift */,
 				B534FD6B22C37CF3000B125E /* GridButtonDragDelegate.swift */,
-				B534FD6722C37B30000B125E /* GridButtonProtocol.swift */,
 				B534FD6D22C37D14000B125E /* GridViewProtocol.swift */,
 				B534FD6F22C37D74000B125E /* NewGameDelegate.swift */,
 				B534FD5F22C376AE000B125E /* OffsetableProtocol.swift */,
@@ -324,6 +334,8 @@
 			children = (
 				B534FD5622BF7F16000B125E /* BoardSetupViewController.swift */,
 				B534FD5822BF7FA5000B125E /* BoardSetupUIView.swift */,
+				B56EAC0B2309D2620049650A /* Dragger.swift */,
+				B56EAC0D2309D2920049650A /* DragRecord.swift */,
 				B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */,
 				B50BA00D229970D700C1F418 /* GameSetupUIView.swift */,
 			);
@@ -355,6 +367,9 @@
 				B503D1AF228022840008CE95 /* BoardUIView.swift */,
 				B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */,
 				B51B6EA7228081FB00CEBDDC /* GridUIButton.swift */,
+				B56EAC0F230ABC920049650A /* GridUIButton+draggable.swift */,
+				B56EAC11230AC46B0049650A /* GridUIButton+touchable.swift */,
+				B56EAC13230AC4730049650A /* GridUIButton+valuable.swift */,
 				B5B74CE8227DD82600E07826 /* GridUIStackView.swift */,
 				B51B6EA1228032E400CEBDDC /* PoopUIView.swift */,
 				B51B6EA5228066A900CEBDDC /* ScoreUIView.swift */,
@@ -512,8 +527,10 @@
 				B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */,
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,
 				B534FD6022C376AE000B125E /* OffsetableProtocol.swift in Sources */,
+				B56EAC0C2309D2620049650A /* Dragger.swift in Sources */,
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B534FD5722BF7F16000B125E /* BoardSetupViewController.swift in Sources */,
+				B56EAC0E2309D2920049650A /* DragRecord.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B5DE595722B3AFAA009EE711 /* ArrangedPoop.swift in Sources */,
 				B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */,
@@ -533,7 +550,7 @@
 				B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */,
 				B508C5A8229C082E00CE00CB /* UIView+orientation.swift in Sources */,
 				B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */,
-				B534FD6822C37B30000B125E /* GridButtonProtocol.swift in Sources */,
+				B534FD6822C37B30000B125E /* ButtonProtocols.swift in Sources */,
 				B534FD5B22BFA5C1000B125E /* SquareUIView.swift in Sources */,
 				B51B6EA6228066A900CEBDDC /* ScoreUIView.swift in Sources */,
 				B534FD6422C37716000B125E /* BoardViewProtocol.swift in Sources */,
@@ -546,11 +563,14 @@
 				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
 				B515084C22958F9D0011F5D1 /* UserData.swift in Sources */,
 				B53399F622A1BA6500E9E7D5 /* AppViewController.swift in Sources */,
+				B56EAC12230AC46B0049650A /* GridUIButton+touchable.swift in Sources */,
+				B56EAC14230AC4730049650A /* GridUIButton+valuable.swift in Sources */,
 				B51B6EAA22809DEE00CEBDDC /* ScoreUILabel.swift in Sources */,
 				B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */,
 				B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */,
 				B50BA00E229970D700C1F418 /* GameSetupUIView.swift in Sources */,
 				B503D1B0228022840008CE95 /* BoardUIView.swift in Sources */,
+				B56EAC10230ABC920049650A /* GridUIButton+draggable.swift in Sources */,
 				B51B6EAD2280F39000CEBDDC /* String+whitespace.swift in Sources */,
 				B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */,
 			);
