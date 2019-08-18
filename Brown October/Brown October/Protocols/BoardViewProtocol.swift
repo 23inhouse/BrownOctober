@@ -8,6 +8,18 @@
 
 import Foundation
 
-protocol BoardViewProtocol: AnyObject {
-    func getButton(at index: Int) -> GridButtonProtocol
+protocol SetupableBoard: AnyObject {
+    func getButton(at index: Int) -> SetupableButton
+}
+
+protocol PlayableBoard: AnyObject {
+    func getButton(at index: Int) -> PlayableButton
+}
+
+protocol TouchableBoard: AnyObject {
+    func getButton(at index: Int) -> TouchableButton
+}
+
+protocol ValuableBoard: AnyObject {
+    func getButton(at index: Int) -> ValuableButton
 }

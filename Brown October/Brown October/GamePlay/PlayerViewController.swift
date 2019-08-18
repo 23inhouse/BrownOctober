@@ -85,7 +85,7 @@ class PlayerViewController: UIViewController {
         let board = player.board
         let guesser = Guesser(nextGuessClosure: Guesser.callFromQueueNow)
 
-        return ComputerPlayer(board: board, boardViewProtocol: boardView, guesser: guesser)
+        return ComputerPlayer(board: board, boardViewProtocol: boardView as TouchableBoard, guesser: guesser)
     }
 
     private func setupView() {
@@ -121,7 +121,7 @@ class PlayerViewController: UIViewController {
 }
 
 extension PlayerViewController: GridButtonDelegate {
-    func didTouchGridButton(_ sender: GridButtonProtocol) {
+    func didTouchGridButton(_ sender: ValuableButton) {
         guard sender.getText() == "" else { return }
 
         defer {
@@ -169,7 +169,7 @@ extension PlayerViewController: GridButtonDelegate {
         playerTurnDelegate?.nextTurn(from: self, switchPlayer: true)
     }
 
-    func didDragGridButton(_ sender: GridButtonProtocol) {}
+    func didDragGridButton(_ sender: ValuableButton) {}
 }
 
 extension PlayerViewController: SolveGameDelegate {

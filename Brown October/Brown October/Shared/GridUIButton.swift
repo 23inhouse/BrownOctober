@@ -22,12 +22,6 @@ class GridUIButton: UILabel {
         return label
     }()
 
-    func setData(text: String, color: UIColor, alpha: CGFloat) {
-        self.text = text
-        self.backgroundColor = color
-        self.alpha = alpha
-    }
-
     private func setupView() {
         isUserInteractionEnabled = true
         backgroundColor = .white
@@ -46,14 +40,6 @@ class GridUIButton: UILabel {
 
         let drag = UIPanGestureRecognizer(target: self, action: #selector(dragButton(recognizer:)))
         addGestureRecognizer(drag)
-    }
-
-    public func makeCopy() -> GridUIButton {
-        let newButton = GridUIButton(index: index, borderWidth: borderWidth)
-        newButton.setData(text: getText(), color: backgroundColor!, alpha: alpha)
-        newButton.frame = frame
-
-        return newButton
     }
 
     private func setupConstraints() {
@@ -83,16 +69,34 @@ class GridUIButton: UILabel {
     }
 }
 
-extension GridUIButton: GridButtonProtocol {
-    internal func touch() {
-        gridButtonDelegate?.didTouchGridButton(self)
-    }
-
+extension GridUIButton: DraggableButton {
     internal func drag(recognizer: UIPanGestureRecognizer) {
         gridButtonDragDelegate?.didDragGridButton(recognizer)
     }
 
+    func makeCopy() -> DraggableButton {
+        let newButton = GridUIButton(index: index, borderWidth: borderWidth)
+        newButton.setData(text: getText(), color: backgroundColor!, alpha: alpha)
+        newButton.frame = frame
+
+        return newButton as DraggableButton
+    }
+}
+
+extension GridUIButton: TouchableButton {
+    internal func touch() {
+        gridButtonDelegate?.didTouchGridButton(self)
+    }
+}
+
+extension GridUIButton: ValuableButton {
     internal func getText() -> String {
         return text!
+    }
+
+    func setData(text: String, color: UIColor, alpha: CGFloat) {
+        self.text = text
+        self.backgroundColor = color
+        self.alpha = alpha
     }
 }

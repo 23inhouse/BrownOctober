@@ -10,14 +10,14 @@ import UIKit
 
 protocol BoardDecoratorProtocol {
     var board: Board { get }
-    func draw(boardView: BoardViewProtocol)
-    func flush(boardView: BoardViewProtocol, ident: Int)
+    func draw(boardView: ValuableBoard)
+    func flush(boardView: ValuableBoard, ident: Int)
 }
 
 extension BoardDecoratorProtocol {
     typealias buttonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
 
-    fileprivate func updateButtons(boardView: BoardViewProtocol, closure: buttonData) {
+    fileprivate func updateButtons(boardView: ValuableBoard, closure: buttonData) {
         for i in 0 ..< board.count {
             let button = boardView.getButton(at: i) as! GridUIButton
             let tile = board.tile(at: i)
@@ -30,11 +30,11 @@ extension BoardDecoratorProtocol {
 class BoardDecorator: BoardDecoratorProtocol {
     var board: Board
 
-    func draw(boardView: BoardViewProtocol) {
+    func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (_, _) in return ("", .white, 1) }
     }
 
-    func flush(boardView: BoardViewProtocol, ident: Int) {
+    func flush(boardView: ValuableBoard, ident: Int) {
         updateButtons(boardView: boardView) { (button, tile) in
             if tile.poopIdentifier != ident { return nil }
 
@@ -52,7 +52,7 @@ class BoardDecorator: BoardDecoratorProtocol {
 }
 
 class PoopBoardDecorator: BoardDecorator {
-    override func draw(boardView: BoardViewProtocol) {
+    override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (button, tile) in
             let text = tile.poopIdentifier > 0 ? "💩" : ""
             return (text, .white, 1)
@@ -61,7 +61,7 @@ class PoopBoardDecorator: BoardDecorator {
 }
 
 class ArrangeBoardDecorator: BoardDecorator {
-    override func draw(boardView: BoardViewProtocol) {
+    override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (button, tile) in
             let text = tile.poopIdentifier > 0 ? "💩" : ""
             let color = UIColor(poop: tile.poopIdentifier)
@@ -71,7 +71,7 @@ class ArrangeBoardDecorator: BoardDecorator {
 }
 
 class TeaseBoardDecorator: BoardDecorator {
-    override func draw(boardView: BoardViewProtocol) {
+    override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (button, tile) in
             let tease = tile.poopIdentifier > 0 && !tile.isFound
             let color = tease ? UIColor(poop: tile.poopIdentifier) : .white
@@ -81,7 +81,7 @@ class TeaseBoardDecorator: BoardDecorator {
 }
 
 class RevealBoardDecorator: BoardDecorator {
-    override func draw(boardView: BoardViewProtocol) {
+    override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (button, tile) in
             let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
             let reveal = tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound)
@@ -93,7 +93,7 @@ class RevealBoardDecorator: BoardDecorator {
 }
 
 class HeatMapBoardDecorator: BoardDecorator {
-    override func draw(boardView: BoardViewProtocol) {
+    override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (button, tile) in
             guard !tile.isFlushed && !tile.isFound else { return nil }
             let heat = tile.heat ?? 0

@@ -45,7 +45,7 @@ class BoardSetupViewController: UIViewController {
 }
 
 extension BoardSetupViewController: GridButtonDelegate {
-    func didTouchGridButton(_ sender: GridButtonProtocol) {
+    func didTouchGridButton(_ sender: ValuableButton) {
         let button = sender as! GridUIButton
         let index = button.index
 
@@ -122,14 +122,14 @@ struct Dragger {
     let view: BoardUIView
 
     lazy var dragRecord = DragRecord(view: view)
-    var dragButtons = [GridUIButton]()
+    var dragButtons = [DraggableButton]()
 
     mutating func prepare(for indexes: [Int]) {
         dragButtons = indexes.map(duplicateButtonForDrag)
         dragRecord = DragRecord(view: view)
     }
 
-    func drag(translation: CGPoint, onCompletion: () -> ()) {
+    mutating func drag(translation: CGPoint, onCompletion: () -> ()) {
         for dragButton in dragButtons {
             guard checkBounds(dragButton) else {
                 finalize(onCompletion)
@@ -137,8 +137,8 @@ struct Dragger {
             }
         }
 
-        dragButtons.forEach { dragButton in
-            dragButton.center = CGPoint(x: dragButton.center.x + translation.x, y: dragButton.center.y + translation.y)
+        for (i, dragButton) in dragButtons.enumerated() {
+            dragButtons[i].center = CGPoint(x: dragButton.center.x + translation.x, y: dragButton.center.y + translation.y)
         }
     }
 
@@ -147,19 +147,19 @@ struct Dragger {
         dragButtons.forEach { dragButton in dragButton.removeFromSuperview() }
     }
 
-    private func duplicateButtonForDrag(_ index: Int) -> GridUIButton {
-        let button = view.getButton(at: index) as! GridUIButton
-        let dragButton = button.makeCopy()
+    private func duplicateButtonForDrag(_ index: Int) -> DraggableButton {
+        let button = (view as SetupableBoard).getButton(at: index) as DraggableButton
+        var dragButton = button.makeCopy()
         dragButton.center = button.superview!.convert(dragButton.center, to: view)
         dragButton.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
 
-        view.addSubview(dragButton)
-        button.setData(text: "", color: .white, alpha: 1)
+        view.addSubview(dragButton as! UIView)
+        (button as! ValuableButton).setData(text: "", color: .white, alpha: 1)
 
         return dragButton
     }
 
-    private func checkBounds(_ dragButton: GridUIButton) -> Bool {
+    private func checkBounds(_ dragButton: DraggableButton) -> Bool {
         guard let dragSuperView = dragButton.superview else { return false }
         let frame = dragSuperView.convert(dragButton.frame, to: view)
         let boardFrame = view.superview!.convert(view.frame, to: view)

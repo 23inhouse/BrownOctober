@@ -11,10 +11,10 @@ import XCTest
 @testable import Brown_October
 
 // MARK: Mocks
-class BoardMock: BoardViewProtocol {
+class BoardMock: TouchableBoard {
     let board: Board
 
-    func getButton(at index: Int) -> GridButtonProtocol {
+    func getButton(at index: Int) -> TouchableButton {
         return GridButtonMock(board: board, index: index)
     }
 
@@ -23,7 +23,7 @@ class BoardMock: BoardViewProtocol {
     }
 }
 
-class GridButtonMock: GridButtonProtocol {
+class GridButtonMock: TouchableButton {
     let board: Board
     let index: Int
 
@@ -43,13 +43,6 @@ class GridButtonMock: GridButtonProtocol {
         }
 
         board.tile(at: index).markAsFlushed()
-    }
-
-    func drag(recognizer: UIPanGestureRecognizer) {
-    }
-
-    func getText() -> String {
-        return ""
     }
 
     init(board: Board, index: Int) {

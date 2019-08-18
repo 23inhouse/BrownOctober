@@ -9,5 +9,5 @@
 import Foundation
 
 protocol GridButtonDelegate: AnyObject {
-    func didTouchGridButton(_ sender: GridButtonProtocol)
+    func didTouchGridButton(_ sender: ValuableButton)
 }

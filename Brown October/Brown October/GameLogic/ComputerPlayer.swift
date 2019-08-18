@@ -49,7 +49,7 @@ class ComputerPlayer {
 
     let board: Board
 
-    fileprivate let boardViewProtocol: BoardViewProtocol
+    fileprivate let boardViewProtocol: TouchableBoard
     fileprivate let gridUtility: GridUtility
     fileprivate let maxGuesses = 100
     fileprivate let guesser: Guesser
@@ -184,7 +184,7 @@ class ComputerPlayer {
         return guess
     }
 
-    init(board: Board, boardViewProtocol: BoardViewProtocol, guesser: Guesser? = nil) {
+    init(board: Board, boardViewProtocol: TouchableBoard, guesser: Guesser? = nil) {
         self.board = board
         self.boardViewProtocol = boardViewProtocol
         self.gridUtility = board.gridUtility

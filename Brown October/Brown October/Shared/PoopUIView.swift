@@ -62,8 +62,8 @@ class PoopUIView: UIView {
     }
 }
 
-extension PoopUIView: BoardViewProtocol {
-    func getButton(at index: Int) -> GridButtonProtocol {
+extension PoopUIView: ValuableBoard {
+    func getButton(at index: Int) -> ValuableButton {
         return gridView.buttons[index]
     }
 }
