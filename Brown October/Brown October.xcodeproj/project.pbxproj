@@ -50,6 +50,11 @@
 		B56EAC10230ABC920049650A /* GridUIButton+draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC0F230ABC920049650A /* GridUIButton+draggable.swift */; };
 		B56EAC12230AC46B0049650A /* GridUIButton+touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC11230AC46B0049650A /* GridUIButton+touchable.swift */; };
 		B56EAC14230AC4730049650A /* GridUIButton+valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC13230AC4730049650A /* GridUIButton+valuable.swift */; };
+		B56EAC16230ADB0B0049650A /* PlayerViewController+gridbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC15230ADB0B0049650A /* PlayerViewController+gridbutton.swift */; };
+		B56EAC18230ADB4C0049650A /* PlayerViewController+solvegame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC17230ADB4C0049650A /* PlayerViewController+solvegame.swift */; };
+		B56EAC1A230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC19230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift */; };
+		B56EAC1C230ADC610049650A /* GameViewController+playerturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC1B230ADC610049650A /* GameViewController+playerturn.swift */; };
+		B56EAC1E230ADC740049650A /* GameViewController+newgame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC1D230ADC740049650A /* GameViewController+newgame.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
@@ -137,6 +142,11 @@
 		B56EAC0F230ABC920049650A /* GridUIButton+draggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+draggable.swift"; sourceTree = "<group>"; };
 		B56EAC11230AC46B0049650A /* GridUIButton+touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+touchable.swift"; sourceTree = "<group>"; };
 		B56EAC13230AC4730049650A /* GridUIButton+valuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+valuable.swift"; sourceTree = "<group>"; };
+		B56EAC15230ADB0B0049650A /* PlayerViewController+gridbutton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+gridbutton.swift"; sourceTree = "<group>"; };
+		B56EAC17230ADB4C0049650A /* PlayerViewController+solvegame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerViewController+solvegame.swift"; sourceTree = "<group>"; };
+		B56EAC19230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardSetupViewController+gridbutton.swift"; sourceTree = "<group>"; };
+		B56EAC1B230ADC610049650A /* GameViewController+playerturn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+playerturn.swift"; sourceTree = "<group>"; };
+		B56EAC1D230ADC740049650A /* GameViewController+newgame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+newgame.swift"; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -333,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				B534FD5622BF7F16000B125E /* BoardSetupViewController.swift */,
+				B56EAC19230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift */,
 				B534FD5822BF7FA5000B125E /* BoardSetupUIView.swift */,
 				B56EAC0B2309D2620049650A /* Dragger.swift */,
 				B56EAC0D2309D2920049650A /* DragRecord.swift */,
@@ -346,7 +357,11 @@
 			isa = PBXGroup;
 			children = (
 				B5B74CEC227DDA6A00E07826 /* GameViewController.swift */,
+				B56EAC1B230ADC610049650A /* GameViewController+playerturn.swift */,
+				B56EAC1D230ADC740049650A /* GameViewController+newgame.swift */,
 				B5AF4DC62285D338008D8791 /* PlayerViewController.swift */,
+				B56EAC15230ADB0B0049650A /* PlayerViewController+gridbutton.swift */,
+				B56EAC17230ADB4C0049650A /* PlayerViewController+solvegame.swift */,
 				B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */,
 			);
 			path = GamePlay;
@@ -531,10 +546,12 @@
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B534FD5722BF7F16000B125E /* BoardSetupViewController.swift in Sources */,
 				B56EAC0E2309D2920049650A /* DragRecord.swift in Sources */,
+				B56EAC1A230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B5DE595722B3AFAA009EE711 /* ArrangedPoop.swift in Sources */,
 				B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */,
 				B534FD5922BF7FA5000B125E /* BoardSetupUIView.swift in Sources */,
+				B56EAC18230ADB4C0049650A /* PlayerViewController+solvegame.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
 				B5A3B58E22B123F400F445A6 /* OffsetPoop.swift in Sources */,
 				B534FD6222C376F2000B125E /* PlayerTurnDelegate.swift in Sources */,
@@ -553,6 +570,7 @@
 				B534FD6822C37B30000B125E /* ButtonProtocols.swift in Sources */,
 				B534FD5B22BFA5C1000B125E /* SquareUIView.swift in Sources */,
 				B51B6EA6228066A900CEBDDC /* ScoreUIView.swift in Sources */,
+				B56EAC16230ADB0B0049650A /* PlayerViewController+gridbutton.swift in Sources */,
 				B534FD6422C37716000B125E /* BoardViewProtocol.swift in Sources */,
 				B534FD5E22C37684000B125E /* RotatableProtocol.swift in Sources */,
 				B51B6EA8228081FB00CEBDDC /* GridUIButton.swift in Sources */,
@@ -563,7 +581,9 @@
 				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
 				B515084C22958F9D0011F5D1 /* UserData.swift in Sources */,
 				B53399F622A1BA6500E9E7D5 /* AppViewController.swift in Sources */,
+				B56EAC1C230ADC610049650A /* GameViewController+playerturn.swift in Sources */,
 				B56EAC12230AC46B0049650A /* GridUIButton+touchable.swift in Sources */,
+				B56EAC1E230ADC740049650A /* GameViewController+newgame.swift in Sources */,
 				B56EAC14230AC4730049650A /* GridUIButton+valuable.swift in Sources */,
 				B51B6EAA22809DEE00CEBDDC /* ScoreUILabel.swift in Sources */,
 				B5291EDA226F3C88002C49B0 /* ComputerPlayer.swift in Sources */,
