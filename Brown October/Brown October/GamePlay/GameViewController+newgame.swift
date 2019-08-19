@@ -10,10 +10,6 @@ import Foundation
 
 extension GameViewController: NewGameDelegate {
     func didTouchNewGame() {
-        if traitCollection.horizontalSizeClass == .compact {
-            resetGame()
-        } else {
-            coordinator?.start()
-        }
+        coordinator?.start()
     }
 }
