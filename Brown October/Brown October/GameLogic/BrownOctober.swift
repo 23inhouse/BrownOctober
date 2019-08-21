@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class BrownOctober: Game {
 
 }
@@ -23,31 +22,31 @@ class Game {
 }
 
 class Player {
-    enum key {
+    enum Key {
         case human
         case computer
     }
 
-    let key: Player.key
+    let key: Player.Key
     let board: Board
     let isHuman: Bool
     let isComputer: Bool
 
     static func human() -> Player {
-        return Player(Player.key.human)
+        return Player(Player.Key.human)
     }
 
     static func computer() -> Player {
-        return Player(Player.key.computer)
+        return Player(Player.Key.computer)
     }
 
     func won() -> Bool {
         return board.flushedAllPoops()
     }
 
-    init(_ key: Player.key) {
+    init(_ key: Player.Key) {
         self.key = key
-        self.isHuman = key == Player.key.human
+        self.isHuman = key == Player.Key.human
         self.isComputer = !isHuman
 
         self.board = Board.makeGameBoard()
@@ -101,10 +100,8 @@ class Board: Grid {
     }
 
     func flushedAllPoops() -> Bool {
-        for poop in poops {
-            if !poop.isFound {
-                return false
-            }
+        for poop in poops where !poop.isFound {
+            return false
         }
 
         return true
@@ -143,16 +140,13 @@ class Board: Grid {
 
     }
 
-
-    func tileIndexes(for poopIndentifier: Int) ->[Int] {
+    func tileIndexes(for poopIndentifier: Int) -> [Int] {
         return tiles.enumerated().filter({ _, tile in tile.poopIdentifier == poopIndentifier }).map { index, _ in index }
     }
 
     private func findPoop(by ident: Int) -> Poop? {
-        for poop in self.poops {
-            if poop.identifier == ident {
-                return poop
-            }
+        for poop in self.poops where poop.identifier == ident {
+            return poop
         }
 
         return nil

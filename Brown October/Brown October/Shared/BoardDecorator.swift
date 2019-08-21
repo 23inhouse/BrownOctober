@@ -15,9 +15,9 @@ protocol BoardDecoratorProtocol {
 }
 
 extension BoardDecoratorProtocol {
-    typealias buttonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
+    typealias ButtonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
 
-    fileprivate func updateButtons(boardView: ValuableBoard, closure: buttonData) {
+    fileprivate func updateButtons(boardView: ValuableBoard, closure: ButtonData) {
         for i in 0 ..< board.count {
             let button = boardView.getButton(at: i) as! GridUIButton
             let tile = board.tile(at: i)
@@ -53,7 +53,7 @@ class BoardDecorator: BoardDecoratorProtocol {
 
 class PoopBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (button, tile) in
+        updateButtons(boardView: boardView) { (_, tile) in
             let text = tile.poopIdentifier > 0 ? "💩" : ""
             return (text, .white, 1)
         }
@@ -62,7 +62,7 @@ class PoopBoardDecorator: BoardDecorator {
 
 class ArrangeBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (button, tile) in
+        updateButtons(boardView: boardView) { (_, tile) in
             let text = tile.poopIdentifier > 0 ? "💩" : ""
             let color = UIColor(poop: tile.poopIdentifier)
             return (text, color, 1)
@@ -72,7 +72,7 @@ class ArrangeBoardDecorator: BoardDecorator {
 
 class TeaseBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (button, tile) in
+        updateButtons(boardView: boardView) { (_, tile) in
             let tease = tile.poopIdentifier > 0 && !tile.isFound
             let color = tease ? UIColor(poop: tile.poopIdentifier) : .white
             return ("", color, 1)
@@ -82,7 +82,7 @@ class TeaseBoardDecorator: BoardDecorator {
 
 class RevealBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (button, tile) in
+        updateButtons(boardView: boardView) { (_, tile) in
             let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
             let reveal = tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound)
             let color = reveal ? UIColor(poop: tile.poopIdentifier) : .white

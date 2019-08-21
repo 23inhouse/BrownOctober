@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias NextGuessClosure = (_ instance: Guesser, @escaping () -> Void) -> ()
+typealias NextGuessClosure = (_ instance: Guesser, @escaping () -> Void) -> Void
 
 class Guesser {
 
@@ -273,7 +273,7 @@ class PoopSeeker {
                 for yMat in Array(emptyPoopDataOffset ..< matrix.height) {
                     for xMat in Array(emptyPoopDataOffset ..< matrix.width) {
 
-                        if checkPlacement(grid: matrix.data, x: xMat, y: yMat, data: poopData, direction: direction.value, mustMatch: mustMatch) {
+                        if checkPlacement(grid: matrix.data, pos: (xMat, yMat), data: poopData, direction: direction.value, mustMatch: mustMatch) {
 //                            print("[Seaker] It fits at (\(xMat),\(yMat)) going (\(direction))")
                             warmUpPoop(heatMap: heatMap, x: xMat, y: yMat, data: poopData, direction: direction.value)
                         }
@@ -288,7 +288,7 @@ class PoopSeeker {
     private func calcMatchSize(data: [Int?]) -> Int {
         var size = 0
 
-        for value in data { if value == 1 { size += 1 } }
+        for value in data where value == 1 { size += 1 }
         let max = (board.biggestPoop() ?? 1) - 1
         if size > max { size = max }
 
@@ -322,14 +322,15 @@ class PoopSeeker {
         newMatrix.data = matrix.data
 
         // remove poop tiles from heatmap
-        for (i, value) in newMatrix.data.enumerated() {
-            if value == 1 { newMatrix.data[i] = nil }
+        for (i, value) in newMatrix.data.enumerated() where value == 1 {
+            newMatrix.data[i] = nil
         }
 
         return newMatrix
     }
 
-    private func checkPlacement(grid: [Int?], x: Int, y: Int, data: [[Int]], direction: Int, mustMatch: Int) -> Bool {
+    private func checkPlacement(grid: [Int?], pos: (Int, Int), data: [[Int]], direction: Int, mustMatch: Int) -> Bool {
+        let (x, y) = pos
 
         var matchedIndexCount = 0
 

@@ -42,24 +42,24 @@ class Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
-            [1,1],
-            [0,0],
+            [1, 1],
+            [0, 0],
             ])
     }
 
     static func poop2(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
-        return Poop([[1,1,1]])
+        return Poop([[1, 1, 1]])
     }
 
     static func poop3(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
-            [1,1,1],
-            [0,1,0],
-            [0,0,0],
+            [1, 1, 1],
+            [0, 1, 0],
+            [0, 0, 0],
             ])
     }
 
@@ -67,27 +67,27 @@ class Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
-            [0,0,0,0],
-            [1,1,1,1],
-            [0,0,0,0],
-            [0,0,0,0],
+            [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
             ])
     }
 
     static func poop5(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
-        return Poop([[1,1,1,1,1]])
+        return Poop([[1, 1, 1, 1, 1]])
     }
 
     static func poop6(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
-            [0,0,0,0],
-            [0,1,1,1],
-            [1,1,1,0],
-            [0,0,0,0],
+            [0, 0, 0, 0],
+            [0, 1, 1, 1],
+            [1, 1, 1, 0],
+            [0, 0, 0, 0],
             ], flip: true)
     }
 

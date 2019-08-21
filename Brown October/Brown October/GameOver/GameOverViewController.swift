@@ -17,7 +17,7 @@ class GameOverViewController: UIViewController {
 
     lazy var humanBoard: Board = Board.makeGameBoard()
     lazy var computerBoard: Board = Board.makeGameBoard()
-    lazy var winner: Player.key = Player.key.human
+    lazy var winner: Player.Key = Player.Key.human
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
@@ -27,21 +27,21 @@ class GameOverViewController: UIViewController {
     }
 
     private func setupView() {
-        let text = winner == Player.key.human ? type(of: self).winText : type(of: self).looseText
+        let text = winner == Player.Key.human ? type(of: self).winText : type(of: self).looseText
         let humanboardDecorator = RevealBoardDecorator(for: humanBoard)
         let computerboardDecorator = RevealBoardDecorator(for: computerBoard)
         self.view = GameOverUIView(text: text, humanboardDecorator: humanboardDecorator, computerboardDecorator: computerboardDecorator)
 
         mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
-        set(scoreView: mainView.computerScoreView, for: computerBoard, player: Player.key.computer)
-        set(scoreView: mainView.humanScoreView, for: humanBoard, player: Player.key.human)
+        set(scoreView: mainView.computerScoreView, for: computerBoard, player: Player.Key.computer)
+        set(scoreView: mainView.humanScoreView, for: humanBoard, player: Player.Key.human)
 
         mainView.computerBoardView.draw()
         mainView.humanBoardView.draw()
     }
 
-    private func set(scoreView: ScoreUIView, for board: Board, player: Player.key) {
+    private func set(scoreView: ScoreUIView, for board: Board, player: Player.Key) {
         let numberFound = board.numberOfFoundTiles()
         let numberFlushed = board.numberOfFlushedTiles()
         scoreView.gamesWonLabel.setScore(score: UserData.retrieveGamesWon(for: player))

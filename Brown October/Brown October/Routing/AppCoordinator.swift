@@ -28,7 +28,7 @@ class AppCoordinator: Coordinator {
         go(to: viewController)
     }
 
-    func gameOver(winner: Player.key, humanBoard: Board, computerBoard: Board) {
+    func gameOver(winner: Player.Key, humanBoard: Board, computerBoard: Board) {
         let viewController = GameOverViewController()
         viewController.coordinator = self
         viewController.winner = winner

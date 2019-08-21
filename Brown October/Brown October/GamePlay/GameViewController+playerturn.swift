@@ -25,7 +25,7 @@ extension GameViewController: PlayerTurnDelegate {
                 let won = self.playerTwo.won()
                 let humanBoard = self.playerTwo.board
                 let computerBoard = self.playerOne.board
-                let winner = won ? Player.key.human : Player.key.computer
+                let winner = won ? Player.Key.human : Player.Key.computer
                 self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
             }
         }

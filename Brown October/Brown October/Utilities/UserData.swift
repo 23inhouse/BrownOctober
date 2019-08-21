@@ -10,9 +10,9 @@ import Foundation
 
 struct UserData {
     enum Key: String {
-        case computerGamesWon = "computerGamesWon"
-        case humanGamesWon = "humanGamesWon"
-        case poopStains = "poopStains"
+        case computerGamesWon
+        case humanGamesWon
+        case poopStains
     }
 
     static let defaults = UserDefaults.standard
@@ -23,12 +23,12 @@ struct UserData {
         defaults.set([], forKey: Key.poopStains.rawValue)
     }
 
-    static func retrieveGamesWon(for player: Player.key) -> Int {
+    static func retrieveGamesWon(for player: Player.Key) -> Int {
         let playerKey = key(for: player)
         return defaults.integer(forKey: playerKey)
     }
 
-    static func storeGamesWon(for player: Player.key, count: Int) {
+    static func storeGamesWon(for player: Player.Key, count: Int) {
         let playerKey = key(for: player)
         defaults.set(count, forKey: playerKey)
     }
@@ -51,8 +51,8 @@ struct UserData {
         defaults.set(data, forKey: Key.poopStains.rawValue)
     }
 
-    static private func key(for player: Player.key) -> String {
-        let playerKey = player == Player.key.human ? Key.humanGamesWon : Key.computerGamesWon
+    static private func key(for player: Player.Key) -> String {
+        let playerKey = player == Player.Key.human ? Key.humanGamesWon : Key.computerGamesWon
         return playerKey.rawValue
     }
 }

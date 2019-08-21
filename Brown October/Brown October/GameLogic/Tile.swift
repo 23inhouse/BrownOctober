@@ -13,7 +13,7 @@ class Tile {
     private(set) var poopIdentifier: Int = 0
     private(set) var isFound = false
     private(set) var isFlushed = false
-    private(set) var heat: Double? = nil
+    private(set) var heat: Double?
 
     func markAsFlushed() {
         isFlushed = true

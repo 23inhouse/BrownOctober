@@ -17,7 +17,7 @@ extension UIView {
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIView.AnimationOptions.allowUserInteraction,
                        animations: { self.transform = CGAffineTransform.identity },
-                       completion: { Void in()  }
+                       completion: { _ in()  }
         )
     }
 }

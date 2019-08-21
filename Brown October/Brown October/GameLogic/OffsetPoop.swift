@@ -69,7 +69,7 @@ class OffsetPoop {
 }
 
 extension OffsetPoop: RotatableProtocol {
-    func rotate() -> RotatableProtocol{
+    func rotate() -> RotatableProtocol {
         return OffsetPoop(poop, direction: direction.rotate())
     }
 }

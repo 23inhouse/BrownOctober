@@ -13,7 +13,7 @@ import XCTest
 class OffsetPoopTests: XCTestCase {
     func testMake() {
         let poop = Poop.poop1()
-        let expectedPoops:[Int:Direction.Named] = [
+        let expectedPoops: [Int: Direction.Named] = [
             0: .right,
             1: .down,
             2: .left,
@@ -29,7 +29,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop1() {
         let poop = Poop.poop1()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (1, 0, 0),
             1: (1, 0, 0),
             2: (1, 0, 0),
@@ -49,7 +49,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop2() {
         let poop = Poop.poop2()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (1, 0, 1),
             1: (1, 1, 0),
             2: (1, 0, 1),
@@ -69,7 +69,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop3() {
         let poop = Poop.poop3()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (1, 0, 0),
             1: (1, 0, 0),
             2: (1, 0, 0),
@@ -89,7 +89,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop4() {
         let poop = Poop.poop4()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (2, 0, 0),
             1: (2, 0, 0),
             2: (2, 0, 0),
@@ -109,7 +109,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop5() {
         let poop = Poop.poop5()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (2, 0, 2),
             1: (2, 2, 0),
             2: (2, 0, 2),
@@ -129,7 +129,7 @@ class OffsetPoopTests: XCTestCase {
     func testOffsetPoop6() {
         let poop = Poop.poop6()
 
-        let expectedOffsets:[Int:(Int,Int,Int)] = [
+        let expectedOffsets: [Int: (Int, Int, Int)] = [
             0: (2, 0, 0),
             1: (2, 0, 0),
             2: (2, 0, 0),
@@ -151,28 +151,28 @@ class OffsetPoopTests: XCTestCase {
 
         let expectedData: [Direction.Named: [[Int]]] = [
             .right: [
-                [0,0,0,0],
-                [0,1,1,1],
-                [1,1,1,0],
-                [0,0,0,0],
+                [0, 0, 0, 0],
+                [0, 1, 1, 1],
+                [1, 1, 1, 0],
+                [0, 0, 0, 0],
             ],
             .down: [
-                [0,1,0,0],
-                [0,1,1,0],
-                [0,1,1,0],
-                [0,0,1,0],
+                [0, 1, 0, 0],
+                [0, 1, 1, 0],
+                [0, 1, 1, 0],
+                [0, 0, 1, 0],
             ],
             .left: [
-                [0,0,0,0],
-                [1,1,1,0],
-                [0,1,1,1],
-                [0,0,0,0],
+                [0, 0, 0, 0],
+                [1, 1, 1, 0],
+                [0, 1, 1, 1],
+                [0, 0, 0, 0],
             ],
             .up: [
-                [0,0,1,0],
-                [0,1,1,0],
-                [0,1,1,0],
-                [0,1,0,0],
+                [0, 0, 1, 0],
+                [0, 1, 1, 0],
+                [0, 1, 1, 0],
+                [0, 1, 0, 0],
             ],
         ]
 

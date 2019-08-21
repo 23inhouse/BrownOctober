@@ -10,7 +10,6 @@ import UIKit
 
 class SquareUIView: UIView {
 
-
     private func setupConstraints() {
         let constraintWidth = NSLayoutConstraint(
             item: self,

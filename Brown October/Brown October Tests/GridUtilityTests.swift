@@ -95,31 +95,31 @@ class GridUtilityTests: XCTestCase {
 
     func testRotateTimes() {
         let matrix = [
-            [1,2,3],
-            [4,5,6],
-            [7,8,9],
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
         ]
 
         let expectedMatrixes: [[[Int]]] = [
             [
-                [1,2,3],
-                [4,5,6],
-                [7,8,9],
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9],
             ],
             [
-                [7,4,1],
-                [8,5,2],
-                [9,6,3],
+                [7, 4, 1],
+                [8, 5, 2],
+                [9, 6, 3],
             ],
             [
-                [9,8,7],
-                [6,5,4],
-                [3,2,1],
+                [9, 8, 7],
+                [6, 5, 4],
+                [3, 2, 1],
             ],
             [
-                [3,6,9],
-                [2,5,8],
-                [1,4,7],
+                [3, 6, 9],
+                [2, 5, 8],
+                [1, 4, 7],
             ],
         ]
 
@@ -131,28 +131,28 @@ class GridUtilityTests: XCTestCase {
 
     func testOddShapeRotateTimes() {
         let matrix = [
-            [1,2,3],
-            [4,5,6],
+            [1, 2, 3],
+            [4, 5, 6],
         ]
 
         let expectedMatrixes: [[[Int]]] = [
             [
-                [1,2,3],
-                [4,5,6],
+                [1, 2, 3],
+                [4, 5, 6],
             ],
             [
-                [4,1],
-                [5,2],
-                [6,3],
+                [4, 1],
+                [5, 2],
+                [6, 3],
             ],
             [
-                [6,5,4],
-                [3,2,1],
+                [6, 5, 4],
+                [3, 2, 1],
             ],
             [
-                [3,6],
-                [2,5],
-                [1,4],
+                [3, 6],
+                [2, 5],
+                [1, 4],
             ],
         ]
 
@@ -164,31 +164,31 @@ class GridUtilityTests: XCTestCase {
 
     func testRotateDirection() {
         let matrix = [
-            [0,0,1],
-            [0,0,1],
-            [0,0,1],
+            [0, 0, 1],
+            [0, 0, 1],
+            [0, 0, 1],
         ]
 
-        let expectedMatrixes: [Direction.Named:[[Int]]] = [
-            .right:[
-                [0,0,1],
-                [0,0,1],
-                [0,0,1],
+        let expectedMatrixes: [Direction.Named: [[Int]]] = [
+            .right: [
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1],
             ],
-            .down:[
-                [0,0,0],
-                [0,0,0],
-                [1,1,1],
+            .down: [
+                [0, 0, 0],
+                [0, 0, 0],
+                [1, 1, 1],
             ],
-            .left:[
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
+            .left: [
+                [1, 0, 0],
+                [1, 0, 0],
+                [1, 0, 0],
             ],
-            .up:[
-                [1,1,1],
-                [0,0,0],
-                [0,0,0],
+            .up: [
+                [1, 1, 1],
+                [0, 0, 0],
+                [0, 0, 0],
             ],
         ]
 
@@ -200,18 +200,18 @@ class GridUtilityTests: XCTestCase {
 
     func testFlip() {
         let data = [
-            [1,2],
-            [3,4]
+            [1, 2],
+            [3, 4]
         ]
 
-        let expectedDatas: [GridUtility.Orientation:[[Int]]] = [
+        let expectedDatas: [GridUtility.Orientation: [[Int]]] = [
             .horizontally: [
-                [2,1],
-                [4,3],
+                [2, 1],
+                [4, 3],
             ],
             .vertically: [
-                [3,4],
-                [1,2],
+                [3, 4],
+                [1, 2],
             ],
         ]
 

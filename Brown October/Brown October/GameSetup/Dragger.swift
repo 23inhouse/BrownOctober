@@ -15,7 +15,7 @@ struct Dragger {
     lazy var dragRecord = DragRecord(view: view)
     var dragButtons = [DraggableButton]()
 
-    mutating func call(_ recognizer: UIPanGestureRecognizer, completionHandler: (Poop, Int) -> ()) {
+    mutating func call(_ recognizer: UIPanGestureRecognizer, completionHandler: (Poop, Int) -> Void) {
         let button = recognizer.view as! ValuableButton
         let index = button.index
 
@@ -24,7 +24,7 @@ struct Dragger {
         switch recognizer.state {
         case .began: began(poop: poop)
         case .changed: changed(recognizer: recognizer) { completionHandler(poop, index) }
-        case .ended: finalize() { completionHandler(poop, index) }
+        case .ended: finalize { completionHandler(poop, index) }
         default: assertionFailure("Unhandled drag state")
         }
     }
@@ -47,14 +47,14 @@ struct Dragger {
         return dragButton
     }
 
-    mutating private func changed(recognizer: UIPanGestureRecognizer, _ onCompletion: () -> ()) {
+    mutating private func changed(recognizer: UIPanGestureRecognizer, _ onCompletion: () -> Void) {
         let translation = recognizer.translation(in: view)
         dragRecord.storeIndex(at: recognizer)
         drag(translation: translation) { onCompletion() }
         recognizer.setTranslation(CGPoint.zero, in: view)
     }
 
-    mutating private func drag(translation: CGPoint, onCompletion: () -> ()) {
+    mutating private func drag(translation: CGPoint, onCompletion: () -> Void) {
         for dragButton in dragButtons {
             guard dragButton.contained(by: view) else {
                 finalize(onCompletion)
@@ -67,7 +67,7 @@ struct Dragger {
         }
     }
 
-    private func finalize(_ onCompletion: () -> ()) {
+    private func finalize(_ onCompletion: () -> Void) {
         onCompletion()
         dragButtons.forEach { dragButton in dragButton.removeFromSuperview() }
     }

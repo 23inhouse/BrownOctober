@@ -25,5 +25,4 @@ extension UIColor {
         self.init(cgColor: color.cgColor)
     }
 
-
 }

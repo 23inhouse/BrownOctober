@@ -6,6 +6,8 @@
 //  Copyright © 2019 Benjamin Lewis. All rights reserved.
 //
 
+// swiftlint:disable function_parameter_count
+
 import XCTest
 
 @testable import Brown_October
@@ -15,7 +17,7 @@ class BoardTests: XCTestCase {
         let poop1 = Poop.poop1(0)
         let board = Board(width: 3, height: 3, poops: [poop1])
         var poopStains = [Int: Board.PoopStain]()
-        poopStains[poop1.identifier] = Board.PoopStain(x: 1, y:1, direction: Direction(.right))
+        poopStains[poop1.identifier] = Board.PoopStain(x: 1, y: 1, direction: Direction(.right))
         board.set(poopStains: poopStains)
 
         XCTAssertEqual(board.poopStains.count, 1, "Wrong number of poop stains")
@@ -158,3 +160,5 @@ struct TestBoardHelper {
         return board
     }
 }
+
+// swiftlint:enable function_parameter_count

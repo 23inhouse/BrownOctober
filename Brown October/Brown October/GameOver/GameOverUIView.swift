@@ -12,8 +12,8 @@ class GameOverUIView: UIView {
 
     let text: String!
 
-    let buttonFontSize:CGFloat = 50
-    let buttonHeight:CGFloat = 90
+    let buttonFontSize: CGFloat = 50
+    let buttonHeight: CGFloat = 90
 
     let layoutView: UIStackView = {
         let view = UIStackView()

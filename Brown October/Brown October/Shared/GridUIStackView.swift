@@ -23,7 +23,7 @@ class GridUIStackView: UIStackView {
         distribution = .fillEqually
         spacing = 0
 
-        let buttonBorderWidth:CGFloat = active ? 1 : 0.5
+        let buttonBorderWidth: CGFloat = active ? 1 : 0.5
         var index = 0
         for _ in 0 ..< rows {
             let hStackView = UIStackView()

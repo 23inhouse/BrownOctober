@@ -55,7 +55,7 @@ extension AppDelegate {
     func gotoStateIfNeeded() -> Bool {
         guard CommandLine.arguments.contains("-game-state") else { return true }
 
-        gotoViewController() { (coordinator) in
+        gotoViewController { (coordinator) in
             let gameState = UserDefaults.standard.string(forKey: "game-state")
             switch gameState {
             case "setup":
@@ -63,7 +63,7 @@ extension AppDelegate {
             case "play":
                 coordinator?.playGame()
             case "over":
-                coordinator?.gameOver(winner: Player.key.human, humanBoard: Board.makeGameBoard(), computerBoard: Board.makeGameBoard())
+                coordinator?.gameOver(winner: Player.Key.human, humanBoard: Board.makeGameBoard(), computerBoard: Board.makeGameBoard())
             default:
                 coordinator?.start()
             }
@@ -72,7 +72,7 @@ extension AppDelegate {
         return false
     }
 
-    func gotoViewController(closure: ((AppCoordinator?) -> ())? = nil) {
+    func gotoViewController(closure: ((AppCoordinator?) -> Void)? = nil) {
         let appViewController = AppViewController()
         coordinator = AppCoordinator(appViewController: appViewController)
 
