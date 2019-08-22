@@ -15,11 +15,11 @@ protocol BoardDecoratorProtocol {
 }
 
 extension BoardDecoratorProtocol {
-    typealias ButtonData = (GridUIButton, Tile) -> (String, UIColor, CGFloat)?
+    typealias ButtonData = (ValuableButton, Tile) -> (String, UIColor, CGFloat)?
 
     fileprivate func updateButtons(boardView: ValuableBoard, closure: ButtonData) {
         for i in 0 ..< board.count {
-            let button = boardView.getButton(at: i) as! GridUIButton
+            let button = boardView.getButton(at: i)
             let tile = board.tile(at: i)
             guard let (text, color, alpha) = closure(button, tile) else { continue }
             button.setData(text: text, color: color, alpha: alpha)
@@ -36,13 +36,9 @@ class BoardDecorator: BoardDecoratorProtocol {
 
     func flush(boardView: ValuableBoard, ident: Int) {
         updateButtons(boardView: boardView) { (button, tile) in
-            if tile.poopIdentifier != ident { return nil }
-
-            tile.markAsFlushed()
-            button.springy()
-
-            let color = UIColor(poop: ident)
-            return ("💩", color, 1)
+            guard tile.poopIdentifier == ident else { return nil }
+            (button as! GridUIButton).springy()
+            return nil
         }
     }
 
@@ -51,31 +47,59 @@ class BoardDecorator: BoardDecoratorProtocol {
     }
 }
 
-class PoopBoardDecorator: BoardDecorator {
-    override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (_, tile) in
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            return (text, .white, 1)
-        }
-    }
-}
-
 class ArrangeBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (_, tile) in
-            let text = tile.poopIdentifier > 0 ? "💩" : ""
-            let color = UIColor(poop: tile.poopIdentifier)
-            return (text, color, 1)
+            let poopIdentifier = tile.poopIdentifier
+            let text = poopIdentifier > 0 ? "💩" : ""
+            return (text, UIColor.init(poop: poopIdentifier), 1)
         }
     }
 }
 
-class TeaseBoardDecorator: BoardDecorator {
+class HeatMapBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (_, tile) in
-            let tease = tile.poopIdentifier > 0 && !tile.isFound
-            let color = tease ? UIColor(poop: tile.poopIdentifier) : .white
+            guard !tile.isFlushed && !tile.isFound else { return nil }
+            let heat = tile.heat ?? 0
+            let color: UIColor = UIColor(hue: 0.08, saturation: CGFloat(heat * heat * heat), brightness: CGFloat(1 - (heat * heat * heat) / 2), alpha: CGFloat(0.5 + (heat * heat * heat) / 2))
             return ("", color, 1)
+        }
+    }
+}
+
+class PoopBoardDecorator: BoardDecorator {
+    override func draw(boardView: ValuableBoard) {
+        updateButtons(boardView: boardView) { (_, tile) in
+            let poopIdentifier = tile.poopIdentifier
+            if poopIdentifier > 0 {
+                let color: UIColor = tile.isFlushed ?  UIColor.init(poop: poopIdentifier) : .white
+                let alpha: CGFloat = tile.isFlushed ? 1.0 : 0.5
+                return ("💩", color, alpha)
+            }
+
+            return ("", .white, 1)
+        }
+    }
+}
+
+class PlayBoardDecorator: BoardDecorator {
+    override func draw(boardView: ValuableBoard) {
+        updateButtons(boardView: boardView) { (_, tile) in
+            let poopIdentifier = tile.poopIdentifier
+            if tile.isFound && tile.isFlushed {
+                return ("💩", UIColor.init(poop: poopIdentifier), 1)
+            }
+
+            if tile.isFound {
+                return ("💩", .white, 0.95)
+            }
+
+            if tile.isFlushed {
+                return ("🌊", #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), 0.55)
+            }
+
+            return ("", .white, 1)
         }
     }
 }
@@ -83,23 +107,35 @@ class TeaseBoardDecorator: BoardDecorator {
 class RevealBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
         updateButtons(boardView: boardView) { (_, tile) in
-            let text = tile.isFound ? "💩" : tile.isFlushed ? "🌊" : " "
-            let reveal = tile.poopIdentifier > 0 && (tile.isFlushed || !tile.isFound)
-            let color = reveal ? UIColor(poop: tile.poopIdentifier) : .white
-            let alpha: CGFloat = text == "🌊" ? 0.55 : 1
-            return (text, color, alpha)
+            let poopIdentifier = tile.poopIdentifier
+            if poopIdentifier > 0 {
+                let alpha: CGFloat = tile.isFound ? 1 : 0.15
+                return ("💩", UIColor.init(poop: poopIdentifier), alpha)
+            }
+
+            if tile.isFlushed {
+                return ("🌊", #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), 0.55)
+            }
+
+            return ("", .white, 1)
         }
     }
 }
 
-class HeatMapBoardDecorator: BoardDecorator {
+class TeaseBoardDecorator: BoardDecorator {
     override func draw(boardView: ValuableBoard) {
-        updateButtons(boardView: boardView) { (button, tile) in
-            guard !tile.isFlushed && !tile.isFound else { return nil }
-            let heat = tile.heat ?? 0
-            let color: UIColor = UIColor(hue: 0.08, saturation: CGFloat(heat * heat * heat), brightness: CGFloat(1 - (heat * heat * heat) / 2), alpha: CGFloat(0.5 + (heat * heat * heat) / 2))
-            button.heatMapLabel.backgroundColor = color
-            return nil
+        updateButtons(boardView: boardView) { (_, tile) in
+            let poopIdentifier = tile.poopIdentifier
+            if poopIdentifier > 0 {
+                let alpha: CGFloat = tile.isFound ? 1 : 0.25
+                return ("💩", UIColor.init(poop: poopIdentifier), alpha)
+            }
+
+            if tile.isFlushed {
+                return ("🌊", #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1), 0.55)
+            }
+
+            return ("", .white, 1)
         }
     }
 }

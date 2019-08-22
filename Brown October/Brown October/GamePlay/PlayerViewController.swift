@@ -89,7 +89,7 @@ class PlayerViewController: UIViewController {
     }
 
     private func setupView() {
-        let boardDecorator = isComputer ? TeaseBoardDecorator(for: board) : BoardDecorator(for: board)
+        let boardDecorator = isComputer ? TeaseBoardDecorator(for: board) : PlayBoardDecorator(for: board)
         let poopDecorator = PoopBoardDecorator(for: foundPoops)
         self.view = PlayerUIView(player: player, boardDecorator: boardDecorator, poopDecorator: poopDecorator)
 

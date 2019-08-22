@@ -99,6 +99,13 @@ class Board: Grid {
         }
     }
 
+    func flush(by poopIdentifier: Int) {
+        for index in tileIndexes(for: poopIdentifier) {
+            tile(at: index).markAsFlushed()
+        }
+
+    }
+
     func flushedAllPoops() -> Bool {
         for poop in poops where !poop.isFound {
             return false
@@ -114,18 +121,22 @@ class Board: Grid {
 
     func wipe(at index: Int) -> Poop? {
         let tileToWipe = tile(at: index)
-        if let poop = findPoop(by: tileToWipe.poopIdentifier) {
-            guard !tileToWipe.isFound else {
-                return nil
-            }
-            score += 1
-            tileToWipe.markAsFound()
-            poop.incrementFoundCounter()
+        guard !tileToWipe.isFound else { return nil }
 
-            return poop
+        guard let poop = findPoop(by: tileToWipe.poopIdentifier) else {
+            tileToWipe.markAsFlushed()
+            return nil
         }
 
-        return nil
+        tileToWipe.markAsFound()
+        score += 1
+        poop.incrementFoundCounter()
+
+        if poop.isFound {
+            flush(by: poop.identifier)
+        }
+
+        return poop
     }
 
     func firstIncompletePoopIndex() -> Int? {

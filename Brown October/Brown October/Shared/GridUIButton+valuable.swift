@@ -10,12 +10,12 @@ import UIKit
 
 extension GridUIButton: ValuableButton {
     internal func getText() -> String {
-        return text!
+        return contentLabel.text!
     }
 
     func setData(text: String, color: UIColor, alpha: CGFloat) {
-        self.text = text
-        self.backgroundColor = color
-        self.alpha = alpha
+        self.contentLabel.text = text
+        self.contentLabel.backgroundColor = color
+        self.contentLabel.alpha = alpha
     }
 }

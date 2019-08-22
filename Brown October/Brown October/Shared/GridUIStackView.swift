@@ -34,7 +34,6 @@ class GridUIStackView: UIStackView {
 
             for _ in 0 ..< cols {
                 let button = GridUIButton(index: index, borderWidth: buttonBorderWidth)
-                button.setData(text: "", color: .white, alpha: 1)
                 hStackView.addArrangedSubview(button)
                 buttons.append(button)
 

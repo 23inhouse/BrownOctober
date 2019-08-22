@@ -19,7 +19,7 @@ extension PlayerViewController: SolveGameDelegate {
             _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
             boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
         } else {
-            boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
+            boardView.draw()
         }
     }
 }

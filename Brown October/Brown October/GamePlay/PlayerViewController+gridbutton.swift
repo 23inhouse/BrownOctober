@@ -10,32 +10,32 @@ import Foundation
 
 extension PlayerViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: ValuableButton) {
-        guard sender.getText() == "" else { return }
+        let tile = board.tile(at: sender.index)
+        guard !tile.isFound && !tile.isFound else { return }
 
         defer {
+            boardView.draw()
+            poopView.draw()
+
             if showHeatSeak {
                 let computerPlayer = getComputerPlayer()
                 _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
                 boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
-            } else {
-                boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
             }
         }
 
         let button = sender as! GridUIButton
         let index = button.index
-        let board = player.board
 
         button.springy()
 
         if let poop = board.wipe(at: index) {
-
-            button.setData(text: "💩", color: .white, alpha: 1)
             poopsFoundCount += 1
 
             if poop.isFound {
                 boardView.flush(ident: poop.identifier)
                 poopView.flush(ident: poop.identifier)
+                foundPoops.flush(by: poop.identifier)
 
                 if board.flushedAllPoops() {
                     playerTurnDelegate?.gameOver(from: self)
@@ -50,9 +50,6 @@ extension PlayerViewController: GridButtonDelegate {
         }
 
         remainingFlushCount += 1
-
-        board.tile(at: index).markAsFlushed()
-        button.setData(text: "🌊", color: .white, alpha: 0.55)
 
         playerTurnDelegate?.nextTurn(from: self, switchPlayer: true)
     }

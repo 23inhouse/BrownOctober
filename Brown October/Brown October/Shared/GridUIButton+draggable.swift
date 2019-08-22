@@ -32,7 +32,7 @@ extension GridUIButton: DraggableButton {
 
     private func makeCopy() -> GridUIButton {
         let newButton = GridUIButton(index: index, borderWidth: borderWidth)
-        newButton.setData(text: getText(), color: backgroundColor!, alpha: alpha)
+        newButton.setData(text: getText(), color: contentLabel.backgroundColor!, alpha: alpha)
         newButton.frame = frame
 
         return newButton

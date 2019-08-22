@@ -28,21 +28,7 @@ class GridButtonMock: TouchableButton {
     let index: Int
 
     func touch() {
-        if let poop = board.wipe(at: index) {
-            board.tile(at: index).markAsFound()
-
-            if poop.isFound {
-                for index in 0 ..< board.count {
-                    let tile = self.board.tile(at: index)
-                    if tile.poopIdentifier != poop.identifier { continue }
-
-                    tile.markAsFlushed()
-                }
-            }
-            return
-        }
-
-        board.tile(at: index).markAsFlushed()
+        _ = board.wipe(at: index)
     }
 
     init(board: Board, index: Int) {
