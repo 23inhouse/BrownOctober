@@ -17,6 +17,10 @@ struct Direction {
     }
 
     static let order: [Named] = [.right, .down, .left, .up]
+    static let right = Direction(.right)
+    static let down = Direction(.down)
+    static let left = Direction(.left)
+    static let up = Direction(.up)
 
     private(set) var name: Named
     private(set) var value: Int

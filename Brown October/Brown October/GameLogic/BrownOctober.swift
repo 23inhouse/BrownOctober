@@ -99,6 +99,26 @@ class Board: Grid {
         }
     }
 
+    func findAdjacentPoop(from index: Int) -> [Direction] {
+        let poopIdentifier = tile(at: index).poopIdentifier
+
+        var directions = [Direction]()
+
+        for direction in Direction.order {
+            guard poopIdentifier > 0 else { continue }
+
+            let direction = Direction(direction)
+            guard let adjacentIndex = gridUtility.adjust(index: index, direction: direction, offset: 1) else { continue }
+
+            let adjacentTile = tile(at: adjacentIndex)
+            guard adjacentTile.poopIdentifier == poopIdentifier else { continue }
+
+            directions.append(direction)
+        }
+
+        return directions
+    }
+
     func flush(by poopIdentifier: Int) {
         for index in tileIndexes(for: poopIdentifier) {
             tile(at: index).markAsFlushed()

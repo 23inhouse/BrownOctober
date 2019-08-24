@@ -15,11 +15,11 @@ class BoardUIView: UIView {
     lazy var buttons = gridView.buttons
 
     func draw(with decorator: BoardDecoratorProtocol? = nil) {
-        (decorator ?? self.decorator).draw(boardView: self as ValuableBoard)
+        (decorator ?? self.decorator).draw(boardView: self as DisplayableBoard)
     }
 
     func flush(ident: Int) {
-        decorator.flush(boardView: self as ValuableBoard, ident: ident)
+        decorator.flush(boardView: self as DisplayableBoard, ident: ident)
     }
 
     private func setupView() {
@@ -69,6 +69,12 @@ class BoardUIView: UIView {
 
 extension BoardUIView: PlayableBoard {
     func getButton(at index: Int) -> PlayableButton {
+        return gridView.buttons[index]
+    }
+}
+
+extension BoardUIView: DisplayableBoard {
+    func getButton(at index: Int) -> DisplayableButton {
         return gridView.buttons[index]
     }
 }

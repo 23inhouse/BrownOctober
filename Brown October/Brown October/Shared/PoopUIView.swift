@@ -62,8 +62,8 @@ class PoopUIView: UIView {
     }
 }
 
-extension PoopUIView: ValuableBoard {
-    func getButton(at index: Int) -> ValuableButton {
+extension PoopUIView: DisplayableBoard {
+    func getButton(at index: Int) -> DisplayableButton {
         return gridView.buttons[index]
     }
 }

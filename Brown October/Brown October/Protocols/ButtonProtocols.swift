@@ -8,8 +8,16 @@
 
 import UIKit
 
+typealias DisplayableButton = BorderableButton & ValuableButton
 typealias PlayableButton = TouchableButton & ValuableButton
-typealias SetupableButton = DraggableButton & ValuableButton
+typealias SetupableButton = DraggableButton & ValuableButton & BorderableButton
+
+protocol BorderableButton {
+    var border: UIBorder { get }
+
+    func activate(sides: [UIBorder.Side])
+    func sides() -> [UIBorder.Side]
+}
 
 protocol DraggableButton {
     func contained(by view: UIView) -> Bool

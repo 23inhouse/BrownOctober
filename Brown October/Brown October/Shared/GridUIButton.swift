@@ -14,11 +14,13 @@ class GridUIButton: UILabel {
     weak var gridButtonDragDelegate: GridButtonDragDelegate?
 
     let index: Int
+    let contentBackgroundColor: UIColor = .white
+    let borderColor: UIColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
     let borderWidth: CGFloat
 
     let contentLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .white
+        label.backgroundColor = .clear
         label.font = label.font.withSize(100)
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
@@ -29,13 +31,15 @@ class GridUIButton: UILabel {
         return label
     }()
 
+    lazy var border = UIBorder(around: self, color: borderColor, weight: borderWidth, sides: UIBorder.sides)
+
     private func setupView() {
         isUserInteractionEnabled = true
-        backgroundColor = .white
-        layer.borderColor = #colorLiteral(red: 0.7395828382, green: 0.8683537049, blue: 0.8795605965, alpha: 1)
-        layer.borderWidth = borderWidth
+        backgroundColor = contentBackgroundColor
 
-        addSubview(contentLabel)
+        addSubview(border)
+        border.setupView()
+        border.addSubview(contentLabel)
 
         let touch = UITapGestureRecognizer(target: self, action: #selector(touchButton))
         addGestureRecognizer(touch)
@@ -45,7 +49,8 @@ class GridUIButton: UILabel {
     }
 
     private func setupConstraints() {
-        contentLabel.constrain(to: self)
+        border.setupConstrains()
+        contentLabel.constrain(to: border)
     }
 
     @objc private func touchButton() {

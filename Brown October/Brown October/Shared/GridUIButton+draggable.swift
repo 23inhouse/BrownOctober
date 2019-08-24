@@ -25,7 +25,6 @@ extension GridUIButton: DraggableButton {
     func duplicate(in view: UIView) -> DraggableButton {
         let button = makeCopy()
         button.center = self.superview!.convert(button.center, to: view)
-        button.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         view.addSubview(button)
         return button as DraggableButton
     }
@@ -33,6 +32,7 @@ extension GridUIButton: DraggableButton {
     private func makeCopy() -> GridUIButton {
         let newButton = GridUIButton(index: index, borderWidth: borderWidth)
         newButton.setData(text: getText(), color: contentLabel.backgroundColor!, alpha: alpha)
+        newButton.activate(sides: sides())
         newButton.frame = frame
 
         return newButton

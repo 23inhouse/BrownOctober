@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol DisplayableBoard: AnyObject {
+    func getButton(at index: Int) -> DisplayableButton
+}
+
 protocol SetupableBoard: AnyObject {
     func getButton(at index: Int) -> SetupableButton
 }

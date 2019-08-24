@@ -43,6 +43,7 @@ struct Dragger {
         let button = (view as SetupableBoard).getButton(at: index)
         let dragButton = button.duplicate(in: view)
         button.setData(text: "", color: .white, alpha: 1)
+        button.activate(sides: UIBorder.sides)
 
         return dragButton
     }
