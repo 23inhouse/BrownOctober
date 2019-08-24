@@ -79,7 +79,7 @@ class GridUtility {
         return rotate(newMatrix, times: times - 1)
     }
 
-    func adjustIndex(_ index: Int, direction: Direction, offset: Int) -> Int? {
+    func adjust(index: Int, direction: Direction, offset: Int) -> Int? {
         guard let (x, y) = calcXY(index) else { return nil }
 
         var newIndex: Int?

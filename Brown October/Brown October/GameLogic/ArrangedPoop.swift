@@ -106,7 +106,7 @@ class ArrangedPoop {
         if board.allowAdjacentPoops { return false }
 
         for direction in Direction.all() {
-            guard let adjustedIndex = gridUtility.adjustIndex(index, direction: direction, offset: 1) else {
+            guard let adjustedIndex = gridUtility.adjust(index: index, direction: direction, offset: 1) else {
                 continue
             }
 
