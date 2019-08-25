@@ -61,6 +61,7 @@
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
 		B5A3B58E22B123F400F445A6 /* OffsetPoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58D22B123F400F445A6 /* OffsetPoop.swift */; };
 		B5A3B59022B1241800F445A6 /* OffsetPoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58F22B1241800F445A6 /* OffsetPoopTests.swift */; };
+		B5A415002312C12A00B6438A /* GridUIButtonTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A414FF2312C12A00B6438A /* GridUIButtonTest.swift */; };
 		B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */; };
 		B5AA7370225CC7C3008AAEA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */; };
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
@@ -154,6 +155,7 @@
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B5A3B58D22B123F400F445A6 /* OffsetPoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPoop.swift; sourceTree = "<group>"; };
 		B5A3B58F22B1241800F445A6 /* OffsetPoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPoopTests.swift; sourceTree = "<group>"; };
+		B5A414FF2312C12A00B6438A /* GridUIButtonTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIButtonTest.swift; sourceTree = "<group>"; };
 		B5AA7365225CC7C1008AAEA2 /* Brown October.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brown October.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AA7368225CC7C1008AAEA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5AA736F225CC7C3008AAEA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				B5DE594E22B2613D009EE711 /* DirectionTests.swift */,
 				B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */,
 				B5DE595022B28D74009EE711 /* GridTests.swift */,
+				B5A414FF2312C12A00B6438A /* GridUIButtonTest.swift */,
 				B5994B0522777EB9001999AE /* GridUtilityTests.swift */,
 				B5A3B58F22B1241800F445A6 /* OffsetPoopTests.swift */,
 			);
@@ -676,6 +679,7 @@
 				B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */,
 				B5994B04227726D4001999AE /* BoardTests.swift in Sources */,
 				B5BC3F6222B4EF8A0044C03D /* ArrangedPoopTests.swift in Sources */,
+				B5A415002312C12A00B6438A /* GridUIButtonTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
