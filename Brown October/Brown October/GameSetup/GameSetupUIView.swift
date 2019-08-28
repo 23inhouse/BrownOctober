@@ -12,9 +12,9 @@ class GameSetupUIView: UIView {
 
     let layoutView: UIStackView = {
         let view = UIStackView()
-        view.axis = UIView.longAxis
+        view.axis = .vertical
         view.alignment = .fill
-        view.distribution = .fill
+        view.distribution = .equalSpacing
         return view
     }()
 
@@ -53,9 +53,7 @@ class GameSetupUIView: UIView {
     let boardSubControllerViewContainer = SquareUIView()
 
     let buttonFontSize: CGFloat = {
-        let landscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
-        let divisor: CGFloat = landscape ? 18 : 9
-        return UIScreen.main.bounds.width / divisor
+        return UIScreen.main.bounds.width / 9
     }()
 
     private func setupView() {

@@ -9,77 +9,56 @@
 import Foundation
 
 extension GameViewController: PlayerTurnDelegate {
+    func show(player: Player) {
+        playerController.set(player: player)
+        playerController.draw()
+    }
+
+    func nextTurn(after player: Player, flushed: Bool = false) {
+        show(player: player)
+        guard player.isComputer else { return }
+
+        playComputerTurn(flushed: flushed)
+    }
+
+    func nextPlayer(after player: Player) {
+        show(player: player)
+        playerView.boardView.isUserInteractionEnabled = false
+
+        let delay = 1.0
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
+            let otherPlayer = player.isHuman ? self.computerPlayer : self.player
+            self.show(player: otherPlayer)
+            self.nextTurn(after: otherPlayer)
+        }
+    }
+
     func gameOver(from sender: PlayerViewController) {
-        playerTwoView.boardView.isUserInteractionEnabled = false
+        playerView.boardView.isUserInteractionEnabled = false
 
         sender.incrementGamesWon()
 
-        playerOneView.boardView.draw(with: RevealBoardDecorator(for: playerOneController.board))
-        playerTwoController.showHeatSeak = false
-        playerTwoView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
-        playerTwoView.boardView.draw(with: RevealBoardDecorator(for: playerTwoController.board))
+        playerView.boardView.draw(with: RevealBoardDecorator(for: playerController.board))
+        playerController.showHeatSeak = false
+        playerView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
+        playerView.boardView.draw(with: RevealBoardDecorator(for: playerController.board))
 
-        if traitCollection.horizontalSizeClass == .compact {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                guard let self = self else { return }
-                let won = self.playerTwo.won()
-                let humanBoard = self.playerTwo.board
-                let computerBoard = self.playerOne.board
-                let winner = won ? Player.Key.human : Player.Key.computer
-                self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
-            }
-        }
-    }
-
-    func nextTurn(from sender: PlayerViewController, switchPlayer: Bool) {
-        let player = sender.player
-        let playerView = sender.playerView
-
-        if switchPlayer == player.isHuman {
-            playerView.boardView.isUserInteractionEnabled = false
-        }
-
-        let delay = player.isHuman ? 0.05 : 0.5
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
-            if switchPlayer {
-                self.showOther(playerView: playerView)
-            }
-
-            let delay = self.turnDelay(switchPlayer)
-
-            if switchPlayer == player.isHuman {
-                self.playComputerTurn(delay: delay)
-            }
+            let won = self.player.won()
+            let humanBoard = self.player.board
+            let computerBoard = self.computerPlayer.board
+            let winner = won ? Player.Key.human : Player.Key.computer
+            self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
         }
     }
 
-    private func showOther(playerView: PlayerUIView) {
-        let otherPlayerView = playerView.player.isHuman ? self.playerOneController.playerView : self.playerTwoController.playerView
-        otherPlayerView.boardView.isUserInteractionEnabled = true
-
-        guard traitCollection.horizontalSizeClass == .compact else { return }
-
-        otherPlayerView.isHidden = false
-        playerView.isHidden = true
-    }
-
-    private func turnDelay(_ switchPlayer: Bool) -> Double {
-        let normal: Double = 0.25
-        let switching: Double = 0.75
-
-        guard traitCollection.horizontalSizeClass == .compact else { return normal }
-        guard switchPlayer else { return normal }
-
-        return switching
-    }
-
-    private func playComputerTurn(delay: Double) {
+    private func playComputerTurn(flushed: Bool) {
+        let delay: Double = flushed ? 1.0 : 0.25
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            guard let self = self else { return }
-            let computerPlayer = self.playerOneController.getComputerPlayer()
-            computerPlayer.playNext()
+            self?.playerController.getComputerPlayer().playNext()
         }
     }
 }

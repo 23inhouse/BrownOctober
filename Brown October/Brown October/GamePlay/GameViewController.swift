@@ -22,61 +22,56 @@ class GameViewController: UIViewController {
     }()
 
     lazy var game = BrownOctober()
-    lazy var playerOne = game.playerOne
-    lazy var playerTwo = game.playerTwo
+    var computerPlayer: Player { return game.computerPlayer }
+    var player: Player { return game.player }
 
-    lazy var playerOneController: PlayerViewController = { [weak self] in
-        let controller = PlayerViewController(playerOne)
+    lazy var playerController: PlayerViewController = { [weak self] in
+        let controller = PlayerViewController(player)
         controller.playerTurnDelegate = self
-        controller.updateGamesWonLabel()
-        add(controller)
-        return controller
-    }()
-    lazy var playerTwoController: PlayerViewController = { [weak self] in
-        let controller = PlayerViewController(playerTwo)
-        controller.playerTurnDelegate = self
-        controller.updateGamesWonLabel()
         controller.scoreView.newGameDelegate = self
         add(controller)
         return controller
     }()
-
-    lazy var playerOneView = playerOneController.mainView
-    lazy var playerTwoView = playerTwoController.mainView
+    lazy var playerView = playerController.mainView
 
     internal func resetGame() {
-        playerOneController.resetBoard()
-        playerTwoController.resetBoard()
+        player.board.arrangePoops()
+        player.foundPoopsBoard = setFoundPoopsBoard()
+        computerPlayer.board.set(poopStains: UserData.retrievePoopStains())
+        computerPlayer.board.arrangePoops()
+        computerPlayer.foundPoopsBoard = setFoundPoopsBoard()
+
+        playerController.resetBoard()
+    }
+
+    private func setFoundPoopsBoard() -> Board {
+        let board = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
+        let poops = board.poops
+
+        _ = ArrangedPoop(poops[0], board, direction: Direction(0))?.place(at: (6, 1), check: false)
+        _ = ArrangedPoop(poops[1], board, direction: Direction(0))?.place(at: (5, 2), check: false)
+        _ = ArrangedPoop(poops[2], board, direction: Direction(3))?.place(at: (1, 4), check: false)
+        _ = ArrangedPoop(poops[3], board, direction: Direction(0))?.place(at: (5, 5), check: false)
+        _ = ArrangedPoop(poops[4], board, direction: Direction(0))?.place(at: (4, 6), check: false)
+        _ = ArrangedPoop(poops[5], board, direction: Direction(0))?.place(at: (2, 1), check: false)
+
+        return board
     }
 
     private func setupView() {
+        resetGame()
+
         view.backgroundColor = .white
         view.addSubview(mainView)
         mainView.constrain(to: view.safeAreaLayoutGuide)
+        mainView.addArrangedSubview(playerView)
 
-        playerOneView.isUserInteractionEnabled = false
-        mainView.addArrangedSubview(playerOneView)
-        mainView.addArrangedSubview(playerTwoView)
+        show(player: player)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        switch traitCollection.horizontalSizeClass {
-        case .compact:
-            playerOneView.isHidden = true
-        case .regular:
-            playerOneView.isHidden = false
-        case .unspecified:
-            fallthrough
-        @unknown default:
-            playerOneView.isHidden = false
-        }
     }
 }

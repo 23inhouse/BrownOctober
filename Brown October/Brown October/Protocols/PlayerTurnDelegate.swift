@@ -9,6 +9,8 @@
 import Foundation
 
 protocol PlayerTurnDelegate: AnyObject {
-    func nextTurn(from sender: PlayerViewController, switchPlayer: Bool)
+    func show(player: Player)
+    func nextTurn(after player: Player, flushed: Bool)
+    func nextPlayer(after player: Player)
     func gameOver(from sender: PlayerViewController)
 }

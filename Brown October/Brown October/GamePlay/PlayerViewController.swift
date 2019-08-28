@@ -12,28 +12,24 @@ class PlayerViewController: UIViewController {
 
     var mainView: PlayerUIView { return self.view as! PlayerUIView }
 
-    let player: Player
-    let isComputer: Bool
-    lazy var board: Board = player.board
+    var player: Player {
+        didSet {
+            let computerDecorator = TeaseBoardDecorator(for: board)
+            let playerDecorator = PlayBoardDecorator(for: board)
+            let boardDecorator = isComputer ? computerDecorator : playerDecorator
+            let poopDecorator = PoopBoardDecorator(for: foundPoopsBoard)
+            playerView.set(boardDecorator: boardDecorator)
+            playerView.set(poopDecorator: poopDecorator)
+        }
+    }
+    var isComputer: Bool { return player.isComputer }
+    var board: Board { return player.board }
+    var foundPoopsBoard: Board { return player.foundPoopsBoard }
 
     lazy var playerView = { mainView }()
     lazy var boardView = { mainView.boardView }()
     lazy var poopView = { mainView.foundPoopsView }()
     lazy var scoreView = { mainView.scoreView }()
-
-    lazy var foundPoops: Board = {
-        var board = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
-        let poops = board.poops
-
-        _ = ArrangedPoop(poops[0], board, direction: Direction(0))?.place(at: (6, 1), check: false)
-        _ = ArrangedPoop(poops[1], board, direction: Direction(0))?.place(at: (5, 2), check: false)
-        _ = ArrangedPoop(poops[2], board, direction: Direction(3))?.place(at: (1, 4), check: false)
-        _ = ArrangedPoop(poops[3], board, direction: Direction(0))?.place(at: (5, 5), check: false)
-        _ = ArrangedPoop(poops[4], board, direction: Direction(0))?.place(at: (4, 6), check: false)
-        _ = ArrangedPoop(poops[5], board, direction: Direction(0))?.place(at: (2, 1), check: false)
-
-        return board
-    }()
 
     weak var playerTurnDelegate: PlayerTurnDelegate?
 
@@ -57,16 +53,30 @@ class PlayerViewController: UIViewController {
 
     var showHeatSeak = false
 
-    func resetBoard() {
-        let boardView = playerView.boardView
+    func set(player: Player) {
+        self.player = player
+    }
 
-        if isComputer {
-            player.board.set(poopStains: UserData.retrievePoopStains())
-        }
-        player.board.arrangePoops()
+    func draw() {
         boardView.isUserInteractionEnabled = !isComputer
-        playerView.resetBoard()
+        boardView.draw()
+        poopView.draw()
+        drawHeatSeak()
 
+        updateGamesWonLabel()
+        poopsFoundCount = board.numberOfFoundTiles()
+        remainingFlushCount = board.numberOfFlushedTiles()
+    }
+
+    func drawHeatSeak() {
+        guard showHeatSeak else { return }
+        let computerPlayer = getComputerPlayer()
+        _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
+        let decorator = HeatMapBoardDecorator(for: computerPlayer.board)
+        boardView.draw(with: decorator)
+    }
+
+    func resetBoard() {
         remainingFlushCount = 0
         poopsFoundCount = 0
     }
@@ -89,8 +99,8 @@ class PlayerViewController: UIViewController {
     }
 
     private func setupView() {
-        let boardDecorator = isComputer ? TeaseBoardDecorator(for: board) : PlayBoardDecorator(for: board)
-        let poopDecorator = PoopBoardDecorator(for: foundPoops)
+        let boardDecorator = PlayBoardDecorator(for: board)
+        let poopDecorator = PoopBoardDecorator(for: foundPoopsBoard)
         self.view = PlayerUIView(player: player, boardDecorator: boardDecorator, poopDecorator: poopDecorator)
 
         mainView.boardView.buttons.forEach { [weak self] (button) in
@@ -110,7 +120,6 @@ class PlayerViewController: UIViewController {
 
     init(_ player: Player) {
         self.player = player
-        self.isComputer = player.isComputer
 
         super.init(nibName: nil, bundle: nil)
     }

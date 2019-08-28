@@ -18,8 +18,8 @@ class PoopUIView: UIView {
     lazy var gridView = GridUIStackView(cols: PoopUIView.width, rows: PoopUIView.height, active: false)
     lazy var buttons = gridView.buttons
 
-    func draw() {
-        decorator.draw(boardView: self)
+    func draw(with decorator: BoardDecoratorProtocol? = nil) {
+        (decorator ?? self.decorator).draw(boardView: self as DisplayableBoard)
     }
 
     func flush(ident: Int) {

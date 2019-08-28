@@ -13,11 +13,11 @@ class BrownOctober: Game {
 }
 
 class Game {
-    lazy private(set) var playerOne = Player.computer()
-    lazy private(set) var playerTwo = Player.human()
+    lazy private(set) var computerPlayer = Player.computer()
+    lazy private(set) var player = Player.human()
 
     func over() -> Bool {
-        return playerOne.won() || playerTwo.won()
+        return computerPlayer.won() || player.won()
     }
 }
 
@@ -29,6 +29,7 @@ class Player {
 
     let key: Player.Key
     let board: Board
+    var foundPoopsBoard: Board = Board(width: 7, height: 7)
     let isHuman: Bool
     let isComputer: Bool
 

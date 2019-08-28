@@ -12,7 +12,6 @@
 		B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A12299C5B500CE00CB /* UIView+springy.swift */; };
 		B508C5A4229A9C2200CE00CB /* GamePlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */; };
 		B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */; };
-		B508C5A8229C082E00CE00CB /* UIView+orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508C5A7229C082E00CE00CB /* UIView+orientation.swift */; };
 		B50B78C622A45E2900B9FF44 /* BoardDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */; };
 		B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B78C722A45E5300B9FF44 /* UIColor+poops.swift */; };
 		B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50B9FF3229804D100C1F418 /* GameOverViewController.swift */; };
@@ -106,7 +105,6 @@
 		B508C5A12299C5B500CE00CB /* UIView+springy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+springy.swift"; sourceTree = "<group>"; };
 		B508C5A3229A9C2200CE00CB /* GamePlayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayUITests.swift; sourceTree = "<group>"; };
 		B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+subcontroller.swift"; sourceTree = "<group>"; };
-		B508C5A7229C082E00CE00CB /* UIView+orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+orientation.swift"; sourceTree = "<group>"; };
 		B50B78C522A45E2900B9FF44 /* BoardDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDecorator.swift; sourceTree = "<group>"; };
 		B50B78C722A45E5300B9FF44 /* UIColor+poops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+poops.swift"; sourceTree = "<group>"; };
 		B50B9FF3229804D100C1F418 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 				B51B6EAC2280F39000CEBDDC /* String+whitespace.swift */,
 				B50B78C722A45E5300B9FF44 /* UIColor+poops.swift */,
 				B5E853B22297F90100DFECC3 /* UIView+constraints.swift */,
-				B508C5A7229C082E00CE00CB /* UIView+orientation.swift */,
 				B508C5A12299C5B500CE00CB /* UIView+springy.swift */,
 				B508C5A5229AA10600CE00CB /* UIViewController+subcontroller.swift */,
 			);
@@ -644,7 +641,6 @@
 				B534FD7022C37D74000B125E /* NewGameDelegate.swift in Sources */,
 				B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */,
 				B50B9FF4229804D100C1F418 /* GameOverViewController.swift in Sources */,
-				B508C5A8229C082E00CE00CB /* UIView+orientation.swift in Sources */,
 				B5AA7369225CC7C1008AAEA2 /* AppDelegate.swift in Sources */,
 				B534FD6822C37B30000B125E /* ButtonProtocols.swift in Sources */,
 				B534FD5B22BFA5C1000B125E /* SquareUIView.swift in Sources */,

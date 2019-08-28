@@ -13,29 +13,17 @@ extension PlayerViewController: GridButtonDelegate {
         let tile = board.tile(at: sender.index)
         guard !tile.isFound && !tile.isFound else { return }
 
-        defer {
-            boardView.draw()
-            poopView.draw()
-
-            if showHeatSeak {
-                let computerPlayer = getComputerPlayer()
-                _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
-                boardView.draw(with: HeatMapBoardDecorator(for: computerPlayer.board))
-            }
-        }
-
         let button = sender as! GridUIButton
         let index = button.index
 
         button.springy()
 
         if let poop = board.wipe(at: index) {
-            poopsFoundCount += 1
-
             if poop.isFound {
                 boardView.flush(ident: poop.identifier)
                 poopView.flush(ident: poop.identifier)
-                foundPoops.flush(by: poop.identifier)
+                foundPoopsBoard.flush(by: poop.identifier)
+                poopView.draw()
 
                 if board.flushedAllPoops() {
                     playerTurnDelegate?.gameOver(from: self)
@@ -43,14 +31,10 @@ extension PlayerViewController: GridButtonDelegate {
                 }
             }
 
-            if player.isComputer {
-                playerTurnDelegate?.nextTurn(from: self, switchPlayer: false)
-            }
+            playerTurnDelegate?.nextTurn(after: player, flushed: poop.isFound)
             return
         }
 
-        remainingFlushCount += 1
-
-        playerTurnDelegate?.nextTurn(from: self, switchPlayer: true)
+        playerTurnDelegate?.nextPlayer(after: player)
     }
 }

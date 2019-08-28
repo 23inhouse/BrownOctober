@@ -40,9 +40,17 @@ class PlayerUIView: UIView {
 
     lazy var board = player.board
 
-    func resetBoard() {
+    func draw() {
         boardView.draw()
         foundPoopsView.draw()
+    }
+
+    func set(boardDecorator decorator: BoardDecoratorProtocol) {
+        boardView.decorator = decorator
+    }
+
+    func set(poopDecorator decorator: BoardDecoratorProtocol) {
+        foundPoopsView.decorator = decorator
     }
 
     private func setupView() {
@@ -57,7 +65,7 @@ class PlayerUIView: UIView {
 
         layoutView.addArrangedSubview(boardView)
 
-        resetBoard()
+        draw()
     }
 
     private func setupConstraints() {
