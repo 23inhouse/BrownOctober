@@ -9,8 +9,8 @@
 import UIKit
 
 extension UIView {
-    func springy() {
-        transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+    func springy(scale: CGFloat = 0.6) {
+        transform = CGAffineTransform(scaleX: scale, y: scale)
         UIView.animate(withDuration: 2.0,
                        delay: 0,
                        usingSpringWithDamping: CGFloat(0.20),
