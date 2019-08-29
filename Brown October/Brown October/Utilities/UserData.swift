@@ -11,7 +11,9 @@ import Foundation
 struct UserData {
     enum Key: String {
         case computerGamesWon
+        case difficultyLevel
         case humanGamesWon
+        case playMode
         case poopStains
     }
 
@@ -21,6 +23,17 @@ struct UserData {
         defaults.set(0, forKey: Key.humanGamesWon.rawValue)
         defaults.set(0, forKey: Key.computerGamesWon.rawValue)
         defaults.set([], forKey: Key.poopStains.rawValue)
+        defaults.set(1, forKey: Key.difficultyLevel.rawValue)
+        defaults.set(PlayMode.alternating.rawValue, forKey: Key.playMode.rawValue)
+    }
+
+    static func retrieveDifficultyLevel() -> Int {
+        let difficultyLevel = defaults.integer(forKey: Key.difficultyLevel.rawValue)
+        return difficultyLevel > 0 ? difficultyLevel : 1
+    }
+
+    static func storeDifficultyLevel(difficultyLevel: Int) {
+        defaults.set(difficultyLevel, forKey: Key.difficultyLevel.rawValue)
     }
 
     static func retrieveGamesWon(for player: Player.Key) -> Int {
@@ -31,6 +44,15 @@ struct UserData {
     static func storeGamesWon(for player: Player.Key, count: Int) {
         let playerKey = key(for: player)
         defaults.set(count, forKey: playerKey)
+    }
+
+    static func retrievePlayMode() -> PlayMode {
+        let playModeValue = defaults.integer(forKey: Key.playMode.rawValue)
+        return PlayMode(rawValue: playModeValue) ?? .alternating
+    }
+
+    static func storePlayMode(playMode: PlayMode) {
+        defaults.set(playMode.rawValue, forKey: Key.playMode.rawValue)
     }
 
     static func retrievePoopStains() -> [Int: Board.PoopStain] {
