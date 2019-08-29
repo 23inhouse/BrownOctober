@@ -12,25 +12,37 @@ class GameOverViewController: UIViewController {
 
     weak var coordinator: AppCoordinator?
 
-    static let winText = "💩🏆🥈🌈"
-    static let looseText = "🧻🧴🧽🚿🍎🥦📱🖕"
+    let winText = "💩🏆🥈🌈"
+    let looseText = "🧻🧴🧽🚿🍎🥦📱🖕"
+    let tieText = "👔⧓🇹🇭🥋👤=📱"
 
     lazy var humanBoard: Board = Board.makeGameBoard()
     lazy var computerBoard: Board = Board.makeGameBoard()
-    lazy var winner: Player.Key = Player.Key.human
+    lazy var winner: Player.Key? = nil
+    lazy var maxGuesses: Int = 99
 
     var mainView: GameOverUIView { return self.view as! GameOverUIView }
 
     @objc private func touchButton(_ sender: UIButton) {
-        sender.springy()
         coordinator?.start()
     }
 
+    private func winnerText() -> String {
+        if winner == Player.Key.human {
+            return winText
+        }
+        if winner == Player.Key.computer {
+            return looseText
+        }
+
+        return tieText
+    }
+
     private func setupView() {
-        let text = winner == Player.Key.human ? type(of: self).winText : type(of: self).looseText
+
         let humanboardDecorator = RevealBoardDecorator(for: humanBoard)
         let computerboardDecorator = RevealBoardDecorator(for: computerBoard)
-        self.view = GameOverUIView(text: text, humanboardDecorator: humanboardDecorator, computerboardDecorator: computerboardDecorator)
+        self.view = GameOverUIView(text: winnerText(), humanboardDecorator: humanboardDecorator, computerboardDecorator: computerboardDecorator)
 
         mainView.button.addTarget(self, action: #selector(touchButton), for: .touchUpInside)
 
