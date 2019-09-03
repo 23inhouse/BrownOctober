@@ -9,6 +9,9 @@
 import UIKit
 
 class GameSetupUIView: UIView {
+    weak var difficultyDelegate: DifficultyDelegate?
+    weak var modeDelegate: ModeSelectionDelegate?
+    weak var playDelegate: PlayDelegate?
 
     let layoutView: UIStackView = {
         let view = UIStackView()
@@ -53,14 +56,19 @@ class GameSetupUIView: UIView {
 
     @objc func touchDifficulty(_ sender: GameSetupUIButton) {
         sender.iconLabel.springy(scale: 0.8)
+        difficultyDelegate?.didTouchToggleDifficulty()
     }
 
     @objc func touchMode(_ sender: GameSetupUIButton) {
         sender.iconLabel.springy(scale: 0.8)
+        modeDelegate?.didTouchToggleMode()
     }
 
     @objc func touchPlay(_ sender: GameSetupUIButton) {
         sender.springy()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.playDelegate?.didTouchPlayGame()
+        }
     }
 
     private func setupView() {

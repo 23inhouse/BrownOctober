@@ -49,6 +49,10 @@ class GameSetupViewController: UIViewController {
         mainView.boardSubControllerViewContainer.addSubview(boardView)
         boardView.constrain(to: mainView.boardSubControllerViewContainer)
 
+        mainView.difficultyDelegate = self
+        mainView.modeDelegate = self
+        mainView.playDelegate = self
+
         difficultyLevel = UserData.retrieveDifficultyLevel()
         playMode = UserData.retrievePlayMode()
 
