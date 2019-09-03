@@ -80,6 +80,7 @@
 		B5E853BB2297FE8400DFECC3 /* GameOverViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E853BA2297FE8400DFECC3 /* GameOverViewControllerTests.swift */; };
 		B5F165A72271C15400789DC3 /* GridUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165A62271C15400789DC3 /* GridUtility.swift */; };
 		B5F165B72274AEF300789DC3 /* ComputerPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */; };
+		B5FFA330231E905500594DE6 /* PlayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFA32F231E905500594DE6 /* PlayMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		B5F165AC2274AE3E00789DC3 /* Brown October Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Brown October Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F165B02274AE3E00789DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5F165B62274AEF300789DC3 /* ComputerPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayerTests.swift; sourceTree = "<group>"; };
+		B5FFA32F231E905500594DE6 /* PlayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMode.swift; sourceTree = "<group>"; };
 		C690758C61B60C1B0564E24E /* Pods-Brown October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brown October.release.xcconfig"; path = "Target Support Files/Pods-Brown October/Pods-Brown October.release.xcconfig"; sourceTree = "<group>"; };
 		EC51DF2B3EC6BE50D1383C16 /* Pods_Brown_October.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brown_October.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -361,6 +363,7 @@
 				B5291ED9226F3C88002C49B0 /* ComputerPlayer.swift */,
 				B5A3B58922AF9ECC00F445A6 /* Direction.swift */,
 				B5A3B58D22B123F400F445A6 /* OffsetPoop.swift */,
+				B5FFA32F231E905500594DE6 /* PlayMode.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
 			);
@@ -652,6 +655,7 @@
 				B5E853B02297F47500DFECC3 /* GameOverUIView.swift in Sources */,
 				B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */,
 				B5291ED622689DC7002C49B0 /* Poop.swift in Sources */,
+				B5FFA330231E905500594DE6 /* PlayMode.swift in Sources */,
 				B508C5A22299C5B500CE00CB /* UIView+springy.swift in Sources */,
 				B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */,
 				B515084C22958F9D0011F5D1 /* UserData.swift in Sources */,
