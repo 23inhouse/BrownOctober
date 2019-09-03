@@ -167,3 +167,28 @@ class TeaseBoardDecorator: BoardDecorator {
         }
     }
 }
+
+class WaveBoardDecorator: BoardDecorator {
+    let even: Bool
+    override func draw(boardView: DisplayableBoard) {
+        updateButtons(boardView: boardView) { (button, tile) in
+            let index = button.index
+            let width = board.gridUtility.width
+            let x = index / width + index % width
+            let mod = even ? 0 : 1
+            if x % 2 == mod {
+                return ("🌊", .white, 0.55, UIBorder.sides)
+            } else {
+                let poopIdentifier = tile.poopIdentifier
+                let text = poopIdentifier > 0 ? "💩" : ""
+                let color = UIColor.init(poop: poopIdentifier)
+                return (text, color, 0.55, findAdjacent(to: index))
+            }
+        }
+    }
+
+    init(for board: Board, even: Bool) {
+        self.even = even
+        super.init(for: board)
+    }
+}
