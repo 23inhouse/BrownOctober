@@ -69,12 +69,17 @@ class ScoreUIView: UIView {
 
     @objc private func solveGame(_ sender: UIButton) {
         sender.springy()
-        solveGameDelegate?.didTouchSolveGame()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.solveGameDelegate?.didTouchSolveGame()
+        }
     }
 
     @objc private func newGame(_ sender: UIButton) {
         sender.springy()
-        newGameDelegate?.didTouchNewGame()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.newGameDelegate?.didTouchNewGame()
+        }
+
     }
 
     init(icon: String) {
