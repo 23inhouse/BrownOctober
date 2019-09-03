@@ -19,6 +19,18 @@ extension UIView {
             ])
     }
 
+    func constrain(to parentView: UIView, margin: (CGFloat, CGFloat)) {
+        let (marginX, marginY) = margin
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: marginX),
+            trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -marginX),
+            topAnchor.constraint(equalTo: parentView.topAnchor, constant: marginY),
+            bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -marginY),
+            ])
+    }
+
     func constrain(to parentView: UIView, height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
