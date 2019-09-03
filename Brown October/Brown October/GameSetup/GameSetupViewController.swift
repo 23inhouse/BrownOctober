@@ -14,35 +14,46 @@ class GameSetupViewController: UIViewController {
 
     var mainView: GameSetupUIView { return self.view as! GameSetupUIView }
 
-    lazy var boardSetupViewController: BoardSetupViewController = { [weak self] in
-        let controller = BoardSetupViewController()
-        add(controller)
-        return controller
-        }()
+    lazy var boardSetupViewController = BoardSetupViewController()
     lazy var boardView = boardSetupViewController.mainView.boardView
     lazy var board = boardSetupViewController.board
 
-    @objc func touchResetButton(_ sender: UIButton) {
-        sender.springy()
-        board.arrangePoops(reset: true)
-        UserData.storePoopStains(board.poopStains)
-        boardView.draw()
+    var difficultyLevel: Int = 1 {
+        didSet {
+            let papers = [String](repeating: "🧻", count: difficultyLevel)
+            let poops = [String](repeating: "💩", count: 4 - difficultyLevel)
+            difficultyButton.icon = (papers + poops).joined()
+        }
     }
 
-    @objc func touchPlayButton(_ sender: UIButton) {
-        sender.springy()
-        UserData.storePoopStains(board.poopStains)
-        coordinator?.playGame()
+    var playMode: PlayMode = .alternating {
+        didSet {
+            switch playMode {
+            case .alternating:
+                modeButton.icon = "👤📱👤📱"
+            case .wholeBoard:
+                modeButton.icon = "👤👤📱📱"
+            }
+        }
     }
+
+    lazy var difficultyButton = mainView.difficultyButton
+    lazy var modeButton = mainView.modeButton
+    lazy var playButton = mainView.playButton
 
     private func setupView() {
         self.view = GameSetupUIView()
 
+        add(boardSetupViewController)
+
         mainView.boardSubControllerViewContainer.addSubview(boardView)
         boardView.constrain(to: mainView.boardSubControllerViewContainer)
 
-        mainView.resetButton.addTarget(self, action: #selector(touchResetButton), for: .touchUpInside)
-        mainView.playButton.addTarget(self, action: #selector(touchPlayButton), for: .touchUpInside)
+        difficultyLevel = UserData.retrieveDifficultyLevel()
+        playMode = UserData.retrievePlayMode()
+
+        guard playMode == .wholeBoard else { return }
+        boardView.draw(with: WaveBoardDecorator(for: Board.makeGameBoard(), even: true))
     }
 
     override func viewDidLoad() {

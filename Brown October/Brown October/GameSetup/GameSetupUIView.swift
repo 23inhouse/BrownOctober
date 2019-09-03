@@ -14,62 +14,71 @@ class GameSetupUIView: UIView {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .fill
-        view.distribution = .equalSpacing
+        view.distribution = .fill
         return view
     }()
 
     let emptySpaceView = UIView()
 
+    let buttonsWrapper: UIView = {
+        let view = UIView()
+        return view
+    }()
+
     let buttonsLayoutView: UIStackView = {
         let view = UIStackView()
-        view.axis = .horizontal
+        view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fillEqually
         return view
     }()
 
-    lazy var resetButton: UIButton = {
-        let button = UIButton()
-        button.isEnabled = true
-        button.setTitle("🚽\nNEW", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel!.font = button.titleLabel!.font.withSize(buttonFontSize)
-        button.titleLabel!.numberOfLines = 2
-        button.titleLabel!.textAlignment = .center
+    lazy var difficultyButton: GameSetupUIButton = {
+        let button = GameSetupUIButton(text: "Difficulty", icon: "🧻")
+        button.addTarget(self, action: #selector(touchDifficulty), for: .touchUpInside)
         return button
     }()
-
-    lazy var playButton: UIButton = {
-        let button = UIButton()
-        button.isEnabled = true
-        button.setTitle("💩\nPLAY", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel!.font = button.titleLabel!.font.withSize(buttonFontSize)
-        button.titleLabel!.numberOfLines = 2
-        button.titleLabel!.textAlignment = .center
+    lazy var modeButton: GameSetupUIButton = {
+        let button = GameSetupUIButton(text: "Mode", icon: "🧻")
+        button.addTarget(self, action: #selector(touchMode), for: .touchUpInside)
+        return button
+    }()
+    lazy var playButton: GameSetupUIButton = {
+        let button = GameSetupUIButton(text: "PLAY")
+        button.addTarget(self, action: #selector(touchPlay), for: .touchUpInside)
         return button
     }()
 
     let boardSubControllerViewContainer = SquareUIView()
 
-    let buttonFontSize: CGFloat = {
-        return UIScreen.main.bounds.width / 9
-    }()
+    @objc func touchDifficulty(_ sender: GameSetupUIButton) {
+        sender.iconLabel.springy(scale: 0.8)
+    }
+
+    @objc func touchMode(_ sender: GameSetupUIButton) {
+        sender.iconLabel.springy(scale: 0.8)
+    }
+
+    @objc func touchPlay(_ sender: GameSetupUIButton) {
+        sender.springy()
+    }
 
     private func setupView() {
         backgroundColor = .white
 
         addSubview(layoutView)
-        layoutView.addArrangedSubview(emptySpaceView)
 
-        layoutView.addArrangedSubview(buttonsLayoutView)
-        buttonsLayoutView.addArrangedSubview(resetButton)
+        layoutView.addArrangedSubview(buttonsWrapper)
+        buttonsWrapper.addSubview(buttonsLayoutView)
+        buttonsLayoutView.addArrangedSubview(difficultyButton)
+        buttonsLayoutView.addArrangedSubview(modeButton)
         buttonsLayoutView.addArrangedSubview(playButton)
         layoutView.addArrangedSubview(boardSubControllerViewContainer)
     }
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
+        buttonsLayoutView.constrain(to: buttonsWrapper, margin: (0, 40))
     }
 
     override init(frame: CGRect) {
