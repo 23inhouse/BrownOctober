@@ -53,6 +53,4 @@ extension PlayerViewController: GridButtonDelegate {
 
         playerTurnDelegate?.nextTurn(from: self, switchPlayer: true)
     }
-
-    func didDragGridButton(_ sender: ValuableButton) {}
 }
