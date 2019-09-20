@@ -36,26 +36,12 @@ class GameViewController: UIViewController {
 
     internal func resetGame() {
         player.board.arrangePoops()
-        player.foundPoopsBoard = setFoundPoopsBoard()
+        player.foundPoopsBoard.arrangeFoundPoops()
         computerPlayer.board.set(poopStains: UserData.retrievePoopStains())
         computerPlayer.board.arrangePoops()
-        computerPlayer.foundPoopsBoard = setFoundPoopsBoard()
+        computerPlayer.foundPoopsBoard.arrangeFoundPoops()
 
         playerController.resetBoard()
-    }
-
-    private func setFoundPoopsBoard() -> Board {
-        let board = Board(width: PoopUIView.width, height: PoopUIView.height, poops: Poop.pinchSomeOff())
-        let poops = board.poops
-
-        _ = ArrangedPoop(poops[0], board, direction: Direction(0))?.place(at: (6, 1), check: false)
-        _ = ArrangedPoop(poops[1], board, direction: Direction(0))?.place(at: (5, 2), check: false)
-        _ = ArrangedPoop(poops[2], board, direction: Direction(3))?.place(at: (1, 4), check: false)
-        _ = ArrangedPoop(poops[3], board, direction: Direction(0))?.place(at: (5, 5), check: false)
-        _ = ArrangedPoop(poops[4], board, direction: Direction(0))?.place(at: (4, 6), check: false)
-        _ = ArrangedPoop(poops[5], board, direction: Direction(0))?.place(at: (2, 1), check: false)
-
-        return board
     }
 
     private func setupView() {

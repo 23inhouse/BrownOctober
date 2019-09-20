@@ -29,7 +29,7 @@ class Player {
 
     let key: Player.Key
     let board: Board
-    var foundPoopsBoard: Board = Board(width: 7, height: 7)
+    let foundPoopsBoard: Board
     let isHuman: Bool
     let isComputer: Bool
 
@@ -51,6 +51,7 @@ class Player {
         self.isComputer = !isHuman
 
         self.board = Board.makeGameBoard()
+        self.foundPoopsBoard = Board.makeFoundPoopsBoard()
     }
 }
 
@@ -58,6 +59,7 @@ class Board: Grid {
     typealias PoopStain = (x: Int, y: Int, direction: Direction)
 
     static let size = 10
+    static let foundPoopsSize = 7
 
     private(set) var score = 0
     private(set) var poops: [Poop]
@@ -67,6 +69,10 @@ class Board: Grid {
 
     static func makeGameBoard() -> Board {
         return Board(width: size, height: size, poops: Poop.pinchSomeOff())
+    }
+
+    static func makeFoundPoopsBoard() -> Board {
+        return Board(width: foundPoopsSize, height: foundPoopsSize, poops: Poop.pinchSomeOff())
     }
 
     func set(poops: [Poop]) {
@@ -98,6 +104,17 @@ class Board: Grid {
                 continue
             }
         }
+    }
+
+    func arrangeFoundPoops() {
+        cleanTiles()
+
+        _ = ArrangedPoop(poops[0], self, direction: Direction(0))?.place(at: (6, 1), check: false)
+        _ = ArrangedPoop(poops[1], self, direction: Direction(0))?.place(at: (5, 2), check: false)
+        _ = ArrangedPoop(poops[2], self, direction: Direction(3))?.place(at: (1, 4), check: false)
+        _ = ArrangedPoop(poops[3], self, direction: Direction(0))?.place(at: (5, 5), check: false)
+        _ = ArrangedPoop(poops[4], self, direction: Direction(0))?.place(at: (4, 6), check: false)
+        _ = ArrangedPoop(poops[5], self, direction: Direction(0))?.place(at: (2, 1), check: false)
     }
 
     func findAdjacentPoop(from index: Int) -> [Direction] {
