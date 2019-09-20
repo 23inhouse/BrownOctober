@@ -35,10 +35,10 @@ class Poop {
 
     static func pinchSomeOff() -> [Poop] {
         self.identiferFactory = 0
-        return [poop1(), poop2(), poop3(), poop4(), poop5(), poop6()]
+        return [poop2(), poop3(), poop4(), poop5(), poop6(), poop7()]
     }
 
-    static func poop1(_ ident: Int? = nil) -> Poop {
+    static func poop2(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
@@ -47,13 +47,13 @@ class Poop {
             ])
     }
 
-    static func poop2(_ ident: Int? = nil) -> Poop {
+    static func poop3(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([[1, 1, 1]])
     }
 
-    static func poop3(_ ident: Int? = nil) -> Poop {
+    static func poop4(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
@@ -63,7 +63,7 @@ class Poop {
             ])
     }
 
-    static func poop4(_ ident: Int? = nil) -> Poop {
+    static func poop5(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([
@@ -74,13 +74,13 @@ class Poop {
             ])
     }
 
-    static func poop5(_ ident: Int? = nil) -> Poop {
+    static func poop6(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([[1, 1, 1, 1, 1]])
     }
 
-    static func poop6(_ ident: Int? = nil) -> Poop {
+    static func poop7(_ ident: Int? = nil) -> Poop {
         if ident != nil { identiferFactory = ident! }
 
         return Poop([

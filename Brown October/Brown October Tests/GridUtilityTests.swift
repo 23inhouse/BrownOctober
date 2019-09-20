@@ -16,7 +16,7 @@ class GridUtilityTests: XCTestCase {
         let size = 10
         let gridUtility = GridUtility(w: size, h: size)
 
-        let poop = Poop.poop2(0)
+        let poop = Poop.poop3(0)
         let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 5, y: 5, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
@@ -35,7 +35,7 @@ class GridUtilityTests: XCTestCase {
         let size = 7
         let gridUtility = GridUtility(w: size, h: size)
 
-        let poop = Poop.poop5(0)
+        let poop = Poop.poop6(0)
         let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 2, y: 2, d: 1)
 
         let index = gridUtility.calcIndex(1, 1)!
@@ -49,7 +49,7 @@ class GridUtilityTests: XCTestCase {
         let size = 7
         let gridUtility = GridUtility(w: size, h: size)
 
-        let poop = Poop.poop5(0)
+        let poop = Poop.poop6(0)
         let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 4, y: 4, d: 3)
 
         let index = gridUtility.calcIndex(5, 5)!
@@ -63,7 +63,7 @@ class GridUtilityTests: XCTestCase {
         let size = 7
         let gridUtility = GridUtility(w: size, h: size)
 
-        let poop = Poop.poop5(0)
+        let poop = Poop.poop6(0)
         let game = TestBoardHelper.makeSinglePoopBoard(width: size, height: size, poop: poop, x: 3, y: 3, d: 0)
 
         let index = gridUtility.calcIndex(3, 3)!

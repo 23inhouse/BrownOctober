@@ -14,7 +14,7 @@ import XCTest
 
 class BoardTests: XCTestCase {
     func testSetPoopStains() {
-        let poop1 = Poop.poop1(0)
+        let poop1 = Poop.poop2(0)
         let board = Board(width: 3, height: 3, poops: [poop1])
         var poopStains = [Int: Board.PoopStain]()
         poopStains[poop1.identifier] = Board.PoopStain(x: 1, y: 1, direction: Direction(.right))
@@ -24,7 +24,7 @@ class BoardTests: XCTestCase {
     }
 
     func testSetPoopStainsEmpty() {
-        let poop1 = Poop.poop1(0)
+        let poop1 = Poop.poop2(0)
         let board = Board(width: 3, height: 3, poops: [poop1])
         let poopStains = [Int: Board.PoopStain]()
         board.set(poopStains: poopStains)
@@ -33,8 +33,8 @@ class BoardTests: XCTestCase {
     }
 
     func testArrangePoopsReset() {
-        let poop1 = Poop.poop1(0)
-        let poop2 = Poop.poop2(1)
+        let poop1 = Poop.poop2(0)
+        let poop2 = Poop.poop3(1)
         let board = Board(width: 33, height: 33, poops: [poop1, poop2]) // keep the board large to minimize the chance of the new poopStains being recreated in the original location
         let offsetPoop1 = OffsetPoop(poop1, direction: Direction(.right))
         let offsetPoop2 = OffsetPoop(poop2, direction: Direction(.right))
@@ -55,8 +55,8 @@ class BoardTests: XCTestCase {
     }
 
     func testArrangePoops() {
-        let poop1 = Poop.poop1(0)
-        let poop2 = Poop.poop2(1)
+        let poop1 = Poop.poop2(0)
+        let poop2 = Poop.poop3(1)
         let board = Board(width: 3, height: 3, poops: [poop1, poop2])
 
         let offsetPoop2 = OffsetPoop(poop2, direction: Direction(.right))
@@ -119,7 +119,7 @@ class BoardTests: XCTestCase {
     func testTileIndexes() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
 
-        let poop = Poop.poop1(0)
+        let poop = Poop.poop2(0)
         _ = ArrangedPoop(poop, board, direction: Direction(0))?.place(at: (1, 1))
 
         board.tile(at: 1).markAsFound()

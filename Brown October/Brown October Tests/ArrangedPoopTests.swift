@@ -14,8 +14,8 @@ class ArrangedPoopTests: XCTestCase {
     func testInit() {
         let board = TestBoardHelper.makeBoard(width: 2, height: 2)
 
-        let poop1 = Poop.poop1()
-        let poop2 = Poop.poop2()
+        let poop1 = Poop.poop2()
+        let poop2 = Poop.poop3()
         board.setPoopStain(poop2, x: 0, y: 0, direction: Direction(0))
 
         let expectations: [(Poop, Direction?, Bool)] = [
@@ -33,7 +33,7 @@ class ArrangedPoopTests: XCTestCase {
 
     func testMoveBy() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
-        let poop = Poop.poop1()
+        let poop = Poop.poop2()
         let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
         let arrangedPoop = ArrangedPoop(offsetPoop, board)
 
@@ -51,7 +51,7 @@ class ArrangedPoopTests: XCTestCase {
 
     func testMoveTo() {
         let board = TestBoardHelper.makeBoard(width: 3, height: 3)
-        let poop = Poop.poop1()
+        let poop = Poop.poop2()
         let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
         let arrangedPoop = ArrangedPoop(offsetPoop, board)
         _ = arrangedPoop.place(at: 4)
@@ -69,7 +69,7 @@ class ArrangedPoopTests: XCTestCase {
 
     func testPlaceAtCoordinate() {
         let board = TestBoardHelper.makeBoard(width: 2, height: 2)
-        let poop = Poop.poop1()
+        let poop = Poop.poop2()
         let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
         let expectations: [(OffsetPoop, (Int, Int), Bool)] = [
@@ -89,7 +89,7 @@ class ArrangedPoopTests: XCTestCase {
 
     func testPlaceAtIndex() {
         let board = TestBoardHelper.makeBoard(width: 2, height: 2)
-        let poop = Poop.poop1()
+        let poop = Poop.poop2()
         let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
         let expectations: [(OffsetPoop, Int, Bool)] = [
@@ -110,7 +110,7 @@ class ArrangedPoopTests: XCTestCase {
     func testRotate() {
         let board1 = TestBoardHelper.makeBoard(width: 2, height: 2)
         let board2 = TestBoardHelper.makeBoard(width: 2, height: 1)
-        let poop = Poop.poop1()
+        let poop = Poop.poop2()
         let offsetPoop = OffsetPoop.make(poop, direction: Direction(.right))
 
         let expectations: [(Board, OffsetPoop, Bool)] = [
