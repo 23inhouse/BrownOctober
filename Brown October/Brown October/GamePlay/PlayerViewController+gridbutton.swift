@@ -18,23 +18,6 @@ extension PlayerViewController: GridButtonDelegate {
 
         button.springy()
 
-        if let poop = board.wipe(at: index) {
-            if poop.isFound {
-                boardView.flush(ident: poop.identifier)
-                poopView.flush(ident: poop.identifier)
-                foundPoopsBoard.flush(by: poop.identifier)
-                poopView.draw()
-
-                if board.flushedAllPoops() {
-                    playerTurnDelegate?.gameOver(from: self)
-                    return
-                }
-            }
-
-            playerTurnDelegate?.nextTurn(after: player, flushed: poop.isFound)
-            return
-        }
-
-        playerTurnDelegate?.nextPlayer(after: player)
+        playerTurnDelegate?.playMove(player, on: board, at: index, success: { poop in flush(poop: poop) })
     }
 }

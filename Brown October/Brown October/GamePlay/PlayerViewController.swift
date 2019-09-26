@@ -76,6 +76,13 @@ class PlayerViewController: UIViewController {
         boardView.draw(with: decorator)
     }
 
+    func flush(poop: Poop) {
+        boardView.flush(ident: poop.identifier)
+        poopView.flush(ident: poop.identifier)
+        foundPoopsBoard.flush(by: poop.identifier)
+        poopView.draw()
+    }
+
     func resetBoard() {
         remainingFlushCount = 0
         poopsFoundCount = 0
@@ -85,10 +92,9 @@ class PlayerViewController: UIViewController {
         gamesWonCount = UserData.retrieveGamesWon(for: player.key)
     }
 
-    func incrementGamesWon() {
+    func incrementGamesWon(for player: Player) {
         let count = UserData.retrieveGamesWon(for: player.key)
-        gamesWonCount = count + 1
-        UserData.storeGamesWon(for: player.key, count: gamesWonCount)
+        UserData.storeGamesWon(for: player.key, count: count + 1)
     }
 
     func getComputerPlayer() -> ComputerPlayer {

@@ -56,6 +56,7 @@
 		B56EAC1C230ADC610049650A /* GameViewController+playerturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC1B230ADC610049650A /* GameViewController+playerturn.swift */; };
 		B56EAC1E230ADC740049650A /* GameViewController+newgame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC1D230ADC740049650A /* GameViewController+newgame.swift */; };
 		B56EAC7523115DCC0049650A /* GridUIButton+borderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56EAC7423115DCC0049650A /* GridUIButton+borderable.swift */; };
+		B583659E233A4CA30011391D /* TurnStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B583659D233A4CA30011391D /* TurnStrategy.swift */; };
 		B5994B04227726D4001999AE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B03227726D4001999AE /* BoardTests.swift */; };
 		B5994B0622777EB9001999AE /* GridUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5994B0522777EB9001999AE /* GridUtilityTests.swift */; };
 		B5A3B58A22AF9ECC00F445A6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B58922AF9ECC00F445A6 /* Direction.swift */; };
@@ -68,6 +69,7 @@
 		B5AA7373225CC7C3008AAEA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5AA7371225CC7C3008AAEA2 /* LaunchScreen.storyboard */; };
 		B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */; };
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
+		B5B6A469233E31DD0024297C /* TurnStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
@@ -152,6 +154,7 @@
 		B56EAC1B230ADC610049650A /* GameViewController+playerturn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+playerturn.swift"; sourceTree = "<group>"; };
 		B56EAC1D230ADC740049650A /* GameViewController+newgame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+newgame.swift"; sourceTree = "<group>"; };
 		B56EAC7423115DCC0049650A /* GridUIButton+borderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridUIButton+borderable.swift"; sourceTree = "<group>"; };
+		B583659D233A4CA30011391D /* TurnStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnStrategy.swift; sourceTree = "<group>"; };
 		B5994B03227726D4001999AE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		B5994B0522777EB9001999AE /* GridUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUtilityTests.swift; sourceTree = "<group>"; };
 		B5A3B58922AF9ECC00F445A6 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 		B5AA7374225CC7C3008AAEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUIView.swift; sourceTree = "<group>"; };
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnStrategyProtocol.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +276,7 @@
 				B534FD6122C376F2000B125E /* PlayerTurnDelegate.swift */,
 				B534FD5D22C37684000B125E /* RotatableProtocol.swift */,
 				B534FD7122C37D84000B125E /* SolveGameDelegate.swift */,
+				B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				B5FFA32F231E905500594DE6 /* PlayMode.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
+				B583659D233A4CA30011391D /* TurnStrategy.swift */,
 			);
 			path = GameLogic;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,
 				B534FD6022C376AE000B125E /* OffsetableProtocol.swift in Sources */,
 				B5A414FC23116D5700B6438A /* UIBorder.swift in Sources */,
+				B5B6A469233E31DD0024297C /* TurnStrategyProtocol.swift in Sources */,
 				B56EAC0C2309D2620049650A /* Dragger.swift in Sources */,
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B534FD5722BF7F16000B125E /* BoardSetupViewController.swift in Sources */,
@@ -631,6 +638,7 @@
 				B534FD6E22C37D14000B125E /* GridViewProtocol.swift in Sources */,
 				B534FD5922BF7FA5000B125E /* BoardSetupUIView.swift in Sources */,
 				B56EAC18230ADB4C0049650A /* PlayerViewController+solvegame.swift in Sources */,
+				B583659E233A4CA30011391D /* TurnStrategy.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
 				B5A3B58E22B123F400F445A6 /* OffsetPoop.swift in Sources */,
 				B534FD6222C376F2000B125E /* PlayerTurnDelegate.swift in Sources */,

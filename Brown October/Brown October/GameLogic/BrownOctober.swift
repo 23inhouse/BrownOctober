@@ -19,6 +19,12 @@ class Game {
     func over() -> Bool {
         return computerPlayer.won() || player.won()
     }
+
+    func winner() -> Player? {
+        if player.won() { return player }
+        if computerPlayer.won() { return computerPlayer }
+        return nil
+    }
 }
 
 class Player {
@@ -39,6 +45,10 @@ class Player {
 
     static func computer() -> Player {
         return Player(Player.Key.computer)
+    }
+
+    func lost() -> Bool {
+        return board.numberOfFlushedTiles() == board.tiles.count
     }
 
     func won() -> Bool {

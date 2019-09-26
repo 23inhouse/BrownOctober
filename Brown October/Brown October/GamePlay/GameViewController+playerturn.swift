@@ -9,12 +9,13 @@
 import Foundation
 
 extension GameViewController: PlayerTurnDelegate {
-    func show(player: Player) {
-        playerController.set(player: player)
-        playerController.draw()
+    func playMove(_ player: Player, on board: Board, at index: Int, success: (Poop) -> Void) {
+        var mover = TurnStrategy.make(playMode: playMode, for: player, on: board, at: index)
+        mover.gameDelegate = self
+        mover.playMove(success: success)
     }
 
-    func nextTurn(after player: Player, flushed: Bool = false) {
+    func nextTurn(for player: Player, flushed: Bool = false) {
         show(player: player)
         guard player.isComputer else { return }
 
@@ -25,32 +26,31 @@ extension GameViewController: PlayerTurnDelegate {
         show(player: player)
         playerView.boardView.isUserInteractionEnabled = false
 
-        let delay = 1.0
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+        let changePlayerDelay = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + changePlayerDelay) { [weak self] in
             guard let self = self else { return }
             let otherPlayer = player.isHuman ? self.computerPlayer : self.player
-            self.show(player: otherPlayer)
-            self.nextTurn(after: otherPlayer)
+            self.nextTurn(for: otherPlayer)
         }
     }
 
-    func gameOver(from sender: PlayerViewController) {
+    func gameOver() {
         playerView.boardView.isUserInteractionEnabled = false
 
-        sender.incrementGamesWon()
+        if let winner = self.game.winner() {
+            playerController.incrementGamesWon(for: winner)
+        }
 
-        playerView.boardView.draw(with: RevealBoardDecorator(for: playerController.board))
         playerController.showHeatSeak = false
         playerView.boardView.draw(with: HeatMapBoardDecorator(for: Board.makeGameBoard()))
         playerView.boardView.draw(with: RevealBoardDecorator(for: playerController.board))
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        let gameOverDelay = 0.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + gameOverDelay) { [weak self] in
             guard let self = self else { return }
-            let won = self.player.won()
             let humanBoard = self.player.board
             let computerBoard = self.computerPlayer.board
-            let winner = won ? Player.Key.human : Player.Key.computer
+            let winner = self.game.winner()?.key
             self.coordinator?.gameOver(winner: winner, humanBoard: humanBoard, computerBoard: computerBoard)
         }
     }

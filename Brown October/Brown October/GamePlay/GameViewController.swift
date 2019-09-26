@@ -24,6 +24,7 @@ class GameViewController: UIViewController {
     lazy var game = BrownOctober()
     var computerPlayer: Player { return game.computerPlayer }
     var player: Player { return game.player }
+    let playMode = UserData.retrievePlayMode()
 
     lazy var playerController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(player)
@@ -42,6 +43,11 @@ class GameViewController: UIViewController {
         computerPlayer.foundPoopsBoard.arrangeFoundPoops()
 
         playerController.resetBoard()
+    }
+
+    internal func show(player: Player) {
+        playerController.set(player: player)
+        playerController.draw()
     }
 
     private func setupView() {
