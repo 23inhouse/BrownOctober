@@ -12,15 +12,6 @@ extension BoardSetupViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: ValuableButton) {
         let index = sender.index
 
-        guard sender.getText() != "" else {
-            let poop = poops[0]
-            if ArrangedPoop(poop, board, direction: Direction(.left))?.move(to: index) ?? false {
-                boardView.draw()
-            }
-
-            return
-        }
-
         guard let poop = board.poop(at: index) else { return }
         if ArrangedPoop(poop, board)?.rotate() ?? false {
             boardView.draw()
