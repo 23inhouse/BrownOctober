@@ -21,25 +21,27 @@ class GameViewController: UIViewController {
         return view
     }()
 
-    lazy var game = BrownOctober()
+    let poopStains = UserData.retrievePoopStains()
+    let playMode = UserData.retrievePlayMode()
+    let difficultyLevel = UserData.retrieveDifficultyLevel()
+
+    lazy var game = BrownOctober(difficultyLevel: difficultyLevel)
+
     var computerPlayer: Player { return game.computerPlayer }
     var player: Player { return game.player }
-    let playMode = UserData.retrievePlayMode()
 
     lazy var playerController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(player)
         controller.playerTurnDelegate = self
         controller.newGameDelegate = self
-        add(controller)
         return controller
     }()
+
     lazy var playerView = playerController.mainView
 
     internal func resetGame() {
-        player.board.arrangePoops()
+        game.arrangeBoards(playMode: playMode, poopStains: poopStains)
         player.foundPoopsBoard.arrangeFoundPoops()
-        computerPlayer.board.set(poopStains: UserData.retrievePoopStains())
-        computerPlayer.board.arrangePoops()
         computerPlayer.foundPoopsBoard.arrangeFoundPoops()
 
         playerController.resetBoard()

@@ -30,32 +30,6 @@ class GridTests: XCTestCase {
         }
     }
 
-    func testNumberOfFlushedTiles() {
-        let size = 3
-        let grid = Grid(width: size, height: size)
-
-        for i in 0 ..< (size * size) {
-            let tile = grid.tile(at: i)
-            guard i % 2 == 0 else { continue }
-            tile.markAsFlushed()
-        }
-
-        XCTAssertEqual(grid.numberOfFlushedTiles(), 5, "The number of flushed tiles is wrong")
-    }
-
-    func testNumberOfFoundTiles() {
-        let size = 3
-        let grid = Grid(width: size, height: size)
-
-        for i in 0 ..< (size * size) {
-            let tile = grid.tile(at: i)
-            guard i % 2 == 0 else { continue }
-            tile.markAsFound()
-        }
-
-        XCTAssertEqual(grid.numberOfFoundTiles(), 5, "The number of found tiles is wrong")
-    }
-
     func testTile() {
         let grid = Grid(width: 2, height: 1)
         grid.tile(at: 0).set(identifier: 1)

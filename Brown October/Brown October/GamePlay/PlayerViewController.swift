@@ -40,8 +40,9 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    var remainingFlushCount = 0 {
+    var remainingFlushCount = 99 {
         didSet {
+            guard remainingFlushCount >= 0 else { return }
             self.scoreView.remainingFlushLabel.setScore(score: remainingFlushCount)
         }
     }
@@ -65,8 +66,8 @@ class PlayerViewController: UIViewController {
         drawHeatSeak()
 
         updateGamesWonLabel()
-        poopsFoundCount = board.numberOfFoundTiles()
-        remainingFlushCount = board.numberOfFlushedTiles()
+        poopsFoundCount = board.score
+        remainingFlushCount = calcInitialRemainingFlush() - board.misses
     }
 
     func drawHeatSeak() {
@@ -85,7 +86,8 @@ class PlayerViewController: UIViewController {
     }
 
     func resetBoard() {
-        remainingFlushCount = 0
+        updateGamesWonLabel()
+        remainingFlushCount = calcInitialRemainingFlush()
         poopsFoundCount = 0
     }
 
@@ -103,6 +105,11 @@ class PlayerViewController: UIViewController {
         let guesser = Guesser(nextGuessClosure: Guesser.callFromQueueNow)
 
         return ComputerPlayer(board: board, boardViewProtocol: boardView as TouchableBoard, guesser: guesser)
+    }
+
+    private func calcInitialRemainingFlush() -> Int {
+        let difficultyLevel = UserData.retrieveDifficultyLevel()
+        return BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
     }
 
     private func setupView() {

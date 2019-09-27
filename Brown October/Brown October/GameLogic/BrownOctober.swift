@@ -9,21 +9,65 @@
 import Foundation
 
 class BrownOctober: Game {
+    static func calcMaxGuesses(difficultyLevel: Int = 1) -> Int {
+        let zeroDifficulty = 56
+        let delta = 8
+        return zeroDifficulty - (difficultyLevel * delta)
+    }
 
+    func arrangeBoards(playMode: PlayMode, poopStains: [Int: Board.PoopStain]) {
+        switch playMode {
+        case .wholeBoard:
+            player.board.arrangePoops()
+            computerPlayer.board.copy(from: player.board)
+        case .alternating:
+            player.board.arrangePoops()
+            computerPlayer.board.set(poopStains: poopStains)
+            computerPlayer.board.arrangePoops()
+        }
+
+    }
+
+    func over() -> Bool {
+        return (computerPlayer.won() || computerPlayer.lost()) && (player.won() || player.lost())
+    }
+
+    init(difficultyLevel: Int) {
+        let maxGuessesAllowed = BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
+        super.init(maxAllowedMisses: maxGuessesAllowed)
+    }
 }
 
 class Game {
-    lazy private(set) var computerPlayer = Player.computer()
-    lazy private(set) var player = Player.human()
+    lazy private(set) var computerPlayer = Player.computer(game: self)
+    lazy private(set) var player = Player.human(game: self)
 
-    func over() -> Bool {
-        return computerPlayer.won() || player.won()
-    }
+    let maxAllowedMisses: Int
 
     func winner() -> Player? {
-        if player.won() { return player }
-        if computerPlayer.won() { return computerPlayer }
+        if player.won() && computerPlayer.lost() {
+            return player
+        } else if player.lost() && computerPlayer.won() {
+            return computerPlayer
+        }
+
+        if player.board.score > computerPlayer.board.score {
+            return player
+        } else if computerPlayer.board.score > player.board.score {
+            return computerPlayer
+        }
+
+        if player.board.guesses < computerPlayer.board.guesses {
+            return player
+        } else if computerPlayer.board.guesses < player.board.guesses {
+            return computerPlayer
+        }
+
         return nil
+    }
+
+    init(maxAllowedMisses: Int = 100) {
+        self.maxAllowedMisses = maxAllowedMisses
     }
 }
 
@@ -34,33 +78,41 @@ class Player {
     }
 
     let key: Player.Key
+    let game: Game
     let board: Board
     let foundPoopsBoard: Board
     let isHuman: Bool
     let isComputer: Bool
 
-    static func human() -> Player {
-        return Player(Player.Key.human)
+    static func human(game: Game = Game()) -> Player {
+        return Player(Player.Key.human, game: game)
     }
 
-    static func computer() -> Player {
-        return Player(Player.Key.computer)
+    static func computer(game: Game = Game()) -> Player {
+        return Player(Player.Key.computer, game: game)
+    }
+
+    func gameOver() -> Bool {
+        return won() || lost()
     }
 
     func lost() -> Bool {
-        return board.numberOfFlushedTiles() == board.tiles.count
+        return board.misses >= game.maxAllowedMisses
     }
 
     func won() -> Bool {
         return board.flushedAllPoops()
     }
 
-    init(_ key: Player.Key) {
+    init(_ key: Player.Key, game: Game = Game()) {
         self.key = key
         self.isHuman = key == Player.Key.human
         self.isComputer = !isHuman
 
+        self.game = game
+
         self.board = Board.makeGameBoard()
+        self.board.game = game
         self.foundPoopsBoard = Board.makeFoundPoopsBoard()
     }
 }
@@ -71,6 +123,11 @@ class Board: Grid {
     static let size = 10
     static let foundPoopsSize = 7
 
+    var game: Game = Game()
+    var guesses = 0
+    var misses: Int {
+        return guesses - score
+    }
     private(set) var score = 0
     private(set) var poops: [Poop]
     private(set) var poopStains = [Int: PoopStain]()
@@ -167,9 +224,18 @@ class Board: Grid {
         return size
     }
 
+    func copy(from other: Board) {
+        for i in 0 ..< gridUtility.count {
+            let poopIdentifier = other.tile(at: i).poopIdentifier
+            tiles[i].set(identifier: poopIdentifier)
+        }
+    }
+
     func wipe(at index: Int) -> Poop? {
         let tileToWipe = tile(at: index)
         guard !tileToWipe.isFound else { return nil }
+
+        guesses += 1
 
         guard let poop = findPoop(by: tileToWipe.poopIdentifier) else {
             tileToWipe.markAsFlushed()
@@ -253,14 +319,6 @@ class Grid {
         }
 
         return values
-    }
-
-    func numberOfFlushedTiles() -> Int {
-        return tiles.filter({ $0.isFlushed }).count
-    }
-
-    func numberOfFoundTiles() -> Int {
-        return tiles.filter({ $0.isFound }).count
     }
 
     func print() {

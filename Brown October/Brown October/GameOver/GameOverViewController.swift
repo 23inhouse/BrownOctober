@@ -54,11 +54,10 @@ class GameOverViewController: UIViewController {
     }
 
     private func set(scoreView: ScoreUIView, for board: Board, player: Player.Key) {
-        let numberFound = board.numberOfFoundTiles()
-        let numberFlushed = board.numberOfFlushedTiles()
+        let numberFound = board.score
         scoreView.gamesWonLabel.setScore(score: UserData.retrieveGamesWon(for: player))
         scoreView.foundPoopsLabel.setScore(score: numberFound)
-        scoreView.remainingFlushLabel.setScore(score: numberFlushed - numberFound)
+        scoreView.remainingFlushLabel.setScore(score: board.game.maxAllowedMisses - board.misses)
     }
 
     override func viewDidLoad() {
