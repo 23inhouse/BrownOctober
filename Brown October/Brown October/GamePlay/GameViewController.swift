@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
     lazy var playerController: PlayerViewController = { [weak self] in
         let controller = PlayerViewController(player)
         controller.playerTurnDelegate = self
-        controller.scoreView.newGameDelegate = self
+        controller.newGameDelegate = self
         add(controller)
         return controller
     }()

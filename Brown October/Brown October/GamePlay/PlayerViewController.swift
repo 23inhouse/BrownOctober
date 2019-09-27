@@ -32,6 +32,7 @@ class PlayerViewController: UIViewController {
     lazy var scoreView = { mainView.scoreView }()
 
     weak var playerTurnDelegate: PlayerTurnDelegate?
+    weak var newGameDelegate: NewGameDelegate?
 
     var gamesWonCount = 0 {
         didSet {
@@ -114,6 +115,7 @@ class PlayerViewController: UIViewController {
         }
 
         scoreView.solveGameDelegate = self
+        scoreView.newGameDelegate = newGameDelegate
 
         resetBoard()
     }
