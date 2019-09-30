@@ -10,6 +10,8 @@ import Foundation
 
 extension GameViewController: PlayerTurnDelegate {
     func playMove(_ player: Player, on board: Board, at index: Int, success: (Poop) -> Void) {
+        guard !player.gameOver() else { return }
+
         var mover = TurnStrategy.make(playMode: playMode, for: player, on: board, at: index)
         mover.gameDelegate = self
         mover.playMove(success: success)
