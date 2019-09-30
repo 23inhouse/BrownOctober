@@ -23,9 +23,10 @@ class GameViewController: UIViewController {
 
     let poopStains = UserData.retrievePoopStains()
     let playMode = UserData.retrievePlayMode()
+    let gameRule = UserData.retrieveGameRule()
     let difficultyLevel = UserData.retrieveDifficultyLevel()
 
-    lazy var game = BrownOctober(difficultyLevel: difficultyLevel)
+    lazy var game = BrownOctober(gameRule: gameRule, difficultyLevel: difficultyLevel)
 
     var computerPlayer: Player { return game.computerPlayer }
     var player: Player { return game.player }
@@ -41,9 +42,6 @@ class GameViewController: UIViewController {
 
     internal func resetGame() {
         game.arrangeBoards(playMode: playMode, poopStains: poopStains)
-        player.foundPoopsBoard.arrangeFoundPoops()
-        computerPlayer.foundPoopsBoard.arrangeFoundPoops()
-
         playerController.resetBoard()
     }
 

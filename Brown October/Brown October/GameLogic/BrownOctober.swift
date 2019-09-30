@@ -28,9 +28,9 @@ class BrownOctober: Game {
 
     }
 
-    init(difficultyLevel: Int) {
+    init(gameRule: PlayRule, difficultyLevel: Int) {
         let maxGuessesAllowed = BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
-        super.init(maxAllowedMisses: maxGuessesAllowed)
+        super.init(gameRule: gameRule, maxAllowedMisses: maxGuessesAllowed)
     }
 }
 
@@ -38,6 +38,7 @@ class Game {
     lazy private(set) var computerPlayer = Player.computer(game: self)
     lazy private(set) var player = Player.human(game: self)
 
+    var gameRule: PlayRule
     let maxAllowedMisses: Int
 
     func over() -> Bool {
@@ -66,7 +67,8 @@ class Game {
         return nil
     }
 
-    init(maxAllowedMisses: Int = 100) {
+    init(gameRule: PlayRule = .brownOctober, maxAllowedMisses: Int = 100) {
+        self.gameRule = gameRule
         self.maxAllowedMisses = maxAllowedMisses
     }
 }
@@ -111,9 +113,9 @@ class Player {
 
         self.game = game
 
-        self.board = Board.makeGameBoard()
+        self.board = Board.makeGameBoard(for: game.gameRule)
         self.board.game = game
-        self.foundPoopsBoard = Board.makeFoundPoopsBoard()
+        self.foundPoopsBoard = Board.makeFoundPoopsBoard(for: game.gameRule)
     }
 }
 
@@ -134,12 +136,17 @@ class Board: Grid {
 
     private(set) lazy var count = gridUtility.count
 
-    static func makeGameBoard() -> Board {
-        return Board(width: size, height: size, poops: Poop.pinchSomeOff())
+    static func makeGameBoard(for rule: PlayRule = .brownOctober) -> Board {
+        let board = Board(width: size, height: size, poops: Poop.pinchSomeOff(for: rule))
+        board.game = Game(gameRule: rule)
+        return board
     }
 
-    static func makeFoundPoopsBoard() -> Board {
-        return Board(width: foundPoopsSize, height: foundPoopsSize, poops: Poop.pinchSomeOff())
+    static func makeFoundPoopsBoard(for rule: PlayRule = .brownOctober) -> Board {
+        let board = Board(width: foundPoopsSize, height: foundPoopsSize, poops: Poop.pinchSomeOff(for: rule))
+        board.arrangeFoundPoops(for: rule)
+        board.game = Game(gameRule: rule)
+        return board
     }
 
     func set(poops: [Poop]) {
@@ -173,15 +180,42 @@ class Board: Grid {
         }
     }
 
-    func arrangeFoundPoops() {
+    func arrangeFoundPoops(for rule: PlayRule = .brownOctober) {
         cleanTiles()
 
-        _ = ArrangedPoop(poops[0], self, direction: Direction(0))?.place(at: (6, 1), check: false)
-        _ = ArrangedPoop(poops[1], self, direction: Direction(0))?.place(at: (5, 2), check: false)
-        _ = ArrangedPoop(poops[2], self, direction: Direction(3))?.place(at: (1, 4), check: false)
-        _ = ArrangedPoop(poops[3], self, direction: Direction(0))?.place(at: (5, 5), check: false)
-        _ = ArrangedPoop(poops[4], self, direction: Direction(0))?.place(at: (4, 6), check: false)
-        _ = ArrangedPoop(poops[5], self, direction: Direction(0))?.place(at: (2, 1), check: false)
+        switch rule {
+        case .american:
+            _ = ArrangedPoop(poops[0], self, direction: Direction(0))?.place(at: (6, 1), check: false)
+            _ = ArrangedPoop(poops[1], self, direction: Direction(0))?.place(at: (3, 6), check: false)
+            _ = ArrangedPoop(poops[2], self, direction: Direction(0))?.place(at: (2, 0), check: false)
+            _ = ArrangedPoop(poops[3], self, direction: Direction(0))?.place(at: (4, 3), check: false)
+            _ = ArrangedPoop(poops[4], self, direction: Direction(0))?.place(at: (3, 4), check: false)
+        case .brownOctober:
+            _ = ArrangedPoop(poops[0], self, direction: Direction(0))?.place(at: (6, 1), check: false)
+            _ = ArrangedPoop(poops[1], self, direction: Direction(0))?.place(at: (5, 2), check: false)
+            _ = ArrangedPoop(poops[2], self, direction: Direction(3))?.place(at: (1, 4), check: false)
+            _ = ArrangedPoop(poops[3], self, direction: Direction(0))?.place(at: (5, 5), check: false)
+            _ = ArrangedPoop(poops[4], self, direction: Direction(0))?.place(at: (4, 6), check: false)
+            _ = ArrangedPoop(poops[5], self, direction: Direction(0))?.place(at: (2, 1), check: false)
+        case .russian:
+            _ = ArrangedPoop(poops[0], self, direction: Direction(3))?.place(at: (0, 6), check: false)
+            _ = ArrangedPoop(poops[1], self, direction: Direction(3))?.place(at: (0, 4), check: false)
+            _ = ArrangedPoop(poops[2], self, direction: Direction(3))?.place(at: (0, 2), check: false)
+            _ = ArrangedPoop(poops[3], self, direction: Direction(3))?.place(at: (0, 0), check: false)
+            _ = ArrangedPoop(poops[4], self, direction: Direction(3))?.place(at: (3, 5), check: false)
+            _ = ArrangedPoop(poops[5], self, direction: Direction(3))?.place(at: (7, 1), check: false)
+            _ = ArrangedPoop(poops[6], self, direction: Direction(3))?.place(at: (3, 2), check: false)
+            _ = ArrangedPoop(poops[7], self, direction: Direction(3))?.place(at: (4, 5), check: false)
+            _ = ArrangedPoop(poops[8], self, direction: Direction(3))?.place(at: (4, 1), check: false)
+            _ = ArrangedPoop(poops[9], self, direction: Direction(3))?.place(at: (7, 5), check: false)
+        case .tetrazoid:
+            _ = ArrangedPoop(poops[0], self, direction: Direction(3))?.place(at: (2, 2), check: false)
+            _ = ArrangedPoop(poops[1], self, direction: Direction(2))?.place(at: (3, 5), check: false)
+            _ = ArrangedPoop(poops[2], self, direction: Direction(3))?.place(at: (5, 5), check: false)
+            _ = ArrangedPoop(poops[3], self, direction: Direction(3))?.place(at: (2, 4), check: false)
+            _ = ArrangedPoop(poops[4], self, direction: Direction(0))?.place(at: (5, 3), check: false)
+            _ = ArrangedPoop(poops[5], self, direction: Direction(1))?.place(at: (6, 5), check: false)
+        }
     }
 
     func findAdjacentPoop(from index: Int) -> [Direction] {
