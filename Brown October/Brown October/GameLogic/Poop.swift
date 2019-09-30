@@ -33,9 +33,29 @@ class Poop {
         return identiferFactory
     }
 
-    static func pinchSomeOff() -> [Poop] {
+    static func pinchSomeOff(for rule: PlayRule = .brownOctober) -> [Poop] {
         self.identiferFactory = 0
-        return [poop2(), poop3(), poop4(), poop5(), poop6(), poop7()]
+        switch rule {
+        case .american:
+            return [poop2(), poop3(), poop3(), poop5(), poop6()]
+        case .brownOctober:
+            return [poop2(), poop3(), poop4(), poop5(), poop6(), poop7()]
+        case .russian:
+            return [
+                poop1(), poop1(), poop1(), poop1(),
+                poop2(), poop2(), poop2(),
+                poop3(), poop3(),
+                poop5()
+            ]
+        case .tetrazoid:
+            return [poop5(), poop4(), poop8(), poop9(), poop10(), poop11()]
+        }
+    }
+
+    static func poop1(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([[1]])
     }
 
     static func poop2(_ ident: Int? = nil) -> Poop {
@@ -89,6 +109,45 @@ class Poop {
             [1, 1, 1, 0],
             [0, 0, 0, 0],
             ], flip: true)
+    }
+
+    static func poop8(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
+            [1, 1],
+            [1, 1],
+            ], flip: false)
+    }
+
+    static func poop9(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
+            [0, 1, 1],
+            [1, 1, 0],
+            [0, 0, 0],
+            ], flip: true)
+    }
+
+    static func poop10(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
+            [0, 0, 1],
+            [1, 1, 1],
+            [0, 0, 0],
+            ])
+    }
+
+    static func poop11(_ ident: Int? = nil) -> Poop {
+        if ident != nil { identiferFactory = ident! }
+
+        return Poop([
+            [0, 0, 0],
+            [1, 1, 1],
+            [0, 0, 1],
+            ])
     }
 
     init(_ data: [[Int]], flip: Bool = false) {
