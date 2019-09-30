@@ -77,6 +77,7 @@
 		B5AF4DC1228314E6008D8791 /* PlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */; };
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B6A469233E31DD0024297C /* TurnStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */; };
+		B5B6A46B233E44670024297C /* PlayRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A46A233E44670024297C /* PlayRule.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
@@ -184,6 +185,7 @@
 		B5AF4DC0228314E6008D8791 /* PlayerUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUIView.swift; sourceTree = "<group>"; };
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnStrategyProtocol.swift; sourceTree = "<group>"; };
+		B5B6A46A233E44670024297C /* PlayRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRule.swift; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				B5A3B58922AF9ECC00F445A6 /* Direction.swift */,
 				B5A3B58D22B123F400F445A6 /* OffsetPoop.swift */,
 				B5FFA32F231E905500594DE6 /* PlayMode.swift */,
+				B5B6A46A233E44670024297C /* PlayRule.swift */,
 				B5291ED522689DC7002C49B0 /* Poop.swift */,
 				B5291ED322689C98002C49B0 /* Tile.swift */,
 				B583659D233A4CA30011391D /* TurnStrategy.swift */,
@@ -668,6 +671,7 @@
 				B5303A092316A55D001E94C3 /* DifficultyDelegate.swift in Sources */,
 				B53399F022A1974F00E9E7D5 /* Coordinator.swift in Sources */,
 				B5A3B58E22B123F400F445A6 /* OffsetPoop.swift in Sources */,
+				B5B6A46B233E44670024297C /* PlayRule.swift in Sources */,
 				B534FD6222C376F2000B125E /* PlayerTurnDelegate.swift in Sources */,
 				B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */,
 				B534FD6A22C37CE0000B125E /* GridButtonDelegate.swift in Sources */,
