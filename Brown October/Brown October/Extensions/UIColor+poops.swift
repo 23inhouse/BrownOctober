@@ -10,8 +10,13 @@ import UIKit
 
 extension UIColor {
     convenience init(poop ident: Int) {
+        guard ident > 0 else {
+            self.init(cgColor: UIColor.white.cgColor)
+            return
+        }
 
         let color: UIColor
+        let ident = ident % 6 + 1
         switch ident {
         case 1: color = #colorLiteral(red: 1, green: 0.8801414616, blue: 0.8755826288, alpha: 1)
         case 2: color = #colorLiteral(red: 0.9995340705, green: 0.9512020038, blue: 0.8813460202, alpha: 1)
@@ -24,5 +29,4 @@ extension UIColor {
 
         self.init(cgColor: color.cgColor)
     }
-
 }
