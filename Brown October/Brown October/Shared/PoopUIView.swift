@@ -50,7 +50,8 @@ class PoopUIView: UIView {
     }
 
     init<Decorator: BoardDecoratorProtocol>(with decorator: Decorator? = nil) {
-        self.decorator = decorator ?? BoardDecorator(for: Board.makeGameBoard())
+        let gameRule = UserData.retrieveGameRule()
+        self.decorator = decorator ?? BoardDecorator(for: Board.makeGameBoard(for: gameRule))
         super.init(frame: .zero)
 
         setupView()
