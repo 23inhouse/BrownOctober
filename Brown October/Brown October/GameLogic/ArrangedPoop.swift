@@ -103,14 +103,15 @@ class ArrangedPoop {
     }
 
     private func hasAdjacentPoop(at index: Int) -> Bool {
-        if board.allowAdjacentPoops { return false }
+        guard board.game.gameRule == .russian else { return false }
+        guard let (x, y) = gridUtility.calcXY(index) else { return false }
 
-        for direction in Direction.all() {
-            guard let adjustedIndex = gridUtility.adjust(index: index, direction: direction, offset: 1) else {
-                continue
+        for v in [-1, 0, 1] {
+            for h in [-1, 0, 1] {
+                guard let adjustedIndex = gridUtility.calcIndex(x + h, y + v) else { continue }
+
+                if board.tile(at: adjustedIndex).poopIdentifier > 0 { return true }
             }
-
-            if board.tile(at: adjustedIndex).poopIdentifier > 0 { return true }
         }
 
         return false
