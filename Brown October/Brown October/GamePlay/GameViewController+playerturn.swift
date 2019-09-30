@@ -14,7 +14,13 @@ extension GameViewController: PlayerTurnDelegate {
 
         var mover = TurnStrategy.make(playMode: playMode, for: player, on: board, at: index)
         mover.gameDelegate = self
-        mover.playMove(success: success)
+
+        mover.playMove { poop in
+            if gameRule == .russian {
+                board.flush(by: poop.identifier, russian: true)
+            }
+            success(poop)
+        }
     }
 
     func nextTurn(for player: Player, flushed: Bool = false) {

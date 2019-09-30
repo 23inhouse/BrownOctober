@@ -238,11 +238,13 @@ class Board: Grid {
         return directions
     }
 
-    func flush(by poopIdentifier: Int) {
+    func flush(by poopIdentifier: Int, russian: Bool = false) {
         for index in tileIndexes(for: poopIdentifier) {
             tile(at: index).markAsFlushed()
-        }
 
+            guard russian else { continue }
+            flushRussian(at: index)
+        }
     }
 
     func flushedAllPoops() -> Bool {
@@ -309,6 +311,17 @@ class Board: Grid {
         }
 
         return nil
+    }
+
+    private func flushRussian(at index: Int) {
+        guard let (x, y) = gridUtility.calcXY(index) else { return }
+
+        for v in [-1, 0, 1] {
+            for h in [-1, 0, 1] {
+                guard let adjustedIndex = gridUtility.calcIndex(x + h, y + v) else { continue }
+                tile(at: adjustedIndex).markAsFlushed()
+            }
+        }
     }
 
     private func placeRandomly(_ poop: Poop) {
