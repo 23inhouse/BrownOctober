@@ -12,6 +12,7 @@ struct UserData {
     enum Key: String {
         case computerGamesWon
         case difficultyLevel
+        case gameRule
         case humanGamesWon
         case playMode
         case poopStains
@@ -25,6 +26,7 @@ struct UserData {
         defaults.set([], forKey: Key.poopStains.rawValue)
         defaults.set(1, forKey: Key.difficultyLevel.rawValue)
         defaults.set(PlayMode.alternating.rawValue, forKey: Key.playMode.rawValue)
+        defaults.set(PlayRule.brownOctober.rawValue, forKey: Key.gameRule.rawValue)
     }
 
     static func retrieveDifficultyLevel() -> Int {
@@ -71,6 +73,15 @@ struct UserData {
     static func storePoopStains(_ poopStains: [Int: Board.PoopStain]) {
         let data = poopStains.map({ (ident, poopStain) in [ident, poopStain.x, poopStain.y, poopStain.direction.value]})
         defaults.set(data, forKey: Key.poopStains.rawValue)
+    }
+
+    static func retrieveGameRule() -> PlayRule {
+        let gameRuleValue = defaults.integer(forKey: Key.gameRule.rawValue)
+        return PlayRule(rawValue: gameRuleValue) ?? .brownOctober
+    }
+
+    static func storeGameRule(gameRule: PlayRule) {
+        defaults.set(gameRule.rawValue, forKey: Key.gameRule.rawValue)
     }
 
     static private func key(for player: Player.Key) -> String {
