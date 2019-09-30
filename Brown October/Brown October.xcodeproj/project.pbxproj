@@ -78,6 +78,7 @@
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B6A469233E31DD0024297C /* TurnStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */; };
 		B5B6A46B233E44670024297C /* PlayRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A46A233E44670024297C /* PlayRule.swift */; };
+		B5B6A471233F7FA10024297C /* UserData+poopStains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A470233F7FA10024297C /* UserData+poopStains.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
 		B5B8DC9F229440C100A9E74A /* GameSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */; };
@@ -186,6 +187,7 @@
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnStrategyProtocol.swift; sourceTree = "<group>"; };
 		B5B6A46A233E44670024297C /* PlayRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRule.swift; sourceTree = "<group>"; };
+		B5B6A470233F7FA10024297C /* UserData+poopStains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+poopStains.swift"; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			children = (
 				B5F165A62271C15400789DC3 /* GridUtility.swift */,
 				B515084B22958F9D0011F5D1 /* UserData.swift */,
+				B5B6A470233F7FA10024297C /* UserData+poopStains.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				B5303A0D2316A57B001E94C3 /* PlayDelegate.swift in Sources */,
 				B534FD7222C37D84000B125E /* SolveGameDelegate.swift in Sources */,
 				B51B6EA2228032E400CEBDDC /* PoopUIView.swift in Sources */,
+				B5B6A471233F7FA10024297C /* UserData+poopStains.swift in Sources */,
 				B534FD6C22C37CF3000B125E /* GridButtonDragDelegate.swift in Sources */,
 				B56EAC7523115DCC0049650A /* GridUIButton+borderable.swift in Sources */,
 				B50B78C822A45E5300B9FF44 /* UIColor+poops.swift in Sources */,

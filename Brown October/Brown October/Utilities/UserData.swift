@@ -23,7 +23,7 @@ struct UserData {
     static func reset() {
         defaults.set(0, forKey: Key.humanGamesWon.rawValue)
         defaults.set(0, forKey: Key.computerGamesWon.rawValue)
-        defaults.set([], forKey: Key.poopStains.rawValue)
+        resetPoopStains()
         defaults.set(1, forKey: Key.difficultyLevel.rawValue)
         defaults.set(PlayMode.alternating.rawValue, forKey: Key.playMode.rawValue)
         defaults.set(PlayRule.brownOctober.rawValue, forKey: Key.gameRule.rawValue)
@@ -55,24 +55,6 @@ struct UserData {
 
     static func storePlayMode(playMode: PlayMode) {
         defaults.set(playMode.rawValue, forKey: Key.playMode.rawValue)
-    }
-
-    static func retrievePoopStains() -> [Int: Board.PoopStain] {
-        var poopStains = [Int: Board.PoopStain]()
-
-        guard let poopStainData = defaults.array(forKey: Key.poopStains.rawValue) else { return poopStains }
-        guard poopStainData.count > 0 else { return poopStains }
-
-        for data in poopStainData as! [[Int]] {
-            poopStains[data[0]] = Board.PoopStain(x: data[1], y: data[2], direction: Direction(data[3]))
-        }
-
-        return poopStains
-    }
-
-    static func storePoopStains(_ poopStains: [Int: Board.PoopStain]) {
-        let data = poopStains.map({ (ident, poopStain) in [ident, poopStain.x, poopStain.y, poopStain.direction.value]})
-        defaults.set(data, forKey: Key.poopStains.rawValue)
     }
 
     static func retrieveGameRule() -> PlayRule {
