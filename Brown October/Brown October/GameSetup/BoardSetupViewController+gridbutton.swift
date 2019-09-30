@@ -36,6 +36,7 @@ extension BoardSetupViewController: GridButtonDragDelegate {
                 }
             }
             boardView.draw()
+            UserData.storePoopStains(board.poopStains)
         }
     }
 }

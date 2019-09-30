@@ -15,11 +15,15 @@ extension GameSetupViewController: ModeSelectionDelegate {
         playMode = playMode.next()
         UserData.storePlayMode(playMode: playMode)
 
+        drawMode()
+    }
+
+    func drawMode() {
         switch playMode {
         case .alternating:
             boardView.isUserInteractionEnabled = true
             modeButton.isUserInteractionEnabled = true
-            boardView.draw()
+            boardSetupViewController.reset()
         case .wholeBoard:
             boardView.isUserInteractionEnabled = false
             flashShuffle { [weak self] in
@@ -30,17 +34,18 @@ extension GameSetupViewController: ModeSelectionDelegate {
 
     private func flashShuffle(remaining: Int = 10, completion: (() -> Void)? = nil) {
         guard remaining > 0 else {
-            boardView.draw(with: WaveBoardDecorator(for: Board.makeGameBoard(), even: remaining % 2 == 0))
+            boardView.draw(with: WaveBoardDecorator(for: Board.makeGameBoard(for: self.gameRule), even: remaining % 2 == 0))
             completion?()
             return
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + (0.05 * Double(remaining))) { [weak self] in
-            let tempBoard: Board = Board.makeGameBoard()
+            guard let self = self else { return }
+            let tempBoard: Board = Board.makeGameBoard(for: self.gameRule)
             tempBoard.arrangePoops(reset: true)
-            self?.boardView.draw(with: ArrangeBoardDecorator(for: tempBoard))
+            self.boardView.draw(with: ArrangeBoardDecorator(for: tempBoard))
 
-            self?.flashShuffle(remaining: remaining - 1, completion: completion)
+            self.flashShuffle(remaining: remaining - 1, completion: completion)
         }
     }
 }

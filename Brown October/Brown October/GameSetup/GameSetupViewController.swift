@@ -26,6 +26,19 @@ class GameSetupViewController: UIViewController {
         }
     }
 
+    var gameRule: PlayRule = .brownOctober {
+        didSet {
+            var icon: String
+            switch gameRule {
+            case .american: icon = "🇺🇸 merica"
+            case .brownOctober: icon = "Hunt for 💩"
+            case .russian: icon = "🇷🇺 Russian"
+            case .tetrazoid: icon = "Tetrazoid"
+            }
+            ruleButton.icon = icon
+        }
+    }
+
     var playMode: PlayMode = .alternating {
         didSet {
             switch playMode {
@@ -38,6 +51,7 @@ class GameSetupViewController: UIViewController {
     }
 
     lazy var difficultyButton = mainView.difficultyButton
+    lazy var ruleButton = mainView.ruleButton
     lazy var modeButton = mainView.modeButton
     lazy var playButton = mainView.playButton
 
@@ -50,10 +64,12 @@ class GameSetupViewController: UIViewController {
         boardView.constrain(to: mainView.boardSubControllerViewContainer)
 
         mainView.difficultyDelegate = self
+        mainView.ruleDelegate = self
         mainView.modeDelegate = self
         mainView.playDelegate = self
 
         difficultyLevel = UserData.retrieveDifficultyLevel()
+        gameRule = UserData.retrieveGameRule()
         playMode = UserData.retrievePlayMode()
 
         guard playMode == .wholeBoard else { return }

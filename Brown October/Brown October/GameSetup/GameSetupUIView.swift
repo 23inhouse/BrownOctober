@@ -10,6 +10,7 @@ import UIKit
 
 class GameSetupUIView: UIView {
     weak var difficultyDelegate: DifficultyDelegate?
+    weak var ruleDelegate: RuleSelectionDelegate?
     weak var modeDelegate: ModeSelectionDelegate?
     weak var playDelegate: PlayDelegate?
 
@@ -21,8 +22,6 @@ class GameSetupUIView: UIView {
         return view
     }()
 
-    let emptySpaceView = UIView()
-
     let buttonsWrapper: UIView = {
         let view = UIView()
         return view
@@ -32,7 +31,7 @@ class GameSetupUIView: UIView {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .fill
-        view.distribution = .fillEqually
+        view.distribution = .equalSpacing
         return view
     }()
 
@@ -41,13 +40,18 @@ class GameSetupUIView: UIView {
         button.addTarget(self, action: #selector(touchDifficulty), for: .touchUpInside)
         return button
     }()
+    lazy var ruleButton: GameSetupUIButton = {
+        let button = GameSetupUIButton(text: "Rules", icon: "🧻")
+        button.addTarget(self, action: #selector(touchRule), for: .touchUpInside)
+        return button
+    }()
     lazy var modeButton: GameSetupUIButton = {
         let button = GameSetupUIButton(text: "Mode", icon: "🧻")
         button.addTarget(self, action: #selector(touchMode), for: .touchUpInside)
         return button
     }()
     lazy var playButton: GameSetupUIButton = {
-        let button = GameSetupUIButton(text: "PLAY")
+        let button = GameSetupUIButton(text: "", icon: "PLAY")
         button.addTarget(self, action: #selector(touchPlay), for: .touchUpInside)
         return button
     }()
@@ -64,6 +68,11 @@ class GameSetupUIView: UIView {
         modeDelegate?.didTouchToggleMode()
     }
 
+    @objc func touchRule(_ sender: GameSetupUIButton) {
+        sender.iconLabel.springy(scale: 0.8)
+        ruleDelegate?.didTouchToggleRule()
+    }
+
     @objc func touchPlay(_ sender: GameSetupUIButton) {
         sender.springy()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -78,15 +87,16 @@ class GameSetupUIView: UIView {
 
         layoutView.addArrangedSubview(buttonsWrapper)
         buttonsWrapper.addSubview(buttonsLayoutView)
-        buttonsLayoutView.addArrangedSubview(difficultyButton)
+        buttonsLayoutView.addArrangedSubview(ruleButton)
         buttonsLayoutView.addArrangedSubview(modeButton)
+        buttonsLayoutView.addArrangedSubview(difficultyButton)
         buttonsLayoutView.addArrangedSubview(playButton)
         layoutView.addArrangedSubview(boardSubControllerViewContainer)
     }
 
     private func setupConstraints() {
         layoutView.constrain(to: self.safeAreaLayoutGuide)
-        buttonsLayoutView.constrain(to: buttonsWrapper, margin: (0, 40))
+        buttonsLayoutView.constrain(to: buttonsWrapper, margin: (0, 20))
     }
 
     override init(frame: CGRect) {

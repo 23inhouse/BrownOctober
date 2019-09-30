@@ -78,6 +78,8 @@
 		B5AF4DC72285D338008D8791 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AF4DC62285D338008D8791 /* PlayerViewController.swift */; };
 		B5B6A469233E31DD0024297C /* TurnStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */; };
 		B5B6A46B233E44670024297C /* PlayRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A46A233E44670024297C /* PlayRule.swift */; };
+		B5B6A46D233E45880024297C /* RuleSelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A46C233E45880024297C /* RuleSelectionDelegate.swift */; };
+		B5B6A46F233E47ED0024297C /* GameSetupViewController+rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A46E233E47ED0024297C /* GameSetupViewController+rule.swift */; };
 		B5B6A471233F7FA10024297C /* UserData+poopStains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A470233F7FA10024297C /* UserData+poopStains.swift */; };
 		B5B74CE9227DD82600E07826 /* GridUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CE8227DD82600E07826 /* GridUIStackView.swift */; };
 		B5B74CED227DDA6A00E07826 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B74CEC227DDA6A00E07826 /* GameViewController.swift */; };
@@ -187,6 +189,8 @@
 		B5AF4DC62285D338008D8791 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnStrategyProtocol.swift; sourceTree = "<group>"; };
 		B5B6A46A233E44670024297C /* PlayRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRule.swift; sourceTree = "<group>"; };
+		B5B6A46C233E45880024297C /* RuleSelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleSelectionDelegate.swift; sourceTree = "<group>"; };
+		B5B6A46E233E47ED0024297C /* GameSetupViewController+rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameSetupViewController+rule.swift"; sourceTree = "<group>"; };
 		B5B6A470233F7FA10024297C /* UserData+poopStains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+poopStains.swift"; sourceTree = "<group>"; };
 		B5B74CE8227DD82600E07826 /* GridUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridUIStackView.swift; sourceTree = "<group>"; };
 		B5B74CEC227DDA6A00E07826 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 				B5303A0C2316A57B001E94C3 /* PlayDelegate.swift */,
 				B534FD6122C376F2000B125E /* PlayerTurnDelegate.swift */,
 				B534FD5D22C37684000B125E /* RotatableProtocol.swift */,
+				B5B6A46C233E45880024297C /* RuleSelectionDelegate.swift */,
 				B534FD7122C37D84000B125E /* SolveGameDelegate.swift */,
 				B5B6A468233E31DD0024297C /* TurnStrategyProtocol.swift */,
 			);
@@ -410,6 +415,7 @@
 				B5B8DC9E229440C100A9E74A /* GameSetupViewController.swift */,
 				B5303A0E2316A738001E94C3 /* GameSetupViewController+difficulty.swift */,
 				B5303A102316A73E001E94C3 /* GameSetupViewController+mode.swift */,
+				B5B6A46E233E47ED0024297C /* GameSetupViewController+rule.swift */,
 				B5303A122316A744001E94C3 /* GameSetupViewController+play.swift */,
 				B50BA00D229970D700C1F418 /* GameSetupUIView.swift */,
 				B56EAC1F230B468B0049650A /* GameSetupUIButton.swift */,
@@ -662,7 +668,9 @@
 				B5303A0F2316A738001E94C3 /* GameSetupViewController+difficulty.swift in Sources */,
 				B53399F422A19A1800E9E7D5 /* AppCoordinator.swift in Sources */,
 				B534FD5722BF7F16000B125E /* BoardSetupViewController.swift in Sources */,
+				B5B6A46F233E47ED0024297C /* GameSetupViewController+rule.swift in Sources */,
 				B56EAC0E2309D2920049650A /* DragRecord.swift in Sources */,
+				B5B6A46D233E45880024297C /* RuleSelectionDelegate.swift in Sources */,
 				B56EAC1A230ADC0B0049650A /* BoardSetupViewController+gridbutton.swift in Sources */,
 				B508C5A6229AA10600CE00CB /* UIViewController+subcontroller.swift in Sources */,
 				B5303A0B2316A56F001E94C3 /* ModeSelectionDelegate.swift in Sources */,
