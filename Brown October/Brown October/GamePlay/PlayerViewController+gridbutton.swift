@@ -11,7 +11,7 @@ import Foundation
 extension PlayerViewController: GridButtonDelegate {
     func didTouchGridButton(_ sender: ValuableButton) {
         let tile = board.tile(at: sender.index)
-        guard !tile.isFound && !tile.isFound else { return }
+        guard !tile.isFound && !tile.isFlushed else { return }
 
         let button = sender as! GridUIButton
         let index = button.index
