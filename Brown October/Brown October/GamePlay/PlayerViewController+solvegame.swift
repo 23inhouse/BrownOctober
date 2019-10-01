@@ -10,7 +10,7 @@ import Foundation
 
 extension PlayerViewController: SolveGameDelegate {
     func didTouchSolveGame() {
-        guard !player.gameOver() else { return }
+        guard !player.isGameOver else { return }
 
         showHeatSeak.toggle()
 

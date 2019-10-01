@@ -28,10 +28,6 @@ class BrownOctober: Game {
 
     }
 
-    func over() -> Bool {
-        return (computerPlayer.won() || computerPlayer.lost()) && (player.won() || player.lost())
-    }
-
     init(difficultyLevel: Int) {
         let maxGuessesAllowed = BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
         super.init(maxAllowedMisses: maxGuessesAllowed)
@@ -43,6 +39,10 @@ class Game {
     lazy private(set) var player = Player.human(game: self)
 
     let maxAllowedMisses: Int
+
+    func over() -> Bool {
+        return player.isGameOver && computerPlayer.isGameOver
+    }
 
     func winner() -> Player? {
         if player.won() && computerPlayer.lost() {
@@ -84,16 +84,16 @@ class Player {
     let isHuman: Bool
     let isComputer: Bool
 
+    var isGameOver: Bool {
+        return won() || lost()
+    }
+
     static func human(game: Game = Game()) -> Player {
         return Player(Player.Key.human, game: game)
     }
 
     static func computer(game: Game = Game()) -> Player {
         return Player(Player.Key.computer, game: game)
-    }
-
-    func gameOver() -> Bool {
-        return won() || lost()
     }
 
     func lost() -> Bool {
