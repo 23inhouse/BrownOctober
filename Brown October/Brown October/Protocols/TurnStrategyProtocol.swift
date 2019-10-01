@@ -9,10 +9,8 @@
 import Foundation
 
 protocol TurnStrategyProtocol {
-    var player: Player { get }
-    var board: Board { get }
-    var index: Int { get }
+    var game: Game { get }
     var gameDelegate: PlayerTurnDelegate? { get set }
 
-    func playMove(success: (Poop) -> Void)
+    func playMove(for play: Player, on board: Board, at index: Int, flush: (Poop) -> Void)
 }

@@ -18,6 +18,8 @@ extension PlayerViewController: GridButtonDelegate {
 
         button.springy()
 
-        playerTurnDelegate?.playMove(player, on: board, at: index, success: { poop in flush(poop: poop) })
+        playerTurnDelegate?.playMove(for: player, on: board, at: index, flush: { poop in
+            flush(poop: poop)
+        })
     }
 }

@@ -9,22 +9,19 @@
 import Foundation
 
 extension GameViewController: PlayerTurnDelegate {
-    func playMove(_ player: Player, on board: Board, at index: Int, success: (Poop) -> Void) {
-        guard !player.isGameOver else { return }
-
-        var mover = TurnStrategy.make(playMode: playMode, for: player, on: board, at: index)
-        mover.gameDelegate = self
-
-        mover.playMove { poop in
+    func playMove(for player: Player, on board: Board, at index: Int, flush: (Poop) -> Void) {
+        let mover = TurnStrategy.make(playMode: playMode, for: game, with: self)
+        mover.playMove(for: player, on: board, at: index) { poop in
             if gameRule == .russian {
                 board.flush(by: poop.identifier, russian: true)
             }
-            success(poop)
+            flush(poop)
         }
     }
 
     func nextTurn(for player: Player, flushed: Bool = false) {
         show(player: player)
+
         guard player.isComputer else { return }
 
         playComputerTurn(flushed: flushed)
@@ -42,7 +39,22 @@ extension GameViewController: PlayerTurnDelegate {
         }
     }
 
-    func gameOver() {
+    func highlightScore(for player: Player, completion: @escaping (Player) -> Void) {
+        playerView.boardView.isUserInteractionEnabled = false
+        show(player: player)
+        highlightScore(true)
+
+        let delay = 3.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.highlightScore(false)
+            completion(player)
+        }
+    }
+
+    func gameOver(from player: Player) {
+        guard game.over() else { return }
+        show(player: player)
+
         playerView.boardView.isUserInteractionEnabled = false
 
         if let winner = self.game.winner() {

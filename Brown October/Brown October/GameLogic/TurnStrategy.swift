@@ -9,72 +9,82 @@
 import Foundation
 
 class TurnStrategy {
-    let player: Player
-    let board: Board
-    let index: Int
+    let game: Game
+
     weak var gameDelegate: PlayerTurnDelegate?
 
-    static func make(playMode: PlayMode, for player: Player, on board: Board, at index: Int) -> TurnStrategyProtocol {
+    static func make(playMode: PlayMode, for game: Game, with delegate: PlayerTurnDelegate) -> TurnStrategyProtocol {
         switch playMode {
         case .alternating:
-            return AlternatingTurnStrategy(player: player, board: board, index: index)
+            return AlternatingTurnStrategy(for: game, with: delegate)
         case .wholeBoard:
-            return WholeBoardPerTurnStrategy(player: player, board: board, index: index)
+            return WholeBoardPerTurnStrategy(for: game, with: delegate)
         }
     }
 
-    internal func playMove(success: (Poop) -> Void, failure: (Player) -> Void, completed: (Player) -> Void) {
-        guard let poop = board.wipe(at: index) else {
-            failure(player)
+    init(for game: Game, with delegate: PlayerTurnDelegate) {
+        self.game = game
+        self.gameDelegate = delegate
+    }
+}
 
-            if player.lost() {
-                completed(player)
+class AlternatingTurnStrategy: TurnStrategy, TurnStrategyProtocol {
+    func playMove(for player: Player, on board: Board, at index: Int, flush: (Poop) -> Void) {
+        guard let poop = board.wipe(at: index) else {
+            guard !game.over() else {
+                gameDelegate?.gameOver(from: player)
+                return
             }
+
+            gameDelegate?.nextPlayer(after: player)
             return
         }
 
         if poop.isFound {
-            success(poop)
+            flush(poop)
+        }
 
-            if player.won() {
-                completed(player)
+        guard !game.over() else {
+            gameDelegate?.gameOver(from: player)
+            return
+        }
+
+        gameDelegate?.nextTurn(for: player, flushed: poop.isFound)
+    }
+}
+
+class WholeBoardPerTurnStrategy: TurnStrategy, TurnStrategyProtocol {
+    func playMove(for player: Player, on board: Board, at index: Int, flush: (Poop) -> Void) {
+        guard let poop = board.wipe(at: index) else {
+            guard !player.isGameOver else {
+                endTurn(for: player)
+                return
             }
+
+            gameDelegate?.nextTurn(for: player, flushed: false)
+            return
+        }
+
+        if poop.isFound {
+            flush(poop)
+        }
+
+        guard !player.isGameOver else {
+            endTurn(for: player)
+            return
         }
 
         gameDelegate?.nextTurn(for: player, flushed: poop.isFound)
     }
 
-    init(player: Player, board: Board, index: Int) {
-        self.player = player
-        self.board = board
-        self.index = index
-    }
-}
-
-class AlternatingTurnStrategy: TurnStrategy, TurnStrategyProtocol {
-    func playMove(success: (Poop) -> Void) {
-        playMove(success: { poop in
-            success(poop)
-        }, failure: { player in
-            gameDelegate?.nextPlayer(after: player)
-        }, completed: { _ in
-            gameDelegate?.gameOver()
-        })
-    }
-}
-
-class WholeBoardPerTurnStrategy: TurnStrategy, TurnStrategyProtocol {
-    func playMove(success: (Poop) -> Void) {
-        playMove(success: { poop in
-            success(poop)
-        }, failure: { player in
-            gameDelegate?.nextTurn(for: player, flushed: false)
-        }, completed: { player in
+    private func endTurn(for player: Player) {
+        gameDelegate?.highlightScore(for: player) { player in
             if player.isHuman {
-                gameDelegate?.nextPlayer(after: player)
+                self.gameDelegate?.nextPlayer(after: player)
             } else {
-                gameDelegate?.gameOver()
+                self.gameDelegate?.gameOver(from: player)
             }
-        })
+        }
+
     }
 }

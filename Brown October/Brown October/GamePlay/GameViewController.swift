@@ -40,6 +40,18 @@ class GameViewController: UIViewController {
 
     lazy var playerView = playerController.mainView
 
+    func highlightScore(_ highlight: Bool) {
+        guard highlight else { return }
+
+        playerView.scoreView.foundPoopsLabel.springy(scale: 1.5)
+        playerView.scoreView.remainingFlushLabel.springy(scale: 1.5)
+        let delay = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.playerView.scoreView.foundPoopsLabel.springy(scale: 0.5)
+            self?.playerView.scoreView.remainingFlushLabel.springy(scale: 0.5)
+        }
+    }
+
     internal func resetGame() {
         game.arrangeBoards(playMode: playMode, poopStains: poopStains)
         playerController.resetBoard()
