@@ -55,6 +55,11 @@ class PlayerViewController: UIViewController {
 
     var showHeatSeak = false
 
+    var initialRemainingFlushCount: Int = {
+        let difficultyLevel = UserData.retrieveDifficultyLevel()
+        return BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
+    }()
+
     func set(player: Player) {
         self.player = player
     }
@@ -67,7 +72,7 @@ class PlayerViewController: UIViewController {
 
         updateGamesWonLabel()
         poopsFoundCount = board.score
-        remainingFlushCount = calcInitialRemainingFlush() - board.misses
+        remainingFlushCount = initialRemainingFlushCount - board.misses
     }
 
     func drawHeatSeak() {
@@ -76,16 +81,6 @@ class PlayerViewController: UIViewController {
         _ = computerPlayer.poopSeeker.calcRandomBestIndex(at: nil)
         let decorator = HeatMapBoardDecorator(for: computerPlayer.board)
         boardView.draw(with: decorator)
-    }
-
-    func resetBoard() {
-        updateGamesWonLabel()
-        remainingFlushCount = calcInitialRemainingFlush()
-        poopsFoundCount = 0
-    }
-
-    func updateGamesWonLabel() {
-        gamesWonCount = UserData.retrieveGamesWon(for: player.key)
     }
 
     func incrementGamesWon(for player: Player) {
@@ -100,9 +95,10 @@ class PlayerViewController: UIViewController {
         return ComputerPlayer(board: board, boardViewProtocol: boardView as TouchableBoard, guesser: guesser)
     }
 
-    private func calcInitialRemainingFlush() -> Int {
-        let difficultyLevel = UserData.retrieveDifficultyLevel()
-        return BrownOctober.calcMaxGuesses(difficultyLevel: difficultyLevel)
+    func resetBoard() {
+        updateGamesWonLabel()
+        remainingFlushCount = initialRemainingFlushCount
+        poopsFoundCount = 0
     }
 
     private func setupView() {
@@ -118,6 +114,10 @@ class PlayerViewController: UIViewController {
         scoreView.newGameDelegate = newGameDelegate
 
         resetBoard()
+    }
+
+    private func updateGamesWonLabel() {
+        gamesWonCount = UserData.retrieveGamesWon(for: player.key)
     }
 
     override func viewDidLoad() {
