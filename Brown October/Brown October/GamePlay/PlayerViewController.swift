@@ -78,13 +78,6 @@ class PlayerViewController: UIViewController {
         boardView.draw(with: decorator)
     }
 
-    func flush(poop: Poop) {
-        boardView.flush(ident: poop.identifier)
-        poopView.flush(ident: poop.identifier)
-        foundPoopsBoard.flush(by: poop.identifier)
-        poopView.draw()
-    }
-
     func resetBoard() {
         updateGamesWonLabel()
         remainingFlushCount = calcInitialRemainingFlush()

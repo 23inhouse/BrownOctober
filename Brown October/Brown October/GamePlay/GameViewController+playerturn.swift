@@ -9,13 +9,16 @@
 import Foundation
 
 extension GameViewController: PlayerTurnDelegate {
-    func playMove(for player: Player, on board: Board, at index: Int, flush: (Poop) -> Void) {
+    func playMove(for player: Player, on board: Board, at index: Int) {
         let mover = TurnStrategy.make(playMode: playMode, for: game, with: self)
         mover.playMove(for: player, on: board, at: index) { poop in
             if gameRule == .russian {
                 board.flush(by: poop.identifier, russian: true)
             }
-            flush(poop)
+            playerController.poopView.flush(ident: poop.identifier)
+            playerController.foundPoopsBoard.flush(by: poop.identifier)
+            playerController.poopView.draw()
+            playerController.boardView.flush(ident: poop.identifier)
         }
     }
 

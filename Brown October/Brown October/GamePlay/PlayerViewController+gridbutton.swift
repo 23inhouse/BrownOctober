@@ -13,13 +13,10 @@ extension PlayerViewController: GridButtonDelegate {
         let tile = board.tile(at: sender.index)
         guard !tile.isFound && !tile.isFlushed else { return }
 
+        let index = sender.index
         let button = sender as! GridUIButton
-        let index = button.index
-
         button.springy()
 
-        playerTurnDelegate?.playMove(for: player, on: board, at: index, flush: { poop in
-            flush(poop: poop)
-        })
+        playerTurnDelegate?.playMove(for: player, on: board, at: index)
     }
 }
