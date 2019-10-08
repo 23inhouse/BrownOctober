@@ -32,20 +32,29 @@ extension GameSetupViewController: ModeSelectionDelegate {
         }
     }
 
-    private func flashShuffle(remaining: Int = 10, completion: (() -> Void)? = nil) {
+    private func flashShuffle(remaining: Int = 3, completion: (() -> Void)? = nil) {
         guard remaining > 0 else {
             boardView.draw(with: WaveBoardDecorator(for: Board.makeGameBoard(for: self.gameRule), even: remaining % 2 == 0))
-            completion?()
+
+            guard remaining > -2 else {
+                completion?()
+                return
+            }
+
+            let delay = (0.1 * (1 * Double(remaining * remaining)))
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                self?.flashShuffle(remaining: remaining - 1, completion: completion)
+            }
             return
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + (0.05 * Double(remaining))) { [weak self] in
-            guard let self = self else { return }
-            let tempBoard: Board = Board.makeGameBoard(for: self.gameRule)
-            tempBoard.arrangePoops(reset: true)
-            self.boardView.draw(with: ArrangeBoardDecorator(for: tempBoard))
+        let tempBoard: Board = Board.makeGameBoard(for: self.gameRule)
+        tempBoard.arrangePoops(reset: true)
+        self.boardView.draw(with: ArrangeBoardDecorator(for: tempBoard))
 
-            self.flashShuffle(remaining: remaining - 1, completion: completion)
+        let delay = (0.1 * (1 * Double(remaining * remaining)))
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.flashShuffle(remaining: remaining - 1, completion: completion)
         }
     }
 }
