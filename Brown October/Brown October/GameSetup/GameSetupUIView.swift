@@ -85,13 +85,13 @@ class GameSetupUIView: UIView {
 
         addSubview(layoutView)
 
+        layoutView.addArrangedSubview(boardSubControllerViewContainer)
         layoutView.addArrangedSubview(buttonsWrapper)
         buttonsWrapper.addSubview(buttonsLayoutView)
+        buttonsLayoutView.addArrangedSubview(playButton)
+        buttonsLayoutView.addArrangedSubview(difficultyButton)
         buttonsLayoutView.addArrangedSubview(ruleButton)
         buttonsLayoutView.addArrangedSubview(modeButton)
-        buttonsLayoutView.addArrangedSubview(difficultyButton)
-        buttonsLayoutView.addArrangedSubview(playButton)
-        layoutView.addArrangedSubview(boardSubControllerViewContainer)
     }
 
     private func setupConstraints() {
