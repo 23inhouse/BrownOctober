@@ -78,13 +78,10 @@ class WholeBoardPerTurnStrategy: TurnStrategy, TurnStrategyProtocol {
     }
 
     private func endTurn(for player: Player) {
-        gameDelegate?.highlightScore(for: player) { player in
-            if player.isHuman {
-                self.gameDelegate?.nextPlayer(after: player)
-            } else {
-                self.gameDelegate?.gameOver(from: player)
-            }
+        if player === self.gameDelegate?.firstPlayer {
+            self.gameDelegate?.nextPlayer(after: player)
+        } else {
+            self.gameDelegate?.gameOver(from: player)
         }
-
     }
 }

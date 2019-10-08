@@ -12,9 +12,9 @@ class PlayerViewController: UIViewController {
 
     var mainView: PlayerUIView { return self.view as! PlayerUIView }
 
+    var playMode: PlayMode
     var player: Player {
         didSet {
-            let computerDecorator = TeaseBoardDecorator(for: board)
             let playerDecorator = PlayBoardDecorator(for: board)
             let boardDecorator = isComputer ? computerDecorator : playerDecorator
             let poopDecorator = PoopBoardDecorator(for: foundPoopsBoard)
@@ -22,6 +22,15 @@ class PlayerViewController: UIViewController {
             playerView.set(poopDecorator: poopDecorator)
         }
     }
+    var computerDecorator: BoardDecoratorProtocol {
+        switch playMode {
+        case .alternating:
+            return TeaseBoardDecorator(for: board)
+        case .wholeBoard:
+            return WaveBoardDecorator(for: board, even: true)
+        }
+    }
+
     var isComputer: Bool { return player.isComputer }
     var board: Board { return player.board }
     var foundPoopsBoard: Board { return player.foundPoopsBoard }
@@ -126,8 +135,9 @@ class PlayerViewController: UIViewController {
         setupView()
     }
 
-    init(_ player: Player) {
+    init(_ player: Player, playMode: PlayMode = .alternating) {
         self.player = player
+        self.playMode = playMode
 
         super.init(nibName: nil, bundle: nil)
     }

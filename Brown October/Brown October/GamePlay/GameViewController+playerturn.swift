@@ -18,11 +18,18 @@ extension GameViewController: PlayerTurnDelegate {
             playerController.poopView.flush(ident: poop.identifier)
             playerController.foundPoopsBoard.flush(by: poop.identifier)
             playerController.poopView.draw()
+
+            guard playMode != .wholeBoard && !player.isComputer else { return }
             playerController.boardView.flush(ident: poop.identifier)
         }
     }
 
     func nextTurn(for player: Player, flushed: Bool = false) {
+        guard !player.isGameOver else {
+            gameOver(from: player)
+            return
+        }
+
         show(player: player)
 
         guard player.isComputer else { return }
@@ -34,28 +41,18 @@ extension GameViewController: PlayerTurnDelegate {
         show(player: player)
         playerView.boardView.isUserInteractionEnabled = false
 
-        let changePlayerDelay = 1.0
+        let changePlayerDelay = playMode == .wholeBoard ? 0.0 : 1.0
         DispatchQueue.main.asyncAfter(deadline: .now() + changePlayerDelay) { [weak self] in
             guard let self = self else { return }
             let otherPlayer = player.isHuman ? self.computerPlayer : self.player
+            if self.playMode == .wholeBoard && player === self.firstPlayer {
+                self.playerController.initialRemainingFlushCount = player.board.misses
+            }
             self.nextTurn(for: otherPlayer)
         }
     }
 
-    func highlightScore(for player: Player, completion: @escaping (Player) -> Void) {
-        playerView.boardView.isUserInteractionEnabled = false
-        show(player: player)
-        highlightScore(true)
-
-        let delay = 3.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.highlightScore(false)
-            completion(player)
-        }
-    }
-
     func gameOver(from player: Player) {
-        guard game.over() else { return }
         show(player: player)
 
         playerView.boardView.isUserInteractionEnabled = false
@@ -79,9 +76,19 @@ extension GameViewController: PlayerTurnDelegate {
     }
 
     private func playComputerTurn(flushed: Bool) {
-        let delay: Double = flushed ? 1.0 : 0.25
+        let delay = computerTurnDelay(flushed: flushed)
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             self?.playerController.getComputerPlayer().playNext()
+        }
+    }
+
+    private func computerTurnDelay(flushed: Bool) -> Double {
+        let alternatingDelay = flushed ? 0.1 : 0.025
+        switch playMode {
+        case .alternating:
+            return alternatingDelay
+        case .wholeBoard:
+            return 0.0
         }
     }
 }

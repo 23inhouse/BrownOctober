@@ -9,9 +9,10 @@
 import Foundation
 
 protocol PlayerTurnDelegate: AnyObject {
+    var firstPlayer: Player { get }
+
     func playMove(for player: Player, on board: Board, at index: Int)
     func nextTurn(for player: Player, flushed: Bool)
     func nextPlayer(after player: Player)
-    func highlightScore(for player: Player, completion: @escaping (Player) -> Void)
     func gameOver(from player: Player)
 }

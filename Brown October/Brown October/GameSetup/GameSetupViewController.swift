@@ -43,9 +43,9 @@ class GameSetupViewController: UIViewController {
         didSet {
             switch playMode {
             case .alternating:
-                modeButton.icon = "👤📱👤📱"
+                modeButton.icon = "👤📱"
             case .wholeBoard:
-                modeButton.icon = "👤👤📱📱"
+                modeButton.icon = "📱📱👤👤"
             }
         }
     }

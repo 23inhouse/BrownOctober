@@ -30,27 +30,23 @@ class GameViewController: UIViewController {
 
     var computerPlayer: Player { return game.computerPlayer }
     var player: Player { return game.player }
+    lazy var firstPlayer: Player = {
+        switch playMode {
+        case .alternating:
+            return player
+        case .wholeBoard:
+            return computerPlayer
+        }
+    }()
 
     lazy var playerController: PlayerViewController = { [weak self] in
-        let controller = PlayerViewController(player)
+        let controller = PlayerViewController(player, playMode: playMode)
         controller.playerTurnDelegate = self
         controller.newGameDelegate = self
         return controller
     }()
 
     lazy var playerView = playerController.mainView
-
-    func highlightScore(_ highlight: Bool) {
-        guard highlight else { return }
-
-        playerView.scoreView.foundPoopsLabel.springy(scale: 1.5)
-        playerView.scoreView.remainingFlushLabel.springy(scale: 1.5)
-        let delay = 1.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            self?.playerView.scoreView.foundPoopsLabel.springy(scale: 0.5)
-            self?.playerView.scoreView.remainingFlushLabel.springy(scale: 0.5)
-        }
-    }
 
     internal func resetGame() {
         game.arrangeBoards(playMode: playMode, poopStains: poopStains)
@@ -70,12 +66,13 @@ class GameViewController: UIViewController {
         mainView.constrain(to: view.safeAreaLayoutGuide)
         mainView.addArrangedSubview(playerView)
 
-        show(player: player)
+        show(player: firstPlayer)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
+        nextTurn(for: firstPlayer)
     }
 }
