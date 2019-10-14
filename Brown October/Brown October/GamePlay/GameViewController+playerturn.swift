@@ -83,7 +83,7 @@ extension GameViewController: PlayerTurnDelegate {
     }
 
     private func computerTurnDelay(flushed: Bool) -> Double {
-        let alternatingDelay = flushed ? 0.1 : 0.025
+        let alternatingDelay = flushed ? 1.0 : 0.25
         switch playMode {
         case .alternating:
             return alternatingDelay
